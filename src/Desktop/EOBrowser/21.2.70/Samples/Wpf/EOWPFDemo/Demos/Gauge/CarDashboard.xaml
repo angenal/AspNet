@@ -1,0 +1,461 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.CarDashboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/" 
+             xmlns:Local="clr-namespace:EO.Wpf.Demo.Demos.Gauge"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" 
+             d:DesignWidth="1024">
+    
+    <UserControl.Resources>
+
+        <Local:MajorTickTemplateSelector x:Key="MajorLabelTemplateSelector">
+            <Local:MajorTickTemplateSelector.MajorTemplate>
+                <DataTemplate>
+                    <Label x:Name="PART_Label" Content="{Binding}" />
+                </DataTemplate>
+            </Local:MajorTickTemplateSelector.MajorTemplate>
+            <Local:MajorTickTemplateSelector.MiddleTemplate>
+                <DataTemplate /> <!-- EMPTY on purpose-->
+            </Local:MajorTickTemplateSelector.MiddleTemplate>
+        </Local:MajorTickTemplateSelector>
+        
+        <Local:MajorTickTemplateSelector x:Key="MajorTickTemplateSelector">
+            <Local:MajorTickTemplateSelector.MajorTemplate>
+                <DataTemplate>
+                    <Rectangle Width="20" Height="5" Fill="#F0F0F0" />
+                </DataTemplate>
+            </Local:MajorTickTemplateSelector.MajorTemplate>
+            <Local:MajorTickTemplateSelector.MiddleTemplate>
+                <DataTemplate>
+                    <Rectangle Width="15" Height="3" Fill="#F0F0F0" />
+                </DataTemplate>
+            </Local:MajorTickTemplateSelector.MiddleTemplate>
+        </Local:MajorTickTemplateSelector>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <StackPanel>
+            <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                This sample uses EO.Wpf Gauge framework to create a car's dashboard.
+            </TextBlock>
+        </StackPanel>
+        
+        <Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+            <Grid Width="1024" Height="450">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="CarDashboardFrame" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Width="1024" Height="440" >
+                    <Path Stroke="#34A2F8" StrokeThickness="2" Fill="#001657" Stretch="Fill">
+                        <Path.Data>
+                            <CombinedGeometry GeometryCombineMode="Union">
+                                <CombinedGeometry.Geometry1>
+                                    <RectangleGeometry RadiusX="40" RadiusY="40" Rect="0,320,1024,80" />
+                                </CombinedGeometry.Geometry1>
+                                <CombinedGeometry.Geometry2>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,360" IsClosed="True">
+                                            <LineSegment Point="1024,360" />
+                                            <ArcSegment SweepDirection="Counterclockwise" Point="0,340" IsLargeArc="True" RotationAngle="0" Size="150,115" />
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </CombinedGeometry.Geometry2>
+                            </CombinedGeometry>
+                        </Path.Data>
+                    </Path>
+                    <Path Stroke="#34A2F8" StrokeThickness="2" Fill="#000024" Stretch="None">
+                        <Path.Data>
+                            <CombinedGeometry GeometryCombineMode="Union">
+                                <CombinedGeometry.Geometry1>
+                                    <RectangleGeometry RadiusX="40" RadiusY="40" Rect="15,345,994,80" />
+                                </CombinedGeometry.Geometry1>
+                                <CombinedGeometry.Geometry2>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="15,380" IsClosed="True">
+                                            <LineSegment Point="1009,380" />
+                                            <ArcSegment SweepDirection="Counterclockwise" Point="15,380" IsLargeArc="True" RotationAngle="0" Size="150,110" />
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </CombinedGeometry.Geometry2>
+                            </CombinedGeometry>
+                        </Path.Data>
+                    </Path>
+                </Grid>
+
+                <Grid Grid.ColumnSpan="4" VerticalAlignment="Top" Margin="120,160,120,0">
+                    <Path Fill="#B1F800" Name="arrow_right" Stretch="Fill" Width="50" Height="50" Grid.Column="1"
+                      VerticalAlignment="Top" HorizontalAlignment="Right" Opacity="1.0">
+                        <Path.Data>
+                            <PathGeometry Figures="M462,256.001L248.006,108.072 248.006,179.21 50,179.21 50,332.79 248.006,332.79 248.006,403.928 462,256.001z" />
+                        </Path.Data>
+                    </Path>
+                    <Path Fill="#B1F800" Name="arrow_left" Stretch="Fill" Width="50" Height="50" Grid.Column="1"
+                      VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.3">
+                        <Path.LayoutTransform>
+                            <RotateTransform Angle="180" />
+                        </Path.LayoutTransform>
+                        <Path.Data>
+                            <PathGeometry Figures="M462,256.001L248.006,108.072 248.006,179.21 50,179.21 50,332.79 248.006,332.79 248.006,403.928 462,256.001z" />
+                        </Path.Data>
+                    </Path>
+                </Grid>
+
+                <Grid Width="120" 
+                  Height="150" 
+                  eo:ThemeManager.SkinName="Style3" 
+                  Grid.Column="0" 
+                  Margin="40,0,20,30" 
+                  VerticalAlignment="Bottom">
+                    <Grid Margin="25,0,0,0" Grid.Column="1">
+                        <TextBlock Text="E" Foreground="#F0F0F0" FontSize="24" Margin="-6,0,0,0" FontWeight="ExtraBold"
+                                   VerticalAlignment="Bottom" Panel.ZIndex="1" />
+                        <TextBlock Text="F" Foreground="#F0F0F0" FontSize="24" Margin="-6,0,0,0" FontWeight="ExtraBold" />
+                        <Path Fill="#B1F800" Width="32" Height="32" Stretch="Uniform" 
+                              VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
+                            <Path.Data>
+                                <PathGeometry FillRule="Nonzero" 
+                              Figures="M65.055,42.934C65.055,44.129,64.11,45.059,62.907,45.059L40.43,45.059C39.219,45.059,38.282,44.129,38.282,42.934L38.282,23.98C38.282,22.785,39.22,21.855,40.43,21.855L62.907,21.855C64.11,21.855,65.055,22.785,65.055,23.98L65.055,42.934z M91.258,45.355C88.414,44.73,87.383,43.269,87.383,41.925L87.383,37.027C87.383,37.027 89.274,37.449 89.727,37.566 90.649,37.808 91.235,39.222 91.258,40.457 91.289,41.691 91.258,45.355 91.258,45.355z M96.984,75.113C96.984,75.066,96.195,69.097,96.195,69.097L96.195,41.535C96.195,38.582,95.226,36.183,93.226,34.168L80.461,21.465C79.578,21.465 77.141,23.895 77.141,23.895 77.141,24.778 83.477,31.067 83.477,31.067L83.289,41.762C83.289,45.559,86.375,48.637,90.187,48.637L91.898,48.66 91.289,69.098 92.141,76.106 95.977,96.786C96.118,100.145 93.047,102.145 90.625,102.145 88.383,102.145 85.781,100.293 85.781,97.903L85.828,61.661C85.828,57.255 82.25,53.677 77.844,53.677 77.844,53.677 70.18,53.677 70.141,53.677 70.68,53.646 70.703,29.943 70.703,24.911 70.703,24.317 70.703,23.981 70.703,23.981 70.703,19.692 67.203,16.2 62.906,16.2L40.43,16.2C36.133,16.2,32.633,19.692,32.633,23.981L32.633,106.129 70.703,106.762 70.742,58.77 77.93,58.77C79.578,58.77,80.922,60.114,80.922,61.762L80.922,97.903C80.922,102.755 85.453,107.005 90.625,107.005 95.508,107.005 100.977,103.122 100.977,97.903 100.891,96.699 96.984,75.113 96.984,75.113z" />
+                            </Path.Data>
+                        </Path>
+                        <eo:CircularScale eo:ThemeManager.SkinName="Style3"
+                                          OriginX="0"
+                                          OriginY="50%"
+                                          StartAngle="-90"
+                                          EndAngle="90"
+                                          ShowFirst="False"
+                                          ShowLast="False"
+                                          MajorInterval="0.5"
+                                          MinorInterval="0.25"
+                                          Minimum="0"
+                                          Maximum="1"
+                                          ShowMajorLabels="False"
+                                          RangeBarRing="1">
+                            <eo:CircularScale.MinorTickOptions>
+                                <eo:MinorCircularTickOptions Ring="1">
+                                    <eo:MinorCircularTickOptions.Style>
+                                        <Style TargetType="Shape">
+                                            <Setter Property="Width" Value="14" />
+                                            <Setter Property="Height" Value="4" />
+                                            <Setter Property="Fill" Value="#F0F0F0" />
+                                        </Style>
+                                    </eo:MinorCircularTickOptions.Style>
+                                </eo:MinorCircularTickOptions>
+                            </eo:CircularScale.MinorTickOptions>
+                            <eo:CircularScale.MajorTickOptions>
+                                <eo:MajorCircularTickOptions Ring="1">
+                                    <eo:MajorCircularTickOptions.Style>
+                                        <Style TargetType="Shape">
+                                            <Setter Property="Width" Value="25" />
+                                            <Setter Property="Height" Value="6" />
+                                            <Setter Property="Fill" Value="#F0F0F0" />
+                                        </Style>
+                                    </eo:MajorCircularTickOptions.Style>
+                                </eo:MajorCircularTickOptions>
+                            </eo:CircularScale.MajorTickOptions>
+                            <eo:CircularScale.ValueIndicators>
+                                <eo:Needle Width="50" Value="0.75">
+                                    <eo:Needle.Style>
+                                        <Style TargetType="eo:Needle">
+                                            <Setter Property="Background" Value="#D10028" />
+                                            <Setter Property="TipWidth" Value="1" />
+                                            <Setter Property="RearWidth" Value="4" />
+                                            <Setter Property="Height" Value="16" />
+                                            <Setter Property="CapTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <Grid Width="16" Height="16" Margin="-8,0,0,0">
+                                                            <Ellipse Fill="Black" />
+                                                            <Ellipse>
+                                                                <Ellipse.Fill>
+                                                                    <RadialGradientBrush RadiusX="8" RadiusY="8">
+                                                                        <GradientStop Offset="0" Color="White" />
+                                                                        <GradientStop Offset="0.1" Color="Transparent" />
+                                                                    </RadialGradientBrush>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </eo:Needle.Style>
+                                </eo:Needle>
+                            </eo:CircularScale.ValueIndicators>
+                            <eo:CircularScale.RingDefinitions>
+                                <eo:RingDefinition RadiusX="55" RadiusY="55" Width="25" Height="25" />
+                                <eo:RingDefinition Width="20" Height="20" />
+                            </eo:CircularScale.RingDefinitions>
+                        </eo:CircularScale>
+                    </Grid>
+                </Grid>
+
+                <Grid Width="350" 
+                  Height="350" 
+                  eo:ThemeManager.SkinName="Style3" 
+                  Grid.Column="1" 
+                  VerticalAlignment="Bottom" 
+                  Margin="0,0,0,40">
+                    <eo:CircularGaugeFrame />
+
+                    <eo:CircularScale Margin="70" StartAngle="140" EndAngle="405" Maximum="140" MajorInterval="20" MinorInterval="10">
+                        <eo:CircularScale.RingDefinitions>
+                            <eo:RingDefinition RadiusX="80" RadiusY="80" Width="30" Height="20" />
+                            <eo:RingDefinition Width="10" Height="10" />
+                        </eo:CircularScale.RingDefinitions>
+                        <eo:CircularScale.MajorTickOptions>
+                            <eo:MajorCircularTickOptions Type="Ellipse" Ring="1">
+                                <eo:MajorCircularTickOptions.Style>
+                                    <Style TargetType="Shape">
+                                        <Setter Property="Width" Value="8" />
+                                        <Setter Property="Height" Value="8" />
+                                        <Setter Property="Fill" Value="#F0F0F0" />
+                                    </Style>
+                                </eo:MajorCircularTickOptions.Style>
+                            </eo:MajorCircularTickOptions>
+                        </eo:CircularScale.MajorTickOptions>
+                    </eo:CircularScale>
+
+                    <eo:CircularScale Margin="20" 
+                                  Minimum="0" 
+                                  Maximum="220" 
+                                  MajorInterval="10" 
+                                  MinorInterval="2.5" 
+                                  StartAngle="140" 
+                                  EndAngle="400">
+                        <eo:CircularScale.RingDefinitions>
+                            <eo:RingDefinition RadiusX="130" RadiusY="130" Width="30" Height="30" />
+                            <eo:RingDefinition Width="20" Height="20" />
+                        </eo:CircularScale.RingDefinitions>
+                        <eo:CircularScale.ValueIndicators>
+                            <eo:Needle EnableAnimation="True" Value="65" Width="140" />
+                        </eo:CircularScale.ValueIndicators>
+                        <eo:CircularScale.MajorLabelOptions>
+                            <eo:MajorCircularLabelOptions Ring="0" 
+                                                          Template="{x:Null}" 
+                                                          TemplateSelector="{StaticResource MajorLabelTemplateSelector}">
+                                <eo:MajorCircularLabelOptions.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="FontSize" Value="16" />
+                                        <Setter Property="Foreground" Value="#F0F0F0" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <SkewTransform CenterX="0" CenterY="0" AngleX="-10" AngleY="0" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </eo:MajorCircularLabelOptions.Style>
+                            </eo:MajorCircularLabelOptions>
+                        </eo:CircularScale.MajorLabelOptions>
+                        <eo:CircularScale.MinorTickOptions>
+                            <eo:MinorCircularTickOptions Ring="1" 
+                                                         RingAlignment="Outward">
+                                <eo:MinorCircularTickOptions.Style>
+                                    <Style TargetType="Shape">
+                                        <Setter Property="Width" Value="10" />
+                                        <Setter Property="Height" Value="1" />
+                                        <Setter Property="Fill" Value="#F0F0F0" />
+                                    </Style>
+                                </eo:MinorCircularTickOptions.Style>
+                            </eo:MinorCircularTickOptions>
+                        </eo:CircularScale.MinorTickOptions>
+                        <eo:CircularScale.MajorTickOptions>
+                            <eo:MajorCircularTickOptions Ring="1" 
+                                                         Template="{x:Null}" 
+                                                         TemplateSelector="{StaticResource MajorTickTemplateSelector}" 
+                                                         RingAlignment="Outward" />
+                        </eo:CircularScale.MajorTickOptions>
+                    </eo:CircularScale>
+
+                    <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,105">
+                        <TextBlock Text="Km/h" Foreground="#F0F0F0" FontSize="14" />
+                        <TextBlock Text="MPH" Foreground="#F0F0F0" FontSize="14" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <Border BorderBrush="Black" BorderThickness="1" Width="100" Height="50" VerticalAlignment="Bottom" Margin="0,0,0,35"
+                            CornerRadius="5" Background="#B8B071">
+
+                    </Border>
+                </Grid>
+
+                <Grid Width="250" 
+                  Height="250" 
+                  eo:ThemeManager.SkinName="Style3" 
+                  Grid.Column="2" 
+                  VerticalAlignment="Bottom" 
+                  Margin="0,0,0,40">
+                    <eo:CircularGaugeFrame />
+                    <eo:CircularScale StartAngle="140" EndAngle="400" Maximum="80" RangeBarRing="2">
+                        <eo:CircularScale.Ranges>
+                            <eo:Range StartValue="58" EndValue="80" Fill="#FF0000" />
+                        </eo:CircularScale.Ranges>
+                        <eo:CircularScale.ValueIndicators>
+                            <eo:Needle Value="15" Width="95"/>
+                        </eo:CircularScale.ValueIndicators>
+                        <eo:CircularScale.MajorLabelOptions>
+                            <eo:MajorCircularLabelOptions>
+                                <eo:MajorCircularLabelOptions.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="FontSize" Value="16" />
+                                        <Setter Property="Foreground" Value="#F0F0F0" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <SkewTransform CenterX="0" CenterY="0" AngleX="-10" AngleY="0" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </eo:MajorCircularLabelOptions.Style>
+                            </eo:MajorCircularLabelOptions>
+                        </eo:CircularScale.MajorLabelOptions>
+                        <eo:CircularScale.MinorTickOptions>
+                            <eo:MinorCircularTickOptions Ring="1" RingAlignment="Outward">
+                                <eo:MinorCircularTickOptions.Style>
+                                    <Style TargetType="Shape">
+                                        <Setter Property="Width" Value="10" />
+                                        <Setter Property="Height" Value="1" />
+                                        <Setter Property="Fill" Value="#F0F0F0" />
+                                    </Style>
+                                </eo:MinorCircularTickOptions.Style>
+                            </eo:MinorCircularTickOptions>
+                        </eo:CircularScale.MinorTickOptions>
+                        <eo:CircularScale.MajorTickOptions>
+                            <eo:MajorCircularTickOptions Ring="1" RingAlignment="Outward">
+                                <eo:MajorCircularTickOptions.Style>
+                                    <Style TargetType="Shape">
+                                        <Setter Property="Width" Value="20" />
+                                        <Setter Property="Height" Value="3" />
+                                        <Setter Property="Fill" Value="#F0F0F0" />
+                                    </Style>
+                                </eo:MajorCircularTickOptions.Style>
+                            </eo:MajorCircularTickOptions>
+                        </eo:CircularScale.MajorTickOptions>
+                        <eo:CircularScale.RingDefinitions>
+                            <eo:RingDefinition RadiusX="85" RadiusY="85" Width="25" Height="25"/>
+                            <eo:RingDefinition Width="20" Height="20" />
+
+                            <!-- rangebar ring -->
+                            <eo:RingDefinition RadiusX="105" RadiusY="105" Width="10" Height="10" />
+
+                        </eo:CircularScale.RingDefinitions>
+                    </eo:CircularScale>
+
+                    <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50"
+                            TextElement.FontSize="14" TextElement.Foreground="#F0F0F0">
+                        <TextBlock Text="1/min" />
+                        <TextBlock Text="x100" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Width="120" 
+                  Height="150"
+                  eo:ThemeManager.SkinName="Style3"
+                  Grid.Column="3"
+                  Margin="20,0,40,30"
+                  VerticalAlignment="Bottom">
+                    <Grid Margin="0,0,25,0">
+                        <TextBlock Text="C" 
+                               Foreground="#F0F0F0" 
+                               FontSize="24" 
+                               Margin="0,0,-6,0" 
+                               FontWeight="ExtraBold"
+                               VerticalAlignment="Bottom" 
+                               HorizontalAlignment="Right" />
+                        <TextBlock Text="H" 
+                               HorizontalAlignment="Right"
+                               Foreground="#F0F0F0" 
+                               FontSize="24" 
+                               Margin="0,0,-8,0" 
+                               FontWeight="ExtraBold" />
+                        <eo:CircularScale eo:ThemeManager.SkinName="Style3"
+                                      OriginX="100%"
+                                      OriginY="50%"
+                                      StartAngle="90"
+                                      EndAngle="270"
+                                      ShowFirst="False"
+                                      ShowLast="False"
+                                      MajorInterval="0.5"
+                                      MinorInterval="0.25"
+                                      Minimum="0"
+                                      Maximum="1"
+                                      ShowMajorLabels="False"
+                                      RangeBarRing="1">
+                            <eo:CircularScale.MinorTickOptions>
+                                <eo:MinorCircularTickOptions Ring="1">
+                                    <eo:MinorCircularTickOptions.Style>
+                                        <Style TargetType="Shape">
+                                            <Setter Property="Width" Value="14" />
+                                            <Setter Property="Height" Value="4" />
+                                            <Setter Property="Fill" Value="#F0F0F0" />
+                                        </Style>
+                                    </eo:MinorCircularTickOptions.Style>
+                                </eo:MinorCircularTickOptions>
+                            </eo:CircularScale.MinorTickOptions>
+                            <eo:CircularScale.MajorTickOptions>
+                                <eo:MajorCircularTickOptions Ring="1">
+                                    <eo:MajorCircularTickOptions.Style>
+                                        <Style TargetType="Shape">
+                                            <Setter Property="Width" Value="25" />
+                                            <Setter Property="Height" Value="6" />
+                                            <Setter Property="Fill" Value="#F0F0F0" />
+                                        </Style>
+                                    </eo:MajorCircularTickOptions.Style>
+                                </eo:MajorCircularTickOptions>
+                            </eo:CircularScale.MajorTickOptions>
+                            <eo:CircularScale.ValueIndicators>
+                                <eo:Needle Width="50" Value="0.5">
+                                    <eo:Needle.Style>
+                                        <Style TargetType="eo:Needle">
+                                            <Setter Property="Background" Value="#D10028" />
+                                            <Setter Property="TipWidth" Value="1" />
+                                            <Setter Property="RearWidth" Value="4" />
+                                            <Setter Property="Height" Value="16" />
+                                            <Setter Property="CapTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <Grid Width="16" Height="16" Margin="-8,0,0,0">
+                                                            <Ellipse Fill="Black" />
+                                                            <Ellipse>
+                                                                <Ellipse.Fill>
+                                                                    <RadialGradientBrush RadiusX="8" RadiusY="8">
+                                                                        <GradientStop Offset="0" Color="White" />
+                                                                        <GradientStop Offset="0.1" Color="Transparent" />
+                                                                    </RadialGradientBrush>
+                                                                </Ellipse.Fill>
+                                                            </Ellipse>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </eo:Needle.Style>
+                                </eo:Needle>
+                            </eo:CircularScale.ValueIndicators>
+                            <eo:CircularScale.RingDefinitions>
+                                <eo:RingDefinition RadiusX="55" RadiusY="55" Width="25" Height="25" />
+                                <eo:RingDefinition Width="20" Height="20" />
+                            </eo:CircularScale.RingDefinitions>
+                        </eo:CircularScale>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+</UserControl>

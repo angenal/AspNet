@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.ProgressBar.Basic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+	        A basic EO.Wpf ProgressBar works the same way as the standard WPF ProgressBar
+            except that it can dynamically switch themes. Use the "Theme" menu to switch
+            themes to see it in action.
+        </TextBlock>
+        <eo:ProgressBar Height="20" Value="30" Width="300" HorizontalAlignment="Left"></eo:ProgressBar>
+    </StackPanel>
+</UserControl>

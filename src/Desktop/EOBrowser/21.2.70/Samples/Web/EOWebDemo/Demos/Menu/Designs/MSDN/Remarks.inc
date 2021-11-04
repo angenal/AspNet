@@ -1,0 +1,1 @@
+This menu uses simple CSS background and border attributes.

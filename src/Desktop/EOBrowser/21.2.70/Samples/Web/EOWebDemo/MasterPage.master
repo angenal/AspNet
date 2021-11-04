@@ -1,0 +1,272 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register TagPrefix="eo" Namespace="EO.Web" Assembly="EO.Web" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title runat="server" id="title">EO.Web Controls Demo</title>
+    <link href="EOWebDemo.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript">
+        function GoToDemo(id)
+        {
+            open('<%=ResolveUrl("~/Default.aspx")%>?id=' + id, "_self");
+        }
+
+        function GoToDoc(path)
+        {
+            open("http://doc.essentialobjects.com" + path, "doc");
+        }                
+    </script>
+    <style type="text/css">
+        table#tblControls a
+        {
+            text-decoration: none;
+        }
+        
+        table#tblControls a:hover
+        {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="text-align: center;">
+            <table class="normal" cellspacing="0" cellpadding="2" width="1260" align="center"
+                border="0">
+                <tr>
+                    <!-- Left margin -->
+                    <td style="background-image: url(<%=ResolveUrl("~/Images/page_background_left.gif")%>);
+                        background-repeat: no-repeat">
+                        <div style="width: 4px; height: 600px;">
+                        </div>
+                    </td>
+                    <!-- Contents -->
+                    <td style="background-color: White;" valign="top">
+                        <table cellspacing="5" cellpadding="5" width="1252" border="0">
+                            <tr>
+                                <td colspan="2">
+                                    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="left" style="width: 99%;padding-bottom:1px">
+                                                <a href="http://www.essentialobjects.com/Default.aspx">
+                                                    <img src='<%=ResolveUrl("~/Images/logo.gif")%>' alt="Essential Objects Logo" /></a>
+                                            </td>
+                                            <td valign="top" style="white-space: nowrap">
+                                                <a href="http://www.essentialobjects.com/AboutUs.aspx">About Us</a>&nbsp;|&nbsp;<a
+                                                    href="http://www.essentialobjects.com/ContactUs.aspx">Contact Us</a> &nbsp;|&nbsp;<a
+                                                        runat="server" id="demo_code" href="~/Default.aspx?Source=1">Demo Source Code</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <eo:CustomItem runat="server" ID="ciControls">
+                                                    <table border="0" cellpadding="3" cellspacing="0" id="tblControls">
+                                                        <asp:Repeater runat="server" ID="rptControls" OnItemDataBound="rptControls_ItemDataBound">
+                                                            <ItemTemplate>
+                                                                <tr>
+                                                                    <td style="padding-left:10px;padding-right:20px;">
+                                                                        <asp:HyperLink runat="server" ID="lk1"></asp:HyperLink>
+                                                                    </td>
+                                                                    <td style="border-left: solid 1px #e0e0e0; padding-left:10px; padding-right: 40px">
+                                                                        <asp:HyperLink runat="server" ID="lk2"></asp:HyperLink>
+                                                                    </td>
+                                                                </tr>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                    </table>
+                                                </eo:CustomItem>
+                                                <eo:Menu runat="server" ID="Menu1" Width="100%" ControlSkinID="None" ClientSideOnItemClick="OnMainMenuItemClick">
+                                                    <TopGroup Style-CssText="border-right: #e0e0e0 1px solid; padding-right: 10px; border-top: #cb3e00 2px solid; padding-left: 20px; font-size: 13px; line-height:16px; background-image: url(00020005); padding-bottom: 5px; border-left: #e0e0e0 1px solid; cursor: hand; color: #5f7786; padding-top: 5px; font-family: Verdana">
+                                                        <Items>
+                                                            <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/Default.aspx" Text-Html="Home">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem IsSeparator="True">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem ItemID="demos" Text-Html="Components">
+                                                                <SubMenu>
+                                                                    <Items>
+                                                                        <eo:MenuItem CustomItemID="ciControls" LookID="None">
+                                                                        </eo:MenuItem>
+                                                                    </Items>
+                                                                </SubMenu>
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem IsSeparator="True">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/Download.aspx" Text-Html="Download">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem IsSeparator="True">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem Text-Html="Company">
+                                                                <SubMenu>
+                                                                    <Items>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/AboutUs.aspx" Text-Html="About Us">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/Testimonials.aspx" Text-Html="Testimonials">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/Order.aspx" Text-Html="Purchase">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/EULA.aspx" Text-Html="License Agreement">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/ReturnPolicy.aspx" Text-Html="Return Policy">
+                                                                        </eo:MenuItem>
+                                                                    </Items>
+                                                                </SubMenu>
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem IsSeparator="True">
+                                                            </eo:MenuItem>
+                                                            <eo:MenuItem NavigateUrl="" Text-Html="Support">
+                                                                <SubMenu>
+                                                                    <Items>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/Forum/default.aspx" Text-Html="Support Forum">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://doc.essentialobjects.com/ViewDoc.aspx" Text-Html="Online Documentation">
+                                                                        </eo:MenuItem>
+                                                                        <eo:MenuItem NavigateUrl="http://www.essentialobjects.com/ContactUs.aspx" Text-Html="Contact Us">
+                                                                        </eo:MenuItem>
+                                                                    </Items>
+                                                                </SubMenu>
+                                                            </eo:MenuItem>
+                                                        </Items>
+                                                    </TopGroup>
+                                                    <LookItems>
+                                                        <eo:MenuItem IsSeparator="True" ItemID="_Separator" NormalStyle-CssText="width: 1px; height: 1px; background-color: #cb3e00">
+                                                        </eo:MenuItem>
+                                                        <eo:MenuItem HoverStyle-CssText="color:#F7B00A;padding-left:5px;padding-right:5px;"
+                                                            ItemID="_Default" NormalStyle-CssText="padding-left:5px;padding-right:5px;">
+                                                            <SubMenu ExpandEffect-Type="GlideTopToBottom" Style-CssText="border-right: #e0e0e0 1px solid; padding-right: 3px; border-top: #e0e0e0 1px solid; padding-left: 3px; font-size: 12px; padding-bottom: 3px; border-left: #e0e0e0 1px solid; cursor: hand; color: #5f7786; padding-top: 3px; border-bottom: #e0e0e0 1px solid; font-family: arial; background-color: #f7f8f9"
+                                                                CollapseEffect-Type="GlideTopToBottom" OffsetX="-3" ShadowDepth="0" OffsetY="3"
+                                                                ItemSpacing="5">
+                                                            </SubMenu>
+                                                        </eo:MenuItem>
+                                                    </LookItems>
+                                                </eo:Menu>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="padding-right: 5px; padding-left: 5px; padding-top: 3px;
+                                    width: 300px;" align="left">
+                                    <!--
+                                    Here we populate the TreeView based on Demos.xml. Several DataBinding
+                                    objects are used to map attribute id to property ItemID, attribute name 
+                                    to property Text and attribute options to property Value
+                                    -->
+                                    <eo:TreeView ID="tvDemos" runat="server" EnableViewState="False" PathSeparator="\"
+                                        XmlFile="~/Demos/demos.xml" Height="735px" Width="294px" ControlSkinID="None"
+                                        EnableKeyboardNavigation="True" OnItemDataBound="tvDemos_ItemDataBound" 
+                                        AutoSelectSource="NavigateUrl" SaveStateCrossPages="true" StateCookieName="eo_demo_tv_state">
+                                        <TopGroup Style-CssText="border-bottom-color:#C9C9C9;border-bottom-style:solid;border-bottom-width:1px;border-left-color:#C9C9C9;border-left-style:solid;border-left-width:1px;border-right-color:#C9C9C9;border-right-style:solid;border-right-width:1px;border-top-color:#C9C9C9;border-top-style:solid;border-top-width:1px;color:black;cursor:hand;font-family:Tahoma;font-size:8pt;padding-bottom:2px;padding-left:2px;padding-right:2px;padding-top:2px;">
+                                            <Bindings>
+                                                <eo:DataBinding Property="ItemID" DataField="@id"></eo:DataBinding>
+                                                <eo:DataBinding Property="Text" DataField="@name"></eo:DataBinding>
+                                                <eo:DataBinding Property="Value" DataField="@options"></eo:DataBinding>
+                                            </Bindings>
+                                        </TopGroup>
+                                        <LookNodes>
+                                            <eo:TreeNode ImageUrl="00030203" DisabledStyle-CssText="background-color:transparent;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;color:Gray;padding-bottom:1px;padding-left:1px;padding-right:1px;padding-top:1px;"
+                                                CollapsedImageUrl="00030201" ItemID="_Default" NormalStyle-CssText="PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; COLOR: black; BORDER-TOP-STYLE: none; PADDING-TOP: 1px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BACKGROUND-COLOR: transparent; BORDER-BOTTOM-STYLE: none"
+                                                ExpandedImageUrl="00030202" SelectedStyle-CssText="background-color:#316ac5;border-bottom-color:#999999;border-bottom-style:solid;border-bottom-width:1px;border-left-color:#999999;border-left-style:solid;border-left-width:1px;border-right-color:#999999;border-right-style:solid;border-right-width:1px;border-top-color:#999999;border-top-style:solid;border-top-width:1px;color:White;padding-bottom:0px;padding-left:0px;padding-right:0px;padding-top:0px;">
+                                            </eo:TreeNode>
+                                        </LookNodes>
+                                    </eo:TreeView>
+                                </td>
+                                <td valign="top" style="padding-right: 7px; padding-top: 0px; text-align: left;">
+                                    <eo:TabStrip ID="tsDemo" runat="server" EnableViewState="False" ControlSkinID="None"
+                                        MultiPageID="mpDemo">
+                                        <TopGroup>
+                                            <Items>
+                                                <eo:TabItem Text-Html="Demo">
+                                                </eo:TabItem>
+                                                <eo:TabItem Visible="False" Text-Html="Remarks">
+                                                </eo:TabItem>
+                                                <eo:TabItem Visible="False" Text-Html="ASPX/ASCX">
+                                                </eo:TabItem>
+                                                <eo:TabItem Visible="False" Text-Html="VB.NET">
+                                                </eo:TabItem>
+                                                <eo:TabItem Visible="False" Text-Html="C#">
+                                                </eo:TabItem>
+                                                <eo:TabItem Visible="False" Text-Html="JavaScript">
+                                                </eo:TabItem>
+                                            </Items>
+                                        </TopGroup>
+                                        <LookItems>
+                                            <eo:TabItem ItemID="_Default" RightIcon-Url="00010223" RightIcon-SelectedUrl="00010226"
+                                                NormalStyle-CssText="color: #606060" SelectedStyle-CssText="color: #2f4761; font-weight: bold;"
+                                                LeftIcon-Url="00010221" LeftIcon-SelectedUrl="00010224" Image-Url="00010222"
+                                                Image-SelectedUrl="00010225" Image-Mode="TextBackground" Image-BackgroundRepeat="RepeatX">
+                                                <SubGroup Style-CssText="font-family: tahoma; font-size: 8pt; background-image: url(00010220); background-repeat: repeat-x; cursor: hand;"
+                                                    OverlapDepth="8">
+                                                </SubGroup>
+                                            </eo:TabItem>
+                                        </LookItems>
+                                    </eo:TabStrip>
+                                    <div style="border-right: #c9c9c9 1px solid; padding-right: 15px; padding-left: 7px;
+                                        padding-bottom: 4px; overflow: auto; border-left: #c9c9c9 1px solid; width: 891px;
+                                        padding-top: 7px; border-bottom: #c9c9c9 1px solid; height: 715px;">
+                                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                            <tr>
+                                                <td valign="top" style="height: 415">
+                                                    <eo:MultiPage ID="mpDemo" runat="server" Width="100%">
+                                                        <eo:PageView ID="pvDemo" runat="server" Width="100%">
+                                                            <asp:ContentPlaceHolder ID="demo" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </eo:PageView>
+                                                        <eo:PageView ID="pvRemarks" runat="server" EnableViewState="False" Width="100%">
+                                                        </eo:PageView>
+                                                        <eo:PageView ID="pvASPX" runat="server" EnableViewState="False" Width="100%">
+                                                        </eo:PageView>
+                                                        <eo:PageView ID="pvVB" runat="server" EnableViewState="False" Width="100%">
+                                                        </eo:PageView>
+                                                        <eo:PageView ID="pvCS" runat="server" EnableViewState="False" Width="100%">
+                                                        </eo:PageView>
+                                                        <eo:PageView ID="pvJS" runat="server" EnableViewState="False" Width="100%">
+                                                        </eo:PageView>
+                                                    </eo:MultiPage>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a id="lnkDirect" runat="server" visible="false">Direct Link to This Demo</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="4" colspan="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="footer" align="left">
+                                    <p>
+                                    Copyright(c) 2006 - 2017 Essential Objects, Inc. All rights reserved. <a href="http://www.essentialobjects.com/TermOfUse.aspx">
+                                        Term Of Use</a>&nbsp;|&nbsp; <a href="http://www.essentialobjects.com/PrivacyNotice.aspx">
+                                            Privacy Notice</a>
+                                    </p>
+                                    <p>
+                                        EO.Web Controls for ASP.NET 2017 (build <asp:Label runat="server" ID="lblEOWebVersion"></asp:Label>), 
+                                        ASP.NET <asp:Label runat="server" ID="lblDotNetVersion"></asp:Label>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!-- Right margin -->
+                    <td style="background-image: url(<%=ResolveUrl("~/Images/page_background_right.gif")%>);
+                        background-repeat: no-repeat">
+                        <div style="width: 4px">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- Place a validator here so that all the standard validator related
+            JavaScript files are rendered. This validator itself is never used to
+            validate any input -->
+        <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="CustomValidator"></asp:CustomValidator>
+    </form>
+</body>
+</html>

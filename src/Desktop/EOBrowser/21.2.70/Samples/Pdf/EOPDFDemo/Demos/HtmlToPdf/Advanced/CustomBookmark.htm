@@ -1,0 +1,48 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+	    <p>
+	    EO.Pdf HTML to PDF converter returns an 
+        <a href="javascript:eo_OpenHelp('EO.Pdf.HtmlToPdfResult.HtmlDocument.html')">HtmlDocument</a>	    
+        object for you to examine the converted HTML file. 
+        This sample uses this feature to search for all elements
+        with its "class" set to "chapter_title" and create
+        a bookmark for each of them.
+	    </p>
+        <textarea id="txtHTML" style="width:100%;height:300px;">
+&lt;style&gt;
+p
+{
+    font-family: tahoma; 
+    font-size: 12px;
+}
+
+.chapter_title 
+{
+    font-family: tahoma; 
+    font-size: 14px;     
+    font-weight: bold;
+    color:#2f4761;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom:1px solid #ccc;
+}
+&lt;/style&gt;
+&lt;p class="chapter_title"&gt;Chapter 1&lt;/p&gt;
+&lt;p style="page-break-after:always"&gt;
+    This chapter contains details about how to 
+    create bookmarks. You may need to right click 
+    the document, then select "Show Navigation 
+    Panel Buttons" to view the generated bookmarks.
+&lt;/p&gt;
+&lt;p class="chapter_title"&gt;Chapter 2&lt;/p&gt;
+&lt;p style="pagebreak-after:always"&gt;
+    This chapter contains details about how to 
+    create links.
+&lt;/p&gt;
+        </textarea>
+    </body>
+</html>

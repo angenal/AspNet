@@ -1,0 +1,4 @@
+AJAXUploader automatically clears temp
+files that it created in this directory.
+The files are not deleted immediately but
+will eventually be deleted.

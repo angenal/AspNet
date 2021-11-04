@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net40;net45</TargetFrameworks>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Description>My Utility For XMl</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Util\System.Util.csproj" />
+  </ItemGroup>
+</Project>

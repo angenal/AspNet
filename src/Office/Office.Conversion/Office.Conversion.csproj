@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35B2577F-510C-4BB1-89C4-0411A4479593}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Office.Conversion</RootNamespace>
+    <AssemblyName>Office.Conversion</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AWSSDK.Core.3.3.104.4\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AWSSDK.S3.3.3.109.4\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="GroupDocs.Conversion, Version=19.11.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aspose\net20\GroupDocs.Conversion.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Pipelines.Sockets.Unofficial, Version=1.0.0.0, Culture=neutral, PublicKeyToken=42ea0a778e13fbe2, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Pipelines.Sockets.Unofficial.2.0.22\lib\net461\Pipelines.Sockets.Unofficial.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StackExchange.Redis.2.0.601\lib\net461\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.PerformanceCounter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.PerformanceCounter.4.5.0\lib\net461\System.Diagnostics.PerformanceCounter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Pipelines.4.5.1\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Channels.4.5.0\lib\netstandard2.0\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedUsage\Caching\HowToUseCustomCacheImplementation.cs" />
+    <Compile Include="AdvancedUsage\Caching\UseCacheWhenProcessingDocuments.cs" />
+    <Compile Include="AdvancedUsage\Converting\Common\AddWatermark.cs" />
+    <Compile Include="AdvancedUsage\Converting\Common\ConvertNConsecutivePages.cs" />
+    <Compile Include="AdvancedUsage\Converting\Common\ConvertSpecificPages.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToHtmlWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToImageWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToPdfWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToPresentationWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToSpreadsheetWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Converting\ConvertToWordProcessingWithAdvancedOptions.cs" />
+    <Compile Include="AdvancedUsage\Listening\ListenConversionStateAndProgress.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromAmazonS3.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromAzureBlobStorage.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromFtp.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromLocalDisk.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromStream.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadingDocumentsFromDifferentSources\LoadDocumentFromUrl.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Cad\ConvertCadAndSpecifyLayouts.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Cad\ConvertCadAndSpecifyWidthAndHeight.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Csv\ConvertCsvByConvertingDateTimeAndNumericData.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Csv\ConvertCsvBySpecifyingDelimiter.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Csv\ConvertCsvBySpecifyingEncoding.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Email\ConvertEmailWithAlteringFieldsVisibility.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Email\ConvertEmailWithTimezoneOffset.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Note\ConvertNoteBySpecifyingFontSubstitution.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Pdf\ConvertPdfAndFlattenAllFields.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Pdf\ConvertPdfAndHideAnnotations.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Pdf\ConvertPdfAndRemoveEmbeddedFiles.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Presentation\ConvertPresentationByHiddingComments.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Presentation\ConvertPresentationBySpecifyingFontSubstitution.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Presentation\ConvertPresentationWithHiddenSlidesIncluded.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetAndHideComments.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetByShowingGridLines.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetBySkippingEmptyRowsAndColumns.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetBySpecifyingFontsubstitution.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetBySpecifyingRange.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Spreadsheet\ConvertSpreadsheetWithHiddenSheetsIncluded.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Txt\ConvertTxtByControlingLeadingSpacesBehavior.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Txt\ConvertTxtByControlingTrailingSpacesBehavior.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\Txt\ConvertTxtBySpecifyingEncoding.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\WordProcessing\ConvertWordProcessingByHiddingComments.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\WordProcessing\ConvertWordProcessingByHiddingTrackedChanges.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadOptionsByDocumentType\WordProcessing\ConvertWordProcessingBySpecifyingFontSubstitution.cs" />
+    <Compile Include="AdvancedUsage\Loading\LoadPasswordProtectedDocument.cs" />
+    <Compile Include="BasicUsage\ConvertToHtml\ConvertToHtml.cs" />
+    <Compile Include="BasicUsage\ConvertToImage\ConvertToJpg.cs" />
+    <Compile Include="BasicUsage\ConvertToImage\ConvertToPng.cs" />
+    <Compile Include="BasicUsage\ConvertToImage\ConvertToPsd.cs" />
+    <Compile Include="BasicUsage\ConvertToPdf\ConvertToPdf.cs" />
+    <Compile Include="BasicUsage\ConvertToPresentation\ConvertToPresentation.cs" />
+    <Compile Include="BasicUsage\ConvertToSpreadsheet\ConvertToSpreadsheet.cs" />
+    <Compile Include="BasicUsage\ConvertToWordProcessing\ConvertToWordProcessing.cs" />
+    <Compile Include="BasicUsage\GetPossibleConversions.cs" />
+    <Compile Include="BasicUsage\GetSourceDocumentInfo.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="License\Aspose.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuickStart\HelloWorld.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\Fonts\terminal-grotesque_open.otf" />
+    <None Include="Resources\SampleFiles\hieroglyphs.pdf" />
+    <None Include="Resources\SampleFiles\hieroglyphs_1.pdf" />
+    <None Include="Resources\SampleFiles\password_protected.docx" />
+    <None Include="Resources\SampleFiles\sample.csv" />
+    <None Include="Resources\SampleFiles\sample.docx" />
+    <None Include="Resources\SampleFiles\sample.eml" />
+    <None Include="Resources\SampleFiles\sample.mpp" />
+    <None Include="Resources\SampleFiles\sample.msg" />
+    <None Include="Resources\SampleFiles\sample.one" />
+    <None Include="Resources\SampleFiles\sample.ost" />
+    <None Include="Resources\SampleFiles\sample.pdf" />
+    <None Include="Resources\SampleFiles\sample.vsdx" />
+    <None Include="Resources\SampleFiles\sample.xlsx" />
+    <None Include="Resources\SampleFiles\sample_with_password.pdf" />
+    <None Include="Resources\SampleFiles\with_attachments.msg" />
+    <None Include="Resources\SampleFiles\with_comment.docx" />
+    <None Include="Resources\SampleFiles\with_empty_column.xlsx" />
+    <None Include="Resources\SampleFiles\with_empty_row.xlsx" />
+    <None Include="Resources\SampleFiles\with_folders.zip" />
+    <None Include="Resources\SampleFiles\with_four_print_areas.xlsx" />
+    <None Include="Resources\SampleFiles\with_hidden_page.pptx" />
+    <None Include="Resources\SampleFiles\with_hidden_row_and_column.xlsx" />
+    <None Include="Resources\SampleFiles\with_hidden_sheet.xlsx" />
+    <None Include="Resources\SampleFiles\with_jpg_image.pptx" />
+    <None Include="Resources\SampleFiles\with_layers_and_layouts.dwg" />
+    <None Include="Resources\SampleFiles\with_missing_font.odg" />
+    <None Include="Resources\SampleFiles\with_missing_font.pptx" />
+    <None Include="Resources\SampleFiles\with_notes.pptx" />
+    <None Include="Resources\SampleFiles\with_overflowing_text.xlsx" />
+    <None Include="Resources\SampleFiles\with_subfolders.ost" />
+    <None Include="Resources\SampleFiles\with_tracked_changes.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\SampleFiles\sample.txt" />
+    <Content Include="Resources\SampleFiles\shift_jis_encoded.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\AWSSDK.S3.3.3.109.4\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        EO.Pdf HTML to PDF converter can automatically generate bookmarks based on HTML
+        header elements (H1 to H6). It automatically builds parent/child relationship based
+        on the location and level of the header elements. For example, all H2 elements in
+        between two H1 elements are considered child bookmarks for the first H1 element.
+        To use this feature, simply set <a href="javascript:eo_OpenHelp('EO.Pdf.HtmlToPdfOptions.AutoBookmark.html')">
+            EO.Pdf.HtmlToPdf.Options.AutoBookmark</a> to true.
+    </p>
+    <p>
+        You can also examine the <a href="javascript:eo_OpenHelp('EO.Pdf.HtmlToPdfResult.HtmlDocument.html')">HtmlDocument</a>
+        object returned by the converter to create bookmark yourself based
+        on your own application logic. See <a href="javascript:eo_GoToDemo('Html to PDF/Advanced/Custom Bookmarks')">here</a>
+        for a working example about this feature.
+    </p>
+    <p>
+        Please enter any Url with header elements and then click "Run Demo" to 
+        convert it to a PDF file. <span style="color:Red">Note: You may need
+        to right click the document, then select "Show Navigation Panel Buttons" to 
+        view the generated bookmarks.</span>
+    </p>
+    <p>
+        Url:
+        <input id="txtUrl" type="text" style="width: 300px;" value="http://en.wikipedia.org/wiki/HTML" />
+    </p>
+</body>
+</html>

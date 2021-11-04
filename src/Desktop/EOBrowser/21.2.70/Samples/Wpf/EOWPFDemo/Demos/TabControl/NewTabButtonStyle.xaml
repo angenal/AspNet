@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.TabControl.NewTabButtonStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10" DockPanel.Dock="Top">
+            This sample demonstrates how to customize the "New Tab Button" style.
+        </TextBlock>
+        <eo:TabControl ShowNewTabButton="True">
+            <eo:TabControl.NewTabButtonStyle>
+                <Style TargetType="eo:BareButton">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border BorderBrush="#8C8E94" BorderThickness="1,1,1,0" Padding="3,0">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Offset="0" Color="#F3F3F3" />
+                                                <GradientStop Offset="0.5" Color="#EBEBEB" />
+                                                <GradientStop Offset="0.5" Color="#DDDDDD" />
+                                                <GradientStop Offset="1" Color="#CDCDCD" />
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock>+</TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </eo:TabControl.NewTabButtonStyle>
+            <eo:TabItem Header="Tab Item 1"></eo:TabItem>
+            <eo:TabItem Header="Tab Item 2"></eo:TabItem>
+            <eo:TabItem Header="Tab Item 3"></eo:TabItem>
+        </eo:TabControl>
+    </DockPanel>
+</UserControl>

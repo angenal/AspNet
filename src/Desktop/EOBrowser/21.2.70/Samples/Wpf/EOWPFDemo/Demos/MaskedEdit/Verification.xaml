@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.MaskedEdit.Verification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+	        EO.Wpf MaskedEdit can automatically highlight an invalid input. To enable this feature,
+            set AutoHighlightIfInvalid to true. The following MaskedEdit control contains a single
+            MaskMaskedEditSegment with its Mask set to "0000", which represents 4 required digits.
+            If you enter anything less than 4 digits, the MaskedEdit will be highlighted as red
+            when it loses focus.
+        </TextBlock>
+        <eo:MaskedEdit Margin="0,10,0,0" PromptChar="_" Width="120" HorizontalAlignment="Left" AutoHighlightIfInvalid="True">
+            <eo:MaskMaskedEditSegment Mask="0000"></eo:MaskMaskedEditSegment>
+        </eo:MaskedEdit>
+    </StackPanel>
+</UserControl>

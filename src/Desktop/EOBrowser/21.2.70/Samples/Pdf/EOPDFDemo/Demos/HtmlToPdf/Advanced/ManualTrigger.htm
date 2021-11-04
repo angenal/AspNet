@@ -1,0 +1,44 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+        <p>
+        By default, the HTML to PDF converter automatically starts the 
+        conversion as soon as all the contents of the page (such as 
+        images) are fully loaded. However, sometimes you may need to 
+        perform some additional initialization tasks with JavaScript 
+        and the conversion should not start until your initialization 
+        code is done. In this case you can 
+        <a href="javascript:eo_OpenHelp('HtmlToPdf/eo_js.html#manual_trigger')">manually trigger the conversion</a>
+        from JavaScript. 
+        </p>
+        <p>
+        The following code demonstrates how to use this feature. It
+        uses a timer to count from 0 to 100. The conversion is only
+        triggered through JavaScript when the counter reaches 100.
+        </p>
+        <p>
+        <textarea id="txtHTML" style="width:100%;height:300px;">
+&lt;div id="counter"&gt;
+The conversion will not start until counter counts to 100.
+&lt;/div&gt;
+&lt;script&gt;
+var counter = 0;
+
+function increaseCounter()
+{
+    counter++;
+    document.getElementById("counter").innerHTML = counter;
+    if (counter == 100)
+        eoapi.convert();
+    else
+        setTimeout("increaseCounter()", 20);
+}
+
+increaseCounter();
+&lt;/script&gt;
+        </textarea>		
+    </body>
+</html>

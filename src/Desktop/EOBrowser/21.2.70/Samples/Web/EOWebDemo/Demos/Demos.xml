@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<demos>
+    <folder id="AJAXUploader" name="AJAX Uploader">
+        <demo name="Standard Features"></demo>
+        <demo name="Delay Post Back" options="EnableViewState"></demo>
+        <demo name="Auto Post Back" options="EnableViewState"></demo>
+        <demo name="Auto Upload"></demo>
+        <demo name="File List" id="uploader_filelist" options="EnableViewState"></demo>
+        <demo name="Standard UI Customizations"></demo>
+        <demo name="Advanced UI Customizations"></demo>
+        <demo name="Max Upload Data Size"></demo>
+        <demo name="Multi-Row Uploader"></demo>
+        <demo name="Upload from ToolBar" id="uploader_toolbar" options="EnableViewState"></demo>
+        <demo name="Progress Dialog"></demo>
+        <demo name="Server Side Event" options="EnableViewState"></demo>
+        <demo name="Client Side Event"></demo>
+        <demo name="Client Side API" options="EnableViewState"></demo>
+    </folder>
+    <folder id="ASPXToPDF" name="ASPX To PDF">
+        <demo name="Basic Feature"></demo>
+        <demo name="Customize Save As File Name"></demo>
+        <demo name="BeforeRender Event"></demo>
+        <demo name="AfterRender Event"></demo>
+    </folder>
+    <folder id="Calendar" name="Calendar">
+        <folder name="Designs">
+            <demo name="Windows"></demo>
+            <demo name="Windows (Multi-Month)"></demo>
+            <demo name="Windows Vista"></demo>
+            <demo name="Outlook 2003"></demo>
+            <demo name="Scheduler"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Calendar"></demo>
+            <demo name="Date Picker"></demo>
+            <demo name="Date and Time Picker"></demo>
+            <demo name="Disabled Dates"></demo>
+            <demo name="Multi-Month Calendar" options="EnableViewState"></demo>
+            <demo name="Popup Calendar"  options="EnableViewState"></demo>
+            <demo name="Scheduler" id="scheduler" options="EnableViewState"></demo>
+            <demo name="Title and Footer Template"></demo>
+            <demo name="Month and Week Selector"></demo>
+            <demo name="Week Number"></demo>
+        </folder>
+        <folder name="Programming">
+            <demo name="Client Side Validation"></demo>
+            <demo name="Custom Rendering"></demo>
+            <demo name="Editable Scheduler" options="EnableViewState" id="editable_scheduler"></demo>
+        </folder>
+    </folder>
+    <folder id="Callback" name="Callback">
+        <folder name="Features">
+            <demo name="Partial Page Updates - Cars" id="callback_cars"></demo>
+            <demo name="Partial Page Updates - DataGrid"></demo>
+            <demo name="Partial Page Updates - DataGrid Advanced" options="EnableViewState"></demo>
+            <demo name="Auto Disable Contents"></demo>
+            <demo name="Client Event Handler" options="EnableViewState"></demo>
+            <demo name="Callback Group"></demo>
+            <demo name="Blocking Input while Loading"></demo>
+            <demo name="Misc. Features"></demo>
+        </folder>
+    </folder>
+    <folder id="Captcha" name="Captcha">
+        <demo name="Basic Feature"></demo>
+        <demo name="Image Customization"></demo>
+        <demo name="Layout Customization"></demo>
+        <demo name="Audio Support"></demo>
+        <demo name="Validation"></demo>
+    </folder>
+    <folder id="ComboBox" name="ComboBox">
+        <folder name="Designs">
+            <demo name="Office 2003"></demo>
+            <demo name="Office 2007"></demo>
+            <demo name="Windows 7"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Item Icon" id="combobox_icon"></demo>
+            <demo name="Item Icon - Custom Icon"></demo>
+            <demo name="Item Icon Off"></demo>
+            <demo name="Keyboard Navigation"></demo>
+            <demo name="Drop Down Template"></demo>
+            <demo name="Drop Down Template - Advanced"></demo>
+            <demo name="Expand Direction and Effect"></demo>
+            <demo name="Hint Text"></demo>
+            <demo name="Selection Only"></demo>
+            <demo name="Server Side Interface"></demo>
+        </folder>
+    </folder>
+    <folder name="Color Picker" id="ColorPicker">
+        <folder name="Designs">
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Custom Layout"></demo>
+            <demo name="Target Control"></demo>
+            <demo name="Server Event" options="EnableViewState"></demo>
+            <demo name="Client Event"></demo>
+        </folder>
+    </folder>
+    <folder id="Dialog" name="Dialog">
+        <folder name="Designs">
+            <demo name="Dark Blue"></demo>
+            <demo name="Light Blue"></demo>
+            <demo name="MSN Messenger"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Windows MCE"></demo>
+            <demo name="Windows XP"></demo>
+            <demo name="Windows Vista"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Displaying Dialog"></demo>
+            <demo name="Content and Footer Template"></demo>
+            <demo name="Icon and Image Buttons"></demo>
+            <demo name="Accept and Cancel Button"></demo>
+            <demo name="Moving and Resizing" options="EnableViewState"></demo>
+            <demo name="Min and Max Size"></demo>
+            <demo name="Multiple Modeless Dialogs"></demo>
+            <demo name="Stacking Modal Dialogs"></demo>
+            <demo name="Back Shade for Modal Dialog"></demo>
+            <demo name="Boundary and Location"></demo>
+            <demo name="Client Side Event Handler"></demo>
+            <demo name="Show and Close Effect"></demo>
+            <demo name="Content Url"></demo>
+            <demo name="Input Blocker" id="input_blocker"></demo>
+        </folder>
+    </folder>
+    <folder name="Downloader" id="Downloader">
+        <folder name="Features">
+            <demo name="Basic Features"></demo>
+            <demo name="Download Any File Type"></demo>
+            <demo name="Download Url"></demo>
+            <demo name="Server Event"></demo>
+            <demo name="Dynamic Contents"></demo>
+        </folder>
+    </folder>
+    <folder id="EditableLabel" name="Editable Label">
+        <demo name="Basic Feature"></demo>
+        <demo name="Normal and Active Style"></demo>
+        <demo name="Hint Text"></demo>
+        <demo name="Max Length"></demo>
+        <demo name="Display Format"></demo>
+        <demo name="Validation"></demo>
+        <demo name="Server Side Event"></demo>
+        <demo name="Client Side Event"></demo>
+    </folder>
+    <folder name="Editor" id="Editor">
+        <folder name="Designs">
+            <demo name="Office 2003"></demo>
+            <demo name="Office 2003 XP Style"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Customizing ToolBar Items"></demo>
+            <demo name="Customizing Header"></demo>
+            <demo name="Customizing Dialogs"></demo>
+            <demo name="Table Handling"></demo>
+            <demo name="Spell Checking"></demo>
+            <demo name="Emoticon - Built In"></demo>
+            <demo name="Emoticon - Custom"></demo>
+            <demo name="Style and Font Dropdowns"></demo>
+            <demo name="Context Menu"></demo>
+            <demo name="Right to Left"></demo>
+            <demo name="Auto Resize"></demo>
+            <demo name="Pasted Text Handling"></demo>
+            <demo name="Attachments"></demo>
+            <demo name="Line Break"></demo>
+        </folder>
+        <folder name="Programming">
+            <demo name="Custom Pasted Text Handling"></demo>
+            <demo name="JavaScript API"></demo>
+            <demo name="Open and Save File"></demo>
+        </folder>
+    </folder>
+    <folder name="File Explorer" id="FileExplorer">
+        <folder name="Features">
+            <demo name="All Features"></demo>
+            <demo name="Setting Root Folder"></demo>
+            <demo name="Browse Only Root Folders"></demo>
+            <demo name="Filtering Files - By Extension"></demo>
+            <demo name="Filtering Files - By Regular Expression"></demo>
+            <demo name="Filtering Folder"></demo>
+            <demo name="File Upload"></demo>
+            <demo name="File Name Formatting"></demo>
+            <demo name="Custom Layout - Folder Only"></demo>
+            <demo name="Custom Layout - File Only"></demo>
+            <demo name="Custom Layout - No Preview"></demo>
+            <demo name="Permission Control"></demo>
+            <demo name="Using with Dialog - Same Page"></demo>
+            <demo name="Using with Dialog - Separate Page"></demo>
+            <demo name="External Files"></demo>
+        </folder>
+    </folder>
+    <folder name="Floater" id="Floater">
+        <folder name="Features">
+            <demo name="Basic Features"></demo>
+            <demo name="Anchors"></demo>
+            <demo name="Scroll Mode"></demo>
+            <demo name="Glide Mode"></demo>
+        </folder>
+    </folder>
+    <folder id="Flyout" name="Flyout">
+        <demo name="Basic Feature"></demo>
+        <demo name="Use with Repeater"></demo>
+        <demo name="Expand Direction"></demo>
+        <demo name="Transparent Flyout"></demo>
+        <demo name="Dynamic Flyout"></demo>
+    </folder>
+    <folder id="Grid" name="Grid">
+        <folder name="Designs">
+            <demo name="Windows XP"></demo>
+            <demo name="Windows Vista"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Client Running Mode" options="EnableViewState"></demo>
+            <demo name="Server Running Mode" options="EnableViewState" id="grid_server_mode"></demo>
+            <demo name="Callback Running Mode" options="EnableViewState" id="grid_callback_mode"></demo>
+            <demo name="Column Reordering" options="EnableViewState"></demo>
+            <demo name="Fixed Columns" options="EnableViewState"></demo>
+            <demo name="Edit Grid Data - Traditional Style" options="EnableViewState"></demo>
+            <demo name="Edit Grid Data - Excel Style" options="EnableViewState"></demo>
+            <demo name="Appending New Item" options="EnableViewState"></demo>
+            <demo name="Appending New Item with JavaScript" options="EnableViewState"></demo>
+            <demo name="Deleting Item" options="EnableViewState"></demo>
+            <demo name="Deleting with Confirmation" options="EnableViewState"></demo>
+            <demo name="Cell Selection"></demo>
+            <demo name="Row Selection"></demo>
+            <demo name="ItemCommand Server Event" options="EnableViewState"></demo>
+            <demo name="Conditional Formatting"></demo>
+            <demo name="Conditional Formatting - Cell Based"></demo>
+            <demo name="CheckBox Column"></demo>
+            <demo name="Button Column"></demo>
+            <demo name="Custom Column" id="grid_custom_column"></demo>
+            <demo name="Custom Column - Advanced" id="grid_custom_column_adv"></demo>
+            <demo name="Custom Column - Advanced 2" id="grid_custom_column_adv2"></demo>
+            <demo name="Custom Column - Advanced 3"></demo>
+            <demo name="Custom Column - Advanced 4"></demo>
+            <deom name="Keyboard Navigation"></deom>
+            <demo name="Context Menu" options="EnableViewState"></demo>
+            <demo name="Client Side Validation"></demo>
+            <demo name="Fixed Items" id="grid_fixed_items"></demo>
+            <demo name="Column Span"></demo>
+        </folder>
+    </folder>
+    <folder name="ImageZoom" id="ImageZoom">
+        <folder name="Features">
+            <demo name="Basic Features"></demo>
+            <demo name="Background Shadow"></demo>
+            <demo name="Fade Effect"></demo>
+            <demo name="Positioning Mode"></demo>
+            <demo name="Custom Zoom Out Panel"></demo>
+        </folder>
+        <folder name="Programming">
+            <demo name="Client Side Event Handling"></demo>
+            <demo name="ImageZoom with DataGrid" id="imagezoom_grid"></demo>
+            <demo name="Zoom On Mouse Over"></demo>
+        </folder>
+    </folder>
+    <folder id="ListBox" name="ListBox">
+        <folder name="Designs">
+            <demo name="Office 2003"></demo>
+            <demo name="Office 2007"></demo>
+            <demo name="Visual Studio 2008"></demo>
+            <demo name="Windows 7"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Header and Footer"></demo>
+            <demo name="Multi Select"></demo>
+            <demo name="Keyboard Navigation"></demo>
+            <demo name="Disabled Item"></demo>
+            <demo name="Item Template"></demo>
+            <demo name="Javascript Interface"></demo>
+            <demo name="Load on Demand"></demo>
+        </folder>
+    </folder>
+    <folder id="MaskedEdit" name="MaskedEdit">
+        <folder name="Features">
+            <demo name="Mask Segment" id="maskededit_mask"></demo>
+            <demo name="Choice Segment"></demo>
+            <demo name="Number Segment"></demo>
+            <demo name="Multiple Segments" id="maskededit_multiple"></demo>
+            <demo name="Case Conversion"></demo>
+            <demo name="Hint Text"></demo>
+            <demo name="Validation"></demo>
+        </folder>
+    </folder>
+    <folder id="Menu" name="Menu">
+        <folder name="Designs">
+            <demo name="MSDN"></demo>
+            <demo name="Windows Vista"></demo>
+            <demo name="Office 2003"></demo>
+            <demo name="Office 2003 XP Style"></demo>
+            <demo name="Office 2003 XP Style Right To Left"></demo>
+            <demo name="Red Tabs" id="red_tabs"></demo>
+            <demo name="Round Corners"></demo>
+            <demo name="Simple 3D"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Accessibility Features"></demo>
+            <demo name="Cross Frame"></demo>
+            <demo name="Scrolling Menu"></demo>
+            <demo name="Page Context Menu"></demo>
+            <demo name="Element Context Menu" id="element_context_menu"></demo>
+            <demo name="Cool Effects"></demo>
+            <demo name="Nesting Controls"></demo>
+        </folder>
+        <folder name="Programming" id="menu_programming">
+            <folder name="Data Binding">
+                <demo name="Populate from DataTable" id="binding_datatable"></demo>
+                <demo name="Populate from DataTable (Parent - Child Key)" id="binding_parent_child_key"></demo>
+                <demo name="Populate from DataSet" id="binding_dataset"></demo>
+                <demo name="Using Item Template" id="binding_template"></demo>
+            </folder>
+            <folder name="Server Side Programming">
+                <demo name="Dynamically Modifying Menu" options="EnableViewState"></demo>
+                <demo name="Server Side Event Handling" id="menu_server_event"></demo>
+            </folder>
+            <folder name="Client Side Programming">
+                <demo name="Client Side Event Handling" id="menu_client_event"></demo>
+                <demo name="Dynamically Modifying Menu" id="js_modify_menu"></demo>
+                <demo name="Context Menu with DataGrid" id="grid_context_menu"></demo>
+                <demo name="Tab Menu" id="red_tabs2"></demo>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="MsgBox" id="MsgBox">
+        <folder name="Features">
+            <demo name="Showing Message Box - Server Side"></demo>
+            <demo name="Showing Message Box - Client Side"></demo>
+            <demo name="Handling Button Event - Server Side"></demo>
+            <demo name="Handling Button Event - Client Side"></demo>
+            <demo name="Button Type" options="EnableViewState"></demo>
+        </folder>
+    </folder>
+    <folder id="ProgressBar" name="Progress Bar">
+        <demo name="Image Based"></demo>
+        <demo name="CSS Based"></demo>
+        <demo name="Server Side Task" id="progressbar_runtask"></demo>
+        <demo name="Server Side Task - Advanced 1" id="progressbar_adv1"></demo>
+        <demo name="Server Side Task - Advanced 2" id="progressbar_adv2"></demo>
+    </folder>
+    <folder id="Rating" name="Rating">
+        <demo name="Designs"></demo>
+        <demo name="Maximum Star Count"></demo>
+        <demo name="Selection Precision"></demo>
+        <demo name="Rating Orientation"></demo>
+        <demo name="Client Side Interface"></demo>
+    </folder>
+    <folder id="Slide" name="Slide">
+        <demo name="Basic Slide" id="basic_slide"></demo>
+        <demo name="Templated Slide" id="templated_slide"></demo>
+        <demo name="Slide with Thumbnails"></demo>
+        <demo name="Thumbnails Only"></demo>
+        <demo name="Customizing Styles"></demo>
+        <demo name="Customizing Navigation Panel"></demo>
+        <demo name="Server Side Event"></demo>
+        <demo name="Client Side Event"></demo>
+        <demo name="Client Side API"></demo>
+    </folder>
+    <folder id="Slider" name="Slider">
+        <demo name="Basic Feature"></demo>
+        <demo name="Tick Mark Position"></demo>
+        <demo name="Tick Mark Value"></demo>
+        <demo name="Labels"></demo>
+        <demo name="Orientation"></demo>
+        <demo name="Disabled Slider"></demo>
+        <demo name="Value On Thumb"></demo>
+        <demo name="Client Side Interface"></demo>
+    </folder>
+    <folder id="SlideMenu" name="Slide Menu">
+        <folder name="Designs">
+            <demo name="News Slide"></demo>
+            <demo name="Outlook 2003" id="SlideMenu_Outlook2003"></demo>
+            <demo name="Phthalo Green"></demo>
+            <demo name="Windows XP Blue"></demo>
+            <demo name="Windows XP Blue Single Expand"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Cross Frame"></demo>
+            <demo name="Nesting Controls"></demo>
+            <demo name="Scrolling Slide Menu"></demo>
+            <demo name="Single Expand" options="EnableViewState"></demo>
+        </folder>
+        <demo name="Programming"></demo>
+    </folder>
+    <folder name="Spell Checker" id="SpellChecker">
+        <folder name="Features">
+            <demo name="Dialog Based"></demo>
+            <demo name="Context Menu Based"></demo>
+            <demo name="Customizing Dialog"></demo>
+            <demo name="Using with Editor"></demo>
+            <demo name="Checking Multiple Controls"></demo>
+            <demo name="Custom Word"></demo>
+        </folder>
+    </folder>
+    <folder id="Splitter" name="Splitter">
+        <folder name="Designs">
+            <demo name="Standard"></demo>
+            <demo name="Office"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+            <demo name="Style 4"></demo>
+            <demo name="Style 5"></demo>
+        </folder>
+        <folder name="Features" id="features">
+            <demo name="Auto Fill Window"></demo>
+            <demo name="Expand and Collapse Buttons" id="collapse_splitter"></demo>
+            <demo name="Collapse to the Right"></demo>
+            <demo name="Show and Hide Pane"></demo>
+            <demo name="Min and Max Size"></demo>
+            <demo name="Auto Resize Contents" id="resize_contents"></demo>
+            <demo name="Auto Fill Contents" options="EnableViewState"></demo>
+            <demo name="Auto Resize Splitter" id="resize_splitter"></demo>
+            <demo name="Nesting Splitters"></demo>
+            <demo name="Persisting Splitter and Scroll Position"></demo>
+        </folder>
+    </folder>
+    <folder id="TabStrip" name="TabStrip &amp; MultiPage">
+        <folder name="Designs">
+            <demo name="Visual Studio 2005"></demo>
+            <demo name="Windows 2000"></demo>
+            <demo name="Windows XP"></demo>
+            <demo name="Windows XP Multi-Row"></demo>
+            <demo name="Windows MCE"></demo>
+            <demo name="Windows MCE Multi-Row"></demo>
+            <demo name="Windows Vista"></demo>
+            <demo name="Windows Vista Multi-Row"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Multi-Row TabStrip"></demo>
+            <demo name="Overlapping TabStrip"></demo>
+            <demo name="Scrolling TabStrip"></demo>
+            <demo name="Load On Demand"></demo>
+        </folder>
+        <folder name="Programming">
+            <demo name="Switch Page or Tab (Server Side)" options="EnableViewState"></demo>
+            <demo name="Switch Page or Tab (Client Side)"></demo>
+            <demo name="More Programming Samples"></demo>
+        </folder>
+    </folder>
+    <folder name="Tool Bar" id="ToolBar">
+        <folder name="Designs">
+            <demo name="Office 2003"></demo>
+            <demo name="Office 2003 XP Style"></demo>
+            <demo name="Style 1"></demo>
+            <demo name="Style 2"></demo>
+            <demo name="Style 3"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Item Text"></demo>
+            <demo name="Drop Down Item"></demo>
+            <demo name="Custom Item"></demo>
+            <demo name="Server Event"></demo>
+            <demo name="Client Event"></demo>
+            <demo name="Auto Check" options="EnableViewState"></demo>
+        </folder>
+    </folder>
+    <folder id="ToolTip" name="ToolTip">
+        <demo name="Basic Feature"></demo>
+        <demo name="Server Side Interface"></demo>
+        <demo name="Client Side Interface"></demo>
+        <demo name="ToolTip Location"></demo>
+        <demo name="ToolTip Animation"></demo>
+    </folder>
+    <folder id="TreeView" name="TreeView">
+        <folder name="Designs">
+            <demo name="Explorer"></demo>
+            <demo name="Explorer (Files Only)"></demo>
+            <demo name="Explorer (With Check Box)"></demo>
+            <demo name="MS Help"></demo>
+            <demo name="MS Help 2"></demo>
+            <demo name="MSDN"></demo>
+            <demo name="MSN Messenger"></demo>
+            <demo name="Outlook"></demo>
+        </folder>
+        <folder name="Features">
+            <demo name="Automatic ToolTip"></demo>
+            <demo name="Populate On Demand"></demo>
+            <demo name="Nesting Controls"></demo>
+            <demo name="TreeView with Checkbox"></demo>
+            <demo name="Edit Tree Node Text"></demo>
+            <demo name="Drag and Drop"></demo>
+            <demo name="Drag and Drop Reordering"></demo>
+            <demo name="Multi-Select"></demo>
+            <demo name="Single Expand"></demo>
+            <demo name="Context Menu"></demo>
+            <demo name="Auto Wrap"></demo>
+        </folder>
+        <folder name="Programming">
+            <demo name="Hierarchical DB Update" options="EnableViewState"></demo>
+            <demo name="Drag Drop to Grid" options="EnableViewState"></demo>
+            <demo name="More Programming Samples"></demo>
+        </folder>
+    </folder>
+</demos>

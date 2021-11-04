@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        EO.Pdf HTML to PDF converter honors CSS 
+        <b>page-break-before</b> and <b>page-break-after</b>
+        attribute. You can set either of these two attributes
+        to <b>always</b> to insert a hard page break before
+        or after any HTML element. In addition, the converter also 
+        supports <b>page-break-inside:avoid</b> style attribute.
+        Applying this style to a HTML element instructs the
+        converter not to automatically break the elements into
+        multiple pages.
+    </p>
+    <p>
+        The following HTML markup includes two short paragraphs.
+        The first paragraph has <b>page-break-after:always</b>
+        set, thus the second paragraph is displayed on the second
+        page instead of immediately following the first paragraph
+        on the first page.
+    </p>
+    <p>
+        <textarea id="txtHTML" style="width: 100%; height: 300px;">
+&lt;style&gt;
+h4 
+{
+    font-family: tahoma; 
+    font-size: 14px;     
+    font-weight: bold;
+    color:#2f4761;
+    text-align:left;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom:1px solid #ccc;
+}
+
+p
+{
+    font-size: 11px;
+    color: #606060;
+    line-height: 16px;
+    font-family: Verdana;
+}
+&lt;/style&gt;
+&lt;h4&gt;Manual Paging&lt;/h4&gt;
+&lt;p style="page-break-after:always"&gt;
+This paragraph has &lt;span style="color:red;"&gt;page-break-after:always&lt;/span&gt; 
+set, which inserts a hard page break after this element.
+&lt;/p&gt;
+&lt;p&gt;
+As a result, this paragraph is displayed on the second page.
+&lt;/p&gt;
+            </textarea>
+    </p>
+</body>
+</html>

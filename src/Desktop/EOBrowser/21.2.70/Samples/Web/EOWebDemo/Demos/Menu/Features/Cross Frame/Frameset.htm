@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Cross Frame Demo</title>
+    <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+    <meta content="http://schemas.microsoft.com/intellisense/ie5" name="vs_targetSchema">
+</head>
+<frameset rows="64,*" border="5" framespacing="0" frameborder="yes" bordercolor="blue">
+		<frame name="banner" src="TopFrame.aspx" scrolling="no" noresize>
+		<frameset cols="160,*">
+			<frame name="contents" src="LeftFrame.aspx">
+			<frame name="main" src="Content1.htm">
+		</frameset>
+		<noframes>
+			<p id="p1">
+				This HTML frameset displays multiple Web pages. To view this frameset, use a 
+				Web browser that supports HTML 4.0 and later.
+			</p>
+		</noframes>
+	</frameset>
+</html>

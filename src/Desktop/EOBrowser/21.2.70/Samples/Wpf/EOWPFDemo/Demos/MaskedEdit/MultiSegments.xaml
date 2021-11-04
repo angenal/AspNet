@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.MaskedEdit.MultiSegments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            An EO.Wpf MaskedEdit control can contain multiple "segments". Each segment can be a
+            StaticMaskedEditSegment, NumericMaskedEditSegment, ChoiceMaskedEditSegment, MaskMaskedEditSegment
+            or RegexMaskedEditSegment. This sample demonstrates a MaskedEdit control with three
+            NumericMaskedEditSegments and two StaticMaskedEditSegments
+            that create a masked edit for date value in MM/DD/YYYY format.
+        </TextBlock>
+        <eo:MaskedEdit x:Name="MaskEdit1" PromptChar="_" Width="80" HorizontalAlignment="Left">
+            <eo:NumericMaskedEditSegment Digits="2" Minimum="1" Maximum="12" TabPattern="[/-]"></eo:NumericMaskedEditSegment>
+            <eo:StaticMaskedEditSegment Text="/"></eo:StaticMaskedEditSegment>
+            <eo:NumericMaskedEditSegment Digits="2" Minimum="1" Maximum="31" TabPattern="[/-]"></eo:NumericMaskedEditSegment>
+            <eo:StaticMaskedEditSegment Text="/"></eo:StaticMaskedEditSegment>
+            <eo:NumericMaskedEditSegment Digits="4"></eo:NumericMaskedEditSegment>
+        </eo:MaskedEdit>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock VerticalAlignment="Center">Date user entered:</TextBlock>
+            <Label VerticalAlignment="Center" Content="{Binding ElementName=MaskEdit1, Path=Text}"></Label>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,2 @@
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TabPage1.ascx.cs" Inherits="Demos_TabStrip_and_MultiPage_Features_Load_On_Demand_TabPages_TabPage1" %>
+This is the <span class="highlight">first</span> dynamically loaded and very complicated tab page. The server code performed a lengthy operation before loading this page.

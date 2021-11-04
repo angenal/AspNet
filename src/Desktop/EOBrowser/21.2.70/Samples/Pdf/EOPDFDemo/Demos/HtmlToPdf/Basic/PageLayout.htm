@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        This sample demonstrates various parameters that control the
+        output page layout. See
+        <a href="javascript:eo_OpenHelp('Pdf/HtmlToPdf/page_size.html')">here</a>
+        for more details about setting page size and margins.
+    </p>
+    <table border="0">
+        <tr>
+            <td>
+                Url:
+            </td>
+            <td colspan="3">
+                <input id="txtUrl" type="text" style="width: 300px;" value="http://www.google.com" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Page Size:
+            </td>
+            <td colspan="3">
+                <select id="cbPageSize">
+                    <option value="Letter">Letter (8.5 x 11 inches)</option>
+                    <option value="HalfLetter">Half Letter (5.5 x 8.5 inches)</option>
+                    <option value="A3">A3 (11.7 x 16.5 inches)</option>
+                    <option value="A4">A4 (8.3 x 11.7 inches)</option>
+                    <option value="A3">A5 (5.8 x 8.3 inches)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                Page margins (in inches)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Left:
+            </td>
+            <td>
+                <input id="txtMarginLeft" type="text" style="width: 100px;" value="1" />
+            </td>
+            <td>
+                Top:
+            </td>
+            <td>
+                <input id="txtMarginTop" type="text" style="width: 100px;" value="1" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Right:
+            </td>
+            <td>
+                <input id="txtMarginRight" type="text" style="width: 100px;" value="1" />
+            </td>
+            <td>
+                Bottom:
+            </td>
+            <td>
+                <input id="txtMarginBottom" type="text" style="width: 100px;" value="1" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input id="cbAutoFitWidth" type="checkbox" checked="checked" />
+                <label for="cbAutoFitWidth">
+                Auto fit page width. See 
+                <a href="javascript:eo_OpenHelp('HtmlToPdf/auto_fit.html')">here</a>
+                for more details about this feature.
+                </label>
+            </td>
+        </tr>        
+    </table>
+</body>
+</html>

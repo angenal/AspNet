@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        In stead of performing a HTTP GET, EO.Pdf HTML to PDF
+        converter can perform a HTTP POST with any form data
+        you specify. To post form data to the Url, you can
+        either call <b>HtmlToPdf.Options.AddPostData</b> or
+        set <b>HtmlToPdf.Options.AddPostData</b>.
+    </p>
+    <p>
+        The default Url below is a test page in the Web Demo 
+        application. The page checks a number of form variables
+        (address fields) and produce a list of "Address Labels" 
+        based on the input. The server side source code is
+        supplied with the Web Demo application.
+    </p>
+    <table border="0">
+        <tr>
+            <td>Url:</td>
+            <td><input id="txtUrl" type="text" style="width: 350px;" /></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input id="txtName" type="text" style="width:200px" value="Your Name" />
+            </td>
+        </tr>
+        <tr>
+            <td>Address 1:</td>
+            <td>
+                <input id="txtAddr1" type="text" style="width:250px" value="1234 ABC Street" />
+            </td>
+        </tr>
+        <tr>
+            <td>Address 2:</td>
+            <td>
+                <input id="txtAddr2" type="text" style="width:250px" />
+            </td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td>
+                <input id="txtCity" type="text" style="width:150px" value="New York City" />
+            </td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td>
+                <input id="txtState" type="text" style="width:150px" value="NY" />
+            </td>
+        </tr>
+        <tr>
+            <td>Zip Code:</td>
+            <td>
+                <input id="txtZip" type="text" style="width:150px" value="12345" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

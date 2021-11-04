@@ -1,0 +1,42 @@
+﻿<Window x:Class="EO.TabbedBrowser.PdfViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+        mc:Ignorable="d"
+        Title="EO PDFViewer Demo" Height="400" Width="800" Icon="Images/PDF.png">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button x:Name="tbOpen" IsEnabled="False" Click="tbOpen_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TabbedBrowser;component/Images/Open.png" />
+                        <TextBlock Margin="3,0,0,0">Open</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="tbClose" IsEnabled="False" Click="tbClose_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TabbedBrowser;component/Images/Close.png" />
+                        <TextBlock Margin="3,0,0,0">Close</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="tbPrint" IsEnabled="False" Click="tbPrint_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TabbedBrowser;component/Images/Print.png" />
+                        <TextBlock Margin="3,0,0,0">Print</TextBlock>
+                    </StackPanel>
+                </Button>
+                <TextBox x:Name="txtSearch" Width="100" KeyDown="txtSearch_KeyDown" TextChanged="txtSearch_TextChanged" />
+                <Button x:Name="tbSearch" IsEnabled="False" Click="tbSearch_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/TabbedBrowser;component/Images/Search.png" />
+                        <TextBlock Margin="3,0,0,0">Search</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <eo:PdfViewer x:Name="pdfViewer1" IsReadyChanged="pdfViewer1_IsReadyChanged" 
+            EmptyHtml="&lt;p  style=&quot;font-size: 11px;color: #606060;font-family: Verdana;&quot;&gt;Please use the Open button on the toolbar to open a PDF file.&lt;/p&gt;" LaunchUrl="pdfViewer1_LaunchUrl"></eo:PdfViewer>
+    </DockPanel>
+</Window>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<item>
+  <version>1.0.0.0</version>
+  <url>http://127.0.0.1:8044/wpf-fullscreen/setup.exe</url>
+  <changelog></changelog>
+  <mandatory>true</mandatory>
+</item>

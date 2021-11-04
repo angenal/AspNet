@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Buttons.CheckBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            EO.Wpf CheckBox is very similar to the built-in WPF CheckBox control.
+            It offers the ability to switch themes dynamically, you can use the Theme menu 
+            to switch themes and see it in action. It also offers a convenient
+            CheckState property to access the state value as an enum.
+        </TextBlock>
+        <eo:CheckBox HorizontalAlignment="Left">This is a check box.</eo:CheckBox>
+    </StackPanel>
+</UserControl>

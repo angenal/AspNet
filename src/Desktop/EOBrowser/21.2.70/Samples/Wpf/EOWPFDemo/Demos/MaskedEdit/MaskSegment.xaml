@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.MaskedEdit.MaskSegment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates feature of a MaskMaskedEditSegment.
+        </TextBlock>
+        <eo:ComboBox x:Name="cbMask" EmptyPrompt="-Please Select-" Width="200" HorizontalAlignment="Left">
+            <eo:ComboBoxItem Value="000-000-0000">U.S. Phone Number</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="000-00-0000">U.S. Social Security Number</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="00000">U.S. Zip Code (5 Digits)</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="00000-0000">U.S. Zip Code (9 Digits)</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="AAA AAA">Canada Zip Code</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="#######">Any Number</eo:ComboBoxItem>
+        </eo:ComboBox>
+        <eo:MaskedEdit x:Name="MaskEdit1" Margin="0,10,0,0" PromptChar="_" Width="120" HorizontalAlignment="Left">
+            <eo:MaskMaskedEditSegment Mask="{Binding ElementName=cbMask, Path=SelectedItem.Value}"></eo:MaskMaskedEditSegment>
+        </eo:MaskedEdit>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBlock VerticalAlignment="Center">Value user entered:</TextBlock>
+            <Label VerticalAlignment="Center" Content="{Binding ElementName=MaskEdit1, Path=Text}"></Label>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
+

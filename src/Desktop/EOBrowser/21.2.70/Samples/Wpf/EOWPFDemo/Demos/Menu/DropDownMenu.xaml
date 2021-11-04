@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Menu.DropDownMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            You can set the menu's IsDropDownMenu to true. When IsDropDownMenu is true, 
+            the top level menu items uses the same style settings as child menu items.
+        </TextBlock>
+        <eo:DropDownButton Width="100" HorizontalAlignment="Left" Content="Test">
+            <eo:DropDownButton.DropDown>
+                <eo:DropDown>
+                    <eo:Menu IsDropDownMenu="True">
+                        <eo:MenuItem Header="_File">
+                            <eo:MenuItem Header="Open"></eo:MenuItem>
+                            <eo:MenuItem Header="Save"></eo:MenuItem>
+                            <eo:MenuItem IsSeparator="True"></eo:MenuItem>
+                            <eo:MenuItem Header="Exit"></eo:MenuItem>
+                        </eo:MenuItem>
+                        <eo:MenuItem Header="_Edit" />
+                        <eo:MenuItem Header="_View" />
+                        <eo:MenuItem Header="_Window" />
+                        <eo:MenuItem Header="_Help" />
+                    </eo:Menu>
+                </eo:DropDown>
+            </eo:DropDownButton.DropDown>
+        </eo:DropDownButton>
+    </StackPanel>
+</UserControl>

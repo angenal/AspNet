@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59321D11-10C3-4C27-992D-4D9A54220FF8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EOPDFDemo</RootNamespace>
+    <AssemblyName>EOPDFDemo</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>eo_pdf.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+    <Reference Include="EO.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebBrowser">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EO.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebBrowser.WinForm">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EO.WebBrowser.WinForm.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Pdf">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EO.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Pdf.WinForm">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\EO.Pdf.WinForm.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Version.cs">
+    </Compile>
+    <Compile Include="Demos\PdfViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Demos\PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs">
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+    </Compile>
+    <Compile Include="Demo.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\BlockBorder.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\FixedPosByFloat.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\FloatContent.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\Image.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\InlineBorder.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\MultiColumn.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\PageHeader.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\StyleSheet.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\Table.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Advanced Formatting\Table2.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Basic\ContentStyle.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Basic\ContentTree1.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Basic\ContentTree2.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Basic\DocInfo.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Basic\HelloWorld.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Interactive Features\Bookmark.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Interactive Features\FillInForm.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\Interactive Features\Link.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\PdfContent API\Image.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\PdfContent API\Path.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\PdfContent API\RubberStamp.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\PdfContent API\Text.cs">
+    </Compile>
+    <Compile Include="Demos\Acm\PdfContent API\Watermark.cs">
+    </Compile>
+    <Compile Include="Demos\Advanced\FilePassword.cs">
+    </Compile>
+    <Compile Include="Demos\Advanced\FilePermission.cs">
+    </Compile>
+    <Compile Include="Demos\Advanced\LoadEncrypted.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\CustomBookmark.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\CustomLink.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\ManualPaging.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\ManualTrigger.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\MergeWebPages.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\MultiLayer.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\PartialPage.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\TableHeader.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Advanced\UseAcm.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\AutoBookmark.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\AutoPaging.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\ConvertHtml.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\ConvertUrl.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\HeaderFooter.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\Link.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\PageLayout.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\WebAuth.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\WebPost.cs">
+    </Compile>
+    <Compile Include="Demos\HtmlToPdf\Basic\ZoomLevel.cs">
+    </Compile>
+    <Compile Include="Demos\WithExistingFiles\Merge.cs">
+    </Compile>
+    <Compile Include="Demos\WithExistingFiles\Modify.cs">
+    </Compile>
+    <Compile Include="Demos\WithExistingFiles\ExtractPages.cs">
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Demos\PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+    </Compile>
+    <Compile Include="StartWebDemoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartWebDemoForm.Designer.cs">
+      <DependentUpon>StartWebDemoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunDemoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RunDemoForm.Designer.cs">
+      <DependentUpon>RunDemoForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Images\Crocodile.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\EOLogo.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Watermark.jpg">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\SampleLogo.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Paid.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunDemoForm.resx">
+      <DependentUpon>RunDemoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunDemo.gif">
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartWebDemoForm.resx">
+      <DependentUpon>StartWebDemoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\ManualPaging.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\MergeWebPages.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\UseAcm.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\AutoPaging.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\ConvertHtml.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\ConvertUrl.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\HeaderFooter.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\Link.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\PageLayout.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\WebAuth.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\WebPost.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\ZoomLevel.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Basic\AutoBookmark.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\CustomBookmark.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\CustomLink.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\MultiLayer.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\WithExistingFiles\Modify.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\WithExistingFiles\ExtractPages.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\WithExistingFiles\Merge.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\Advanced\FilePassword.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\Advanced\FilePermission.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\Advanced\LoadEncrypted.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\ManualTrigger.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\PartialPage.htm">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Demos\HtmlToPdf\Advanced\TableHeader.htm">
+    </EmbeddedResource>
+    <Content Include="eo_pdf.ico">
+    </Content>
+    <EmbeddedResource Include="Images\EOLogoHiRes.gif">
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

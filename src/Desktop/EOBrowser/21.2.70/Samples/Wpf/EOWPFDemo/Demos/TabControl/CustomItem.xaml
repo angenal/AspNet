@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.TabControl.CustomItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="Chrome_TabItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="3,3,3,1"
+           StrokeThickness="1"
+           Stroke="Black"
+           StrokeDashArray="1 2"
+           SnapsToDevicePixels="true"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <LinearGradientBrush x:Key="Chrome_TabItemHotBackground"
+     StartPoint="0,0"
+     EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#EAF6FD"
+      Offset="0.15"/>
+                <GradientStop Color="#D9F0FC"
+      Offset=".5"/>
+                <GradientStop Color="#BEE6FD"
+      Offset=".5"/>
+                <GradientStop Color="#A7D9F5"
+      Offset="1"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="Chrome_TabItemSelectedBackground" Color="#F9F9F9"/>
+
+        <SolidColorBrush x:Key="Chrome_TabItemDisabledBackground" Color="#F4F4F4"/>
+
+        <SolidColorBrush x:Key="Chrome_TabItemHotBorderBrush" Color="#3C7FB1"/>
+
+        <SolidColorBrush x:Key="Chrome_TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+
+        <SolidColorBrush x:Key="Chrome_TabControlNormalBorderBrush" Color="#8C8E94"/>
+
+        <LinearGradientBrush x:Key="Chrome_ButtonNormalBackground" StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="#F3F3F3" />
+                <GradientStop Offset="0.5" Color="#EBEBEB" />
+                <GradientStop Offset="0.5" Color="#DDDDDD" />
+                <GradientStop Offset="1" Color="#CDCDCD" />
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <!-- ================= -->
+        <!-- = TabItem style = -->
+        <!-- ================= -->
+
+        <Style x:Key="Chrome_TabItemStyle" TargetType="{x:Type eo:TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Chrome_TabItemFocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Chrome_TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource Chrome_ButtonNormalBackground}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="HeaderTemplate" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=eo:TabControl}, 
+                                      Path=HeaderTemplate}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type eo:TabItem}">
+                        <Grid SnapsToDevicePixels="true">
+                            <eo:TabItemBorder x:Name="Bd" 
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              Padding="{TemplateBinding Padding}"
+                              Background="{TemplateBinding Background}" 
+                              BorderThickness="1,1,1,0"
+                              CornerRadius="3" 
+                              LeftSlopeAngle="70" 
+                              RightSlopeAngle="110">
+                                <eo:TemplatePresenter x:Name="PART_Presenter" 
+                                          ContentSource="Header" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          HorizontalAlignment="{Binding Path=HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                          VerticalAlignment="{Binding Path=VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                          RecognizesAccessKey="True" />
+                            </eo:TabItemBorder>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Chrome_TabItemHotBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Chrome_TabItemSelectedBackground}"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="false"/>
+                                    <Condition Property="IsMouseOver" Value="true"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Chrome_TabItemHotBorderBrush}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Top"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="0,0,0,-1"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10" DockPanel.Dock="Top">
+            This sample demonstrates how to create a custom style for TabItem.
+        </TextBlock>
+        <eo:TabControl ItemContainerStyle="{StaticResource Chrome_TabItemStyle}" OverlapDepth="10">
+            <eo:TabItem Header="Item 1"></eo:TabItem>
+            <eo:TabItem Header="Item 2"></eo:TabItem>
+            <eo:TabItem Header="Item 3"></eo:TabItem>
+        </eo:TabControl>
+    </DockPanel>
+</UserControl>

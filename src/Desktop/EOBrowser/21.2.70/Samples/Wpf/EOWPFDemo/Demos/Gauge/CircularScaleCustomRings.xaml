@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.CircularScaleCustomRings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to use the circular scale's RingDefinitions to customize
+            the scale's ring definitions. The ring definitions define the rings in which labels
+            and ticks are arranged.
+        </TextBlock>
+
+        <Grid Width="300" Height="300" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <eo:CircularGaugeFrame />
+            <eo:CircularScale>
+                <eo:CircularScale.RingDefinitions>
+                    <eo:RingDefinition RadiusX="100" RadiusY="100" Width="20" Height="20" />
+                    <eo:RingDefinition Width="20" Height="20" />
+                </eo:CircularScale.RingDefinitions>
+            </eo:CircularScale>
+        </Grid>
+    </Grid>
+</UserControl>

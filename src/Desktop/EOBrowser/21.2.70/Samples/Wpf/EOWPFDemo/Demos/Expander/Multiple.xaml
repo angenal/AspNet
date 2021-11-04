@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Expander.Multiple"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample uses multiple Expander control to implement a sliding panel UI.
+        </TextBlock>
+        <eo:Expander Header="Basic Options" Margin="0,0,0,2">
+            <StackPanel Margin="20,4,0,0">
+                <eo:CheckBox HorizontalAlignment="Left">Option 1</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 2</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 3</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 4</eo:CheckBox>
+            </StackPanel>
+        </eo:Expander>
+        <eo:Expander Header="Advanced Options" Margin="0,0,0,2">
+            <StackPanel Margin="20,4,0,0">
+                <eo:CheckBox HorizontalAlignment="Left">Option 1</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 2</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 3</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 4</eo:CheckBox>
+            </StackPanel>
+        </eo:Expander>
+        <eo:Expander Header="System Options">
+            <StackPanel Margin="20,4,0,0">
+                <eo:CheckBox HorizontalAlignment="Left">Option 1</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 2</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 3</eo:CheckBox>
+                <eo:CheckBox HorizontalAlignment="Left">Option 4</eo:CheckBox>
+            </StackPanel>
+        </eo:Expander>
+    </StackPanel>
+</UserControl>
+

@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.LinearScaleRanges"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            The EO.Wpf.Gauge.LinearScale control allows you define ranges used to highlight certain segment of the scale. To use
+            this feature, place one or multiple EO.Wpf.Gauge.Range element in the Ranges collection of the corresponding scale. 
+            For each Range object placed, configure its StartValue, EndValue and Fill.
+        </TextBlock>
+
+        <StackPanel VerticalAlignment="Top" 
+                    HorizontalAlignment="Left"
+                    Width="400"
+                    Grid.Row="1">
+            <eo:LinearScale Minimum="0" 
+                            MajorInterval="40" MinorInterval="5"
+                            Maximum="200" 
+                            Margin="40, 20">
+                <eo:LinearScale.MinorTickOptions>
+                    <eo:MinorLinearTickOptions VerticalAlignment="Bottom" />
+                </eo:LinearScale.MinorTickOptions>
+                <eo:LinearScale.RangeBarOptions>
+                    <eo:LinearRangeBarOptions Size="8" VerticalOffset="15" />
+                </eo:LinearScale.RangeBarOptions>
+                <eo:LinearScale.Ranges>
+                    <eo:Range StartValue="0" EndValue="70" Fill="#009000" />
+                    <eo:Range StartValue="70" EndValue="140" Fill="#FFC700" />
+                    <eo:Range StartValue="140" EndValue="200" Fill="#FF414D" />
+                </eo:LinearScale.Ranges>
+            </eo:LinearScale>
+
+            <eo:LinearScale Minimum="0" 
+                            MajorInterval="40" MinorInterval="5"
+                            Maximum="200" 
+                            Margin="40, 20">
+                <eo:LinearScale.MinorTickOptions>
+                    <eo:MinorLinearTickOptions VerticalAlignment="Bottom" />
+                </eo:LinearScale.MinorTickOptions>
+                <eo:LinearScale.RangeBarOptions>
+                    <eo:LinearRangeBarOptions StartSize="-0.7" />
+                </eo:LinearScale.RangeBarOptions>
+                <eo:LinearScale.Ranges>
+                    <eo:Range StartValue="0" EndValue="70" Fill="#009000" />
+                    <eo:Range StartValue="70" EndValue="140" Fill="#FFC700" />
+                    <eo:Range StartValue="140" EndValue="200" Fill="#FF414D" />
+                </eo:LinearScale.Ranges>
+            </eo:LinearScale>
+
+            <eo:LinearScale Minimum="0" 
+                            MajorInterval="40" MinorInterval="5"
+                            Maximum="200" 
+                            Margin="40, 20">
+                <eo:LinearScale.MinorTickOptions>
+                    <eo:MinorLinearTickOptions VerticalAlignment="Bottom" />
+                </eo:LinearScale.MinorTickOptions>
+                <eo:LinearScale.RangeBarOptions>
+                    <eo:LinearRangeBarOptions StartSize="0.2" />
+                </eo:LinearScale.RangeBarOptions>
+                <eo:LinearScale.Ranges>
+                    <eo:Range StartValue="0" EndValue="70" Fill="#009000" />
+                    <eo:Range StartValue="70" EndValue="140" Fill="#FFC700" />
+                    <eo:Range StartValue="140" EndValue="200" Fill="#FF414D" />
+                </eo:LinearScale.Ranges>
+            </eo:LinearScale>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

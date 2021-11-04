@@ -1,0 +1,25 @@
+before_script:
+  - chcp 65001
+
+stages:
+  - build
+  - push
+
+build:
+  stage: build
+  script:
+    - ".\\build.bat"
+  artifacts:
+    paths:
+      - out/
+    expire_in: 1h
+
+push:
+  stage: push
+  only:
+   - master
+  dependencies:
+    - build
+  script:
+    - ".\\pack.bat"
+    - ".\\push.bat"

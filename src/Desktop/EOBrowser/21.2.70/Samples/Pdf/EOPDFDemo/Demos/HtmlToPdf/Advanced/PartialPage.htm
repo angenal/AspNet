@@ -1,0 +1,34 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+        <p>
+	    EO.Pdf HTML to PDF converter can convert only a portion of
+	    an HTML page. To convert a portion of the page, set
+	    <b>HtmlToPdf.Options.VisibleElementIds</b> to a list of
+	    element IDs you wish to convert. The following sample
+	    calls ConvertUrl to convert our home page, but only convert
+	    the main content by setting <b>HtmlToPdf.Options.VisibleElementIds</b>
+	    to "main_content_div". Here "main_content_div" is a DIV in our 
+	    home page that contains the main content.
+        </p>
+        <p>
+            Url:
+        </p>
+        <p>
+            <input id="txtUrl" type="text" style="width: 300px;" value="http://www.essentialobjects.com" />
+        </p>
+        <p>
+            Visible Element ID(s):
+        </p>
+        <p>
+            <input id="txtVisibleIds" type="text" style="width: 300px;" value="main_content_div" />
+        </p>
+        <p>
+        You can also specify multiple Ids separated by ";". For example,
+        "main_content_div;footer_div".
+        </p>
+	</body>
+</html>

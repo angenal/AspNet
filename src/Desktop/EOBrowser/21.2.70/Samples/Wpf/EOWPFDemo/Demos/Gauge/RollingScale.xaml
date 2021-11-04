@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.RollingScale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates a basic rolling scale. A rolling scale is very similar to a linear
+            scale, except that only a portion of the linear scale is visible.
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            Use the following slider to update the scale value.
+        </TextBlock>
+        <eo:Slider Minimum="0" Maximum="100" x:Name="ScaleValueSlider" Width="300" 
+                HorizontalAlignment="Left" Margin="0,0,0,10">            
+        </eo:Slider>
+
+        <Grid Width="450" eo:ThemeManager.SkinName="Style3"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="120">
+            <eo:LinearGaugeFrame />
+            <eo:RollingScale Margin="30,0" Value="{Binding ElementName=ScaleValueSlider, Path=Value}"
+                IncludeOutRangeValues="False">
+                <eo:RollingScale.ValueIndicators>
+                    <eo:Marker Value="9" />
+                    <eo:Marker Value="50" />
+                </eo:RollingScale.ValueIndicators>
+                <eo:RollingScale.RangeBarOptions>
+                    <eo:RollingRangeBarOptions Size="8" VerticalOffset="12" />
+                </eo:RollingScale.RangeBarOptions>
+                <eo:RollingScale.Ranges>
+                    <eo:Range StartValue="0" EndValue="35" Fill="#009000" />
+                    <eo:Range StartValue="35" EndValue="70" Fill="#FFC700" />
+                    <eo:Range StartValue="70" EndValue="100" Fill="#FF414D" />
+                </eo:RollingScale.Ranges>
+            </eo:RollingScale>
+            <Rectangle Width="2" Fill="Green" Margin="0,10,0,10" HorizontalAlignment="Center"></Rectangle>
+        </Grid>
+    </StackPanel>
+</UserControl>

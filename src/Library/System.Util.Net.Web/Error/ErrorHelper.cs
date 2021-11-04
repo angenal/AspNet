@@ -1,0 +1,180 @@
+using System.Util.HtmlBuilder;
+using System.Util.HtmlBuilder.Body;
+using System.Util.HtmlBuilder.Header;
+using System.Util.Net.Web.Interfaces;
+using System.Util.Net.Web.Message;
+using System.Util.Net.Web.Protocol;
+using System.Util.Net.Web.Static;
+using System.Collections.Generic;
+
+namespace System.Util.Net.Web.Error
+{
+    /// <summary>
+    /// Error helper.
+    /// </summary>
+    public static class ErrorHelper
+    {
+        /// <summary>
+        /// Build
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="code">Code</param>
+        /// <param name="extraCode">Extra code</param>
+        /// <param name="server">Server</param>
+        public static IHttpResponse Build(int code, int extraCode, string server)
+        {
+            var response = new HttpResponse
+            {
+                ErrorCode = code
+            };
+            response.Write(BuildPage(code, extraCode, server));
+            response.Headers[HttpHeaders.ContentType] = "text/html;charset=utf8";
+            response.Headers[HttpHeaders.Connection] = "close";
+            response.Headers[HttpHeaders.ContentLength] = response.Content.Length.ToString();
+            return response;
+        }
+        /// <summary>
+        /// Build.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="code">Code</param>
+        /// <param name="extraCode">Extra code</param>
+        /// <param name="server">Server</param>
+        /// <param name="errorString">Error string</param>
+        public static IHttpResponse Build(int code, int extraCode, string server, string errorString)
+        {
+            var response = new HttpResponse
+            {
+                ErrorCode = code
+            };
+            response.Write(BuildPage(code, extraCode, server, errorString));
+            response.Headers[HttpHeaders.ContentType] = "text/html;charset=utf8";
+            response.Headers[HttpHeaders.Connection] = "close";
+            response.Headers[HttpHeaders.ContentLength] = response.Content.Length.ToString();
+            return response;
+        }
+
+        /// <summary>
+        /// Build page
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="code">Code</param>
+        /// <param name="server">Server</param>
+        public static string BuildPage(int code, string server) => BuildPage(code, 0, server);
+        /// <summary>
+        /// Builds page
+        /// </summary>
+        /// <returns>.</returns>
+        /// <param name="code">Code</param>
+        /// <param name="extraCode">Extra code</param>
+        /// <param name="server">Server</param>
+        public static string BuildPage(int code, int extraCode, string server)
+        {
+            var ErrorString = StatusCodesHelper.GetStringByCode(code, extraCode);
+            var ErrorPage = new HtmlPage();
+            ErrorPage.Head.Add(new Title
+            {
+                new HtmlRawNode(ErrorString)
+            });
+            ErrorPage.Body.Add(
+                new HtmlParam { Name = "bgcolor", Value = "white" }
+                );
+            ErrorPage.Body.AddRange(
+                new List<HtmlNode>
+                {
+                new Span
+                    {
+                        new H1
+                        {
+                            new HtmlRawNode("Server Error."),
+                        },
+                        new Hr
+                        {
+                            new HtmlParam { Name = "width", Value = "100%" },
+                            new HtmlParam { Name = "size", Value = "1" },
+                            new HtmlParam { Name = "color", Value = "silver" }
+                        },
+                        new H2
+                        {
+                            new I
+                            {
+                                new HtmlRawNode($"HTTP Error {code}- {ErrorString}.")
+                            }
+                        }
+                    },
+                    new Hr
+                    {
+                            new HtmlParam { Name = "width", Value = "100%" },
+                            new HtmlParam { Name = "size", Value = "1" },
+                            new HtmlParam { Name = "color", Value = "silver" }
+                    },
+                    new B
+                    {
+                        new HtmlRawNode("Server Information:")
+                    },
+                    new HtmlRawNode($" &nbsp; {server}")
+                }
+            );
+            return ErrorPage.ToString();
+        }
+
+
+        /// <summary>
+        /// Builds the page.
+        /// </summary>
+        /// <returns>The page.</returns>
+        /// <param name="code">Code.</param>
+        /// <param name="extracode">Extracode.</param>
+        /// <param name="server">Server.</param>
+        /// <param name="ErrorString">Error string.</param>
+        public static string BuildPage(int code, int extracode, string server, string ErrorString)
+        {
+            var ErrorPage = new HtmlPage();
+            ErrorPage.Head.Add(new Title
+            {
+                new HtmlRawNode(ErrorString)
+            });
+            ErrorPage.Body.Add(
+                new HtmlParam { Name = "bgcolor", Value = "white" }
+             );
+            ErrorPage.Body.AddRange(
+                new List<HtmlNode>
+                {
+                new Span
+                    {
+                        new H1
+                        {
+                            new HtmlRawNode("Server Error."),
+                        },
+                        new Hr
+                        {
+                            new HtmlParam { Name = "width", Value = "100%" },
+                            new HtmlParam { Name = "size", Value = "1" },
+                            new HtmlParam { Name = "color", Value = "silver" }
+                        },
+                        new H2
+                        {
+                            new I
+                            {
+                                new HtmlRawNode($"HTTP Error {code}- {ErrorString}.")
+                            }
+                        }
+                    },
+                    new Hr
+                    {
+                            new HtmlParam { Name = "width", Value = "100%" },
+                            new HtmlParam { Name = "size", Value = "1" },
+                            new HtmlParam { Name = "color", Value = "silver" }
+                    },
+                    new B
+                    {
+                        new HtmlRawNode("Server Information:")
+                    },
+                    new HtmlRawNode($" &nbsp; {server}")
+                }
+            );
+            return ErrorPage.ToString();
+        }
+
+    }
+}

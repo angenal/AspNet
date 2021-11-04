@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.ComboBox.ItemTemplateSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate x:Key="CategoryTemplate">
+            <TextBlock IsEnabled="False" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+        </DataTemplate>
+        <DataTemplate x:Key="ProductTemplate">
+            <TextBlock Margin="10,0,0,0" Text="{Binding Name}"></TextBlock>
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to use a DataTemplateSelector object to apply different item
+            template for different item. The following ListBox lists products in different "Categories".
+            The "Categories" and the actual products are displays using two different template and
+            only the actual product is selectable.
+        </TextBlock>
+        <eo:ComboBox x:Name="cbProducts" Width="200" HorizontalAlignment="Left">
+        </eo:ComboBox>
+    </StackPanel>
+</UserControl>

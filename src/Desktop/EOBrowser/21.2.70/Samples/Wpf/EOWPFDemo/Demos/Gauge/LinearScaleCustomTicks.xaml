@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.LinearScaleCustomTicks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to use MajorLinearLabelOptions, MajorTickOptions and MinorTickOptions to
+            customize a linear scale's labels and ticks.
+        </TextBlock>
+
+        <eo:LinearScale Grid.Row="1" 
+                        Width="350"
+                        Margin="10"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        LineHorizontalAlignment="Center" MinorInterval="5">
+            <eo:LinearScale.MajorLabelOptions>
+                <eo:MajorLinearLabelOptions>
+                    <eo:MajorLinearLabelOptions.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="FontSize" Value="12" />
+                            <Setter Property="FontWeight" Value="DemiBold" />
+                            <Setter Property="FontFamily" Value="Arial" />
+                        </Style>
+                    </eo:MajorLinearLabelOptions.Style>
+                </eo:MajorLinearLabelOptions>
+            </eo:LinearScale.MajorLabelOptions>
+            <eo:LinearScale.MinorTickOptions>
+                <eo:MinorLinearTickOptions VerticalAlignment="Center" Type="Ellipse" />
+            </eo:LinearScale.MinorTickOptions>
+            <eo:LinearScale.MajorTickOptions>
+                <!-- we suppress the default style, we set all properties in the DataTemplate -->
+                <eo:MajorLinearTickOptions Style="{x:Null}">
+                    <eo:MajorLinearTickOptions.Template>
+                        <DataTemplate>
+                            <Path x:Name="PART_Shape" Width="4" Height="12" Fill="Red">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,2" IsFilled="True">
+                                            <LineSegment Point="0,12" />
+                                            <LineSegment Point="4,12" />
+                                            <LineSegment Point="4,2" />
+                                            <ArcSegment Point="0,2" 
+                                                        Size="2,2" 
+                                                        RotationAngle="0" 
+                                                        IsLargeArc="True" 
+                                                        SweepDirection="Counterclockwise" />
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </DataTemplate>
+                    </eo:MajorLinearTickOptions.Template>
+                </eo:MajorLinearTickOptions>
+            </eo:LinearScale.MajorTickOptions>
+        </eo:LinearScale>
+        
+    </Grid>
+</UserControl>

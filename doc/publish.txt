@@ -1,0 +1,41 @@
+推荐1:安装部署工具 WiX Toolset & Visual Studio Extension
+https://wixtoolset.org/releases
+
+推荐2:发布 ClickOnce 应用程序 (数字签名保护应用程序文件)
+  项目设置：签名√为ClickOnce清单签名√为程序集签名(可选)新建：TemporaryKey.pfx
+            安全√启用ClickOnce安全设置
+            发布√发布位置（物理目录&HTTP访问URL）√安装模式和设置√该应用程序只能联机使用
+            发布√选项（发布项目[填写]:说明"发行者名称";部署网页"index.html"√每次发布后都自动生成部署网页√对于CD安装"autorun.inf"√清单"创建桌面快捷方式"）
+            发布√点击"立即发布"。
+1.安装 Mage.exe 和 MageUI.exe 作为 Windows 软件开发包 (SDK) 部署 ClickOnce 应用程序
+https://www.microsoft.com/en-us/download/details.aspx?id=8279
+
+2.使用 MageUI.exe 图形工具部署应用程序
+https://docs.microsoft.com/zh-cn/visualstudio/deployment/walkthrough-manually-deploying-a-clickonce-application?view=vs-2019
+
+手动创建数字证书? (当需要保护应用程序发布文件时,用于为ClickOnce清单签名>从文件选择"manifest.pfx")
+3-1.签名工具 selfcert.exe 该工具在Office菜单中
+https://support.microsoft.com/zh-cn/office/对宏项目进行数字签名-956e9cc8-bbf6-4365-8bfa-98505ecd1c01
+3-2.签名工具 makecert.exe 该工具在VS功能菜单中
+3-2-1.打开命令窗口：工具/命令行/开发者命令提示
+3-2-2.执行如下命令：先进入项目目录$(ProjectDir)
+> makecert -r -pe -a sha256 -e 12/30/2099 -n "CN=Chinese Developer, C=China" -sv manifest.pvk manifest.cer  #-n"CN=公司,E=邮箱,O=组织,OU=单位,C=国家,S=省份,P=县城"
+> cert2spc manifest.cer manifest.spc  #-生成软件发布证书"manifest.spc"或者> pvk2pfx -pvk manifest.pvk -spc manifest.cer -pfx manifest.pfx
+> pvk2pfx -spc manifest.spc -pvk manifest.pvk -pfx manifest.pfx -pi 123456789 -po 123456789  #-生成证书"manifest.pfx"为ClickOnce清单签名>从文件选择
+> del /f manifest.spc manifest.pvk  #-删除或者转移证书私钥"manifest.pvk"
+##客户端电脑安装该证书：certmgr.msc
+##将上面创建的"manifest.cer"发送到客户端，在"受信任的根证书颁发机构"和"受信任的发布者"中都"右键选择所有任务>导入"，根据向导完成导入。
+
+4.手动将证书安装到具有以下密钥容器名称的强名称 CSP: VS_KEY_***
+4-1.打开命令窗口：工具/命令行/开发者命令提示
+4-2.执行如下命令：
+> sn -d VS_KEY_72734D85C624A46A
+> sn -i .\Desktop\DotNetBrowser\WPF.FullScreen\TemporaryKey.pfx VS_KEY_72734D85C624A46A
+
+4-3.为项目引用的且没有源码的"Library.dll"添加强名称
+4-3-1.进入目录 C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys 为当前用户添加写入权限
+4-3-2.打开命令窗口：工具/命令行/开发者命令提示
+> sn -k manifest.snk                 # 创建一个随机密钥对"manifest.snk"
+> ildasm Library.dll /out=Library.il # 反编译目标程序集"Library.dll"
+> ilasm Library.il /dll /resource=Library.res /key=manifest.snk /optimize  # 重新编译并附带强命名参数
+> sn -v Library.dll                  # 验证签名信息

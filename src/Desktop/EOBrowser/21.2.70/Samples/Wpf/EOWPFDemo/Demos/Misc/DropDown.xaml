@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Misc.DropDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            EO.Wpf DropDown is a drop down window that you can associate to another control. The
+            following sample demonstrates how to use this control.
+        </TextBlock>
+        <eo:Button Width="80" HorizontalAlignment="Left">
+            <eo:DropDownService.DropDown>
+                <eo:DropDown>
+                    This is the content of the drop down.
+                </eo:DropDown>
+            </eo:DropDownService.DropDown>
+            Button
+        </eo:Button>
+    </StackPanel>
+</UserControl>

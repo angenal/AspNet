@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Calendar.MultiSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates multi-selection support. EO.Wpf Calendar supports three
+            selection modes: Single, Multiple and Extended. In Multiple mode, multiple dates can 
+            be selected without holding a modifier key. In Extended mode, multiple consecutive 
+            dates can be selected while holding the SHIFT key. Multiple non-consecutive dates 
+            can be selected while holding the CONTROL key. This sample has SelectionMode set to
+            "Extended".
+        </TextBlock>
+        <eo:Calendar HorizontalAlignment="Left" SelectionMode="Extended"></eo:Calendar>
+    </StackPanel>
+</UserControl>

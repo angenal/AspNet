@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.BuiltinLinearSkin"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" 
+             d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <x:Array x:Key="Skins" Type="sys:String">
+            <sys:String>Basic</sys:String>
+            <sys:String>Style1</sys:String>
+            <sys:String>Style2</sys:String>
+            <sys:String>Style3</sys:String>
+            <sys:String>Style4</sys:String>
+        </x:Array>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel>
+            <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                This sample demonstrates the built-in skins for the linear scale.
+            </TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,10,0">Choose a skin: </TextBlock>
+                <eo:ComboBox x:Name="Skins" ItemsSource="{StaticResource Skins}" Width="150" />
+            </StackPanel>
+
+            <Grid eo:ThemeManager.SkinName="{Binding ElementName=Skins, Path=SelectedItem}"
+                Width="310" Height="100" Margin="10" HorizontalAlignment="Left">
+                <eo:LinearGaugeFrame />
+                <eo:LinearScale Margin="30,0" />
+            </Grid>
+
+            <Grid eo:ThemeManager.SkinName="{Binding ElementName=Skins, Path=SelectedItem}"
+                Width="100" Height="310" Margin="10" HorizontalAlignment="Left">
+                <eo:LinearGaugeFrame />
+                <eo:LinearScale Margin="0,30" Orientation="Vertical">
+                </eo:LinearScale>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        EO.Pdf HTML to PDF converter can automatically add page
+        header and footer. The header and footer can contain any
+        valid HTML tags as well as "variables" that can be the
+        page Url, page number or total page count. The following
+        sample adds page header containing the page Url and
+        page footer containing the current page number and total
+        page count. Both header and footer also use <b>&lt;hr /&gt;</b>
+        to render a horizontal line. In addition, the footer uses
+        <b>style="text-align:center"</b> to center align the page numbers.        
+    </p>
+    <p>
+        Url:
+        <input id="txtUrl" type="text" style="width: 300px;" value="http://en.wikipedia.org/wiki/HTML" />
+    </p>
+    <p>
+        Header Format:
+    </p>
+    <textarea id="txtHeaderFormat" style="width: 100%; height: 80px;">
+PDF converted from {url}
+&lt;hr /&gt;
+    </textarea>
+    <p>
+        Footer Format:
+    </p>
+    <textarea id="txtFooterFormat" style="width: 100%; height: 80px;">
+&lt;hr /&gt;
+&lt;div style="text-align:center"&gt;
+    Page {page_number}/{total_pages}
+&lt;/div&gt;
+    </textarea>
+</body>
+</html>

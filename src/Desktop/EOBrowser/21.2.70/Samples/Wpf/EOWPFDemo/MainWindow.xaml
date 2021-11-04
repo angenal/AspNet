@@ -1,0 +1,71 @@
+﻿<Window x:Class="EO.Wpf.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+        Title="EO.Wpf Demos" Height="500" Width="800">
+    <DockPanel>
+        <eo:Menu IsMainMenu="True" DockPanel.Dock="Top">
+            <eo:MenuItem Header="_File">
+                <eo:MenuItem Header="_Exit" Click="File_Close" InputGestureText="Ctrl+X"></eo:MenuItem>
+            </eo:MenuItem>
+            <eo:MenuItem x:Name="mnuThemes" Header="_Themes">
+                <eo:MenuItem Header="Classic" />
+                <eo:MenuItem Header="Aero.NormalColor" />
+                <eo:MenuItem Header="Luna.Homestead" />
+                <eo:MenuItem Header="Luna.Metallic" />
+                <eo:MenuItem Header="Luna.NormalColor" />
+                <eo:MenuItem Header="Royale.NormalColor" />
+                <eo:MenuItem Header="Metro.Light" />
+            </eo:MenuItem>
+            <eo:MenuItem Header="_About">
+                <eo:MenuItem Header="About" Click="OnAbout"></eo:MenuItem>
+            </eo:MenuItem>
+        </eo:Menu>
+        <eo:SplitView x:Name="splitView" View1Width="1*" View2Width="3*" 
+            eo:ThemeManager.TrackAppTheme="True" 
+            eo:ThemeManager.EffectiveAppThemeNameChanged="OnEffectiveAppThemeNameChanged">
+            <eo:SplitView.View1>
+                <eo:TreeView x:Name="tvDemos" SelectedItemChanged="tvDemos_SelectedItemChanged">
+                    <eo:TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type eo:TreeViewItem}">
+                            <Setter Property="Header" Value="{Binding Name}"></Setter>
+                            <Setter Property="ItemsSource" Value="{Binding ChildItems}"></Setter>
+                        </Style>
+                    </eo:TreeView.ItemContainerStyle>
+                </eo:TreeView>
+            </eo:SplitView.View1>
+            <eo:SplitView.View2>
+                <TextBlock></TextBlock>
+            </eo:SplitView.View2>
+            <eo:SplitView.View2BorderStyle>
+                <Style TargetType="Border">
+                    <Setter Property="Padding" Value="4"></Setter>
+                    <Setter Property="BorderThickness" Value="1"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Classic">
+                            <Setter Property="BorderBrush" Value="#828790"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Aero.NormalColor">
+                            <Setter Property="BorderBrush" Value="#828790"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Luna.NormalColor">
+                            <Setter Property="BorderBrush" Value="#7F9DB9"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Luna.Homestead">
+                            <Setter Property="BorderBrush" Value="#828790"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Luna.Metallic">
+                            <Setter Property="BorderBrush" Value="#A5ACB2"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Royale.NormalColor">
+                            <Setter Property="BorderBrush" Value="#828790"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=splitView, Path=(eo:ThemeManager.EffectiveAppThemeName)}" Value="Metro.Light">
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </eo:SplitView.View2BorderStyle>
+        </eo:SplitView>
+    </DockPanel>
+</Window>

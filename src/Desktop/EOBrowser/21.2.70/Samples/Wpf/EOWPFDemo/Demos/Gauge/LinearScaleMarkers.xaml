@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Gauge.LinearScaleMarkers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to use Markers and ProgressIndicators with a linear scale.
+        </TextBlock>
+
+        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="450" Height="120"
+              eo:ThemeManager.SkinName="Style4">
+            <eo:LinearGaugeFrame />
+            <eo:LinearScale Margin="30,0" MarkerBarSize="25" MarkerBarVerticalOffset="0">
+                <eo:LinearScale.ValueIndicators>
+                    <eo:Marker Value="65" VerticalAlignment="Top" />
+                    <eo:Marker Value="95" Background="Red" VerticalAlignment="Bottom" />
+                    <eo:ProgressIndicator VerticalAlignment="Top" Height="6" Margin="0,4.5,0,0" Value="36" />
+                </eo:LinearScale.ValueIndicators>
+            </eo:LinearScale>
+        </Grid>
+        
+    </Grid>
+    
+</UserControl>

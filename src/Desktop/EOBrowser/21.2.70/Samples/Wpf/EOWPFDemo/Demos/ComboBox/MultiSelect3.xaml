@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.ComboBox.MultiSelect3"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to customize the "More Items" button for a ComboBox. In
+            order to show the "More Items" button, select multiple items so that the selection
+            box does not have enough space to display all items.
+        </TextBlock>
+        <eo:ComboBox Width="200" HorizontalAlignment="Left" ShowCheckBoxes="True" ShowHeader="True">
+            <!--Custom HeaderTemplate-->
+            <eo:ComboBox.MoreItemsButtonTemplate>
+                <DataTemplate>
+                    <TextBlock>...</TextBlock>
+                </DataTemplate>
+            </eo:ComboBox.MoreItemsButtonTemplate>
+            <!--ComboBox Items-->
+            <eo:ComboBoxItem>Item 1</eo:ComboBoxItem>
+            <eo:ComboBoxItem>Item 2</eo:ComboBoxItem>
+            <eo:ComboBoxItem>Item 3</eo:ComboBoxItem>
+            <eo:ComboBoxItem>Item 4</eo:ComboBoxItem>
+            <eo:ComboBoxItem>Item 5</eo:ComboBoxItem>
+        </eo:ComboBox>
+    </StackPanel>
+</UserControl>

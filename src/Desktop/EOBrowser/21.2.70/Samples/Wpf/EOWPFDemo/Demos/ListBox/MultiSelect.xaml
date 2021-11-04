@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.ListBox.MultiSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample has SelectionMode set to "Multiple".
+        </TextBlock>
+        <eo:ListBox Width="200" HorizontalAlignment="Left" SelectionMode="Multiple">
+            <eo:ListBoxItem>Item 1</eo:ListBoxItem>
+            <eo:ListBoxItem>Item 2</eo:ListBoxItem>
+            <eo:ListBoxItem>Item 3</eo:ListBoxItem>
+            <eo:ListBoxItem>Item 4</eo:ListBoxItem>
+            <eo:ListBoxItem>Item 5</eo:ListBoxItem>
+        </eo:ListBox>
+    </StackPanel>
+</UserControl>

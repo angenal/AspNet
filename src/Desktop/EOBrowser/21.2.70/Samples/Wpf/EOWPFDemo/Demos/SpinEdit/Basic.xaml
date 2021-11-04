@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.SpinEdit.Basic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to use a basic SpinEdit. The following SpinEdit
+            is set to have a value range from 0 to 10.
+        </TextBlock>
+        <eo:SpinEdit Width="100" HorizontalAlignment="Left" Minimum="0" Maximum="10" Value="0"></eo:SpinEdit>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.TreeView.Dynamic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to populate a TreeView from code, where the ItemsSource
+            is a list of complex objects rather than simply a string. This is the second
+            of the three samples about dynamically populate a TreeView. The next sample
+            "Hierarchical Item Template" demonstres how to populate a TreeView from a hierarchical
+            data source.
+        </TextBlock>
+        <eo:TreeView x:Name="TreeView1" Width="200" Height="200" HorizontalAlignment="Left">
+            <eo:TreeView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <eo:Bitmap Grid.Column="0" Source="{Binding Image}" Margin="2"></eo:Bitmap>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="5"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </eo:TreeView.ItemTemplate>
+        </eo:TreeView>
+    </StackPanel>
+</UserControl>

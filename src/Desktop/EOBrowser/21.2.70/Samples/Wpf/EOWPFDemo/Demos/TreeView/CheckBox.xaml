@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.TreeView.CheckBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates how to enable check box and handle the TreeViewItem's
+            CheckStateChanged event. It also has AutoCheckChildren and AutoCheckParent
+            set to true so that checking a parent item automatically checks all children
+            items, and checking/uncheck a child item also automatically update the check
+            state of the parent item.
+        </TextBlock>
+        <eo:TreeView Width="200" Height="200" HorizontalAlignment="Left" 
+            AutoCheckChildren="True" AutoCheckParent="True"
+            ShowCheckBox="True" eo:TreeViewItem.CheckStateChanged="TreeView_CheckStateChanged">
+            <eo:TreeViewItem Header="Parent Item 1">
+                <eo:TreeViewItem Header="Child Item 1"></eo:TreeViewItem>
+                <eo:TreeViewItem Header="Child Item 2"></eo:TreeViewItem>
+            </eo:TreeViewItem>
+            <eo:TreeViewItem Header="Parent Item 2">
+                <eo:TreeViewItem Header="Child Item 3"></eo:TreeViewItem>
+                <eo:TreeViewItem Header="Child Item 4"></eo:TreeViewItem>
+                <eo:TreeViewItem Header="Child Item 5"></eo:TreeViewItem>
+            </eo:TreeViewItem>
+        </eo:TreeView>
+    </StackPanel>
+</UserControl>

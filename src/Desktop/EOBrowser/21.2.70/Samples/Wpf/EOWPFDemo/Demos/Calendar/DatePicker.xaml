@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="EO.Wpf.Demo.Demos.Calendar.DatePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            This sample demonstrates Calendar control with default settings. It also demonstrates
+            how different PickerFormat values affect the format of the DatePicker.
+        </TextBlock>
+        <eo:ComboBox x:Name="cbFormat" Width="200" HorizontalAlignment="Left" SelectedValuePath="Value">
+            <eo:ComboBox.EmptyPrompt>
+                <TextBlock FontStyle="Italic">-Please select a PickerFormat-</TextBlock>
+            </eo:ComboBox.EmptyPrompt>
+            <eo:ComboBoxItem Value="d">d (short date pattern)</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="D">D (long date pattern)</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="MM/dd/yyyy">MM/dd/yyyy</eo:ComboBoxItem>
+            <eo:ComboBoxItem Value="MMM/dd/yyyy">MMM/dd/yyyy</eo:ComboBoxItem>
+        </eo:ComboBox>
+        <eo:DatePicker Margin="0,10,0,0" HorizontalAlignment="Left" 
+            PickerFormat="{Binding ElementName=cbFormat, Path=SelectedValue}">            
+        </eo:DatePicker>
+    </StackPanel>
+</UserControl>
