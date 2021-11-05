@@ -6,11 +6,16 @@
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
         xmlns:local="clr-namespace:FullScreenBrowser"
         mc:Ignorable="d"
-        Title="" Icon="App.ico" 
-        Height="728" Width="1280" 
-        AllowsTransparency="True" Background="White" ResizeMode="NoResize" ShowInTaskbar="True" 
-        WindowState="Normal" WindowStyle="None" WindowStartupLocation="CenterScreen" 
-        Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing">
+        Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing" 
+        Icon="App.ico" AllowsTransparency="True" ResizeMode="NoResize" ShowInTaskbar="False" 
+        WindowState="Normal" WindowStyle="None" WindowStartupLocation="Manual" 
+        Left="{DynamicResource {x:Static SystemParameters.VirtualScreenLeftKey}}" 
+        Top="{DynamicResource {x:Static SystemParameters.VirtualScreenTopKey}}" 
+        Width="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}" 
+        Height="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" 
+        MaxWidth="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" 
+        MaxHeight="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" 
+        ScrollViewer.VerticalScrollBarVisibility="Disabled">
     <Window.Resources>
         <!-- Style for Back, Forward and Reload Button -->
         <Style x:Key="ToolButtonStyle" TargetType="eo:BareButton">
@@ -65,12 +70,11 @@
                         </Setter.Value>
                     </Setter>
                 </Trigger>
-                <Trigger Property="IsEnabled"  Value="False">
+                <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Foreground" Value="LightGray"></Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
-
         <!-- Style for Minimize, Maximize and Close Button -->
         <Style x:Key="WindowButtonStyle" TargetType="eo:BareButton">
             <Setter Property="BorderBrush" Value="Transparent"></Setter>
@@ -124,47 +128,17 @@
             </Setter>
         </Style>
     </Window.Resources>
-
+    <!-- Sets the shortcut for the Window object -->
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="P" Command="ApplicationCommands.Print" />
         <KeyBinding Modifiers="Control" Key="F" Command="ApplicationCommands.Find" />
     </Window.InputBindings>
-
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Print" Executed="Print_Executed" />
         <CommandBinding Command="ApplicationCommands.Find" Executed="Find_Executed" />
     </Window.CommandBindings>
 
-    <eo:WindowChrome>
-        <!--
-        FrameTemplate is used when the system does not support glass (for example, on
-        Windows 2003 systems). More info here:
-        http://www.essentialobjects.com/doc/wpf/controls/windowchrome/frame.aspx
-        -->
-        <eo:WindowChrome.FrameTemplate>
-            <DataTemplate>
-                <Border BorderThickness="2" BorderBrush="DarkGray" CornerRadius="{Binding RelativeSource={RelativeSource AncestorType={x:Type eo:WindowChrome}}, Path=CornerRadius}" Padding="0,5,10,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-                        <eo:BareButton Style="{StaticResource WindowButtonStyle}" eo:WindowChrome.IsClientElement="True" Command="{x:Static eo:WindowCommands.Minimize}">
-                            <Line X1="0" Y1="6" X2="8" Y2="6" StrokeThickness="2"
-                                Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"></Line>
-                        </eo:BareButton>
-                        <eo:BareButton Style="{StaticResource WindowButtonStyle}" eo:WindowChrome.IsClientElement="True" Command="{x:Static eo:WindowCommands.MaximizeRestore}">
-                            <Rectangle StrokeThickness="2" 
-                                Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}" 
-                                Width="8" Height="8"></Rectangle>
-                        </eo:BareButton>
-                        <eo:BareButton Style="{StaticResource WindowButtonStyle}" eo:WindowChrome.IsClientElement="True" Command="{x:Static eo:WindowCommands.Close}">
-                            <Path Data="M 0,0 L 0,2 L 1,2 L 1,3 L 2,3 L 2,5 L 1,5 L 1,6 L 0,6 L 0,8 L 2,8 L 2,7 L 3,7 L 3,6 L 5,6 L 5,7 L 6,7 L 6,8 L 8,8 L 8,6 L 7,6 L 7,5 L 6,5 L 6,3 L 7,3 L 7,2 L 8,2 L 8,0 L 6,0 L 6,1 L 5,1 L 5,2 L 3,2 L 3,1 L 2,1 L 2,0 Z"
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Center"
-                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}" />
-                        </eo:BareButton>
-                    </StackPanel>
-                </Border>
-            </DataTemplate>
-        </eo:WindowChrome.FrameTemplate>
-
+    <Grid Background="White" MaxHeight="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" MaxWidth="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}">
         <DockPanel x:Name="panels">
             <Grid DockPanel.Dock="Top" Margin="2">
                 <Grid.ColumnDefinitions>
@@ -335,5 +309,5 @@
                 DockViewAdded="dockContainer_DockViewAdded">
             </eo:DockContainer>
         </DockPanel>
-    </eo:WindowChrome>
+    </Grid>
 </Window>
