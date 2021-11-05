@@ -149,69 +149,15 @@ namespace FullScreenBrowser
                 new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
             };
 
-            //Handles various WebView events
-            item.Page.WebView.Closed += new WebViewClosedEventHandler(WebView_Closed);
-            item.Page.WebView.JSExtInvoke += new JSExtInvokeHandler(WebView_JSExtInvoke);
-            item.Page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
-            item.Page.WebView.Activate += new EventHandler(WebView_Activate);
-            item.Page.WebView.LaunchUrl += new LaunchUrlHandler(WebView_LaunchUrl);
-
+            //Handles various events
             m_WebPage = item.Page;
+            AttachPage(m_WebPage);
 
             return item;
         }
 
-        //WebView events
-        void WebView_NewWindow(object sender, NewWindowEventArgs e)
-        {
-            //The new WebView has already been created (e.WebView). Here we
-            //associates it with a new WebViewItem object and creates a
-            //new tab button for it (by adding it to m_Pages)
-            WebViewItem item = NewWebViewItem(e.WebView);
-            m_WebViewsHost.Items.Add(item);
 
-            //Signifies that we accept the new WebView. Without this line
-            //the newly created WebView will be immediately destroyed
-            e.Accepted = true;
-
-            //If you do not want to open a new window but wish to open
-            //the new Url in the same window, comment the code above
-            //and uncomment the code below. The code below set the existing
-            //WebView's Url to the new Url. Also because it did not set
-            //e.Accepted to true, so the new WebView will be discarded.
-            EO.WebBrowser.WebView webView = (EO.WebBrowser.WebView)sender;
-            webView.Url = e.TargetUrl;
-        }
-
-        //WebView events
-        void WebView_Activate(object sender, EventArgs e)
-        {
-        }
-
-        //WebView events
-        void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
-        {
-            e.UseOSHandler = true;
-        }
-
-        //WebView events
-        void WebView_Closed(object sender, WebViewClosedEventArgs e)
-        {
-        }
-
-        //JavaScript code
-        void WebView_JSExtInvoke(object sender, JSExtInvokeArgs e)
-        {
-            switch (e.FunctionName)
-            {
-                case "about":
-                    About.Show(this);
-                    break;
-            }
-        }
-
-
-
+        //Find text in web page
         private FindSession m_FindSession;
         private void Find_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -391,9 +337,8 @@ namespace FullScreenBrowser
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if (m_WebPage != null) m_WebPage.WebView.Print();
         }
-
 
     }
 }
