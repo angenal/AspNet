@@ -7,11 +7,11 @@ using System.Windows;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Full Screen Browser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("浏览器")]
+[assembly: AssemblyDescription("用于大屏展示H5网站内容")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Full Screen Browser")]
+[assembly: AssemblyProduct("一个全屏浏览工具")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
