@@ -9,12 +9,9 @@
         Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing" 
         Icon="App.ico" AllowsTransparency="True" ResizeMode="NoResize" ShowInTaskbar="False" 
         WindowState="Normal" WindowStyle="None" WindowStartupLocation="Manual" 
-        Left="{DynamicResource {x:Static SystemParameters.VirtualScreenLeftKey}}" 
-        Top="{DynamicResource {x:Static SystemParameters.VirtualScreenTopKey}}" 
-        Width="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}" 
-        Height="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" 
-        MaxWidth="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenWidthKey}}" 
-        MaxHeight="{DynamicResource {x:Static SystemParameters.FullPrimaryScreenHeightKey}}" 
+        Left="0" Top="0" 
+        Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" 
+        Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}" 
         ScrollViewer.VerticalScrollBarVisibility="Disabled">
     <Window.Resources>
         <!-- Style for Back, Forward and Reload Button -->
@@ -138,7 +135,7 @@
         <CommandBinding Command="ApplicationCommands.Find" Executed="Find_Executed" />
     </Window.CommandBindings>
 
-    <Grid Background="White" MaxHeight="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" MaxWidth="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}">
+    <Grid Background="White">
         <DockPanel x:Name="panels">
             <Grid DockPanel.Dock="Top" Margin="2">
                 <Grid.ColumnDefinitions>
@@ -230,12 +227,12 @@
                                 <ControlTemplate TargetType="eo:BareButton">
                                     <Grid>
                                         <Ellipse
-                                                    Width="22"
-                                                    Height="22"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Fill="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    />
+                                            Width="22"
+                                            Height="22"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Fill="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                            />
                                         <ContentPresenter></ContentPresenter>
                                     </Grid>
                                 </ControlTemplate>
@@ -262,34 +259,34 @@
                 <!-- Previous Button -->
                 <eo:BareButton x:Name="btnFindNext" Style="{StaticResource FindButtonStyle}" Margin="0,2,2,2" Click="btnFindPrevious_Click">
                     <Path 
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Data="M 5,1 L 1.5,4.5 L 5,8"
-                                        SnapsToDevicePixels="false"
-                                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
-                                        StrokeThickness="2" />
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M 5,1 L 1.5,4.5 L 5,8"
+                        SnapsToDevicePixels="false"
+                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
+                        StrokeThickness="2" />
                 </eo:BareButton>
 
                 <!-- Next Button -->
                 <eo:BareButton x:Name="btnFindPrevious" Style="{StaticResource FindButtonStyle}" Margin="2" Click="btnFindNext_Click">
                     <Path
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Data="M 1.5,1 L 5,4.5 L 1.5,8"
-                                        SnapsToDevicePixels="false"
-                                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
-                                        StrokeThickness="2" />
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M 1.5,1 L 5,4.5 L 1.5,8"
+                        SnapsToDevicePixels="false"
+                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
+                        StrokeThickness="2" />
                 </eo:BareButton>
 
                 <!-- Close Button -->
                 <eo:BareButton Style="{StaticResource FindButtonStyle}" Margin="2" Click="btnFindClose_Click">
                     <Path
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Data="M 0,0 L 7,7 M 7,0 L 0,7"
-                                        SnapsToDevicePixels="false"
-                                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
-                                        StrokeThickness="2" />
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M 0,0 L 7,7 M 7,0 L 0,7"
+                        SnapsToDevicePixels="false"
+                        Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type eo:BareButton}}}"
+                        StrokeThickness="2" />
                 </eo:BareButton>
 
                 <Label x:Name="lbFindCount"></Label>

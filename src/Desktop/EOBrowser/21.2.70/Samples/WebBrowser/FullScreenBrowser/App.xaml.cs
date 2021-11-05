@@ -11,13 +11,15 @@ namespace FullScreenBrowser
     /// </summary>
     public partial class App : Application
     {
-        static string ExeDir { get; set; }
+        internal static int ExitCode;
+        internal static MainWindow MainWnd;
+        internal static string ExeDir { get; set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //启动屏幕
-            TransparentSplash.Instance.Width = 380;
-            TransparentSplash.Instance.Height = 270;
+            //启动屏幕(设定宽高会自动缩放)
+            //TransparentSplash.Instance.Width = 737;
+            //TransparentSplash.Instance.Height = 361;
             TransparentSplash.SetBackgroundImage(FullScreenBrowser.Properties.Resources.SplashImage);
             TransparentSplash.BeginDisplay();
 
@@ -25,14 +27,15 @@ namespace FullScreenBrowser
             EO.Wpf.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
             EO.WebBrowser.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
             EO.WebEngine.EngineOptions options = EO.WebEngine.EngineOptions.Default;
+            //Disable spell checker
             options.DisableSpellChecker = true;
 
             //Get the main exe folder
             string exePath = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
             ExeDir = Path.GetDirectoryName(exePath);
 
-            //Uncomment the following two lines to use eowp.exe. See here for
-            //more details:
+            //Uncomment the following two lines to use eowp.exe.
+            //See here for more details:
             //https://www.essentialobjects.com/doc/common/eowp.aspx
             //string eowpPath = Path.Combine(ExeDir, "FullScreenBrowserEOWP.exe");
             //EO.Base.Runtime.InitWorkerProcessExecutable(eowpPath);
@@ -44,32 +47,38 @@ namespace FullScreenBrowser
             //wish to use the remote debugging feature. You may need to
             //use a different port if this port is already in use on your system
             options.RemoteDebugPort = 1234;
-            System.Diagnostics.Debug.WriteLine(" >> Default::RemoteDebugPort: " + options.RemoteDebugPort);
             //options.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
+            //System.Diagnostics.Debug.WriteLine(" >> Default::RemoteDebugPort: " + options.RemoteDebugPort);
             System.Diagnostics.Debug.WriteLine(" >> Default::Custom-UserAgent: " + options.CustomUserAgent);
 
-            //By default remote debugging only accepts connection from
-            //localhost. Set this property to true allows you to connect
-            //to remote debugging server from another computer. Do not
-            //use this option in actual production application
+            //By default remote debugging only accepts connection from localhost.
+            //Set this property to true allows you to connect to remote debugging server from another computer.
+            //Do not use this option in actual production application
             //options.RemoteDebugAnyAddress = true;
 
-            //Uncomment this line to support proprietary media formats. See here
-            //for more details:
+            //Uncomment this line to support proprietary media formats.
+            //See here for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
             //options.AllowProprietaryMediaFormats();
 
-            MainWindow mainWnd = new MainWindow();
-            mainWnd.Show();
+            MainWnd = new MainWindow();
+            MainWnd.Show();
+        }
+
+        internal static void ShowError(Exception exception)
+        {
+            MainWnd.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(e.Exception.ToString(), "系统异常", MessageBoxButton.OK, MessageBoxImage.Error)));
+            ExitCode = 1;
+            ShowError(e.Exception);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            e.ApplicationExitCode = ExitCode;
         }
     }
 }
