@@ -6,7 +6,10 @@
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
         xmlns:local="clr-namespace:FullScreenBrowser"
         mc:Ignorable="d"
-        Title="" Icon="App.ico" Height="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}" Top="{DynamicResource {x:Static SystemParameters.VirtualScreenTopKey}}" Left="{DynamicResource {x:Static SystemParameters.VirtualScreenLeftKey}}" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual"
+        Title="" Icon="App.ico" 
+        Height="728" Width="1280" 
+        AllowsTransparency="True" Background="White" ResizeMode="NoResize" ShowInTaskbar="True" 
+        WindowState="Normal" WindowStyle="None" WindowStartupLocation="CenterScreen" 
         Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing">
     <Window.Resources>
         <!-- Style for Back, Forward and Reload Button -->
@@ -162,7 +165,7 @@
             </DataTemplate>
         </eo:WindowChrome.FrameTemplate>
 
-        <DockPanel x:Name="panels" Background="White">
+        <DockPanel x:Name="panels">
             <Grid DockPanel.Dock="Top" Margin="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

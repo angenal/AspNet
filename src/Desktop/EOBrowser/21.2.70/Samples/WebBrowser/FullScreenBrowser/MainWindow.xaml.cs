@@ -26,7 +26,7 @@ namespace FullScreenBrowser
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
+            Window_Closing(e);
         }
     }
 }

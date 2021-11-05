@@ -29,10 +29,10 @@ namespace FullScreenBrowser
             page.WebView.BeforeNavigate += WebView_BeforeNavigate;
 
             //Update UI status
-            WebView_UrlChanged(this, EventArgs.Empty);
-            WebView_IsLoadingChanged(this, EventArgs.Empty);
-            WebView_CanGoForwardChanged(this, EventArgs.Empty);
-            WebView_CanGoBackChanged(this, EventArgs.Empty);
+            WebView_UrlChanged(page.WebView, EventArgs.Empty);
+            WebView_IsLoadingChanged(page.WebView, EventArgs.Empty);
+            WebView_CanGoForwardChanged(page.WebView, EventArgs.Empty);
+            WebView_CanGoBackChanged(page.WebView, EventArgs.Empty);
 
             //Update ConsolePane and ObjectsPane
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);

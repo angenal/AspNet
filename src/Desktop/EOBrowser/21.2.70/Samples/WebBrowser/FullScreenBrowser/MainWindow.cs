@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WindowsWPF.Controls;
 
 namespace FullScreenBrowser
 {
@@ -51,16 +52,21 @@ namespace FullScreenBrowser
                 //dockContainer.ActivateItem(itemId);
                 //AttachEvents(webView);
             }
+            //关闭启动屏幕
+            TransparentSplash.EndDisplay();
         }
         private void Window_SourceInitialized()
         {
         }
-        private void Window_Closing()
+        private void Window_Closing(System.ComponentModel.CancelEventArgs e)
         {
+            //e.Cancel = true;
             try
             {
                 //Save the docking view UI layout
                 dockContainer.SaveLayout(m_szLayoutFileName);
+                //Release resources
+                TransparentSplash.Instance.Dispose();
             }
             catch (Exception ex)
             {
