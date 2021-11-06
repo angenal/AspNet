@@ -18,6 +18,9 @@ namespace FullScreenBrowser
         //The core WebView object
         private EO.WebBrowser.WebView m_WebView;
 
+        //Force download PDF files
+        public bool ForceDownloadPDF { get; set; }
+
         //All messages output by the WebView
         private ObservableCollection<string> m_Messages = new ObservableCollection<string>();
 
@@ -49,19 +52,19 @@ namespace FullScreenBrowser
             //Handles various request events
             m_WebView.CertificateError += m_WebView_CertificateError;
             m_WebView.RequestPermissions += m_WebView_RequestPermissions;
+            m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
 
             //Register the custom protocol handler
             m_WebView.RegisterResourceHandler(new WebPageResourceHandler());
 
-            m_WebView.ObjectForScripting = new WebPageObjectForScripting();
+            m_WebView.ObjectForScripting = new WebPageObjectForScripting(this);
 
             m_WebView_TitleChanged(null, EventArgs.Empty);
         }
 
-        void m_WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        void m_WebView_TitleChanged(object sender, EventArgs e)
         {
-            string message = string.Format("({0}) - {1} line# {2}:{3}", e.Severity, e.Source, e.LineNumber, e.Message);
-            m_Messages.Add(message);
+            Title = m_WebView.Title;
         }
 
         void m_WebView_FaviconChanged(object sender, EventArgs e)
@@ -84,9 +87,10 @@ namespace FullScreenBrowser
             Favicon = bitmapImage;
         }
 
-        void m_WebView_TitleChanged(object sender, EventArgs e)
+        void m_WebView_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
         {
-            Title = m_WebView.Title;
+            string message = string.Format("({0}) - {1} line# {2}:{3}", e.Severity, e.Source, e.LineNumber, e.Message);
+            m_Messages.Add(message);
         }
 
         void m_WebView_CertificateError(object sender, CertificateErrorEventArgs e)
@@ -97,6 +101,13 @@ namespace FullScreenBrowser
         void m_WebView_RequestPermissions(object sender, RequestPermissionEventArgs e)
         {
             e.Allow();
+        }
+
+        //You can also check e.Url to force download certain Urls
+        void m_WebView_ShouldForceDownload(object sender, ShouldForceDownloadEventArgs e)
+        {
+            //Force download PDF files
+            if (e.MimeType == "application/pdf") e.ForceDownload = ForceDownloadPDF;
         }
 
         public WebControl WebControl => m_WebControl;

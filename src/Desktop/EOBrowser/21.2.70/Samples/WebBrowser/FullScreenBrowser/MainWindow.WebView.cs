@@ -38,9 +38,11 @@ namespace FullScreenBrowser
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
         }
 
-        //WebView events
+        //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            WebView webView = (WebView)sender;
+
             //The new WebView has already been created (e.WebView). Here we
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
@@ -51,13 +53,40 @@ namespace FullScreenBrowser
             //the newly created WebView will be immediately destroyed
             e.Accepted = true;
 
-            //If you do not want to open a new window but wish to open
+            //Target=Self: If you do not want to open a new window but wish to open
             //the new Url in the same window, comment the code above
             //and uncomment the code below. The code below set the existing
             //WebView's Url to the new Url. Also because it did not set
             //e.Accepted to true, so the new WebView will be discarded.
-            WebView webView = (WebView)sender;
             webView.Url = e.TargetUrl;
+
+            //Target=Blank: Assume BrowserWnd is a Window class that contains a 
+            //WebView. Here the code creates a new BrowserWnd object thus creating a new WebView
+            //BrowserWnd wnd = new BrowserWnd();
+            //Load the target Url into the new WebView
+            //wnd.WebView.Url = e.TargetUrl;
+            //Signifies that we accept the new window request
+            //e.Accepted = true;
+        }
+
+        private WebViewItem NewWebViewItem(WebView webView)
+        {
+            WebViewItem item = new WebViewItem(webView);
+
+            //Sets the shortcut for the new WebView object
+            item.Page.WebView.Shortcuts = new Shortcut[]
+            {
+                new Shortcut(m_nHomeCommand, KeyCode.BrowserHome),
+                new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
+                new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
+            };
+
+            //Handles various events
+            AttachPage(item.Page);
+
+            m_WebPage = item.Page;
+
+            return item;
         }
 
         //WebView events

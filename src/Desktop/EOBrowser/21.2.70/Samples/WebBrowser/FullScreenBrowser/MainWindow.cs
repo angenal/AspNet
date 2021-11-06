@@ -2,6 +2,8 @@ using EO.WebBrowser;
 using EO.Wpf;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -30,8 +32,8 @@ namespace FullScreenBrowser
         public void InitializeWebBrowser()
         {
             if (!string.IsNullOrEmpty(m_szLayoutFileName)) return;
-
-            string dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EO.Total");
+            string dir = "EO-" + ((GuidAttribute)App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute)).Value;
+            dir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), dir);
             if (!System.IO.Directory.Exists(dir)) System.IO.Directory.CreateDirectory(dir);
             m_szLayoutFileName = System.IO.Path.Combine(dir, "UILayout.xml");
         }
@@ -141,25 +143,6 @@ namespace FullScreenBrowser
                     }
                     break;
             }
-        }
-
-        private WebViewItem NewWebViewItem(EO.WebBrowser.WebView webView)
-        {
-            WebViewItem item = new WebViewItem(webView);
-
-            //Sets the shortcut for the new WebView object
-            item.Page.WebView.Shortcuts = new Shortcut[]
-            {
-                new Shortcut(m_nHomeCommand, KeyCode.BrowserHome),
-                new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
-                new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
-            };
-
-            //Handles various events
-            m_WebPage = item.Page;
-            AttachPage(m_WebPage);
-
-            return item;
         }
 
 
@@ -336,7 +319,7 @@ namespace FullScreenBrowser
 
         private void mnuEmbeddedPage_Click(object sender, RoutedEventArgs e)
         {
-            string url = WebPageResourceHandler.EmbeddedPageUrl;
+            string url = WebPageResourceHandler.DefaultPage;
             dockContainer.ActivateItem(WebViewItemIdPrefix + url);
         }
 

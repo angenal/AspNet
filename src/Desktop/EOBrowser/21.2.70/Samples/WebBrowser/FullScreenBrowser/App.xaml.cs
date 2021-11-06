@@ -16,6 +16,7 @@ namespace FullScreenBrowser
         internal static int ExitCode;
         internal static MainWindow MainWnd;
         internal static string ExeDir { get; set; }
+        internal static object[] AssemblyAttributes { get; set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -28,15 +29,33 @@ namespace FullScreenBrowser
             //Get the main exe folder
             string exePath = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
             ExeDir = Path.GetDirectoryName(exePath);
+            AssemblyAttributes = typeof(App).Assembly.GetCustomAttributes(false);
 
             #region Set default web engine options
             EO.Wpf.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
             EO.WebBrowser.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
             EngineOptions engine = EngineOptions.Default;
-            //Sets additional plugin directories.
+            //Sets additional plugin directories
             //engine.AdditionalPluginsDirs = new string[] { Path.Combine(ExeDir, "plugins") };
-            //Disable spell checker
+            //By default will automatically load the built-in plug-ins (such as the built-in PDF plug-in)
+            engine.DisableBuiltInPlugIns = false;
+
+            //Sets the cache path
+            //engine.CachePath = "";
+
+            //Sets custom user agent
+            engine.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
+            System.Diagnostics.Debug.WriteLine(" >> Default::Custom-UserAgent: " + engine.CustomUserAgent);
+
+            //Sets a value to whether disable the built-in spell checker
             engine.DisableSpellChecker = true;
+            //engine.SpellCheckLanguages = "";
+
+            //Sets the additional command line arguments to be passed to the Chrome browser engine
+            //engine.ExtraCommandLineArgs = "--disable-databases --disable-local-storage"; //Disable HTML 5 DB support and local storage
+
+            //Sets the proxy information
+            //engine.Proxy = new EO.Base.ProxyInfo(EO.Base.ProxyType.HTTP, "127.0.0.1", 12345);
 
             //Uncomment the following two lines to use eowp.exe.
             //See here for more details:
@@ -51,10 +70,6 @@ namespace FullScreenBrowser
             //wish to use the remote debugging feature. You may need to
             //use a different port if this port is already in use on your system
             engine.RemoteDebugPort = 1234;
-            //engine.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
-            //System.Diagnostics.Debug.WriteLine(" >> Default::RemoteDebugPort: " + engine.RemoteDebugPort);
-            System.Diagnostics.Debug.WriteLine(" >> Default::Custom-UserAgent: " + engine.CustomUserAgent);
-
             //By default remote debugging only accepts connection from localhost.
             //Set this property to true allows you to connect to remote debugging server from another computer.
             //Do not use this option in actual production application
@@ -64,6 +79,8 @@ namespace FullScreenBrowser
             //See here for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
             //engine.AllowProprietaryMediaFormats();
+
+            engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
             #endregion
 
             #region Set default web browser options
@@ -90,6 +107,7 @@ namespace FullScreenBrowser
             //Sets the additional style sheets to be applied to the document.
             //options.UserStyleSheet = "body { font-family: \"Microsoft Yahei\", Verdana, Arial, Helvetica, sans-serif !important;}";
 
+            // https://www.essentialobjects.com/doc/webbrowser/advanced/browser_options.aspx
             engine.SetDefaultBrowserOptions(options);
             #endregion
 

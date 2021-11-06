@@ -6,9 +6,21 @@ namespace FullScreenBrowser
     //This object exposes three methods that can be called from JavaScript.
     internal class WebPageObjectForScripting
     {
-        public DateTime GetTime()
+        public WebPage Page { get; private set; }
+
+        public WebPageObjectForScripting(WebPage page)
+        {
+            Page = page;
+        }
+
+        public DateTime Now()
         {
             return DateTime.Now;
+        }
+
+        public void ForceDownloadPDF()
+        {
+            Page.ForceDownloadPDF = true;
         }
     }
 }

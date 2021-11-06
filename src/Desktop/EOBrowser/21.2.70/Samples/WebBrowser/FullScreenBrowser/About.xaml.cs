@@ -28,9 +28,8 @@ namespace FullScreenBrowser
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var assembly = typeof(About).Assembly;
-            lblVersion.Text = "V" + assembly.GetName().Version.ToString();
-            var attrs = assembly.GetCustomAttributes(false);
+            var attrs = App.AssemblyAttributes;
+            lblVersion.Text = "V" + typeof(App).Assembly.GetName().Version.ToString();
             if (string.IsNullOrEmpty(lblInfo.Text))
             {
                 var a1 = attrs.FirstOrDefault(t => t is AssemblyProductAttribute);
