@@ -41,6 +41,7 @@ namespace FullScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            //The old WebView
             WebView webView = (WebView)sender;
 
             //The new WebView has already been created (e.WebView). Here we
@@ -76,15 +77,15 @@ namespace FullScreenBrowser
             //Sets the shortcut for the new WebView object
             item.Page.WebView.Shortcuts = new Shortcut[]
             {
-                new Shortcut(m_nHomeCommand, KeyCode.BrowserHome),
+                new Shortcut(m_HomeCommand, KeyCode.BrowserHome),
                 new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
                 new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
             };
 
             //Handles various events
             AttachPage(item.Page);
-
-            m_WebPage = item.Page;
+            m_Pages.Add(item.Page);
+            m_CurPage = item.Page;
 
             return item;
         }
@@ -109,14 +110,14 @@ namespace FullScreenBrowser
                 if (Equals(item.Page.WebView, sender))
                 {
                     m_WebViewsHost.Items.RemoveAt(i);
-                    //m_Pages[i].WebControl.Dispose();
-                    //m_Pages.RemoveAt(i);
-                    //if (m_Pages.Count == 0)
-                    //    Close();
-                    //else if (m_bCloseRequested)
-                    //    RequestCurrentTabToClose();
+                    m_Pages[i].WebControl.Dispose();
+                    m_Pages.RemoveAt(i);
                     break;
                 }
+            }
+            if (m_Pages.Count == 0)
+            {
+                Close();
             }
         }
 
@@ -158,15 +159,15 @@ namespace FullScreenBrowser
         //case the status message will change to display the link url.
         void WebView_StatusMessageChanged(object sender, EventArgs e)
         {
-            string msg = m_WebPage.WebView.StatusMessage;
+            string msg = m_CurPage.WebView.StatusMessage;
             if (string.IsNullOrEmpty(msg))
             {
-                if (m_WebPage.WebView.IsLoading)
+                if (m_CurPage.WebView.IsLoading)
                     msg = "Loading";
                 else
                     msg = "Ready";
             }
-            System.Diagnostics.Debug.WriteLine($" >> Main window:URL: {msg} {m_WebPage.WebView.Url}");
+            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {m_CurPage.WebView.Url}");
         }
 
         //This event handler is called when the CanGoBack property of the WebView
@@ -174,14 +175,14 @@ namespace FullScreenBrowser
         //another
         void WebView_CanGoBackChanged(object sender, EventArgs e)
         {
-            btnGoBack.IsEnabled = m_WebPage.WebView.CanGoBack;
+            btnGoBack.IsEnabled = m_CurPage.WebView.CanGoBack;
         }
 
         //This event handler is called when CanGoForward property of the WebView
         //changes. CanGoForward becomes true after WebView.GoBack has been called
         void WebView_CanGoForwardChanged(object sender, EventArgs e)
         {
-            btnGoForward.IsEnabled = m_WebPage.WebView.CanGoForward;
+            btnGoForward.IsEnabled = m_CurPage.WebView.CanGoForward;
         }
 
         //This event is called when the user right clicks in a WebView and it needs
@@ -198,7 +199,7 @@ namespace FullScreenBrowser
             //a "Command". When the menu item is selected, WebView_Command is 
             //called (as event handler for the Command event) to handle the 
             //corresponding command
-            e.Menu.Items.Add(new MenuItem("首页", m_nHomeCommand));
+            e.Menu.Items.Add(new MenuItem("首页", m_HomeCommand));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
             e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
@@ -221,9 +222,9 @@ namespace FullScreenBrowser
         void WebView_Command(object sender, CommandEventArgs e)
         {
             WebView webView = (WebView)sender;
-            if (e.CommandId == m_nHomeCommand)
+            if (e.CommandId == m_HomeCommand)
             {
-                webView.Url = Properties.Resources.URL;
+                webView.Url = m_HomeURL;
                 e.Handled = true;
             }
         }

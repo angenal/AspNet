@@ -20,7 +20,7 @@ namespace FullScreenBrowser
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //启动屏幕(设定宽高会自动缩放)
+            //显示启动屏幕(设定宽高会自动缩放)
             //TransparentSplash.Instance.Width = 737;
             //TransparentSplash.Instance.Height = 361;
             TransparentSplash.SetBackgroundImage(FullScreenBrowser.Properties.Resources.SplashImage);
@@ -45,7 +45,7 @@ namespace FullScreenBrowser
 
             //Sets custom user agent
             engine.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
-            System.Diagnostics.Debug.WriteLine(" >> Default::Custom-UserAgent: " + engine.CustomUserAgent);
+            System.Diagnostics.Debug.WriteLine(">> Default::Custom-UserAgent: " + engine.CustomUserAgent);
 
             //Sets a value to whether disable the built-in spell checker
             engine.DisableSpellChecker = true;
