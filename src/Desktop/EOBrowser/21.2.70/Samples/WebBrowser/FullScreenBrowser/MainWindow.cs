@@ -47,7 +47,7 @@ namespace FullScreenBrowser
             //模板可视化
             panels.ApplyTemplate();
             //关闭启动屏幕
-            TransparentSplash.EndDisplay(1);
+            TransparentSplash.EndDisplay();
         }
 
         private void Window_SourceInitialized()

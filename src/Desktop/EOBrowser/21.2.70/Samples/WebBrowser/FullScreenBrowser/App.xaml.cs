@@ -78,7 +78,7 @@ namespace FullScreenBrowser
             //Uncomment this line to support proprietary media formats.
             //See here for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
-            //engine.AllowProprietaryMediaFormats();
+            engine.AllowProprietaryMediaFormats();
 
             engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
             #endregion

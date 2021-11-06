@@ -10,19 +10,19 @@ namespace FullScreenBrowser
 
         private void btnGoBack_Click(object sender, RoutedEventArgs e)
         {
-            m_CurPage.WebView.GoBack();
+            m_WebView.GoBack();
         }
 
         private void btnGoForward_Click(object sender, RoutedEventArgs e)
         {
-            m_CurPage.WebView.GoForward();
+            m_WebView.GoForward();
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(m_CurPage.WebView.Url))
+            if (!string.IsNullOrEmpty(m_WebView.Url))
             {
-                m_CurPage.WebView.Reload(true);
+                m_WebView.Reload(true);
             }
         }
 
@@ -85,6 +85,12 @@ namespace FullScreenBrowser
         {
             string url = WebPageResourceHandler.DefaultPage;
             dockContainer.ActivateItem(WebViewItemIdPrefix + url);
+        }
+
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+            System.Environment.Exit(App.ExitCode);
         }
     }
 }

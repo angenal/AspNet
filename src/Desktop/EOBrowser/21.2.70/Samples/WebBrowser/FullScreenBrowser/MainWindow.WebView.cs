@@ -6,6 +6,8 @@ namespace FullScreenBrowser
 {
     public partial class MainWindow
     {
+        private WebView m_WebView;
+
         private void AttachPage(WebPage page)
         {
             page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
@@ -36,6 +38,8 @@ namespace FullScreenBrowser
 
             //Update ConsolePane and ObjectsPane
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
+
+            m_WebView = page.WebView;
         }
 
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
@@ -68,11 +72,16 @@ namespace FullScreenBrowser
             //wnd.WebView.Url = e.TargetUrl;
             //Signifies that we accept the new window request
             //e.Accepted = true;
+
+            m_WebView = webView;
+            btnGoBack.IsEnabled = m_WebView.CanGoBack;
+            btnGoForward.IsEnabled = m_WebView.CanGoForward;
         }
 
         private WebViewItem NewWebViewItem(WebView webView)
         {
             WebViewItem item = new WebViewItem(webView);
+            m_CurPage = item.Page;
 
             //Sets the shortcut for the new WebView object
             item.Page.WebView.Shortcuts = new Shortcut[]
@@ -85,7 +94,6 @@ namespace FullScreenBrowser
             //Handles various events
             AttachPage(item.Page);
             m_Pages.Add(item.Page);
-            m_CurPage = item.Page;
 
             return item;
         }
@@ -143,6 +151,8 @@ namespace FullScreenBrowser
         {
             WebView webView = (WebView)sender;
             txtUrl.Text = webView.Url;
+            btnGoBack.IsEnabled = webView.CanGoBack;
+            btnGoForward.IsEnabled = webView.CanGoForward;
         }
 
         //This event handler is called when the IsLoading property of the WebView
@@ -151,38 +161,50 @@ namespace FullScreenBrowser
         void WebView_IsLoadingChanged(object sender, EventArgs e)
         {
             //Update status bar to display "Loading..." or "Ready"
-            WebView_StatusMessageChanged(this, EventArgs.Empty);
+            WebView_StatusMessageChanged(sender, EventArgs.Empty);
         }
 
         //This event handler occurs when the WebView's StatusMessage property changes.
         //The status message can change when user moves mouse over to a link, in which
-        //case the status message will change to display the link url.
+        //case the status message will change to display the link url
         void WebView_StatusMessageChanged(object sender, EventArgs e)
         {
-            string msg = m_CurPage.WebView.StatusMessage;
+            WebView webView = (WebView)sender;
+            if (string.IsNullOrEmpty(webView.Url))
+            {
+                return;
+            }
+            string msg = webView.StatusMessage;
             if (string.IsNullOrEmpty(msg))
             {
-                if (m_CurPage.WebView.IsLoading)
+                if (webView.IsLoading)
+                {
                     msg = "Loading";
+                    if (dropDownMenus.IsEnabled == true) dropDownMenus.IsEnabled = false;
+                }
                 else
+                {
                     msg = "Ready";
+                    if (dropDownMenus.IsEnabled == false) dropDownMenus.IsEnabled = true;
+                }
             }
-            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {m_CurPage.WebView.Url}");
+            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {webView.Url}");
         }
 
         //This event handler is called when the CanGoBack property of the WebView
-        //changes. CanGoBack becomes true when user has navigated from one page to
-        //another
+        //changes. CanGoBack becomes true when user has navigated from one page to another
         void WebView_CanGoBackChanged(object sender, EventArgs e)
         {
-            btnGoBack.IsEnabled = m_CurPage.WebView.CanGoBack;
+            WebView webView = m_CurPage != null ? m_CurPage.WebView : (WebView)sender;
+            btnGoBack.IsEnabled = webView.CanGoBack;
         }
 
         //This event handler is called when CanGoForward property of the WebView
         //changes. CanGoForward becomes true after WebView.GoBack has been called
         void WebView_CanGoForwardChanged(object sender, EventArgs e)
         {
-            btnGoForward.IsEnabled = m_CurPage.WebView.CanGoForward;
+            WebView webView = m_CurPage != null ? m_CurPage.WebView : (WebView)sender;
+            btnGoForward.IsEnabled = webView.CanGoForward;
         }
 
         //This event is called when the user right clicks in a WebView and it needs
@@ -282,6 +304,8 @@ namespace FullScreenBrowser
         //This event handler is called when a download starts
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
+            WebView webView = (WebView)sender;
+
             //Add it to our download list
             m_Downloads.Add(e.Item);
 
@@ -289,7 +313,7 @@ namespace FullScreenBrowser
             e.ShowDialog = true;
 
             //Display the "Downloads" pane
-            mnuDownloads_Click(this, null);
+            mnuDownloads_Click(webView, null);
         }
 
         //This event handler is called when a download has been canceled
@@ -315,6 +339,5 @@ namespace FullScreenBrowser
                     break;
             }
         }
-
     }
 }

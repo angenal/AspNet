@@ -36,9 +36,9 @@ namespace FullScreenBrowser
                 if (m_ToolViews == null)
                 {
                     m_ToolViews = new DockView();
-                    m_ToolViews.Height = 150;
+                    m_ToolViews.Height = 200;
                     m_ToolViews.Dock = Dock.Bottom;
-                    m_ToolViews.State = DockViewState.Float;
+                    //m_ToolViews.State = DockViewState.Float;
                 }
                 e.DockView = m_ToolViews;
             }
