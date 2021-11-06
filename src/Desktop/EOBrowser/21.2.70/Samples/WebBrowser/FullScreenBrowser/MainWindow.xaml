@@ -204,11 +204,11 @@
                     <eo:DropDownService.DropDown>
                         <eo:DropDown Placement="Left" Opened="Menu_Opened">
                             <eo:Menu x:Name="dropDownMenus" IsDropDownMenu="True" IsEnabled="False">
-                                <eo:MenuItem x:Name="mnuDownloads" Header="下载" Click="mnuDownloads_Click"></eo:MenuItem>
+                                <eo:MenuItem x:Name="mnuDebugUI" Header="开发调试" Click="mnuDebugUI_Click" IsEnabled="False"></eo:MenuItem>
+                                <eo:MenuItem x:Name="mnuDownloads" Header="下载页面" Click="mnuDownloads_Click"></eo:MenuItem>
                                 <eo:MenuItem x:Name="mnuConsole" Header="控制台" Click="mnuConsole_Click"></eo:MenuItem>
-                                <eo:MenuItem x:Name="mnuDebugUI" Header="调试" Click="mnuDebugUI_Click" IsEnabled="False"></eo:MenuItem>
                                 <eo:MenuItem IsSeparator="True"></eo:MenuItem>
-                                <eo:MenuItem x:Name="mnuAbout" Header="关于" Click="mnuAbout_Click"></eo:MenuItem>
+                                <eo:MenuItem Header="关于" Click="mnuAbout_Click"></eo:MenuItem>
                                 <eo:MenuItem Header="退出" Click="mnuExit_Click"></eo:MenuItem>
                             </eo:Menu>
                         </eo:DropDown>
