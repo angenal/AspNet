@@ -6,7 +6,7 @@
     <Grid Background="Transparent">
         <wpf:WPFBrowserView x:Name="WebBrowser1" Background="Transparent" BrowserType="LIGHTWEIGHT" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="{DynamicResource {x:Static SystemParameters.VirtualScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.VirtualScreenWidthKey}}">
             <wpf:WPFBrowserView.Preferences>
-                <DotNetBrowser:BrowserPreferences TransparentBackground="True" JavaScriptCanAccessClipboard="True" AllowScriptsToCloseWindows="True" AllowDisplayingInsecureContent="True"/>
+                <DotNetBrowser:BrowserPreferences ApplicationCacheEnabled="True" TransparentBackground="True" JavaScriptEnabled="True" JavaScriptCanAccessClipboard="True" AllowScriptsToCloseWindows="True" AllowDisplayingInsecureContent="True" AllowRunningInsecureContent="True"/>
             </wpf:WPFBrowserView.Preferences>
         </wpf:WPFBrowserView>
     </Grid>

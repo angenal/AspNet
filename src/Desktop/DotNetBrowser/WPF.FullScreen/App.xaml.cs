@@ -13,7 +13,7 @@ namespace WPF.FullScreen
             //Assembly assembly = Assembly.Load(FullScreen.Properties.Resources.DFoXDotNeBrowser);
             //var type = assembly.GetType("DFoXDotNeBrowser.DFoX_DotNetBrowser");
             //type.GetMethods().First().Invoke(null, new object[0]);
-            //System.Diagnostics.Debug.WriteLine(" >> Application Startup");
+            //System.Diagnostics.Debug.WriteLine(">> Application Startup");
             //DispatcherUnhandledException += App_DispatcherUnhandledException;
 
             //Add the transparency splash image1

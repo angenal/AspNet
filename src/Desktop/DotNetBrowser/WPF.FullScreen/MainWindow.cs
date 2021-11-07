@@ -15,13 +15,16 @@ namespace WPF.FullScreen
         protected void InitializeWebBrowser()
         {
             WebBrowser1.KeyDown += WebBrowser_KeyDown;
+            WebBrowser1.StatusChangedEvent += WebBrowser_StatusChangedEvent;
             //WebBrowser1.GestureEvent += WebBrowser_GestureEvent;
+            WebBrowser1.Browser.TitleChangedEvent += Browser_TitleChangedEvent;
             WebBrowser1.Browser.StartLoadingFrameEvent += Browser_StartLoadingFrameEvent;
             WebBrowser1.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
+            WebBrowser1.Browser.RenderUnresponsiveEvent += Browser_RenderUnresponsiveEvent;
             WebBrowser1.Browser.UserAgent = Properties.Resources.UserAgent;
             WebBrowser1.Browser.LoadURL(Properties.Resources.URL);
-            System.Diagnostics.Debug.WriteLine(" >> Main window:URL: " + Properties.Resources.URL);
-            System.Diagnostics.Debug.WriteLine(" >> Main window:UserAgent: " + Properties.Resources.UserAgent);
+            System.Diagnostics.Debug.WriteLine(">> Main window:URL: " + Properties.Resources.URL);
+            System.Diagnostics.Debug.WriteLine(">> Main window:UserAgent: " + Properties.Resources.UserAgent);
             //WebBrowser1.Browser.LoadHTML();
         }
 
@@ -31,23 +34,39 @@ namespace WPF.FullScreen
             if (e.Key == Key.F1) MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        private void WebBrowser_StatusChangedEvent(object sender, StatusEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($">> WebView: {e.Text} {e.Browser.URL}");
+        }
+
         private void WebBrowser_GestureEvent(object sender, GestureEventArgs e)
         {
             if (e.IsCtrlDown && e.IsAltDown && e.GestureType == GestureType.LONG_PRESS) MessageBox.Show("Gesture event: `Ctrl+Alt+LONG_PRESS`");
         }
 
+
+        private void Browser_TitleChangedEvent(object sender, TitleEventArgs e)
+        {
+            TransparentSplash.EndDisplay();
+        }
+
         private void Browser_StartLoadingFrameEvent(object sender, StartLoadingArgs e)
         {
-            TransparentSplash.EndDisplay(3);//关闭启动图(延迟3秒)
+            //TransparentSplash.EndDisplay(3);//关闭启动图(延迟3秒)
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, FinishLoadingEventArgs e)
         {
             if (!e.IsMainFrame) return;
-            System.Diagnostics.Debug.WriteLine(" >> Main window: finish loading");
+            System.Diagnostics.Debug.WriteLine(">> WebView: finish loading");
             JSValue value = e.Browser.ExecuteJavaScriptAndReturnValue("window");
             value.AsObject().SetProperty("browser", new MainBrowser(this));
-            System.Diagnostics.Debug.WriteLine($" >> Main window.browser => new {nameof(MainBrowser)}");
+            System.Diagnostics.Debug.WriteLine($">> WebView: window.browser => new {nameof(MainBrowser)}");
+        }
+
+        private void Browser_RenderUnresponsiveEvent(object sender, RenderEventArgs e)
+        {
+            e.TerminationStatus = TerminationStatus.StillRunning;
         }
 
 
