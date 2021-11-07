@@ -17,6 +17,7 @@ namespace FullScreenBrowser
 
         //The core WebView object
         private EO.WebBrowser.WebView m_WebView;
+        private WebPageResourceHandler m_ResourceHandler;
 
         //Force download PDF files
         public bool ForceDownloadPDF { get; set; }
@@ -37,6 +38,7 @@ namespace FullScreenBrowser
             if (webView == null)
             {
                 webView = new EO.WebBrowser.WebView();
+                webView.Engine = EO.WebEngine.Engine.Default;
                 webView.Title = "New Tab";
             }
 
@@ -55,11 +57,30 @@ namespace FullScreenBrowser
             m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
 
             //Register the custom protocol handler
-            m_WebView.RegisterResourceHandler(new WebPageResourceHandler());
+            m_ResourceHandler = new WebPageResourceHandler();
+            m_WebView.RegisterResourceHandler(m_ResourceHandler);
 
             m_WebView.ObjectForScripting = new WebPageObjectForScripting(this);
 
             m_WebView_TitleChanged(null, EventArgs.Empty);
+        }
+
+        public void DetachPage()
+        {
+            //Handle various UI related events
+            m_WebView.TitleChanged -= new EventHandler(m_WebView_TitleChanged);
+            m_WebView.FaviconChanged -= new EventHandler(m_WebView_FaviconChanged);
+            m_WebView.ConsoleMessage -= new ConsoleMessageHandler(m_WebView_ConsoleMessage);
+
+            //Handles various request events
+            m_WebView.CertificateError -= m_WebView_CertificateError;
+            m_WebView.RequestPermissions -= m_WebView_RequestPermissions;
+            m_WebView.ShouldForceDownload -= m_WebView_ShouldForceDownload;
+
+            //Unregister the custom protocol handler
+            m_WebView.UnregisterResourceHandler(m_ResourceHandler);
+
+            m_WebView.ObjectForScripting = null;
         }
 
         void m_WebView_TitleChanged(object sender, EventArgs e)

@@ -30,7 +30,7 @@ namespace FullScreenBrowser
         private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
             if (screenCut != null && screenCut.IsActive) return;
-            screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true };
+            screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false };
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
         }
 

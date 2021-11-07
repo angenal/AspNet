@@ -48,7 +48,7 @@ namespace EO.TabbedBrowser
             //Uncomment this line to support proprietary media formats. See here
             //for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
-            //EO.WebEngine.EngineOptions.Default.AllowProprietaryMediaFormats();
+            EO.WebEngine.EngineOptions.Default.AllowProprietaryMediaFormats();
 
             MainWindow mainWnd = new MainWindow();
             mainWnd.Show();

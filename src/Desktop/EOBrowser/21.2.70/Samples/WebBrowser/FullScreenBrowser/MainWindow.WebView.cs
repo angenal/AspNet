@@ -1,12 +1,13 @@
 using EO.WebBrowser;
 using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace FullScreenBrowser
 {
     public partial class MainWindow
     {
-        private void AttachPage(WebPage page)
+        void AttachPage(WebPage page)
         {
             page.WebView.BeforeNavigate += WebView_BeforeNavigate;
             page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
@@ -37,10 +38,32 @@ namespace FullScreenBrowser
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
         }
 
+        void DetachPage(WebPage page)
+        {
+            page.WebView.BeforeNavigate -= WebView_BeforeNavigate;
+            page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
+            page.WebView.Activate -= new EventHandler(WebView_Activate);
+            page.WebView.LaunchUrl -= new LaunchUrlHandler(WebView_LaunchUrl);
+            page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
+            page.WebView.JSExtInvoke -= new JSExtInvokeHandler(WebView_JSExtInvoke);
+            page.WebView.UrlChanged -= new EventHandler(WebView_UrlChanged);
+            page.WebView.IsLoadingChanged -= new EventHandler(WebView_IsLoadingChanged);
+            page.WebView.CanGoBackChanged -= new EventHandler(WebView_CanGoBackChanged);
+            page.WebView.CanGoForwardChanged -= new EventHandler(WebView_CanGoForwardChanged);
+            page.WebView.BeforeContextMenu -= new BeforeContextMenuHandler(WebView_BeforeContextMenu);
+            page.WebView.Command -= new CommandHandler(WebView_Command);
+            page.WebView.BeforeDownload -= new BeforeDownloadHandler(WebView_BeforeDownload);
+            page.WebView.DownloadCanceled -= new DownloadEventHandler(WebView_DownloadCanceled);
+            page.WebView.DownloadCompleted -= new DownloadEventHandler(WebView_DownloadCompleted);
+            page.WebView.JSDialog -= new JSDialogEventHandler(WebView_JSDialog);
+            page.WebView.StatusMessageChanged -= new EventHandler(WebView_StatusMessageChanged);
+            page.WebView.RenderUnresponsive -= new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
+        }
+
         //Before Jump to web page
         void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
         {
-            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), System.Windows.Threading.DispatcherPriority.Normal);
+            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), DispatcherPriority.Normal);
         }
 
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
@@ -53,6 +76,15 @@ namespace FullScreenBrowser
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
             WebViewItem item = NewWebViewItem(e.WebView);
+            var count = m_WebViewsHost.Items.Count;
+            if (1 < count)
+            {
+                WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
+                DetachPage(item1.Page);
+                item1.Page.DetachPage();
+                item1.Page.WebControl.WebView.Close(false);
+                item1.Page.WebControl.Dispose();
+            }
             m_WebViewsHost.Items.Add(item);
 
             //Signifies that we accept the new WebView. Without this line
@@ -128,15 +160,19 @@ namespace FullScreenBrowser
         //This event handler is called when a context menu item or a hot key triggers a "command".
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        private static int m_AltACommand = CommandIds.RegisterUserCommand("AltA");
+        private static int m_AltQCommand = CommandIds.RegisterUserCommand("AltQ");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
             {
                 new Shortcut(m_HomeCommand, KeyCode.Home),
                 new Shortcut(m_F1Command, KeyCode.F1),
+                new Shortcut(m_AltACommand, KeyCode.A, false, true, false),
+                new Shortcut(m_AltQCommand, KeyCode.Q, false, true, false),
                 new Shortcut(CommandIds.Reload, KeyCode.F5),
-                new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
-                new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
+                //new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
+                //new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
             };
         }
         //Here we only handle our own custom commands
@@ -154,6 +190,20 @@ namespace FullScreenBrowser
             if (e.CommandId == m_F1Command)
             {
                 MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // 快捷键 Alt+A 截图
+            if (e.CommandId == m_AltACommand)
+            {
+                if (screenCut != null && screenCut.IsActive) return;
+                screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false };
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
+                return;
+            }
+            // 快捷键 Alt+Q 询问关闭该应用程序
+            if (e.CommandId == m_AltQCommand)
+            {
+                Window_ComfirmExit();
                 return;
             }
         }
@@ -245,14 +295,16 @@ namespace FullScreenBrowser
             //a "Command". When the menu item is selected, WebView_Command is 
             //called (as event handler for the Command event) to handle the 
             //corresponding command
+            e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
+            e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("首页", m_HomeCommand));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
             e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
-            e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
+            //e.Menu.Items.Add(MenuItem.CreateSeparator());
+            //e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
 
             //if (e.MenuInfo.Suggestions.Length > 0)
             //{

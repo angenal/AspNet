@@ -44,9 +44,30 @@ namespace FullScreenBrowser
 
             //Get default web engine options
             EngineOptions engine = EngineOptions.Default;
+            SetWebEngineOptions(engine);
+            EO.Wpf.Runtime.UICultureName = engine.UILanguage;
+            EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = engine.UILanguage;
+
+            //Clean up cache folders for older versions
+            Engine.CleanUpCacheFolders(CacheFolderCleanUpPolicy.OlderVersionOnly);
+
+            Engine.Default.AllowRestart = true;
+            System.Diagnostics.Debug.WriteLine(">> Default::Custom-UserAgent: " + engine.CustomUserAgent);
+            #endregion
+
+            // Set default web browser options
+            // https://www.essentialobjects.com/doc/webbrowser/advanced/browser_options.aspx
+            engine.SetDefaultBrowserOptions(GetBrowserOptions());
+
+            //Startup main window
+            MainWnd = new MainWindow();
+            MainWnd.Show();
+        }
+
+        public static void SetWebEngineOptions(EngineOptions engine)
+        {
             engine.UILanguage = "zh-CN";
-            EO.Wpf.Runtime.UICultureName = "zh-CN";
-            EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = "zh-CN";
+
             //Sets additional plugin directories
             //engine.AdditionalPluginsDirs = new string[] { Path.Combine(ExeDir, "plugins") };
             //By default will automatically load the built-in plug-ins (such as the built-in PDF plug-in)
@@ -57,7 +78,6 @@ namespace FullScreenBrowser
 
             //Sets custom user agent
             engine.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
-            System.Diagnostics.Debug.WriteLine(">> Default::Custom-UserAgent: " + engine.CustomUserAgent);
 
             //Sets a value to whether disable the built-in spell checker
             engine.DisableSpellChecker = true;
@@ -75,9 +95,6 @@ namespace FullScreenBrowser
             //string eowpPath = Path.Combine(ExeDir, "FullScreenBrowserEOWP.exe");
             //EO.Base.Runtime.InitWorkerProcessExecutable(eowpPath);
 
-            //Clean up cache folders for older versions
-            Engine.CleanUpCacheFolders(CacheFolderCleanUpPolicy.OlderVersionOnly);
-
             //Set remote debugging port. You only need this line if you
             //wish to use the remote debugging feature. You may need to
             //use a different port if this port is already in use on your system
@@ -93,10 +110,12 @@ namespace FullScreenBrowser
             engine.AllowProprietaryMediaFormats();
 
             engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
-            #endregion
+        }
 
-            #region Set default web browser options
+        public BrowserOptions GetBrowserOptions()
+        {
             BrowserOptions options = new BrowserOptions();
+
             //Sets a value indicating whether JavaScript should be allowed.
             options.AllowJavaScript = true;
             //Sets a value indicating whether accessing clipboard from JavaScript should be allowed.
@@ -119,13 +138,7 @@ namespace FullScreenBrowser
             //Sets the additional style sheets to be applied to the document.
             //options.UserStyleSheet = "body { font-family: \"Microsoft Yahei\", Verdana, Arial, Helvetica, sans-serif !important;}";
 
-            // https://www.essentialobjects.com/doc/webbrowser/advanced/browser_options.aspx
-            engine.SetDefaultBrowserOptions(options);
-            #endregion
-
-            //Startup main window
-            MainWnd = new MainWindow();
-            MainWnd.Show();
+            return options;
         }
 
         internal static void ShowError(Exception exception)

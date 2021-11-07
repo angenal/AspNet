@@ -55,7 +55,7 @@ namespace FullScreenBrowser
         private void Window_SourceInitialized()
         {
             //添加快捷键功能
-            RegisterHotkey();
+            //RegisterHotkey();
         }
 
         private void Window_Closing(System.ComponentModel.CancelEventArgs e)
@@ -91,10 +91,10 @@ namespace FullScreenBrowser
             try
             {
                 //注销快捷键
-                altA.Dispose();
-                altQ.Dispose();
+                if (altA != null) altA.Dispose();
+                if (altQ != null) altQ.Dispose();
                 //释放资源
-                TransparentSplash.Instance.Dispose();
+                if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
                 //保存访问历史
                 dockContainer.SaveLayout(m_LayoutFileName);
             }
