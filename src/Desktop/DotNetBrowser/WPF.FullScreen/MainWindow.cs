@@ -16,7 +16,6 @@ namespace WPF.FullScreen
         {
             WebBrowser1.KeyDown += WebBrowser_KeyDown;
             WebBrowser1.StatusChangedEvent += WebBrowser_StatusChangedEvent;
-            //WebBrowser1.GestureEvent += WebBrowser_GestureEvent;
             WebBrowser1.Browser.TitleChangedEvent += Browser_TitleChangedEvent;
             WebBrowser1.Browser.StartLoadingFrameEvent += Browser_StartLoadingFrameEvent;
             WebBrowser1.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
