@@ -254,7 +254,7 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Resources>
-                <Label>Text to Find:</Label>
+                <Label>查找内容:</Label>
                 <TextBox x:Name="txtFind" Width="200" Height="22" Margin="0, 0, 10, 0" PreviewKeyDown="txtFind_PreviewKeyDown" TextChanged="txtFind_TextChanged" ></TextBox>
 
                 <!-- Previous Button -->

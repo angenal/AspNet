@@ -32,9 +32,21 @@ namespace FullScreenBrowser
             AssemblyAttributes = typeof(App).Assembly.GetCustomAttributes(false);
 
             #region Set default web engine options
+            //Call this before any other code that uses EO.Wpf
             EO.Wpf.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
             EO.WebBrowser.Runtime.AddLicense(FullScreenBrowser.Properties.Resources.L21);
+            //Disable the automatic report
+            EO.Base.Runtime.EnableCrashReport = false;
+            //Handle CrashDataAvailable event
+            EO.Base.Runtime.CrashDataAvailable += Runtime_CrashDataAvailable;
+            //If your system has sufficient memory, please consider setting EO.Base.Runtime.EnableEOWP to true
+            if (File.Exists(Path.Combine(ExeDir, "eowp.exe"))) EO.Base.Runtime.EnableEOWP = true;
+
+            //Get default web engine options
             EngineOptions engine = EngineOptions.Default;
+            engine.UILanguage = "zh-CN";
+            EO.Wpf.Runtime.UICultureName = "zh-CN";
+            EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = "zh-CN";
             //Sets additional plugin directories
             //engine.AdditionalPluginsDirs = new string[] { Path.Combine(ExeDir, "plugins") };
             //By default will automatically load the built-in plug-ins (such as the built-in PDF plug-in)
@@ -119,6 +131,11 @@ namespace FullScreenBrowser
         internal static void ShowError(Exception exception)
         {
             MainWnd.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
+        }
+
+        private void Runtime_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
+        {
+            File.WriteAllBytes(Path.Combine(ExeDir, "crash.log"), e.Data);
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

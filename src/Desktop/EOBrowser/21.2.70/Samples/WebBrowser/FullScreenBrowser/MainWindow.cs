@@ -19,10 +19,10 @@ namespace FullScreenBrowser
         private const string WebViewItemIdPrefix = "WebView:";
         private static string m_LayoutFileName = "UILayout.xml";
         private static string m_HomeURL = Properties.Resources.URL;
-        private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private ObservableCollection<DownloadItem> m_Downloads = new ObservableCollection<DownloadItem>();
         private ObservableCollection<WebPage> m_Pages = new ObservableCollection<WebPage>();
         private WebPage m_CurPage;
+        private EO.WebBrowser.WebView m_WebView;
         private ConsolePane m_ConsolePane;
         private DockView m_WebViewsHost;
         private DockView m_ToolViews;
@@ -66,7 +66,7 @@ namespace FullScreenBrowser
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (m_CurPage != null) m_CurPage.WebView.Print();
+            if (m_WebView != null && !string.IsNullOrEmpty(m_WebView.Url)) m_WebView.Print();
         }
 
 

@@ -1,17 +1,13 @@
 using EO.WebBrowser;
 using System;
 using System.Windows;
-using System.Windows.Input;
 
 namespace FullScreenBrowser
 {
     public partial class MainWindow
     {
-        private WebView m_WebView;
-
         private void AttachPage(WebPage page)
         {
-            //page.WebView.KeyUp += WebView_KeyUp;
             page.WebView.BeforeNavigate += WebView_BeforeNavigate;
             page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
             page.WebView.Activate += new EventHandler(WebView_Activate);
@@ -39,14 +35,6 @@ namespace FullScreenBrowser
 
             //Update ConsolePane and ObjectsPane
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
-
-            m_WebView = page.WebView;
-        }
-
-        private void WebView_KeyUp(object sender, EO.Base.UI.WndMsgEventArgs e)
-        {
-            //提示快捷键功能
-            //if (e.Message == Key.F1) MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         //Before Jump to web page
@@ -85,28 +73,22 @@ namespace FullScreenBrowser
             //wnd.WebView.Url = e.TargetUrl;
             //Signifies that we accept the new window request
             //e.Accepted = true;
-
-            m_WebView = webView;
-            btnGoBack.IsEnabled = m_WebView.CanGoBack;
-            btnGoForward.IsEnabled = m_WebView.CanGoForward;
         }
 
         private WebViewItem NewWebViewItem(WebView webView)
         {
             WebViewItem item = new WebViewItem(webView);
-            m_CurPage = item.Page;
+            //Target=Self:
+            if (m_CurPage == null) m_CurPage = item.Page;
+            if (m_WebView == null) m_WebView = item.Page.WebView;
 
             //Sets the shortcut for the new WebView object
-            item.Page.WebView.Shortcuts = new Shortcut[]
-            {
-                new Shortcut(m_HomeCommand, KeyCode.BrowserHome),
-                new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
-                new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
-            };
+            item.Page.WebView.Shortcuts = GetShortcuts();
 
             //Handles various events
             AttachPage(item.Page);
-            m_Pages.Add(item.Page);
+
+            //m_Pages.Add(item.Page);
 
             return item;
         }
@@ -114,6 +96,7 @@ namespace FullScreenBrowser
         //WebView events
         void WebView_Activate(object sender, EventArgs e)
         {
+            m_WebView.AllowDropLoad = false;
         }
 
         //WebView events
@@ -131,14 +114,47 @@ namespace FullScreenBrowser
                 if (Equals(item.Page.WebView, sender))
                 {
                     m_WebViewsHost.Items.RemoveAt(i);
-                    m_Pages[i].WebControl.Dispose();
-                    m_Pages.RemoveAt(i);
+                    //m_Pages[i].WebControl.Dispose();
+                    //m_Pages.RemoveAt(i);
                     break;
                 }
             }
-            if (m_Pages.Count == 0)
+            if (m_WebViewsHost.Items.Count == 0)
             {
                 Close();
+            }
+        }
+
+        //This event handler is called when a context menu item or a hot key triggers a "command".
+        private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
+        private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        private static Shortcut[] GetShortcuts()
+        {
+            return new Shortcut[]
+            {
+                new Shortcut(m_HomeCommand, KeyCode.Home),
+                new Shortcut(m_F1Command, KeyCode.F1),
+                new Shortcut(CommandIds.Reload, KeyCode.F5),
+                new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
+                new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
+            };
+        }
+        //Here we only handle our own custom commands
+        void WebView_Command(object sender, CommandEventArgs e)
+        {
+            WebView webView = (WebView)sender;
+            //返回首页 Home
+            if (e.CommandId == m_HomeCommand)
+            {
+                webView.Url = m_HomeURL;
+                e.Handled = true;
+                return;
+            }
+            //提示快捷键功能 F1
+            if (e.CommandId == m_F1Command)
+            {
+                MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
         }
 
@@ -158,8 +174,11 @@ namespace FullScreenBrowser
         {
             WebView webView = (WebView)sender;
             txtUrl.Text = webView.Url;
-            btnGoBack.IsEnabled = webView.CanGoBack;
-            btnGoForward.IsEnabled = webView.CanGoForward;
+            if (m_WebView != null)
+            {
+                btnGoBack.IsEnabled = m_WebView.CanGoBack;
+                btnGoForward.IsEnabled = m_WebView.CanGoForward;
+            }
         }
 
         //This event handler is called when the IsLoading property of the WebView
@@ -202,16 +221,14 @@ namespace FullScreenBrowser
         //changes. CanGoBack becomes true when user has navigated from one page to another
         void WebView_CanGoBackChanged(object sender, EventArgs e)
         {
-            WebView webView = m_CurPage != null ? m_CurPage.WebView : (WebView)sender;
-            btnGoBack.IsEnabled = webView.CanGoBack;
+            if (m_WebView != null) btnGoBack.IsEnabled = m_WebView.CanGoBack;
         }
 
         //This event handler is called when CanGoForward property of the WebView
         //changes. CanGoForward becomes true after WebView.GoBack has been called
         void WebView_CanGoForwardChanged(object sender, EventArgs e)
         {
-            WebView webView = m_CurPage != null ? m_CurPage.WebView : (WebView)sender;
-            btnGoForward.IsEnabled = webView.CanGoForward;
+            if (m_WebView != null) btnGoForward.IsEnabled = m_WebView.CanGoForward;
         }
 
         //This event is called when the user right clicks in a WebView and it needs
@@ -244,18 +261,6 @@ namespace FullScreenBrowser
             //    e.Menu.Items.Add(MenuItem.CreateSeparator());
             //    e.Menu.Items.Add(new MenuItem("Add To Dictionary", CommandIds.SpellCheckAddToDictionary));
             //}
-        }
-
-        //This event handler is called when a context menu item or a hot key triggers a
-        //"command". Here we only handle our own custom commands
-        void WebView_Command(object sender, CommandEventArgs e)
-        {
-            WebView webView = (WebView)sender;
-            if (e.CommandId == m_HomeCommand)
-            {
-                webView.Url = m_HomeURL;
-                e.Handled = true;
-            }
         }
 
         //This event handler is called to display a JavaScript dialog, for example,

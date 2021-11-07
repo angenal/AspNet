@@ -13,6 +13,8 @@ namespace FullScreenBrowser
 
         private void Find_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            if (m_WebView == null || string.IsNullOrEmpty(m_WebView.Url)) return;
+
             if (panFind.Visibility == Visibility.Visible)
             {
                 StopFind();
@@ -57,7 +59,8 @@ namespace FullScreenBrowser
 
             if (m_FindSession == null)
             {
-                m_FindSession = m_CurPage.WebView.StartFindSession(txtToFind, false);
+                m_FindSession = m_WebView.StartFindSession(txtToFind, false);
+                //m_FindSession = m_CurPage.WebView.StartFindSession(txtToFind, false);
                 m_FindSession.Updated += FindSession_Updated;
             }
             else if (forward)

@@ -67,6 +67,7 @@ namespace FullScreenBrowser
 
         private void mnuConsole_Click(object sender, RoutedEventArgs e)
         {
+            if (m_CurPage == null || string.IsNullOrEmpty(m_CurPage.WebView.Url)) return;
             dockContainer.ActivateItem("Console");
             m_ConsolePane.Attach(m_CurPage.WebView, m_CurPage.Messages);
         }
