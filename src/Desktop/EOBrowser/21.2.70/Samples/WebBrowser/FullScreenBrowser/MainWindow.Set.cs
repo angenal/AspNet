@@ -1,0 +1,50 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows;
+using System.Windows.Interop;
+
+namespace FullScreenBrowser
+{
+    /// <summary></summary>
+    public partial class MainWindow
+    {
+        #region 彻底去除关闭按钮
+        /// <summary>
+        /// 彻底去除关闭按钮
+        /// </summary>
+        private void RemoveCloseButton()
+        {
+            IntPtr hWnd = new WindowInteropHelper(this).Handle;
+            SetWindowLong(hWnd, -16, GetWindowLong(hWnd, -16) & ~0x80000);
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        #endregion
+
+        #region 窗体一直置顶
+        /// <summary>
+        /// 窗体一直置顶
+        /// </summary>
+        private void SetTopMost()
+        {
+            IntPtr hWnd = new WindowInteropHelper(this).Handle;
+            new Thread(() =>
+            {
+                Thread.Sleep(2000);
+                while (true)
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(hWnd, -1, 0, 0, 0, 0, 0x0040)));
+                    Thread.Sleep(1000);
+                }
+            }).Start();
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int width, int height, int flags);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr GetForegroundWindow();
+        #endregion
+    }
+}

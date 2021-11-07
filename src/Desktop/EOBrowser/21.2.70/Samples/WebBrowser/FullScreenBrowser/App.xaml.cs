@@ -124,6 +124,7 @@ namespace FullScreenBrowser
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             ExitCode = 1;
+            e.Handled = true;
             ShowError(e.Exception);
         }
 

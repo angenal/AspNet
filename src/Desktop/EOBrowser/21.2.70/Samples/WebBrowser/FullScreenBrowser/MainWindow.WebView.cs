@@ -1,6 +1,7 @@
 using EO.WebBrowser;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace FullScreenBrowser
 {
@@ -10,12 +11,13 @@ namespace FullScreenBrowser
 
         private void AttachPage(WebPage page)
         {
+            //page.WebView.KeyUp += WebView_KeyUp;
+            page.WebView.BeforeNavigate += WebView_BeforeNavigate;
             page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
             page.WebView.Activate += new EventHandler(WebView_Activate);
             page.WebView.LaunchUrl += new LaunchUrlHandler(WebView_LaunchUrl);
             page.WebView.Closed += new WebViewClosedEventHandler(WebView_Closed);
             page.WebView.JSExtInvoke += new JSExtInvokeHandler(WebView_JSExtInvoke);
-
             page.WebView.UrlChanged += new EventHandler(WebView_UrlChanged);
             page.WebView.IsLoadingChanged += new EventHandler(WebView_IsLoadingChanged);
             page.WebView.CanGoBackChanged += new EventHandler(WebView_CanGoBackChanged);
@@ -28,7 +30,6 @@ namespace FullScreenBrowser
             page.WebView.JSDialog += new JSDialogEventHandler(WebView_JSDialog);
             page.WebView.StatusMessageChanged += new EventHandler(WebView_StatusMessageChanged);
             page.WebView.RenderUnresponsive += new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
-            page.WebView.BeforeNavigate += WebView_BeforeNavigate;
 
             //Update UI status
             WebView_UrlChanged(page.WebView, EventArgs.Empty);
@@ -40,6 +41,18 @@ namespace FullScreenBrowser
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
 
             m_WebView = page.WebView;
+        }
+
+        private void WebView_KeyUp(object sender, EO.Base.UI.WndMsgEventArgs e)
+        {
+            //提示快捷键功能
+            //if (e.Message == Key.F1) MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        //Before Jump to web page
+        void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
+        {
+            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
@@ -127,12 +140,6 @@ namespace FullScreenBrowser
             {
                 Close();
             }
-        }
-
-        //Before Jump to web page
-        void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
-        {
-            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         //Render Unresponsive

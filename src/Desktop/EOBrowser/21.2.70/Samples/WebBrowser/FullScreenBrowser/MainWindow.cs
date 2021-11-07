@@ -48,31 +48,66 @@ namespace FullScreenBrowser
             panels.ApplyTemplate();
             //关闭启动屏幕
             TransparentSplash.EndDisplay();
+            //窗体一直置顶
+            //SetTopMost();
         }
 
         private void Window_SourceInitialized()
         {
+            //添加快捷键功能
+            RegisterHotkey();
         }
 
         private void Window_Closing(System.ComponentModel.CancelEventArgs e)
         {
-            //e.Cancel = true;
-            try
-            {
-                //Save the docking view UI layout
-                dockContainer.SaveLayout(m_LayoutFileName);
-                //Release resources
-                TransparentSplash.Instance.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("系统异常:" + ex.ToString());
-            }
+            //e.Cancel = true; //取消关闭事件(Alt+F4)
+            Window_Exit();
         }
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (m_CurPage != null) m_CurPage.WebView.Print();
+        }
+
+
+        /// <summary>
+        /// 询问关闭该应用程序
+        /// </summary>
+        public void Window_ComfirmExit()
+        {
+            if (m_Window_ComfirmExit) return;
+            m_Window_ComfirmExit = true;
+            MessageBoxResult result = MessageBox.Show(this, "是否退出该应用程序？", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            m_Window_ComfirmExit = false;
+            if (result == MessageBoxResult.Yes) Window_Exit();
+        }
+        private bool m_Window_ComfirmExit = false;
+
+        /// <summary>
+        /// 退出该应用程序时，释放系统资源。
+        /// </summary>
+        public void Window_Exit()
+        {
+            try
+            {
+                //注销快捷键
+                altA.Dispose();
+                altQ.Dispose();
+                //释放资源
+                TransparentSplash.Instance.Dispose();
+                //保存访问历史
+                dockContainer.SaveLayout(m_LayoutFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("系统异常:" + ex.ToString());
+            }
+            finally
+            {
+                Close();
+                //退出应用程序
+                Environment.Exit(0);
+            }
         }
     }
 }
