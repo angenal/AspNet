@@ -1,6 +1,7 @@
 using DotNetBrowser;
 using DotNetBrowser.Events;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -14,17 +15,35 @@ namespace WPF.FullScreen
         // 浏览器事件
         protected void InitializeWebBrowser()
         {
+            var browser = WebBrowser1.Browser;
+            // Enable SpellChecker service.
+            //browser.Context.SpellCheckerService.Enabled = true;
+            // Configure SpellChecker's language.
+            //browser.Context.SpellCheckerService.Language = "en-US";
+            // Set default accept/reject SSL certificates using custom SSL certificate verifier.
+            browser.Context.NetworkService.CertificateVerifier = new MainCertificateVerifier();
+            // Set default handle SSL certificate errors.
+            browser.LoadHandler = new MainLoadHandler();
+            // Set default media stream device using custom default device.
+            MediaStreamDeviceManager deviceManager = browser.MediaStreamDeviceManager;
+            // Get list of all available audio capture devices (microphones).
+            List<MediaStreamDevice> audioCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.AUDIO_CAPTURE);
+            // Get list of all available video capture devices (webcams).
+            List<MediaStreamDevice> videoCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.VIDEO_CAPTURE);
+            // Register own provider to provide Chromium with default device.
+            deviceManager.Provider = new MainMediaStreamDeviceProvider();
+            // Handles various events.
             WebBrowser1.KeyDown += WebBrowser_KeyDown;
             WebBrowser1.StatusChangedEvent += WebBrowser_StatusChangedEvent;
-            WebBrowser1.Browser.TitleChangedEvent += Browser_TitleChangedEvent;
-            WebBrowser1.Browser.StartLoadingFrameEvent += Browser_StartLoadingFrameEvent;
-            WebBrowser1.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
-            WebBrowser1.Browser.RenderUnresponsiveEvent += Browser_RenderUnresponsiveEvent;
-            WebBrowser1.Browser.UserAgent = Properties.Resources.UserAgent;
-            WebBrowser1.Browser.LoadURL(Properties.Resources.URL);
+            browser.TitleChangedEvent += Browser_TitleChangedEvent;
+            browser.StartLoadingFrameEvent += Browser_StartLoadingFrameEvent;
+            browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
+            browser.RenderUnresponsiveEvent += Browser_RenderUnresponsiveEvent;
+            browser.UserAgent = Properties.Resources.UserAgent;
+            browser.LoadURL(Properties.Resources.URL);
             System.Diagnostics.Debug.WriteLine(">> Main window:URL: " + Properties.Resources.URL);
             System.Diagnostics.Debug.WriteLine(">> Main window:UserAgent: " + Properties.Resources.UserAgent);
-            //WebBrowser1.Browser.LoadHTML();
+            //browser.LoadHTML();
         }
 
         private void WebBrowser_KeyDown(object sender, KeyEventArgs e)
@@ -116,6 +135,8 @@ namespace WPF.FullScreen
         public void Window_Exit()
         {
             //注销快捷键
+            f5Hotkey.Dispose();
+            ctrlF5.Dispose();
             altA.Dispose();
             altQ.Dispose();
             //释放资源
