@@ -7,8 +7,10 @@ namespace WPF.FullScreen
     /// <summary></summary>
     public partial class App : Application
     {
+        internal static App Instance;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Instance = this;
             DFoXDotNeBrowser.DFoX_DotNetBrowser.DFoXModificaMemoria();
             //Assembly assembly = Assembly.Load(FullScreen.Properties.Resources.DFoXDotNeBrowser);
             //var type = assembly.GetType("DFoXDotNeBrowser.DFoX_DotNetBrowser");
@@ -34,6 +36,12 @@ namespace WPF.FullScreen
             TransparentSplash.SetBackgroundImage(FullScreen.Properties.Resources.SplashImage2);
 
             TransparentSplash.BeginDisplay();
+        }
+        /// <summary>关闭启动图</summary>
+        /// <param name="delaySeconds">延迟秒</param>
+        public void EndDisplaySplash(int delaySeconds = 0)
+        {
+            TransparentSplash.EndDisplay(delaySeconds);
         }
 
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

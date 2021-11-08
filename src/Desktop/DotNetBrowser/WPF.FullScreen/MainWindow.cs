@@ -1,8 +1,8 @@
 using DotNetBrowser;
 using DotNetBrowser.Events;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WindowsWPF.Controls;
@@ -29,14 +29,8 @@ namespace WPF.FullScreen
             browser.LoadHandler = new MainLoadHandler();
             // Get default media stream device manager.
             MediaStreamDeviceManager deviceManager = browser.MediaStreamDeviceManager;
-            // Get list of all available audio capture devices (microphones).
-            List<MediaStreamDevice> audioCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.AUDIO_CAPTURE);
-            System.Diagnostics.Debug.WriteLine(">> Manage Media:AUDIO " + audioCaptureDevices.Count);
-            // Get list of all available video capture devices (webcams).
-            List<MediaStreamDevice> videoCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.VIDEO_CAPTURE);
-            System.Diagnostics.Debug.WriteLine(">> Manage Media:VIDEO " + videoCaptureDevices.Count);
             // Register own provider to provide Chromium with default device.
-            deviceManager.Provider = new MainMediaStreamDeviceProvider();
+            deviceManager.Provider = new MainMediaStreamDeviceProvider(deviceManager);
             // Handles various events.
             WebBrowser1.KeyDown += WebBrowser_KeyDown;
             WebBrowser1.StatusChangedEvent += WebBrowser_StatusChangedEvent;
@@ -70,12 +64,12 @@ namespace WPF.FullScreen
 
         private void Browser_TitleChangedEvent(object sender, TitleEventArgs e)
         {
-            TransparentSplash.EndDisplay();
+            //App.Instance.EndDisplaySplash();//关闭启动图
         }
 
         private void Browser_StartLoadingFrameEvent(object sender, StartLoadingArgs e)
         {
-            //TransparentSplash.EndDisplay(3);//关闭启动图(延迟3秒)
+            App.Instance.EndDisplaySplash(3);//关闭启动图(延迟3秒)
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, FinishLoadingEventArgs e)
@@ -112,13 +106,42 @@ namespace WPF.FullScreen
 
         private void Window_SourceInitialized(object sender, EventArgs e)
         {
-            //添加快捷键功能
-            RegisterHotkey();
+            RegisterHotkey(); //添加快捷键功能
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true; //取消关闭事件(Alt+F4)
+        }
+
+        // 检查 <body onbeforeunload="return myFunction()">
+        private void Window_Closing_CheckBeforeUnload(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                Task<bool> disposeTask = WebBrowser1.Browser.Dispose(true);
+                if (disposeTask.IsCompleted)
+                {
+                    e.Cancel = !disposeTask.Result;
+                    return;
+                }
+
+                e.Cancel = true;
+
+                disposeTask.ContinueWith(t =>
+                {
+                    if (!t.Result) return;
+                    Dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        Closing -= new CancelEventHandler(Window_Closing_CheckBeforeUnload);
+                        Close();
+                    }));
+                });
+            }
+            catch (Exception exception)
+            {
+                System.Diagnostics.Debug.WriteLine(exception);
+            }
         }
 
         /// <summary>

@@ -145,6 +145,17 @@ namespace WPF.FullScreen
     /// <summary></summary>
     public class MainMediaStreamDeviceProvider : MediaStreamDeviceProvider
     {
+        private readonly MediaStreamDeviceManager manager;
+        public MainMediaStreamDeviceProvider(MediaStreamDeviceManager deviceManager)
+        {
+            manager = deviceManager;
+            // Get list of all available audio capture devices (microphones).
+            List<MediaStreamDevice> audioCaptureDevices = manager.GetMediaStreamDevices(MediaStreamType.AUDIO_CAPTURE);
+            System.Diagnostics.Debug.WriteLine(">> Count Media:AUDIO " + audioCaptureDevices.Count);
+            // Get list of all available video capture devices (webcams).
+            List<MediaStreamDevice> videoCaptureDevices = manager.GetMediaStreamDevices(MediaStreamType.VIDEO_CAPTURE);
+            System.Diagnostics.Debug.WriteLine(">> Count Media:VIDEO " + videoCaptureDevices.Count);
+        }
         public void OnRequestDefaultDevice(MediaStreamDeviceRequest request)
         {
             // Set first available device as default.
