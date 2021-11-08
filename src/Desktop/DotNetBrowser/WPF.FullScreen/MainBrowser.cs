@@ -122,6 +122,27 @@ namespace WPF.FullScreen
         }
     }
     /// <summary></summary>
+    public class MainNetworkDelegate : DefaultNetworkDelegate
+    {
+        public override void OnBeforeURLRequest(BeforeURLRequestParams parameters)
+        {
+            // If navigate to teamdev.com, then change URL to google.com.
+            //if (parameters.Url == "http://www.teamdev.com/")
+            //{
+            //    parameters.SetUrl("www.baidu.com");
+            //}
+        }
+        public override void OnBeforeSendHeaders(BeforeSendHeadersParams parameters)
+        {
+            // If navigate to google.com, then print User-Agent header value.
+            //if (parameters.Url == "https://www.baidu.com/")
+            //{
+            //    HttpHeaders headers = parameters.Headers;
+            //    System.Diagnostics.Debug.WriteLine("User-Agent: " + headers.GetHeader("User-Agent"));
+            //}
+        }
+    }
+    /// <summary></summary>
     public class MainCertificateVerifier : CertificateVerifier
     {
         public CertificateVerifyResult Verify(CertificateVerifyParams parameters)

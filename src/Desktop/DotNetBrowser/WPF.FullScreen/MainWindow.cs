@@ -22,6 +22,7 @@ namespace WPF.FullScreen
             //browser.Context.SpellCheckerService.Language = "en-US";
             // Set default accept/reject SSL certificates using custom SSL certificate verifier.
             browser.Context.NetworkService.CertificateVerifier = new MainCertificateVerifier();
+            BrowserContext.DefaultContext.NetworkService.NetworkDelegate = new MainNetworkDelegate();
             // Set default handle SSL certificate errors.
             browser.LoadHandler = new MainLoadHandler();
             // Set default media stream device using custom default device.
