@@ -96,7 +96,7 @@ namespace FullScreenBrowser
             //https://www.essentialobjects.com/doc/common/eowp.aspx
             //string eowpPath = Path.Combine(ExeDir, "FullScreenBrowserEOWP.exe");
             //EO.Base.Runtime.InitWorkerProcessExecutable(eowpPath);
-
+#if DEBUG
             //Set remote debugging port. You only need this line if you
             //wish to use the remote debugging feature. You may need to
             //use a different port if this port is already in use on your system
@@ -105,7 +105,7 @@ namespace FullScreenBrowser
             //Set this property to true allows you to connect to remote debugging server from another computer.
             //Do not use this option in actual production application
             //engine.RemoteDebugAnyAddress = true;
-
+#endif
             //Uncomment this line to support proprietary media formats.
             //See here for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
@@ -135,6 +135,7 @@ namespace FullScreenBrowser
             //Sets a value indicating whether to enforce same-origin policy.
             //Default it does not allow JavaScript code from one site to access contents of a page from another site.
             options.EnableWebSecurity = false;
+            //options.EnableXSSAuditor = false;
             //Sets a value indicating whether the browser engine should automatically load images.
             options.LoadImages = true;
             //Sets the additional style sheets to be applied to the document.
