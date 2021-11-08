@@ -16,8 +16,8 @@ namespace EO.TabbedBrowser
         {
             Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 
-            Wpf.Runtime.AddLicense(EO.Licenses.V21x);
-            WebBrowser.Runtime.AddLicense(EO.Licenses.V21x);
+            Wpf.Runtime.AddLicense(Licenses.V21x);
+            WebBrowser.Runtime.AddLicense(Licenses.V21x);
 
             //Get the main exe folder
             string exePath = Assembly.GetExecutingAssembly().GetName().CodeBase;
@@ -31,24 +31,26 @@ namespace EO.TabbedBrowser
             //EO.Base.Runtime.InitWorkerProcessExecutable(eowpPath);
 
             //Clean up cache folders for older versions
-            EO.WebEngine.Engine.CleanUpCacheFolders(WebEngine.CacheFolderCleanUpPolicy.OlderVersionOnly);
+            WebEngine.Engine.CleanUpCacheFolders(WebEngine.CacheFolderCleanUpPolicy.OlderVersionOnly);
 
             //Set remote debugging port. You only need this line if you
             //wish to use the remote debugging feature. You may need to
             //use a different port if this port is already in use on your
             //system
-            EO.WebEngine.EngineOptions.Default.RemoteDebugPort = 1234;
+            WebEngine.EngineOptions.Default.RemoteDebugPort = 1234;
 
             //By default remote debugging only accepts connection from
             //localhost. Set this property to true allows you to connect
             //to remote debugging server from another computer. Do not
             //use this option in actual production application
-            EO.WebEngine.EngineOptions.Default.RemoteDebugAnyAddress = true;
+            WebEngine.EngineOptions.Default.RemoteDebugAnyAddress = true;
 
-            //Uncomment this line to support proprietary media formats. See here
-            //for more details:
+            //Uncomment this line to support proprietary media formats.
+            //See here for more details:
             //https://www.essentialobjects.com/doc/webbrowser/advanced/html5.aspx
-            EO.WebEngine.EngineOptions.Default.AllowProprietaryMediaFormats();
+            WebEngine.EngineOptions.Default.AllowProprietaryMediaFormats();
+            //HTML5 Support proprietary media formats.
+            WebEngine.Engine.Default.Options.AllowProprietaryMediaFormats();
 
             MainWindow mainWnd = new MainWindow();
             mainWnd.Show();
