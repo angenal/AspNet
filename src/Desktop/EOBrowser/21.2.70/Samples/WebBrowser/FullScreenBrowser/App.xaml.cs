@@ -43,7 +43,7 @@ namespace FullScreenBrowser
             if (File.Exists(Path.Combine(ExeDir, "eowp.exe"))) EO.Base.Runtime.EnableEOWP = true;
 
             //Get default web engine options
-            EngineOptions engine = EngineOptions.Default;
+            EngineOptions engine = EngineOptions.Default;//EO.WebBrowser.Runtime.DefaultEngineOptions
             SetWebEngineOptions(engine);
             EO.Wpf.Runtime.UICultureName = engine.UILanguage;
             EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = engine.UILanguage;
@@ -74,7 +74,9 @@ namespace FullScreenBrowser
             engine.DisableBuiltInPlugIns = false;
 
             //Sets the cache path
-            //engine.CachePath = "";
+            //string ver = ((AssemblyFileVersionAttribute)typeof(EO.WebBrowser.Runtime).Assembly.GetCustomAttributes(false).FirstOrDefault(t => t is AssemblyFileVersionAttribute)).Version;
+            //string path = Path.Combine(Path.GetTempPath(), "eo.webbrowser.cache." + ver);
+            //engine.CachePath = path;
 
             //Sets custom user agent
             engine.CustomUserAgent = FullScreenBrowser.Properties.Resources.UserAgent;
