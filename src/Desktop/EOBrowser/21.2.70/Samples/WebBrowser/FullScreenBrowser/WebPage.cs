@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using WindowsWPF.Controls;
 
 namespace FullScreenBrowser
 {
@@ -93,6 +94,8 @@ namespace FullScreenBrowser
         void m_WebView_TitleChanged(object sender, EventArgs e)
         {
             Title = m_WebView.Title;
+            if (!AttachEventsNeeded) return;
+            App.Instance.Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));//关闭启动图
         }
 
         void m_WebView_FaviconChanged(object sender, EventArgs e)

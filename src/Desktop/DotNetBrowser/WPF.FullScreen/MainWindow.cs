@@ -64,12 +64,12 @@ namespace WPF.FullScreen
 
         private void Browser_TitleChangedEvent(object sender, TitleEventArgs e)
         {
-            //App.Instance.EndDisplaySplash();//关闭启动图
+            App.Instance.Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));//关闭启动图
         }
 
         private void Browser_StartLoadingFrameEvent(object sender, StartLoadingArgs e)
         {
-            App.Instance.EndDisplaySplash(3);//关闭启动图(延迟3秒)
+            //App.Instance.Dispatcher.BeginInvoke(new Action(()=> TransparentSplash.EndDisplay(3)));//关闭启动图(延迟3秒)
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, FinishLoadingEventArgs e)
@@ -101,7 +101,8 @@ namespace WPF.FullScreen
 
         private void AutoUpdater_CheckForUpdateEvent(AutoUpdaterDotNET.UpdateInfoEventArgs args)
         {
-            if (args.IsUpdateAvailable) TransparentSplash.EndDisplay();//关闭启动图
+            if (!args.IsUpdateAvailable) return;
+            App.Instance.Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));//关闭启动图
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

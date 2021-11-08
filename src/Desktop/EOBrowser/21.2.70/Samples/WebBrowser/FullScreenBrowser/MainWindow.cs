@@ -46,8 +46,6 @@ namespace FullScreenBrowser
             if (m_WebViewsHost == null || !m_WebViewsHost.HasItems) dockContainer.ActivateItem(WebViewItemIdPrefix);
             //模板可视化
             panels.ApplyTemplate();
-            //关闭启动屏幕
-            TransparentSplash.EndDisplay();
             //窗体一直置顶
             //SetTopMost();
         }

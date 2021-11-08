@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Threading;
 using WindowsWPF.Controls;
@@ -8,16 +9,20 @@ namespace WPF.FullScreen
     public partial class App : Application
     {
         internal static App Instance;
+        internal static int ExitCode;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Instance = this;
+
             DFoXDotNeBrowser.DFoX_DotNetBrowser.DFoXModificaMemoria();
+
             //Assembly assembly = Assembly.Load(FullScreen.Properties.Resources.DFoXDotNeBrowser);
             //var type = assembly.GetType("DFoXDotNeBrowser.DFoX_DotNetBrowser");
             //type.GetMethods().First().Invoke(null, new object[0]);
             //System.Diagnostics.Debug.WriteLine(">> Application Startup");
             //DispatcherUnhandledException += App_DispatcherUnhandledException;
 
+            //显示启动屏幕(设定宽高会自动缩放)
             //Add the transparency splash image1
             //TransparentSplash.Instance.Width = 256;
             //TransparentSplash.Instance.Height = 256;
@@ -31,22 +36,28 @@ namespace WPF.FullScreen
             //TransparentSplash.SetTitleString("");
 
             //Add the transparency splash image2
-            TransparentSplash.Instance.Width = 530;
-            TransparentSplash.Instance.Height = 205;
+            //TransparentSplash.Instance.Width = 530;
+            //TransparentSplash.Instance.Height = 205;
             TransparentSplash.SetBackgroundImage(FullScreen.Properties.Resources.SplashImage2);
 
             TransparentSplash.BeginDisplay();
         }
-        /// <summary>关闭启动图</summary>
-        /// <param name="delaySeconds">延迟秒</param>
-        public void EndDisplaySplash(int delaySeconds = 0)
+
+        internal static void ShowError(Exception exception)
         {
-            TransparentSplash.EndDisplay(delaySeconds);
+            Instance.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
         }
 
-        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            ExitCode = 1;
             e.Handled = true;
+            ShowError(e.Exception);
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            e.ApplicationExitCode = ExitCode;
         }
     }
 }

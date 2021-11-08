@@ -13,6 +13,7 @@ namespace FullScreenBrowser
     /// </summary>
     public partial class App : Application
     {
+        internal static App Instance;
         internal static int ExitCode;
         internal static MainWindow MainWnd;
         internal static string ExeDir { get; set; }
@@ -20,10 +21,13 @@ namespace FullScreenBrowser
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Instance = this;
+
             //显示启动屏幕(设定宽高会自动缩放)
             //TransparentSplash.Instance.Width = 737;
             //TransparentSplash.Instance.Height = 361;
             TransparentSplash.SetBackgroundImage(FullScreenBrowser.Properties.Resources.SplashImage);
+
             TransparentSplash.BeginDisplay();
 
             //Get the main exe folder
@@ -148,7 +152,7 @@ namespace FullScreenBrowser
 
         internal static void ShowError(Exception exception)
         {
-            MainWnd.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
+            Instance.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
         }
 
         private void Runtime_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)

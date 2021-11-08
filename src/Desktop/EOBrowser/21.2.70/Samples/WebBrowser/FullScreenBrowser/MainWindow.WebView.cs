@@ -309,7 +309,7 @@ namespace FullScreenBrowser
             //corresponding command
             e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("首页", m_HomeCommand));
+            e.Menu.Items.Add(new MenuItem("Home", m_HomeCommand));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
             e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
