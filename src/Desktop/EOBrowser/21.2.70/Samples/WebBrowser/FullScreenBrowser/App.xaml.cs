@@ -74,7 +74,7 @@ namespace FullScreenBrowser
             engine.DisableBuiltInPlugIns = false;
 
             //Sets the cache path
-            //string ver = ((AssemblyFileVersionAttribute)typeof(EO.WebBrowser.Runtime).Assembly.GetCustomAttributes(false).FirstOrDefault(t => t is AssemblyFileVersionAttribute)).Version;
+            //string ver = typeof(EO.WebBrowser.Runtime).Assembly.GetName().Version.ToString();
             //string path = Path.Combine(Path.GetTempPath(), "eo.webbrowser.cache." + ver);
             //engine.CachePath = path;
 

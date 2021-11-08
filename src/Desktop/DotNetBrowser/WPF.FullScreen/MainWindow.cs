@@ -18,12 +18,14 @@ namespace WPF.FullScreen
             var browser = WebBrowser1.Browser;
             // Enable SpellChecker service.
             //browser.Context.SpellCheckerService.Enabled = true;
-            // Configure SpellChecker's language.
+            // Set SpellChecker's language.
             //browser.Context.SpellCheckerService.Language = "en-US";
             // Set default accept/reject SSL certificates using custom SSL certificate verifier.
             browser.Context.NetworkService.CertificateVerifier = new MainCertificateVerifier();
             BrowserContext.DefaultContext.NetworkService.NetworkDelegate = new MainNetworkDelegate();
-            // Set default handle SSL certificate errors.
+            // Set default context menu.
+            browser.ContextMenuHandler = new MainContextMenuHandler();
+            // Set default handle SSL certificate errors and more.
             browser.LoadHandler = new MainLoadHandler();
             // Set default media stream device using custom default device.
             MediaStreamDeviceManager deviceManager = browser.MediaStreamDeviceManager;

@@ -1,5 +1,4 @@
 using DotNetBrowser;
-using DotNetBrowser.WPF;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -67,16 +66,12 @@ namespace WPF.FullScreen
     /// <summary></summary>
     public class MainContextMenuHandler : ContextMenuHandler
     {
-        WPFBrowserView view;
-        public MainContextMenuHandler(WPFBrowserView view)
-        {
-            this.view = view;
-        }
         public void ShowContextMenu(ContextMenuParams parameters)
         {
             Browser browser = parameters.Browser;
-            var popupMenu = new System.Windows.Forms.ContextMenu();
+            //var owner = Window.GetWindow(view);
 
+            var popupMenu = new System.Windows.Forms.ContextMenu();
             popupMenu.MenuItems.Add(new MenuItem("刷新", delegate
             {
                 browser.Reload();
@@ -84,7 +79,6 @@ namespace WPF.FullScreen
             {
                 Enabled = !string.IsNullOrEmpty(browser.URL)
             });
-
             popupMenu.MenuItems.Add(new MenuItem("首页", delegate
             {
                 browser.LoadURL(Properties.Resources.URL);
@@ -92,7 +86,6 @@ namespace WPF.FullScreen
             {
                 Enabled = !Properties.Resources.URL.Equals(browser.URL)
             });
-
             popupMenu.MenuItems.Add(new MenuItem("后退", delegate
             {
                 browser.GoBack();
@@ -100,7 +93,6 @@ namespace WPF.FullScreen
             {
                 Enabled = browser.CanGoBack()
             });
-
             popupMenu.MenuItems.Add(new MenuItem("前进", delegate
             {
                 browser.GoForward();
@@ -108,7 +100,6 @@ namespace WPF.FullScreen
             {
                 Enabled = browser.CanGoForward()
             });
-
             popupMenu.MenuItems.Add(new MenuItem("源码", delegate
             {
                 var path = Path.GetTempFileName();
