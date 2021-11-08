@@ -124,11 +124,12 @@ namespace FullScreenBrowser
             System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
             Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), DispatcherPriority.Normal);
             var count = m_WebViewsHost.Items.Count;
-            if (1 < count)
+            if (0 < count)
             {
                 WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
-                DetachPage(item1.Page);
-                item1.Page.DetachPage();
+                if (item1.Page.AttachEventsNeeded) return;
+                //DetachPage(item1.Page);
+                //item1.Page.DetachPage();
                 item1.Page.WebControl.WebView.Close(false);
                 item1.Page.WebControl.WebView.Dispose();
                 item1.Page.WebControl.Dispose();
