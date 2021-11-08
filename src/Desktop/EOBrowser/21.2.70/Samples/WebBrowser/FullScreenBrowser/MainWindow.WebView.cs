@@ -26,6 +26,7 @@ namespace FullScreenBrowser
                 page.WebView.BeforeDownload += new BeforeDownloadHandler(WebView_BeforeDownload);
                 page.WebView.DownloadCanceled += new DownloadEventHandler(WebView_DownloadCanceled);
                 page.WebView.DownloadCompleted += new DownloadEventHandler(WebView_DownloadCompleted);
+                page.WebView.FileDialog += new FileDialogHandler(WebView_FileDialog);
                 page.WebView.JSDialog += new JSDialogEventHandler(WebView_JSDialog);
                 page.WebView.StatusMessageChanged += new EventHandler(WebView_StatusMessageChanged);
                 page.WebView.RenderUnresponsive += new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
@@ -397,11 +398,42 @@ namespace FullScreenBrowser
             m_Downloads.Remove(e.Item);
         }
 
-        private void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
+        void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
         {
             WebView webView = (WebView)sender;
             if (webView.IsNewWindow && string.IsNullOrEmpty(webView.Url))
                 webView.Close(false);
+        }
+
+        void WebView_FileDialog(object sender, FileDialogEventArgs e)
+        {
+            if (e.Mode == FileDialogMode.Save)
+            {
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                dlg.FileName = e.DefaultFileName;
+
+                bool? result = dlg.ShowDialog(this);
+                if (result.HasValue && result.Value)
+                    e.Continue(dlg.FileName);
+                else
+                    e.Cancel();
+
+                //Mark the event as handled
+                e.Handled = true;
+            }
+            if (e.Mode == FileDialogMode.Open)
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.Filter = "*.*";
+                bool? result = dlg.ShowDialog(this);
+                if (result.HasValue && result.Value)
+                    e.Continue(dlg.FileName);
+                else
+                    e.Cancel();
+
+                //Mark the event as handled
+                e.Handled = true;
+            }
         }
 
         //JavaScript code
