@@ -10,9 +10,9 @@ namespace FullScreenBrowser
 
         public WebPage Page => m_Page;
 
-        public WebViewItem(EO.WebBrowser.WebView webView)
+        public WebViewItem(EO.WebBrowser.WebView webView, bool attachEvents)
         {
-            m_Page = new WebPage(webView);
+            m_Page = new WebPage(webView, attachEvents);
 
             //Load the WebControl into this DockItem
             Content = m_Page.WebControl;

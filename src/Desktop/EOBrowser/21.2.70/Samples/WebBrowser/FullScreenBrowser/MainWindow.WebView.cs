@@ -9,30 +9,33 @@ namespace FullScreenBrowser
     {
         void AttachPage(WebPage page)
         {
-            page.WebView.BeforeNavigate += WebView_BeforeNavigate;
-            page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
-            page.WebView.Activate += new EventHandler(WebView_Activate);
-            page.WebView.LaunchUrl += new LaunchUrlHandler(WebView_LaunchUrl);
-            page.WebView.Closed += new WebViewClosedEventHandler(WebView_Closed);
-            page.WebView.JSExtInvoke += new JSExtInvokeHandler(WebView_JSExtInvoke);
-            page.WebView.UrlChanged += new EventHandler(WebView_UrlChanged);
-            page.WebView.IsLoadingChanged += new EventHandler(WebView_IsLoadingChanged);
-            page.WebView.CanGoBackChanged += new EventHandler(WebView_CanGoBackChanged);
-            page.WebView.CanGoForwardChanged += new EventHandler(WebView_CanGoForwardChanged);
-            page.WebView.BeforeContextMenu += new BeforeContextMenuHandler(WebView_BeforeContextMenu);
-            page.WebView.Command += new CommandHandler(WebView_Command);
-            page.WebView.BeforeDownload += new BeforeDownloadHandler(WebView_BeforeDownload);
-            page.WebView.DownloadCanceled += new DownloadEventHandler(WebView_DownloadCanceled);
-            page.WebView.DownloadCompleted += new DownloadEventHandler(WebView_DownloadCompleted);
-            page.WebView.JSDialog += new JSDialogEventHandler(WebView_JSDialog);
-            page.WebView.StatusMessageChanged += new EventHandler(WebView_StatusMessageChanged);
-            page.WebView.RenderUnresponsive += new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
+            if (page.AttachEventsNeeded)
+            {
+                page.WebView.BeforeNavigate += WebView_BeforeNavigate;
+                page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
+                page.WebView.Activate += new EventHandler(WebView_Activate);
+                page.WebView.LaunchUrl += new LaunchUrlHandler(WebView_LaunchUrl);
+                page.WebView.Closed += new WebViewClosedEventHandler(WebView_Closed);
+                page.WebView.JSExtInvoke += new JSExtInvokeHandler(WebView_JSExtInvoke);
+                page.WebView.UrlChanged += new EventHandler(WebView_UrlChanged);
+                page.WebView.IsLoadingChanged += new EventHandler(WebView_IsLoadingChanged);
+                page.WebView.CanGoBackChanged += new EventHandler(WebView_CanGoBackChanged);
+                page.WebView.CanGoForwardChanged += new EventHandler(WebView_CanGoForwardChanged);
+                page.WebView.BeforeContextMenu += new BeforeContextMenuHandler(WebView_BeforeContextMenu);
+                page.WebView.Command += new CommandHandler(WebView_Command);
+                page.WebView.BeforeDownload += new BeforeDownloadHandler(WebView_BeforeDownload);
+                page.WebView.DownloadCanceled += new DownloadEventHandler(WebView_DownloadCanceled);
+                page.WebView.DownloadCompleted += new DownloadEventHandler(WebView_DownloadCompleted);
+                page.WebView.JSDialog += new JSDialogEventHandler(WebView_JSDialog);
+                page.WebView.StatusMessageChanged += new EventHandler(WebView_StatusMessageChanged);
+                page.WebView.RenderUnresponsive += new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
 
-            //Update UI status
-            WebView_UrlChanged(page.WebView, EventArgs.Empty);
-            WebView_IsLoadingChanged(page.WebView, EventArgs.Empty);
-            WebView_CanGoForwardChanged(page.WebView, EventArgs.Empty);
-            WebView_CanGoBackChanged(page.WebView, EventArgs.Empty);
+                //Update UI status
+                WebView_UrlChanged(page.WebView, EventArgs.Empty);
+                WebView_IsLoadingChanged(page.WebView, EventArgs.Empty);
+                WebView_CanGoForwardChanged(page.WebView, EventArgs.Empty);
+                WebView_CanGoBackChanged(page.WebView, EventArgs.Empty);
+            }
 
             //Update ConsolePane and ObjectsPane
             if (m_ConsolePane != null) m_ConsolePane.Attach(page.WebView, page.Messages);
@@ -40,30 +43,27 @@ namespace FullScreenBrowser
 
         void DetachPage(WebPage page)
         {
-            page.WebView.BeforeNavigate -= WebView_BeforeNavigate;
-            page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
-            page.WebView.Activate -= new EventHandler(WebView_Activate);
-            page.WebView.LaunchUrl -= new LaunchUrlHandler(WebView_LaunchUrl);
-            page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
-            page.WebView.JSExtInvoke -= new JSExtInvokeHandler(WebView_JSExtInvoke);
-            page.WebView.UrlChanged -= new EventHandler(WebView_UrlChanged);
-            page.WebView.IsLoadingChanged -= new EventHandler(WebView_IsLoadingChanged);
-            page.WebView.CanGoBackChanged -= new EventHandler(WebView_CanGoBackChanged);
-            page.WebView.CanGoForwardChanged -= new EventHandler(WebView_CanGoForwardChanged);
-            page.WebView.BeforeContextMenu -= new BeforeContextMenuHandler(WebView_BeforeContextMenu);
-            page.WebView.Command -= new CommandHandler(WebView_Command);
-            page.WebView.BeforeDownload -= new BeforeDownloadHandler(WebView_BeforeDownload);
-            page.WebView.DownloadCanceled -= new DownloadEventHandler(WebView_DownloadCanceled);
-            page.WebView.DownloadCompleted -= new DownloadEventHandler(WebView_DownloadCompleted);
-            page.WebView.JSDialog -= new JSDialogEventHandler(WebView_JSDialog);
-            page.WebView.StatusMessageChanged -= new EventHandler(WebView_StatusMessageChanged);
-            page.WebView.RenderUnresponsive -= new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
-        }
-
-        //Before Jump to web page
-        void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
-        {
-            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), DispatcherPriority.Normal);
+            if (page.AttachEventsNeeded)
+            {
+                page.WebView.BeforeNavigate -= WebView_BeforeNavigate;
+                page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
+                page.WebView.Activate -= new EventHandler(WebView_Activate);
+                page.WebView.LaunchUrl -= new LaunchUrlHandler(WebView_LaunchUrl);
+                page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
+                page.WebView.JSExtInvoke -= new JSExtInvokeHandler(WebView_JSExtInvoke);
+                page.WebView.UrlChanged -= new EventHandler(WebView_UrlChanged);
+                page.WebView.IsLoadingChanged -= new EventHandler(WebView_IsLoadingChanged);
+                page.WebView.CanGoBackChanged -= new EventHandler(WebView_CanGoBackChanged);
+                page.WebView.CanGoForwardChanged -= new EventHandler(WebView_CanGoForwardChanged);
+                page.WebView.BeforeContextMenu -= new BeforeContextMenuHandler(WebView_BeforeContextMenu);
+                page.WebView.Command -= new CommandHandler(WebView_Command);
+                page.WebView.BeforeDownload -= new BeforeDownloadHandler(WebView_BeforeDownload);
+                page.WebView.DownloadCanceled -= new DownloadEventHandler(WebView_DownloadCanceled);
+                page.WebView.DownloadCompleted -= new DownloadEventHandler(WebView_DownloadCompleted);
+                page.WebView.JSDialog -= new JSDialogEventHandler(WebView_JSDialog);
+                page.WebView.StatusMessageChanged -= new EventHandler(WebView_StatusMessageChanged);
+                page.WebView.RenderUnresponsive -= new RenderUnresponsiveEventHandler(WebView_RenderUnresponsive);
+            }
         }
 
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
@@ -76,15 +76,6 @@ namespace FullScreenBrowser
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
             WebViewItem item = NewWebViewItem(e.WebView);
-            var count = m_WebViewsHost.Items.Count;
-            if (1 < count)
-            {
-                WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
-                DetachPage(item1.Page);
-                item1.Page.DetachPage();
-                item1.Page.WebControl.WebView.Close(false);
-                item1.Page.WebControl.Dispose();
-            }
             m_WebViewsHost.Items.Add(item);
 
             //Signifies that we accept the new WebView. Without this line
@@ -109,20 +100,39 @@ namespace FullScreenBrowser
 
         private WebViewItem NewWebViewItem(WebView webView)
         {
-            WebViewItem item = new WebViewItem(webView);
+            bool attachEvents = (m_CurPage == null);
+            WebViewItem item = new WebViewItem(webView, attachEvents);
             //Target=Self:
-            if (m_CurPage == null) m_CurPage = item.Page;
-            if (m_WebView == null) m_WebView = item.Page.WebView;
+            if (attachEvents)
+            {
+                m_CurPage = item.Page;
+                m_WebView = item.Page.WebView;
+            }
 
             //Sets the shortcut for the new WebView object
             item.Page.WebView.Shortcuts = GetShortcuts();
 
             //Handles various events
             AttachPage(item.Page);
-
             //m_Pages.Add(item.Page);
-
             return item;
+        }
+
+        //Before Jump to web page
+        void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
+            Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), DispatcherPriority.Normal);
+            var count = m_WebViewsHost.Items.Count;
+            if (1 < count)
+            {
+                WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
+                DetachPage(item1.Page);
+                item1.Page.DetachPage();
+                item1.Page.WebControl.WebView.Close(false);
+                item1.Page.WebControl.WebView.Dispose();
+                item1.Page.WebControl.Dispose();
+            }
         }
 
         //WebView events

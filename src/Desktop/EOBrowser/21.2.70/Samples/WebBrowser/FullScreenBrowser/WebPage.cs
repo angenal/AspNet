@@ -18,6 +18,8 @@ namespace FullScreenBrowser
         //The core WebView object
         private EO.WebBrowser.WebView m_WebView;
         private WebPageResourceHandler m_ResourceHandler;
+        //Needed attach events
+        public bool AttachEventsNeeded { get; set; }
 
         //Force download PDF files
         public bool ForceDownloadPDF { get; set; }
@@ -33,7 +35,7 @@ namespace FullScreenBrowser
         private static readonly DependencyPropertyKey FaviconPropertyKey = DependencyProperty.RegisterReadOnly("Favicon", typeof(BitmapSource), typeof(WebPage), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty FaviconProperty = FaviconPropertyKey.DependencyProperty;
 
-        public WebPage(EO.WebBrowser.WebView webView)
+        public WebPage(EO.WebBrowser.WebView webView, bool attachEvents = true)
         {
             if (webView == null)
             {
@@ -45,21 +47,24 @@ namespace FullScreenBrowser
             //Create the WebControl and WebView
             m_WebControl = new WebControl();
             m_WebControl.WebView = m_WebView = webView;
+            AttachEventsNeeded = attachEvents;
 
             //Handle various UI related events
-            m_WebView.TitleChanged += new EventHandler(m_WebView_TitleChanged);
-            m_WebView.FaviconChanged += new EventHandler(m_WebView_FaviconChanged);
-            m_WebView.ConsoleMessage += new ConsoleMessageHandler(m_WebView_ConsoleMessage);
+            if (AttachEventsNeeded)
+            {
+                m_WebView.TitleChanged += new EventHandler(m_WebView_TitleChanged);
+                m_WebView.FaviconChanged += new EventHandler(m_WebView_FaviconChanged);
+                m_WebView.ConsoleMessage += new ConsoleMessageHandler(m_WebView_ConsoleMessage);
 
-            //Handles various request events
-            m_WebView.CertificateError += m_WebView_CertificateError;
-            m_WebView.RequestPermissions += m_WebView_RequestPermissions;
-            m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
+                //Handles various request events
+                m_WebView.CertificateError += m_WebView_CertificateError;
+                m_WebView.RequestPermissions += m_WebView_RequestPermissions;
+                m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
+            }
 
             //Register the custom protocol handler
             m_ResourceHandler = new WebPageResourceHandler();
             m_WebView.RegisterResourceHandler(m_ResourceHandler);
-
             m_WebView.ObjectForScripting = new WebPageObjectForScripting(this);
 
             m_WebView_TitleChanged(null, EventArgs.Empty);
@@ -67,6 +72,8 @@ namespace FullScreenBrowser
 
         public void DetachPage()
         {
+            if (!AttachEventsNeeded) return;
+
             //Handle various UI related events
             m_WebView.TitleChanged -= new EventHandler(m_WebView_TitleChanged);
             m_WebView.FaviconChanged -= new EventHandler(m_WebView_FaviconChanged);
