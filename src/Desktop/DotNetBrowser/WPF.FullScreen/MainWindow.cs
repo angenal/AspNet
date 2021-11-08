@@ -27,12 +27,14 @@ namespace WPF.FullScreen
             browser.ContextMenuHandler = new MainContextMenuHandler();
             // Set default handle SSL certificate errors and more.
             browser.LoadHandler = new MainLoadHandler();
-            // Set default media stream device using custom default device.
+            // Get default media stream device manager.
             MediaStreamDeviceManager deviceManager = browser.MediaStreamDeviceManager;
             // Get list of all available audio capture devices (microphones).
             List<MediaStreamDevice> audioCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.AUDIO_CAPTURE);
+            System.Diagnostics.Debug.WriteLine(">> Manage Media:AUDIO " + audioCaptureDevices.Count);
             // Get list of all available video capture devices (webcams).
             List<MediaStreamDevice> videoCaptureDevices = deviceManager.GetMediaStreamDevices(MediaStreamType.VIDEO_CAPTURE);
+            System.Diagnostics.Debug.WriteLine(">> Manage Media:VIDEO " + videoCaptureDevices.Count);
             // Register own provider to provide Chromium with default device.
             deviceManager.Provider = new MainMediaStreamDeviceProvider();
             // Handles various events.
