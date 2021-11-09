@@ -46,7 +46,7 @@ namespace BigScreenBrowser
                 page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate -= new EventHandler(WebView_Activate);
                 page.WebView.LaunchUrl -= new LaunchUrlHandler(WebView_LaunchUrl);
-                page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
+                //page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
                 page.WebView.JSExtInvoke -= new JSExtInvokeHandler(WebView_JSExtInvoke);
                 page.WebView.UrlChanged -= new EventHandler(WebView_UrlChanged);
                 page.WebView.IsLoadingChanged -= new EventHandler(WebView_IsLoadingChanged);
@@ -66,11 +66,15 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
-            WebViewItem item1 = (WebViewItem)grid.Children[grid.Children.Count - 1];
-            DetachPage(item1.Page);
-            item1.Page.DetachPage();
-            item1.Page.WebControl.WebView.Close(false);
-            item1.Visibility = Visibility.Collapsed;
+            int count = grid.Children.Count;
+            if (0 < count)
+            {
+                WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
+                DetachPage(item1.Page);
+                item1.Page.DetachPage();
+                item1.Page.WebControl.WebView.Close(false);
+                item1.Visibility = Visibility.Collapsed;
+            }
 
             //The new WebView has already been created (e.WebView). Here we
             //associates it with a new WebViewItem object and creates a
@@ -121,16 +125,18 @@ namespace BigScreenBrowser
         {
             for (int i = 0; i < grid.Children.Count; i++)
             {
-                WebViewItem item1 = (WebViewItem)grid.Children[i];
-                if (!item1.Page.AttachEventsNeeded) continue;
-                if (item1.Visibility == Visibility.Collapsed)
+                WebViewItem item = (WebViewItem)grid.Children[i];
+                if (Equals(item.Page.WebView, sender))
                 {
-                    item1.Page.AttachEventsNeeded = false;
-                    item1.Page.WebControl.WebView.Dispose();
-                    item1.Page.WebControl.Dispose();
+                    item.Page.WebControl.WebView.Dispose();
+                    item.Page.WebControl.Dispose();
                     grid.Children.RemoveAt(i);
                     break;
                 }
+            }
+            if (grid.Children.Count == 0)
+            {
+                Close();
             }
         }
 

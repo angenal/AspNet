@@ -50,7 +50,7 @@ namespace FullScreenBrowser
                 page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate -= new EventHandler(WebView_Activate);
                 page.WebView.LaunchUrl -= new LaunchUrlHandler(WebView_LaunchUrl);
-                page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
+                //page.WebView.Closed -= new WebViewClosedEventHandler(WebView_Closed);
                 page.WebView.JSExtInvoke -= new JSExtInvokeHandler(WebView_JSExtInvoke);
                 page.WebView.UrlChanged -= new EventHandler(WebView_UrlChanged);
                 page.WebView.IsLoadingChanged -= new EventHandler(WebView_IsLoadingChanged);
@@ -70,6 +70,17 @@ namespace FullScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            int count = m_WebViewsHost.Items.Count;
+            if (0 < count)
+            {
+                WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
+                if (item1.Page.AttachEventsNeeded) return;
+                //DetachPage(item1.Page);
+                //item1.Page.DetachPage();
+                item1.Page.WebControl.WebView.Close(false);
+                item1.Visibility = Visibility.Collapsed;
+            }
+
             //The old WebView
             WebView webView = (WebView)sender;
 
@@ -124,17 +135,6 @@ namespace FullScreenBrowser
         {
             System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
             Dispatcher.BeginInvoke((EO.Base.Action)(() => { StopFind(); }), DispatcherPriority.Normal);
-            var count = m_WebViewsHost.Items.Count;
-            if (0 < count)
-            {
-                WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
-                if (item1.Page.AttachEventsNeeded) return;
-                //DetachPage(item1.Page);
-                //item1.Page.DetachPage();
-                item1.Page.WebControl.WebView.Close(false);
-                item1.Page.WebControl.WebView.Dispose();
-                item1.Page.WebControl.Dispose();
-            }
         }
 
         //WebView events
@@ -157,6 +157,8 @@ namespace FullScreenBrowser
                 WebViewItem item = (WebViewItem)m_WebViewsHost.Items[i];
                 if (Equals(item.Page.WebView, sender))
                 {
+                    item.Page.WebControl.WebView.Dispose();
+                    item.Page.WebControl.Dispose();
                     m_WebViewsHost.Items.RemoveAt(i);
                     //m_Pages[i].WebControl.Dispose();
                     //m_Pages.RemoveAt(i);
