@@ -86,7 +86,6 @@
     <Compile Include="WebPage.cs" />
     <Compile Include="WebPageObjectForScripting.cs" />
     <Compile Include="WebPageResourceHandler.cs" />
-    <Compile Include="WebViewItem.cs" />
     <Page Include="JSPrompt.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

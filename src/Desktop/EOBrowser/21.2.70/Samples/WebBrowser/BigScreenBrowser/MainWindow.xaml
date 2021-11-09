@@ -4,5 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
-        mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="False" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}">
+        mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}">
+    <Grid x:Name="grid" Background="GhostWhite"></Grid>
 </Window>

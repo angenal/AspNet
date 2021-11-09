@@ -94,7 +94,7 @@ namespace BigScreenBrowser
         void m_WebView_TitleChanged(object sender, EventArgs e)
         {
             Title = m_WebView.Title;
-            if (!AttachEventsNeeded) return;
+            if (!AttachEventsNeeded || string.IsNullOrWhiteSpace(Title)) return;
             App.Instance.Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));//关闭启动图
         }
 

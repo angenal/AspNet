@@ -81,21 +81,21 @@ namespace BigScreenBrowser
             webView.Url = e.TargetUrl;
         }
 
-        private WebViewItem NewWebViewItem(WebView webView)
+        private WebPage NewWebPage(WebView webView)
         {
             bool attachEvents = m_CurPage == null;
-            WebViewItem item = new WebViewItem(webView, attachEvents);
+            WebPage item = new WebPage(webView, attachEvents);
             //Target=Self:
             if (attachEvents)
             {
-                m_CurPage = item.Page;
+                m_CurPage = item;
             }
 
             //Sets the shortcut for the new WebView object
-            item.Page.WebView.Shortcuts = GetShortcuts();
+            item.WebView.Shortcuts = GetShortcuts();
 
             //Handles various events
-            AttachPage(item.Page);
+            AttachPage(item);
             return item;
         }
 

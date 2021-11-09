@@ -29,9 +29,9 @@ namespace BigScreenBrowser
             //窗体一直置顶
             //SetTopMost();
             EO.WebBrowser.WebView webView = new EO.WebBrowser.WebView() { Url = m_HomeURL };
-            var item = NewWebViewItem(webView);
-            //Load the WebControl into this window
-            Content = item.Page.WebControl;
+            //Load the WebControl
+            var item = NewWebPage(webView);
+            grid.Children.Add(item.WebControl);
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)
