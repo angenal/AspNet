@@ -12,6 +12,7 @@ namespace BigScreenBrowser
         private const string WebViewItemIdPrefix = "WebView:";
         private static string m_HomeURL = Properties.Resources.URL;
         private WebPage m_CurPage;
+        private EO.WebBrowser.WebView m_WebView;
 
         public void InitializeWebBrowser()
         {
@@ -28,10 +29,10 @@ namespace BigScreenBrowser
             RemoveCloseButton();
             //窗体一直置顶
             //SetTopMost();
-            EO.WebBrowser.WebView webView = new EO.WebBrowser.WebView() { Url = m_HomeURL };
+            m_WebView = new EO.WebBrowser.WebView() { Url = m_HomeURL };
             //Load the WebControl
-            var item = NewWebPage(webView);
-            grid.Children.Add(item.WebControl);
+            WebViewItem item = NewWebViewItem(m_WebView);
+            grid.Children.Add(item);
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace BigScreenBrowser
                 //dockContainer.SaveLayout(m_LayoutFileName);
                 //释放资源
                 if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
-                m_CurPage.WebView.Dispose();
+                m_WebView.Dispose();
             }
             catch (Exception ex)
             {

@@ -66,36 +66,35 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
-            //The old WebView
-            WebView webView = (WebView)sender;
+            WebViewItem item1 = (WebViewItem)grid.Children[grid.Children.Count - 1];
+            DetachPage(item1.Page);
+            item1.Page.DetachPage();
+            item1.Page.WebControl.WebView.Close(false);
+            item1.Visibility = Visibility.Collapsed;
+
+            //The new WebView has already been created (e.WebView). Here we
+            //associates it with a new WebViewItem object and creates a
+            //new tab button for it (by adding it to m_Pages)
+            WebViewItem item = NewWebViewItem(e.WebView);
 
             //Signifies that we accept the new WebView. Without this line
             //the newly created WebView will be immediately destroyed
             e.Accepted = true;
 
-            //Target=Self: If you do not want to open a new window but wish to open
-            //the new Url in the same window, comment the code above
-            //and uncomment the code below. The code below set the existing
-            //WebView's Url to the new Url. Also because it did not set
-            //e.Accepted to true, so the new WebView will be discarded.
-            webView.Url = e.TargetUrl;
+            grid.Children.Add(item);
         }
 
-        private WebPage NewWebPage(WebView webView)
+        private WebViewItem NewWebViewItem(WebView webView)
         {
-            bool attachEvents = m_CurPage == null;
-            WebPage item = new WebPage(webView, attachEvents);
-            //Target=Self:
-            if (attachEvents)
-            {
-                m_CurPage = item;
-            }
+            WebViewItem item = new WebViewItem(webView, true);
+            m_CurPage = item.Page;
+            m_WebView = item.Page.WebView;
 
             //Sets the shortcut for the new WebView object
-            item.WebView.Shortcuts = GetShortcuts();
+            item.Page.WebView.Shortcuts = GetShortcuts();
 
             //Handles various events
-            AttachPage(item);
+            AttachPage(item.Page);
             return item;
         }
 
@@ -108,6 +107,7 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_Activate(object sender, EventArgs e)
         {
+            m_WebView.AllowDropLoad = false;
         }
 
         //WebView events
@@ -119,6 +119,19 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_Closed(object sender, WebViewClosedEventArgs e)
         {
+            for (int i = 0; i < grid.Children.Count; i++)
+            {
+                WebViewItem item1 = (WebViewItem)grid.Children[i];
+                if (!item1.Page.AttachEventsNeeded) continue;
+                if (item1.Visibility == Visibility.Collapsed)
+                {
+                    item1.Page.AttachEventsNeeded = false;
+                    item1.Page.WebControl.WebView.Dispose();
+                    item1.Page.WebControl.Dispose();
+                    grid.Children.RemoveAt(i);
+                    break;
+                }
+            }
         }
 
         //This event handler is called when a context menu item or a hot key triggers a "command".
@@ -182,24 +195,24 @@ namespace BigScreenBrowser
         //case the status message will change to display the link url
         void WebView_StatusMessageChanged(object sender, EventArgs e)
         {
-            WebView webView = (WebView)sender;
-            if (string.IsNullOrEmpty(webView.Url))
-            {
-                return;
-            }
-            string msg = webView.StatusMessage;
-            if (string.IsNullOrEmpty(msg))
-            {
-                if (webView.IsLoading)
-                {
-                    msg = "Loading";
-                }
-                else
-                {
-                    msg = "Ready";
-                }
-            }
-            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {webView.Url}");
+            //WebView webView = (WebView)sender;
+            //if (string.IsNullOrEmpty(webView.Url))
+            //{
+            //    return;
+            //}
+            //string msg = webView.StatusMessage;
+            //if (string.IsNullOrEmpty(msg))
+            //{
+            //    if (webView.IsLoading)
+            //    {
+            //        msg = "Loading";
+            //    }
+            //    else
+            //    {
+            //        msg = "Ready";
+            //    }
+            //}
+            //System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {webView.Url}");
         }
 
         //This event handler is called when the CanGoBack property of the WebView
@@ -231,9 +244,9 @@ namespace BigScreenBrowser
             e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("Home", m_HomeCommand));
-            e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
-            e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
+            //e.Menu.Items.Add(MenuItem.CreateSeparator());
+            //e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
+            //e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
