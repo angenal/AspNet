@@ -65,7 +65,15 @@ namespace FullScreenBrowser
                         var webView = new EO.WebBrowser.WebView();
                         if (e.ItemId.Length == WebViewItemIdPrefix.Length)
                         {
-                            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} load an empty page");
+                            if (isFullScreen)
+                            {
+                                webView.Url = m_HomeURL;
+                                System.Diagnostics.Debug.WriteLine($">> {e.ItemId}{m_HomeURL}");
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} load an empty page");
+                            }
                         }
                         else
                         {

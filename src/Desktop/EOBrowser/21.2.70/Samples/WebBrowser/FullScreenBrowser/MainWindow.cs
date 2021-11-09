@@ -36,10 +36,17 @@ namespace FullScreenBrowser
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 m_LayoutFileName = Path.Combine(dir, "UILayout.xml");
             }
+            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            isFullScreen = toolbar.Visibility == Visibility.Hidden;
         }
 
         private void Window_Loaded()
         {
+            if (string.IsNullOrWhiteSpace(m_HomeURL))
+            {
+                App.ShowError(new Exception("资源配置“首页网址”未找到！"));
+                return;
+            }
             //Load the DockView layout.
             dockContainer.LoadLayout(m_LayoutFileName);
             //If we do not have any page loaded, load an empty page
@@ -53,17 +60,12 @@ namespace FullScreenBrowser
         private void Window_SourceInitialized()
         {
             //添加快捷键功能
-            //RegisterHotkey();
-        }
-
-        private void Window_Closing(System.ComponentModel.CancelEventArgs e)
-        {
-            //e.Cancel = true; //取消关闭事件(Alt+F4)
-            Window_Exit();
+            RegisterHotkey();
         }
 
         private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            //打印当前WebView
             if (m_WebView != null && !string.IsNullOrEmpty(m_WebView.Url)) m_WebView.Print();
         }
 
@@ -89,12 +91,13 @@ namespace FullScreenBrowser
             try
             {
                 //注销快捷键
+                if (altF11 != null) altF11.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();
                 //释放资源
                 if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
                 //保存访问历史
-                dockContainer.SaveLayout(m_LayoutFileName);
+                //dockContainer.SaveLayout(m_LayoutFileName);
             }
             catch (Exception ex)
             {

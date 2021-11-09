@@ -90,8 +90,7 @@ namespace FullScreenBrowser
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
-            System.Environment.Exit(App.ExitCode);
+            Window_ComfirmExit();
         }
     }
 }

@@ -101,7 +101,7 @@ namespace FullScreenBrowser
 
         private WebViewItem NewWebViewItem(WebView webView)
         {
-            bool attachEvents = (m_CurPage == null);
+            bool attachEvents = m_CurPage == null;
             WebViewItem item = new WebViewItem(webView, attachEvents);
             //Target=Self:
             if (attachEvents)
@@ -172,17 +172,13 @@ namespace FullScreenBrowser
         //This event handler is called when a context menu item or a hot key triggers a "command".
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_F1Command = CommandIds.RegisterUserCommand("help");
-        private static int m_AltACommand = CommandIds.RegisterUserCommand("AltA");
-        private static int m_AltQCommand = CommandIds.RegisterUserCommand("AltQ");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
             {
-                new Shortcut(m_HomeCommand, KeyCode.Home),
                 new Shortcut(m_F1Command, KeyCode.F1),
-                new Shortcut(m_AltACommand, KeyCode.A, false, true, false),
-                new Shortcut(m_AltQCommand, KeyCode.Q, false, true, false),
                 new Shortcut(CommandIds.Reload, KeyCode.F5),
+                new Shortcut(m_HomeCommand, KeyCode.Home),
                 //new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
                 //new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
             };
@@ -198,24 +194,12 @@ namespace FullScreenBrowser
                 e.Handled = true;
                 return;
             }
+            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            if (isFullScreen) return;
             //提示快捷键功能 F1
             if (e.CommandId == m_F1Command)
             {
                 MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            // 快捷键 Alt+A 截图
-            if (e.CommandId == m_AltACommand)
-            {
-                if (screenCut != null && screenCut.IsActive) return;
-                screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false };
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
-                return;
-            }
-            // 快捷键 Alt+Q 询问关闭该应用程序
-            if (e.CommandId == m_AltQCommand)
-            {
-                Window_ComfirmExit();
                 return;
             }
         }
@@ -299,6 +283,9 @@ namespace FullScreenBrowser
         {
             //Clear the default context menu
             e.Menu.Items.Clear();
+
+            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            if (isFullScreen) return;
 
             if (e.Menu.Items.HasPluginMenuItems())
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
