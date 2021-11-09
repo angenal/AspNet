@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using WindowsWPF.Controls;
@@ -8,10 +9,13 @@ namespace WPF.FullScreen
     /// <summary></summary>
     public partial class App : Application
     {
+        internal static Mutex mutex;
         internal static App Instance;
         internal static int ExitCode;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
+            if (!createdNew) Environment.Exit(0);
             Instance = this;
 
             DFoXDotNeBrowser.DFoX_DotNetBrowser.DFoXModificaMemoria();

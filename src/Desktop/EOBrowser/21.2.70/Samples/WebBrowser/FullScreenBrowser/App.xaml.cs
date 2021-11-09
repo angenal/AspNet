@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using WindowsWPF.Controls;
 
@@ -13,6 +14,7 @@ namespace FullScreenBrowser
     /// </summary>
     public partial class App : Application
     {
+        internal static Mutex mutex;
         internal static App Instance;
         internal static int ExitCode;
         internal static MainWindow MainWnd;
@@ -21,6 +23,8 @@ namespace FullScreenBrowser
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
+            if (!createdNew) Environment.Exit(0);
             Instance = this;
 
             //显示启动屏幕(设定宽高会自动缩放)
