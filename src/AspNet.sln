@@ -116,6 +116,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EOPDFDemo", "Desktop\EOBrow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfMvc", "Desktop\EOBrowser\21.2.70\Samples\Pdf\PdfMvc\PdfMvc.csproj", "{F6435DBA-5A32-445F-8875-4C5A5FAAD425}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigScreenBrowser", "Desktop\EOBrowser\21.2.70\Samples\WebBrowser\BigScreenBrowser\BigScreenBrowser.csproj", "{E29D8706-84EE-463C-AF13-79302C4A6241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -274,6 +276,10 @@ Global
 		{F6435DBA-5A32-445F-8875-4C5A5FAAD425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6435DBA-5A32-445F-8875-4C5A5FAAD425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6435DBA-5A32-445F-8875-4C5A5FAAD425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E29D8706-84EE-463C-AF13-79302C4A6241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E29D8706-84EE-463C-AF13-79302C4A6241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E29D8706-84EE-463C-AF13-79302C4A6241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E29D8706-84EE-463C-AF13-79302C4A6241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -323,6 +329,7 @@ Global
 		{F493109A-6C28-45BD-9D75-4B7C75220119} = {A9F69B17-1D4E-44E9-844A-EADE1D4469BA}
 		{59321D11-10C3-4C27-992D-4D9A54220FF8} = {F493109A-6C28-45BD-9D75-4B7C75220119}
 		{F6435DBA-5A32-445F-8875-4C5A5FAAD425} = {F493109A-6C28-45BD-9D75-4B7C75220119}
+		{E29D8706-84EE-463C-AF13-79302C4A6241} = {E9DBCA57-F19E-4F15-A613-C99294F26340}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {78501A0D-C17F-46DA-9029-61D3452C0D32}

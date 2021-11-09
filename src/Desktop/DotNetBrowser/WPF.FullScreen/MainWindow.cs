@@ -179,7 +179,7 @@ namespace WPF.FullScreen
             }
             catch (Exception ex)
             {
-                MessageBox.Show("系统异常:" + ex.ToString());
+                App.ShowError(ex);
             }
             finally
             {

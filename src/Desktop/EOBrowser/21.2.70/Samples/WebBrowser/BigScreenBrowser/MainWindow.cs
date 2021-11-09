@@ -1,15 +1,8 @@
-using EO.WebBrowser;
-using EO.Wpf;
 using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Input;
 using WindowsWPF.Controls;
 
-namespace FullScreenBrowser
+namespace BigScreenBrowser
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -17,58 +10,47 @@ namespace FullScreenBrowser
     public partial class MainWindow
     {
         private const string WebViewItemIdPrefix = "WebView:";
-        private static string m_LayoutFileName = "UILayout.xml";
         private static string m_HomeURL = Properties.Resources.URL;
-        private ObservableCollection<DownloadItem> m_Downloads = new ObservableCollection<DownloadItem>();
-        private ObservableCollection<WebPage> m_Pages = new ObservableCollection<WebPage>();
         private WebPage m_CurPage;
-        private EO.WebBrowser.WebView m_WebView;
-        private ConsolePane m_ConsolePane;
-        private DockView m_WebViewsHost;
-        private DockView m_ToolViews;
 
         public void InitializeWebBrowser()
-        {
-            if (!File.Exists(m_LayoutFileName))
-            {
-                string dir = ((GuidAttribute)App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute)).Value;
-                dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), dir);
-                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                m_LayoutFileName = Path.Combine(dir, "UILayout.xml");
-            }
-            // 快捷键 Alt+F11 全屏(或显示工具栏)
-            isFullScreen = toolbar.Visibility != Visibility.Visible;
-        }
-
-        private void Window_Loaded()
         {
             if (string.IsNullOrWhiteSpace(m_HomeURL))
             {
                 App.ShowError(new Exception("资源配置“首页网址”未找到！"));
                 return;
             }
-            //Load the DockView layout.
-            dockContainer.LoadLayout(m_LayoutFileName);
-            //If we do not have any page loaded, load an empty page
-            if (m_WebViewsHost == null || !m_WebViewsHost.HasItems) dockContainer.ActivateItem(WebViewItemIdPrefix);
-            //模板可视化
-            panels.ApplyTemplate();
-            //窗体一直置顶
-            //SetTopMost();
         }
 
-        private void Window_SourceInitialized()
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //彻底去除关闭按钮
+            RemoveCloseButton();
+            //窗体一直置顶
+            //SetTopMost();
+            EO.WebBrowser.WebView webView = new EO.WebBrowser.WebView() { Url = m_HomeURL };
+            var item = NewWebViewItem(webView);
+            //Load the WebControl into this window
+            Content = item.Page.WebControl;
+        }
+
+        private void Window_SourceInitialized(object sender, EventArgs e)
         {
             //添加快捷键功能
             RegisterHotkey();
         }
 
-        private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            //打印当前WebView
-            if (m_WebView != null && !string.IsNullOrEmpty(m_WebView.Url)) m_WebView.Print();
-        }
+        //private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    //打印当前WebView
+        //    var m_WebView = m_CurPage.WebView;
+        //    if (!string.IsNullOrEmpty(m_WebView.Url)) m_WebView.Print();
+        //}
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true; //取消关闭事件(Alt+F4)
+        }
 
         /// <summary>
         /// 询问关闭该应用程序
@@ -93,14 +75,13 @@ namespace FullScreenBrowser
                 //隐藏
                 Hide();
                 //注销快捷键
-                if (altF11 != null) altF11.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();
                 //保存访问历史
                 //dockContainer.SaveLayout(m_LayoutFileName);
                 //释放资源
                 if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
-                if (m_WebView != null) m_WebView.Dispose();
+                m_CurPage.WebView.Dispose();
             }
             catch (Exception ex)
             {
