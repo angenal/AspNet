@@ -9,7 +9,7 @@
         Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" Closing="Window_Closing" 
         Icon="App.ico" AllowsTransparency="True" ResizeMode="NoResize" ShowInTaskbar="False" 
         WindowState="Normal" WindowStyle="None" WindowStartupLocation="Manual" 
-        Left="0" Top="0" 
+        Left="0" Top="0" Margin="0" Padding="0" 
         Width="{DynamicResource {x:Static SystemParameters.PrimaryScreenWidthKey}}" 
         Height="{DynamicResource {x:Static SystemParameters.PrimaryScreenHeightKey}}" 
         ScrollViewer.VerticalScrollBarVisibility="Disabled">
@@ -135,8 +135,8 @@
         <CommandBinding Command="ApplicationCommands.Find" Executed="Find_Executed" />
     </Window.CommandBindings>
 
-    <Grid Background="White">
-        <DockPanel x:Name="panels">
+    <Grid Background="White" Margin="0">
+        <DockPanel x:Name="panels" Margin="0">
             <Grid x:Name="toolbar" DockPanel.Dock="Top" Margin="2" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -300,8 +300,7 @@
             EO DockView:
             http://www.essentialobjects.com/doc/5/controls/dockview/overview.aspx
             -->
-            <eo:DockContainer x:Name="dockContainer" 
-                eo:ThemeManager.SkinName="VS2012" Background="Transparent" 
+            <eo:DockContainer x:Name="dockContainer" eo:ThemeManager.SkinName="VS2012" Background="Transparent" Margin="0" Padding="0" 
                 DockViewNeeded="dockContainer_DockViewNeeded" 
                 DockItemNeeded="dockContainer_DockItemNeeded" 
                 DockViewAdded="dockContainer_DockViewAdded">
