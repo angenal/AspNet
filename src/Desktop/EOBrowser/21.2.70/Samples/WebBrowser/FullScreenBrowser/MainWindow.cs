@@ -37,7 +37,7 @@ namespace FullScreenBrowser
                 m_LayoutFileName = Path.Combine(dir, "UILayout.xml");
             }
             // 快捷键 Alt+F11 全屏(或显示工具栏)
-            isFullScreen = toolbar.Visibility == Visibility.Hidden;
+            isFullScreen = toolbar.Visibility != Visibility.Visible;
         }
 
         private void Window_Loaded()
@@ -90,14 +90,17 @@ namespace FullScreenBrowser
         {
             try
             {
+                //隐藏
+                Hide();
                 //注销快捷键
                 if (altF11 != null) altF11.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();
-                //释放资源
-                if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
                 //保存访问历史
                 //dockContainer.SaveLayout(m_LayoutFileName);
+                //释放资源
+                if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
+                if (m_WebView != null) m_WebView.Dispose();
             }
             catch (Exception ex)
             {
@@ -105,6 +108,7 @@ namespace FullScreenBrowser
             }
             finally
             {
+                //关闭
                 Close();
                 //退出应用程序
                 Environment.Exit(0);

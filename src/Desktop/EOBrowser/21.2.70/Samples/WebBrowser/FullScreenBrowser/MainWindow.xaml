@@ -137,7 +137,7 @@
 
     <Grid Background="White">
         <DockPanel x:Name="panels">
-            <Grid x:Name="toolbar" DockPanel.Dock="Top" Margin="2" Visibility="Hidden">
+            <Grid x:Name="toolbar" DockPanel.Dock="Top" Margin="2" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

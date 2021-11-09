@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Embedded Page Test</title>
+    <title>Embedded Page</title>
     <style type="text/css">
         body {
             background-color: #fff;
@@ -35,7 +35,7 @@
         {
             try
             {
-                eoapi.extInvoke("demoAbout", [window.navigator.appVersion]);
+                eoapi.extInvoke("about", [window.navigator.appVersion]);
             }
             catch (e)
             {
@@ -54,9 +54,9 @@
                 Custom schemes (protocol) and dynamic resource support
             </h5>
             <p>
-                The Url of this page is "sample://embedded_page". Here "sample" is a custom scheme
+                The Url of this page is "app://embedded_page". Here "app" is a custom scheme
                 and the page is served by a "custom request handler" by code. The related source
-                code is inside class <i>SampleHandler</i> in <i>WebViewItem.cs/WebViewItem.vb</i>;
+                code is inside class <i>ResourceHandler</i> in <i>WebPageResourceHandler.cs</i>;
             </p>
         </li>
         <li>
@@ -66,27 +66,24 @@
             <p>
                 JavaScript extensions allow you to "implement" a JavaScript function with .NET code.
                 In another word, it allows JavaScript code to call .NET code.
-                Click <a href="javascript:aboutBox();">here</a> to call JavaScript function
-                <i>aboutBox</i>, which calls this sample application's "About" box.
+                Click <a href="javascript:about();">here</a> to call JavaScript function
+                <i>about</i>, which calls this application's "About" box.
             </p>
         </li>
         <li>
             <h5>Object For Scripting</h5>
             <p>
                 EO.WebView exposes ObjectForScritping property that works in a way similar to .NET
-                built-in WebBrowser control's ObjectForScripting property. The TabbedBrowser sample
+                built-in WebBrowser control's ObjectForScripting property. The TabbedBrowser
                 sets the WebView's ObjectForScripting property to a .NET object that exposes several
                 methods that can be called through "window.external" object in JavaScript. Click
                 the following links to call each of these demo methods.
             </p>
             <p>
-                <a href="javascript:window.external.Hello('Hello from JavaScript!');">window.external.Hello</a>
+                <a href="javascript:alert(window.external.Now());">window.external.Now();</a>
             </p>
             <p>
-                <a href="javascript:alert(window.external.GetTime());">window.external.GetTime();</a>
-            </p>
-            <p>
-                <a href="javascript:void(0);" onclick="window.external.HandleMouseClick(event.pageX, event.pageY);">window.external.HandleMouseClick</a>
+                <a href="javascript:window.external.Exit();">window.external.Exit();</a>
             </p>
         </li>
         <li>
@@ -95,7 +92,7 @@
             </h4>
             <p>
                 JavaScript Interface allows you to call JavaScript code from your .NET code. Select
-                "Call JavaScript Function Sample" from the menu to invoke JavaScript function
+                "Call JavaScript Function" from the menu to invoke JavaScript function
                 <i>displayDotNetVersion</i> in this page. The function displays .NET version information
                 below and returns the total number of times that this information has been updated.
             </p>

@@ -22,5 +22,10 @@ namespace FullScreenBrowser
         {
             Page.ForceDownloadPDF = true;
         }
+
+        public void Exit()
+        {
+            App.MainWnd.Window_ComfirmExit();
+        }
     }
 }

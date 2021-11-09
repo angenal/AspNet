@@ -40,7 +40,7 @@ namespace FullScreenBrowser
             else
             {
                 isFullScreen = true;
-                toolbar.Visibility = Visibility.Hidden;
+                toolbar.Visibility = Visibility.Collapsed;
             }
         }
 

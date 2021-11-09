@@ -163,18 +163,31 @@ namespace WPF.FullScreen
         /// </summary>
         public void Window_Exit()
         {
-            //注销快捷键
-            f5Hotkey.Dispose();
-            ctrlF5.Dispose();
-            altA.Dispose();
-            altQ.Dispose();
-            //释放资源
-            TransparentSplash.Instance.Dispose();
-            WebBrowser1.Browser.Dispose();
-            WebBrowser1.Dispose();
-            Close();
-            //退出应用程序
-            Environment.Exit(0);
+            try
+            {
+                //隐藏
+                Hide();
+                //注销快捷键
+                f5Hotkey.Dispose();
+                ctrlF5.Dispose();
+                altA.Dispose();
+                altQ.Dispose();
+                //释放资源
+                TransparentSplash.Instance.Dispose();
+                WebBrowser1.Browser.Dispose();
+                WebBrowser1.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("系统异常:" + ex.ToString());
+            }
+            finally
+            {
+                //关闭
+                Close();
+                //退出应用程序
+                Environment.Exit(0);
+            }
         }
     }
 }
