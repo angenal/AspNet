@@ -25,6 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://127.0.0.1:8044/wpf-fullscreen/</InstallUrl>
+    <ProductName>一个全屏浏览工具</ProductName>
     <PublisherName>开发者联盟</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
