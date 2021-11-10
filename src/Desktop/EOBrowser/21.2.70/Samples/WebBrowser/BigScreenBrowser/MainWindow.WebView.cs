@@ -239,6 +239,7 @@ namespace BigScreenBrowser
         {
             //Clear the default context menu
             e.Menu.Items.Clear();
+            return;
 
             if (e.Menu.Items.HasPluginMenuItems())
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
