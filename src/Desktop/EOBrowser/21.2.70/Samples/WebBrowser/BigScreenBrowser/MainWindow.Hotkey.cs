@@ -16,12 +16,44 @@ namespace BigScreenBrowser
         /// </summary>
         protected void RegisterHotkey()
         {
+            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            altF11 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F11, this, true);
+            altF11.HotkeyPressed += AltF11_HotkeyPressed;
             // 快捷键 Alt+A 截图
             altA = new Hotkey(HotkeyModifiers.Alt, Hotkeys.A, this, true);
             altA.HotkeyPressed += AltA_HotkeyPressed;
             // 快捷键 Alt+Q 询问关闭该应用程序
             altQ = new Hotkey(HotkeyModifiers.Alt, Hotkeys.Q, this, true);
             altQ.HotkeyPressed += AltQ_HotkeyPressed;
+        }
+
+        // 快捷键 Alt+F11 全屏(或显示工具栏)
+        private Hotkey altF11;
+        private bool isFullScreen = true;
+        private void AltF11_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            ToggleApp();
+        }
+        public void ToggleApp()
+        {
+            if (isFullScreen)
+            {
+                HideApp();
+            }
+            else
+            {
+                ShowApp();
+            }
+        }
+        public void HideApp()
+        {
+            isFullScreen = false;
+            Hide();
+        }
+        public void ShowApp()
+        {
+            isFullScreen = true;
+            Show();
         }
 
         // 快捷键 Alt+A 截图

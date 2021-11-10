@@ -105,13 +105,13 @@ namespace BigScreenBrowser
         //Before Jump to web page
         void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
+            //System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
         }
 
         //WebView events
         void WebView_Activate(object sender, EventArgs e)
         {
-            m_WebView.AllowDropLoad = false;
+            //m_WebView.AllowDropLoad = false;
         }
 
         //WebView events
@@ -142,33 +142,33 @@ namespace BigScreenBrowser
 
         //This event handler is called when a context menu item or a hot key triggers a "command".
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
-        private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        //private static int m_F1Command = CommandIds.RegisterUserCommand("help");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
             {
                 //new Shortcut(m_F1Command, KeyCode.F1),
                 new Shortcut(CommandIds.Reload, KeyCode.F5),
-                new Shortcut(m_HomeCommand, KeyCode.Home),
+                new Shortcut(m_HomeCommand, KeyCode.Home)
             };
         }
         //Here we only handle our own custom commands
         void WebView_Command(object sender, CommandEventArgs e)
         {
-            WebView webView = (WebView)sender;
             //返回首页 Home
             if (e.CommandId == m_HomeCommand)
             {
+                WebView webView = (WebView)sender;
                 webView.Url = m_HomeURL;
                 e.Handled = true;
                 return;
             }
             //提示快捷键功能 F1
-            if (e.CommandId == m_F1Command)
-            {
-                MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+            //if (e.CommandId == m_F1Command)
+            //{
+            //    MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    return;
+            //}
         }
 
         //Render Unresponsive
@@ -239,25 +239,24 @@ namespace BigScreenBrowser
         {
             //Clear the default context menu
             e.Menu.Items.Clear();
-            return;
 
-            if (e.Menu.Items.HasPluginMenuItems())
-                e.Menu.Items.Add(MenuItem.CreateSeparator());
+            //if (e.Menu.Items.HasPluginMenuItems())
+            //    e.Menu.Items.Add(MenuItem.CreateSeparator());
 
-            //Create new context menu items. Each menu item is associated to
-            //a "Command". When the menu item is selected, WebView_Command is 
-            //called (as event handler for the Command event) to handle the 
-            //corresponding command
-            e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
-            e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("Home", m_HomeCommand));
+            ////Create new context menu items. Each menu item is associated to
+            ////a "Command". When the menu item is selected, WebView_Command is 
+            ////called (as event handler for the Command event) to handle the 
+            ////corresponding command
+            //e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
-            //e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
-            //e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
-            e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
+            //e.Menu.Items.Add(new MenuItem("Home", m_HomeCommand));
+            ////e.Menu.Items.Add(MenuItem.CreateSeparator());
+            ////e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
+            ////e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
-            //e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
+            //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
+            ////e.Menu.Items.Add(MenuItem.CreateSeparator());
+            ////e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
 
             //if (e.MenuInfo.Suggestions.Length > 0)
             //{
@@ -322,6 +321,7 @@ namespace BigScreenBrowser
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
             //Set ShowDialog to true to display "Save As" dialog
+            e.FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             e.ShowDialog = true;
         }
 
@@ -343,34 +343,20 @@ namespace BigScreenBrowser
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
                 dlg.FileName = e.DefaultFileName;
-
                 bool? result = dlg.ShowDialog(this);
-                if (result.HasValue && result.Value)
-                    e.Continue(dlg.FileName);
-                else
-                    e.Cancel();
-
-                //Mark the event as handled
-                e.Handled = true;
+                if (result.HasValue && result.Value) e.Continue(dlg.FileName);
+                else e.Cancel();
             }
             if (e.Mode == FileDialogMode.Open)
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
                 dlg.Filter = "*.*";
                 bool? result = dlg.ShowDialog(this);
-                if (result.HasValue && result.Value)
-                    e.Continue(dlg.FileName);
-                else
-                    e.Cancel();
-
-                //Mark the event as handled
-                e.Handled = true;
+                if (result.HasValue && result.Value) e.Continue(dlg.FileName);
+                else e.Cancel();
             }
-        }
-
-        //JavaScript code
-        void WebView_JSExtInvoke(object sender, JSExtInvokeArgs e)
-        {
+            //Mark the event as handled
+            e.Handled = true;
         }
     }
 }

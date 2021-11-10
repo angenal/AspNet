@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -45,6 +46,17 @@ namespace FullScreenBrowser
         private static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int width, int height, int flags);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr GetForegroundWindow();
+        #endregion
+
+        #region 内存优化
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, EntryPoint = "SetProcessWorkingSetSize")]
+        private static extern int SetProcessWorkingSetSize(IntPtr process, int minSize, int maxSize);
+        private void ClearMemory()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT) SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, -1, -1);
+        }
         #endregion
     }
 }

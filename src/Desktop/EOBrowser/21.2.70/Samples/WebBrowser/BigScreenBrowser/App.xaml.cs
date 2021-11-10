@@ -16,16 +16,20 @@ namespace BigScreenBrowser
     {
         internal static Mutex mutex;
         internal static App Instance;
+        internal static string[] StartupArgs;
         internal static int ExitCode;
         internal static MainWindow MainWnd;
-        internal static string ExeDir { get; set; }
-        internal static object[] AssemblyAttributes { get; set; }
+        internal static string ExeDir;
+        internal static object[] AssemblyAttributes;
+        internal static DateTime StartupDateTime;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
             if (!createdNew) Environment.Exit(0);
             Instance = this;
+            StartupArgs = e.Args;
+            StartupDateTime = DateTime.Now;
 
             //显示启动屏幕(设定宽高会自动缩放)
             //TransparentSplash.Instance.Width = 737;
