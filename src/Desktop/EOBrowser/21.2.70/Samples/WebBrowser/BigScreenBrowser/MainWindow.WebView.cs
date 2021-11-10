@@ -147,7 +147,7 @@ namespace BigScreenBrowser
         {
             return new Shortcut[]
             {
-                new Shortcut(m_F1Command, KeyCode.F1),
+                //new Shortcut(m_F1Command, KeyCode.F1),
                 new Shortcut(CommandIds.Reload, KeyCode.F5),
                 new Shortcut(m_HomeCommand, KeyCode.Home),
             };
