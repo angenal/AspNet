@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using WindowsWPF.Controls;
 
@@ -13,6 +14,7 @@ namespace BigScreenBrowser
         private static string m_HomeURL = Properties.Resources.URL;
         private WebPage m_CurPage;
         private EO.WebBrowser.WebView m_WebView;
+        private List<WebViewItemUrl> m_Urls = new List<WebViewItemUrl>();
 
         public void InitializeWebBrowser()
         {

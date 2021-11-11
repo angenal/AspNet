@@ -31,4 +31,14 @@ namespace BigScreenBrowser
             StateData = m_Page.WebView.Url;
         }
     }
+    internal class WebViewItemUrl
+    {
+        public string Url { get; set; }
+        public bool Opened { get; set; }
+        public WebViewItemUrl(string url, bool opened)
+        {
+            Url = url;
+            Opened = opened;
+        }
+    }
 }

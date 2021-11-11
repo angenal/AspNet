@@ -93,6 +93,8 @@ namespace BigScreenBrowser
             WebViewItem item = new WebViewItem(webView, true);
             m_CurPage = item.Page;
             m_WebView = item.Page.WebView;
+            m_Urls.Add(new WebViewItemUrl(m_WebView.Url, true));
+            SetUrlIndex(m_Urls.Count - 1);
 
             //Sets the shortcut for the new WebView object
             item.Page.WebView.Shortcuts = GetShortcuts();
@@ -100,6 +102,33 @@ namespace BigScreenBrowser
             //Handles various events
             AttachPage(item.Page);
             return item;
+        }
+
+        private bool TryGetUrlByBackOrForward(bool isForward, out int newIndex)
+        {
+            int index = -1, count = m_Urls.Count;
+            for (int i = 0; i < count; i++)
+            {
+                if (m_Urls[i].Opened)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            newIndex = isForward ? index + 1 : index - 1;
+            return newIndex >= 0 && newIndex < count;
+        }
+        private string SetUrlIndex(int index)
+        {
+            if (index < 0 || index >= m_Urls.Count)
+            {
+                return null;
+            }
+            for (int i = 0; i < m_Urls.Count; i++)
+            {
+                m_Urls[i].Opened = index == i;
+            }
+            return m_Urls[index].Url;
         }
 
         //Before Jump to web page
@@ -141,15 +170,21 @@ namespace BigScreenBrowser
         }
 
         //This event handler is called when a context menu item or a hot key triggers a "command".
-        private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         //private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
+        private static int m_BackCommand = CommandIds.RegisterUserCommand("back");
+        private static int m_ForwardCommand = CommandIds.RegisterUserCommand("forward");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
             {
                 //new Shortcut(m_F1Command, KeyCode.F1),
-                new Shortcut(CommandIds.Reload, KeyCode.F5),
-                new Shortcut(m_HomeCommand, KeyCode.Home)
+                new Shortcut(CommandIds.Reload, KeyCode.F5), //刷新网页
+                new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),
+                new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
+                new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
+                new Shortcut(m_BackCommand, KeyCode.Left, false, true, false), //返回 Alt + ←
+                new Shortcut(m_ForwardCommand, KeyCode.Right, false, true, false), //向前 Alt + →
             };
         }
         //Here we only handle our own custom commands
@@ -158,14 +193,45 @@ namespace BigScreenBrowser
             //返回首页 Home
             if (e.CommandId == m_HomeCommand)
             {
+                e.Handled = true;
                 WebView webView = (WebView)sender;
                 webView.Url = m_HomeURL;
+                return;
+            }
+            //返回 Alt + ←
+            if (e.CommandId == m_BackCommand)
+            {
                 e.Handled = true;
+                if (TryGetUrlByBackOrForward(false, out int newIndex))
+                {
+                    string url = SetUrlIndex(newIndex);
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        WebView webView = (WebView)sender;
+                        webView.Url = url;
+                    }
+                }
+                return;
+            }
+            //向前 Alt + →
+            if (e.CommandId == m_ForwardCommand)
+            {
+                e.Handled = true;
+                if (TryGetUrlByBackOrForward(true, out int newIndex))
+                {
+                    string url = SetUrlIndex(newIndex);
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        WebView webView = (WebView)sender;
+                        webView.Url = url;
+                    }
+                }
                 return;
             }
             //提示快捷键功能 F1
             //if (e.CommandId == m_F1Command)
             //{
+            //    e.Handled = true;
             //    MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             //    return;
             //}
