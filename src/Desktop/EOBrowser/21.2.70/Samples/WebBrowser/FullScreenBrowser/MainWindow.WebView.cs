@@ -71,12 +71,12 @@ namespace FullScreenBrowser
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
             int count = m_WebViewsHost.Items.Count;
-            if (0 < count)
+            if (1 < count)
             {
                 WebViewItem item1 = (WebViewItem)m_WebViewsHost.Items[count - 1];
                 if (item1.Page.AttachEventsNeeded) return;
-                //DetachPage(item1.Page);
-                //item1.Page.DetachPage();
+                DetachPage(item1.Page);
+                item1.Page.DetachPage();
                 item1.Page.WebControl.WebView.Close(false);
                 item1.Visibility = Visibility.Collapsed;
             }
@@ -174,15 +174,19 @@ namespace FullScreenBrowser
         //This event handler is called when a context menu item or a hot key triggers a "command".
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        private static int m_F3Command = CommandIds.RegisterUserCommand("find");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
             {
-                new Shortcut(m_F1Command, KeyCode.F1),
-                new Shortcut(CommandIds.Reload, KeyCode.F5),
-                new Shortcut(m_HomeCommand, KeyCode.Home),
-                //new Shortcut(CommandIds.Back, KeyCode.B, true, false, false),
-                //new Shortcut(CommandIds.Forward, KeyCode.F, true, false, false),
+                new Shortcut(m_F1Command, KeyCode.F1), //帮助提示窗口
+                new Shortcut(m_F3Command, KeyCode.F3), //快速打开搜索窗口
+                new Shortcut(CommandIds.Reload, KeyCode.F5), //刷新网页
+                new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),
+                new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
+                new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
+                new Shortcut(CommandIds.Back, KeyCode.Left, false, true, false), //返回 Alt + ←
+                new Shortcut(CommandIds.Forward, KeyCode.Right, false, true, false), //向前 Alt + →
             };
         }
         //Here we only handle our own custom commands
@@ -192,15 +196,23 @@ namespace FullScreenBrowser
             //返回首页 Home
             if (e.CommandId == m_HomeCommand)
             {
-                webView.Url = m_HomeURL;
                 e.Handled = true;
+                webView.Url = m_HomeURL;
                 return;
             }
-            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            //快速打开搜索窗口
+            if (e.CommandId == m_F3Command)
+            {
+                e.Handled = true;
+                Find_Executed(sender, null);
+                return;
+            }
+            // 快捷键 F6 全屏(或显示工具栏)
             if (isFullScreen) return;
             //提示快捷键功能 F1
             if (e.CommandId == m_F1Command)
             {
+                e.Handled = true;
                 MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -286,7 +298,7 @@ namespace FullScreenBrowser
             //Clear the default context menu
             e.Menu.Items.Clear();
 
-            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            // 快捷键 F6 全屏(或显示工具栏)
             if (isFullScreen) return;
 
             if (e.Menu.Items.HasPluginMenuItems())

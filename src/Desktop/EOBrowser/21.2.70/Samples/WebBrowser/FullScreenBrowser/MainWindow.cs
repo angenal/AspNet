@@ -20,7 +20,7 @@ namespace FullScreenBrowser
         private static string m_LayoutFileName = "UILayout.xml";
         private static string m_HomeURL = Properties.Resources.URL;
         private ObservableCollection<DownloadItem> m_Downloads = new ObservableCollection<DownloadItem>();
-        private ObservableCollection<WebPage> m_Pages = new ObservableCollection<WebPage>();
+        //private ObservableCollection<WebPage> m_Pages = new ObservableCollection<WebPage>();
         private WebPage m_CurPage;
         private EO.WebBrowser.WebView m_WebView;
         private ConsolePane m_ConsolePane;
@@ -36,7 +36,7 @@ namespace FullScreenBrowser
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 m_LayoutFileName = Path.Combine(dir, "UILayout.xml");
             }
-            // 快捷键 Alt+F11 全屏(或显示工具栏)
+            // 快捷键 F6 全屏(或显示工具栏)
             isFullScreen = toolbar.Visibility != Visibility.Visible;
         }
 
@@ -93,7 +93,7 @@ namespace FullScreenBrowser
                 //隐藏
                 Hide();
                 //注销快捷键
-                if (altF11 != null) altF11.Dispose();
+                if (keyF6 != null) keyF6.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();
                 //保存访问历史

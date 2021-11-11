@@ -16,9 +16,9 @@ namespace FullScreenBrowser
         /// </summary>
         protected void RegisterHotkey()
         {
-            // 快捷键 Alt+F11 全屏(或显示工具栏)
-            altF11 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F11, this, true);
-            altF11.HotkeyPressed += AltF11_HotkeyPressed;
+            // 快捷键 F6 快速定位到地址栏(显示工具栏)
+            keyF6 = new Hotkey(HotkeyModifiers.NoMod, Hotkeys.F6, this, true);
+            keyF6.HotkeyPressed += F6_HotkeyPressed;
             // 快捷键 Alt+A 截图
             altA = new Hotkey(HotkeyModifiers.Alt, Hotkeys.A, this, true);
             altA.HotkeyPressed += AltA_HotkeyPressed;
@@ -27,15 +27,17 @@ namespace FullScreenBrowser
             altQ.HotkeyPressed += AltQ_HotkeyPressed;
         }
 
-        // 快捷键 Alt+F11 全屏(或显示工具栏)
-        private Hotkey altF11;
+        // 快捷键 F6 快速定位到地址栏(显示工具栏)
+        private Hotkey keyF6;
         private bool isFullScreen;
-        private void AltF11_HotkeyPressed(object sender, HotkeyEventArgs e)
+        private void F6_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
             if (isFullScreen)
             {
                 isFullScreen = false;
                 toolbar.Visibility = Visibility.Visible;
+                txtUrl.Focus();
+                txtUrl.SelectAll();
             }
             else
             {
