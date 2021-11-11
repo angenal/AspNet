@@ -63,7 +63,9 @@ namespace BigScreenBrowser
             Engine.CleanUpCacheFolders(CacheFolderCleanUpPolicy.OlderVersionOnly);
 
             Engine.Default.AllowRestart = true;
+#if DEBUG
             System.Diagnostics.Debug.WriteLine(">> Default::Custom-UserAgent: " + engine.CustomUserAgent);
+#endif
             #endregion
 
             // Set default web browser options
