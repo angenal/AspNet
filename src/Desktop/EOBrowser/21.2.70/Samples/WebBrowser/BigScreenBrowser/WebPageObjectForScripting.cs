@@ -17,7 +17,7 @@ namespace BigScreenBrowser
             Page = page;
         }
 
-        /// <summary>获取当前系统时间</summary>
+        /// <summary>获取当前时间</summary>
         public DateTime Now()
         {
             return DateTime.Now;

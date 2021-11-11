@@ -26,7 +26,7 @@ namespace BigScreenBrowser
             {
                 case DefaultPage: //项目文件属性:生成操作:嵌入的资源
                     context.Response.ContentType = "text/html";
-                    context.Response.WriteResource(typeof(WebPageResourceHandler).Assembly, "FullScreenBrowser.wwwroot.index.htm", "text/html");
+                    context.Response.WriteResource(typeof(WebPageResourceHandler).Assembly, "BigScreenBrowser.wwwroot.index.htm", "text/html");
                     break;
                 default:
                     base.ProcessRequest(context);

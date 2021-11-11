@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>演示</title>
+    <style type="text/css">
+        body, input, textarea {
+            -webkit-font-smoothing: antialiased;
+            font-family: "Microsoft Yahei", "Helvetica Neue", "Lantinghei SC", "WenQuanYi Micro Hei", Verdana, Arial, Helvetica, sans-serif !important;
+        }
+        h5 {
+            font-size: 1em;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
+    <script type="text/javascript">
+
+        function runProcessFunction() {
+            var shell = document.getElementById('runProcessArgs1').value,
+                args = document.getElementById('runProcessArgs2').value;
+            if (!shell) return alert('请输入文件名或程序路径');
+            var result = runProcess(shell, args);
+            return alert('返回：' + result);
+        }
+
+        function runCMDFunction() {
+            var shell = document.getElementById('runCMDArgs1').value,
+                args = document.getElementById('runCMDArgs2').value;
+            if (!shell) return alert('请输入文件名或程序路径');
+            var result = runCMD(shell, args);
+            return alert('返回：' + result);
+        }
+
+    </script>
+</head>
+<body>
+    <p>
+        <h5>演示功能</h5>
+    </p>
+    <ul>
+        <li>
+            <h5>JavaScript Function</h5>
+            <p><a href="javascript:clearMemory();">执行内存优化<i>clearMemory()</i></a></p>
+            <p><a href="javascript:toggleApp();">显示/隐藏<i>toggleApp()</i></a></p>
+            <p><a href="javascript:showApp();">显示该应用程序<i>showApp()</i></a></p>
+            <p><a href="javascript:hideApp();">隐藏该应用程序<i>hideApp()</i></a></p>
+            <p>
+                <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
+                <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
+                <input id="runProcessArgs2" width="100" placeholder="请输入其它参数" />
+            </p>
+            <p>
+                <a href="javascript:runCMDFunction();">执行命令行程序<i>runCMD()</i></a>
+                <input id="runCMDArgs1" width="100" placeholder="请输入文件名或程序路径" />
+                <input id="runCMDArgs2" width="100" placeholder="请输入其它参数" />
+            </p>
+        </li>
+        <li>
+            <h5>Object For Scripting</h5>
+            <p><a href="javascript:alert(window.external.Now());">获取当前时间<i>window.external.Now()</i></a></p>
+            <p><a href="javascript:alert(JSON.stringify(window.external.GetAppInfo()));">获取应用程序信息<i>window.external.GetAppInfo()</i></a></p>
+            <p><a href="javascript:window.external.ExitApp();">退出应用程序<i>window.external.ExitApp()</i></a></p>
+        </li>
+    </ul>
+</body>
+</html>

@@ -16,17 +16,17 @@ namespace BigScreenBrowser
                 case "clearMemory":
                     ClearMemory();
                     break;
-                // 显示
-                case "showApp":
-                    ShowApp();
-                    break;
-                // 隐藏
-                case "hideApp":
-                    HideApp();
-                    break;
                 // 显示/隐藏
                 case "toggleApp":
                     ToggleApp();
+                    break;
+                // 显示该应用程序
+                case "showApp":
+                    ShowApp();
+                    break;
+                // 隐藏该应用程序
+                case "hideApp":
+                    HideApp();
                     break;
                 // 打开其它应用程序
                 case "runProcess":
@@ -41,7 +41,7 @@ namespace BigScreenBrowser
                             }
                             else
                             {
-                                process = Process.Start(e.Arguments[0].ToString(), string.Join(" ", e.Arguments.Skip(1)));
+                                process = Process.Start(e.Arguments[0].ToString(), string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString()))));
                             }
                             e.ReturnValue = process.Responding;
                         }
@@ -55,10 +55,10 @@ namespace BigScreenBrowser
                 case "runCMD":
                     if (e.Arguments.Length > 0 && e.Arguments[0].GetType() == typeof(string))
                     {
-                        string shell = e.Arguments[0].ToString(), command = e.Arguments.Length == 1 ? null : string.Join(" ", e.Arguments.Skip(1)), result = null;
+                        string shell = e.Arguments[0].ToString(), args = e.Arguments.Length == 1 ? null : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString()))), result = null;
                         var psi = new ProcessStartInfo();
                         psi.FileName = shell;
-                        psi.Arguments = command;
+                        psi.Arguments = args;
                         psi.RedirectStandardOutput = true;
                         psi.UseShellExecute = false;
                         psi.CreateNoWindow = true;
@@ -78,6 +78,10 @@ namespace BigScreenBrowser
                                 Debug.WriteLine($">> run CMD << {result}");
 #endif
                                 e.ReturnValue = result;
+                            }
+                            else
+                            {
+                                e.ReturnValue = "";
                             }
                         }
                         catch (Exception ex)
