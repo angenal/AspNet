@@ -14,12 +14,20 @@
         }
     </style>
     <script type="text/javascript">
+        function runJsFunction() {
+            try {
+                if (arguments.length > 0) eoapi.extInvoke(arguments.splice(0, 1)[0], arguments);
+            }
+            catch (e) {
+                alert('异常：' + e.toString());
+            }
+        }
 
         function runProcessFunction() {
             var shell = document.getElementById('runProcessArgs1').value,
                 args = document.getElementById('runProcessArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            var result = runProcess(shell, args);
+            var result = runJsFunction('runProcess', [shell, args]);
             return alert('返回：' + result);
         }
 
@@ -27,7 +35,7 @@
             var shell = document.getElementById('runCMDArgs1').value,
                 args = document.getElementById('runCMDArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            var result = runCMD(shell, args);
+            var result = runJsFunction('runCMD', [shell, args]);
             return alert('返回：' + result);
         }
 
@@ -40,10 +48,10 @@
     <ul>
         <li>
             <h5>JavaScript Function</h5>
-            <p><a href="javascript:clearMemory();">执行内存优化<i>clearMemory()</i></a></p>
-            <p><a href="javascript:toggleApp();">显示/隐藏<i>toggleApp()</i></a></p>
-            <p><a href="javascript:showApp();">显示该应用程序<i>showApp()</i></a></p>
-            <p><a href="javascript:hideApp();">隐藏该应用程序<i>hideApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('clearMemory');">执行内存优化<i>clearMemory()</i></a></p>
+            <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏<i>toggleApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('showApp');">显示该应用程序<i>showApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('hideApp');">隐藏该应用程序<i>hideApp()</i></a></p>
             <p>
                 <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
                 <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
