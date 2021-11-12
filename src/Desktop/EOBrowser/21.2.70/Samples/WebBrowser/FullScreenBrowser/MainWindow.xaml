@@ -128,7 +128,7 @@
     </Window.CommandBindings>
 
     <Grid Background="Black">
-        <DockPanel x:Name="panels" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel x:Name="panels" LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid x:Name="toolbar" DockPanel.Dock="Top" Margin="2" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
