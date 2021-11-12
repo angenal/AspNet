@@ -25,6 +25,9 @@ namespace FullScreenBrowser
             // 快捷键 Alt+Q 询问关闭该应用程序
             altQ = new Hotkey(HotkeyModifiers.Alt, Hotkeys.Q, this, true);
             altQ.HotkeyPressed += AltQ_HotkeyPressed;
+            // 快捷键 Alt+T 该应用程序置顶显示
+            altT = new Hotkey(HotkeyModifiers.Alt, Hotkeys.T, this, true);
+            altT.HotkeyPressed += AltT_HotkeyPressed;
         }
 
         // 快捷键 F6 快速定位到地址栏(显示工具栏)
@@ -70,5 +73,12 @@ namespace FullScreenBrowser
         //{
         //    //Window_ComfirmExit();
         //}
+
+        // 快捷键 Alt+T 该应用程序置顶显示
+        private Hotkey altT;
+        private void AltT_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            if (isFullScreen) Topmost = !Topmost;
+        }
     }
 }

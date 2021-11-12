@@ -96,6 +96,7 @@ namespace FullScreenBrowser
                 if (keyF6 != null) keyF6.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();
+                if (altT != null) altT.Dispose();
                 //保存访问历史
                 //dockContainer.SaveLayout(m_LayoutFileName);
                 //释放资源
