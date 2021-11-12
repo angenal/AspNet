@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using WindowsWPF.Controls;
 
 namespace BigScreenBrowser
 {
@@ -95,7 +94,7 @@ namespace BigScreenBrowser
         {
             Title = m_WebView.Title;
             if (!AttachEventsNeeded || string.IsNullOrWhiteSpace(Title)) return;
-            App.Instance.Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));//关闭启动图
+            App.Instance.HideSplash();
         }
 
         void m_WebView_FaviconChanged(object sender, EventArgs e)

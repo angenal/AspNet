@@ -1,6 +1,7 @@
 using EO.WebBrowser;
 using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace BigScreenBrowser
 {
@@ -10,6 +11,7 @@ namespace BigScreenBrowser
         {
             if (page.AttachEventsNeeded)
             {
+                page.WebView.LoadCompleted += WebView_LoadCompleted;
                 page.WebView.BeforeNavigate += WebView_BeforeNavigate;
                 page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate += new EventHandler(WebView_Activate);
@@ -42,6 +44,7 @@ namespace BigScreenBrowser
         {
             if (page.AttachEventsNeeded)
             {
+                page.WebView.LoadCompleted -= WebView_LoadCompleted;
                 page.WebView.BeforeNavigate -= WebView_BeforeNavigate;
                 page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate -= new EventHandler(WebView_Activate);
@@ -129,6 +132,17 @@ namespace BigScreenBrowser
                 m_Urls[i].Opened = index == i;
             }
             return m_Urls[index].Url;
+        }
+
+        //Web page loaded event
+        private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
+        {
+            if (App.GridBackgroundUpdated) return;
+            App.GridBackgroundUpdated = true;
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                App.MainWnd.grid.Background = (Brush)new BrushConverter().ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
+            }));
         }
 
         //Before Jump to web page

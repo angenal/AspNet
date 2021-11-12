@@ -16,12 +16,13 @@ namespace BigScreenBrowser
     {
         internal static Mutex mutex;
         internal static App Instance;
-        internal static string[] StartupArgs;
-        internal static int ExitCode;
         internal static MainWindow MainWnd;
-        internal static string ExeDir;
-        internal static object[] AssemblyAttributes;
+        internal static string[] StartupArgs;
         internal static DateTime StartupDateTime;
+        internal static bool GridBackgroundUpdated;
+        internal static object[] AssemblyAttributes;
+        internal static string ExeDir;
+        internal static int ExitCode;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -31,11 +32,8 @@ namespace BigScreenBrowser
             StartupArgs = e.Args;
             StartupDateTime = DateTime.Now;
 
-            //显示启动屏幕(设定宽高会自动缩放)
-            //TransparentSplash.Instance.Width = 737;
-            //TransparentSplash.Instance.Height = 361;
-            TransparentSplash.SetBackgroundImage(BigScreenBrowser.Properties.Resources.SplashImage);
-            TransparentSplash.BeginDisplay();
+            //显示启动屏幕
+            ShowSplash();
 
             //Get the main exe folder
             string exePath = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
@@ -157,6 +155,21 @@ namespace BigScreenBrowser
             //options.UserStyleSheet = "body { font-family: \"Microsoft Yahei\", Verdana, Arial, Helvetica, sans-serif !important;}";
 
             return options;
+        }
+
+        public void ShowSplash()
+        {
+            //显示启动屏幕(设定宽高会自动缩放)
+            //TransparentSplash.Instance.Width = 737;
+            //TransparentSplash.Instance.Height = 361;
+            TransparentSplash.SetBackgroundImage(BigScreenBrowser.Properties.Resources.SplashImage);
+            TransparentSplash.BeginDisplay();
+        }
+
+        public void HideSplash()
+        {
+            //关闭启动图
+            Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));
         }
 
         internal static void ShowError(Exception exception)
