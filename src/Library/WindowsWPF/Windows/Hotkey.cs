@@ -130,6 +130,13 @@ namespace System.Windows
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string className, string windowText);
+        /// <summary>触发键盘事件</summary>
+        /// <param name="bVk"></param>
+        /// <param name="bScan"></param>
+        /// <param name="dwFlags"></param>
+        /// <param name="dwExtraInfo"></param>
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
     }
     /// <summary></summary>
     [Flags]

@@ -2,11 +2,23 @@
 <html>
 <head>
     <title>演示</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="keywords" content="" />
+    <meta name="description" itemprop="description" content="">
     <style type="text/css">
-        body, input, textarea {
+        body, input {
             -webkit-font-smoothing: antialiased;
-            font-family: "Microsoft Yahei", "Helvetica Neue", "Lantinghei SC", "WenQuanYi Micro Hei", Verdana, Arial, Helvetica, sans-serif !important;
+            font-family: Verdana, Arial, Helvetica, sans-serif !important;
+            font-size: 14px;
         }
+
+        input {
+            padding: 3px;
+        }
+
         h5 {
             font-size: 1em;
             padding-bottom: 0px;
@@ -16,7 +28,9 @@
     <script type="text/javascript">
         function runJsFunction() {
             try {
-                if (arguments.length > 0) eoapi.extInvoke(arguments.splice(0, 1)[0], arguments);
+                var args = Array.prototype.slice.call(arguments);
+                if (args.length == 0) return;
+                eoapi.extInvoke(args.splice(0, 1)[0], args);
             }
             catch (e) {
                 alert('异常：' + e.toString());
@@ -27,31 +41,31 @@
             var shell = document.getElementById('runProcessArgs1').value,
                 args = document.getElementById('runProcessArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            var result = runJsFunction('runProcess', [shell, args]);
-            return alert('返回：' + result);
+            runJsFunction('runProcess', shell, args);
+            //runJsFunction('hideApp');
         }
 
         function runCMDFunction() {
             var shell = document.getElementById('runCMDArgs1').value,
                 args = document.getElementById('runCMDArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            var result = runJsFunction('runCMD', [shell, args]);
-            return alert('返回：' + result);
+            runJsFunction('runCMD', shell, args);
         }
 
     </script>
 </head>
 <body>
+    <p><br /></p>
     <p>
         <h5>演示功能</h5>
+        <hr />
     </p>
     <ul>
         <li>
             <h5>JavaScript Function</h5>
-            <p><a href="javascript:runJsFunction('clearMemory');">执行内存优化<i>clearMemory()</i></a></p>
-            <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏<i>toggleApp()</i></a></p>
             <p><a href="javascript:runJsFunction('showApp');">显示该应用程序<i>showApp()</i></a></p>
             <p><a href="javascript:runJsFunction('hideApp');">隐藏该应用程序<i>hideApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏(Alt+F11)<i>toggleApp()</i></a></p>
             <p>
                 <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
                 <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
@@ -62,12 +76,13 @@
                 <input id="runCMDArgs1" width="100" placeholder="请输入文件名或程序路径" />
                 <input id="runCMDArgs2" width="100" placeholder="请输入其它参数" />
             </p>
+            <p><a href="javascript:runJsFunction('clearMemory');">执行内存优化<i>clearMemory()</i></a></p>
         </li>
         <li>
             <h5>Object For Scripting</h5>
             <p><a href="javascript:alert(window.external.Now());">获取当前时间<i>window.external.Now()</i></a></p>
-            <p><a href="javascript:alert(JSON.stringify(window.external.GetAppInfo()));">获取应用程序信息<i>window.external.GetAppInfo()</i></a></p>
-            <p><a href="javascript:window.external.ExitApp();">退出应用程序<i>window.external.ExitApp()</i></a></p>
+            <p><a href="javascript:alert(window.external.GetAppInfo());">获取应用程序信息<i>window.external.GetAppInfo()</i></a></p>
+            <p><a href="javascript:window.external.ExitApp();">退出应用程序(Alt+Q)<i>window.external.ExitApp()</i></a></p>
         </li>
     </ul>
 </body>

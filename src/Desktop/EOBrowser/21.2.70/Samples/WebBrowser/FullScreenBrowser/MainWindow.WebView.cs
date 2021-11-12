@@ -366,7 +366,7 @@ namespace FullScreenBrowser
                     //engine that user has confirmed the dialog. This is important
                     //because either OK or Cancel must be called to prevent the default
                     //dialog
-                    MessageBox.Show(this, e.MessageText, "提示", MessageBoxButton.OK);
+                    MessageBox.Show(this, e.MessageText, "消息", MessageBoxButton.OK);
                     e.OK();
                     break;
 
@@ -374,7 +374,7 @@ namespace FullScreenBrowser
                 case JSDialogType.Confirm:
                     //Display a Yes/No message box and call e.OK/e.Cancel according
                     //to user's selection
-                    if (MessageBox.Show(this, e.MessageText, "提示", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(this, e.MessageText, "消息", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         e.OK();
                     }

@@ -1,4 +1,6 @@
 using EO.WebEngine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
 using System.Reflection;
@@ -27,10 +29,16 @@ namespace BigScreenBrowser
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
-            if (!createdNew) Environment.Exit(0);
+            if (!createdNew)
+            {
+                //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
+                Environment.Exit(0);
+            }
             Instance = this;
             StartupArgs = e.Args;
             StartupDateTime = DateTime.Now;
+            // Json Convert 驼峰命名(首字母小写)
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 
             //显示启动屏幕
             ShowSplash();

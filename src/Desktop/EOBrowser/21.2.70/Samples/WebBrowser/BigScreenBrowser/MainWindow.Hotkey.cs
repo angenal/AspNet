@@ -51,11 +51,13 @@ namespace BigScreenBrowser
         public void HideApp()
         {
             isFullScreen = false;
+            Topmost = false;
             Hide();
         }
         public void ShowApp()
         {
             isFullScreen = true;
+            Topmost = true;
             Show();
         }
 
@@ -64,6 +66,7 @@ namespace BigScreenBrowser
         private WindowsWPF.Controls.ScreenCut screenCut;
         private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
+            if (!isFullScreen) return;
             if (screenCut != null && screenCut.IsActive) return;
             screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false, WindowStyle = WindowStyle.None, AllowsTransparency = true };
             App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
@@ -73,7 +76,7 @@ namespace BigScreenBrowser
         private Hotkey altQ;
         private void AltQ_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            Window_ComfirmExit();
+            if (isFullScreen) Window_ComfirmExit();
         }
         //private void CommandBinding_ExitClick_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         //{
