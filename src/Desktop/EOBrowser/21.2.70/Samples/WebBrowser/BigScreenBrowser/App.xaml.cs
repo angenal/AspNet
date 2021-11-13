@@ -32,14 +32,15 @@ namespace BigScreenBrowser
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
             if (!createdNew)
             {
-                //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
                 var cp = Process.GetCurrentProcess();
                 var ps = Process.GetProcessesByName(cp.ProcessName);
                 foreach (Process pc in ps)
                 {
                     if (pc.Id < 2 || pc.Id == cp.Id) continue;
                     // Activates the window and displays it in its current size and position.
-                    HotkeyRef.ShowWindow(pc.MainWindowHandle, 5);
+                    HttpRequest.Get($"http://localhost:{BigScreenBrowser.Properties.Resources.HttpPort}/api?act=showApp");
+                    //HotkeyRef.ShowWindow(pc.MainWindowHandle, 5);
+                    //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
                     break;
                 }
                 Environment.Exit(0);

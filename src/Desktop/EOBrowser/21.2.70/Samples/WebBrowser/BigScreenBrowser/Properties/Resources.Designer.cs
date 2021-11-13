@@ -61,7 +61,7 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
-        ///   查找类似 30000 的本地化字符串。
+        ///   查找类似 30101 的本地化字符串。
         /// </summary>
         internal static string HttpPort {
             get {

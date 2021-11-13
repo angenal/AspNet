@@ -11,7 +11,7 @@ namespace BigScreenBrowser
         internal static void Init()
         {
             if (!int.TryParse(Properties.Resources.HttpPort, out int port) && port < 1024)
-                port = Process.GetCurrentProcess().Id % 30000;
+                port = Process.GetCurrentProcess().Id % 30101;
             Httpd = new HttpServer(4, port);
             Httpd.Route("/api", "GET", ApiHandler);
             Httpd.Start();

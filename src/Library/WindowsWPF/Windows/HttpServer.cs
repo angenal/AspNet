@@ -150,6 +150,43 @@ namespace System.Windows
             }
             return requestBody;
         }
+
+        public static string Get(string url, string queryString = "")
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + (string.IsNullOrWhiteSpace(queryString) ? "" : "?") + queryString);
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            StreamReader streamReader = new StreamReader(stream, Encoding.UTF8);
+            string result = streamReader.ReadToEnd();
+            streamReader.Close();
+            stream.Close();
+            return result;
+        }
+
+        public static string Post(string url, string data = "")
+        {
+            Encoding encoding = Encoding.UTF8;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+                byte[] postData = encoding.GetBytes(data);
+                request.ContentLength = postData.Length;
+                Stream requestStream = request.GetRequestStream();
+                requestStream.Write(postData, 0, postData.Length);
+                requestStream.Close();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream stream = response.GetResponseStream();
+            StreamReader streamReader = new StreamReader(stream, encoding);
+            string result = streamReader.ReadToEnd();
+            streamReader.Close();
+            stream.Close();
+            return result;
+        }
     }
 
     public class HttpResponse
