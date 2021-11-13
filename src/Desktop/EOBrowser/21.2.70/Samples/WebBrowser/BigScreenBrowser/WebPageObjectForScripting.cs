@@ -46,7 +46,8 @@ namespace BigScreenBrowser
                 Environment.MachineName,
                 OSVersion = Environment.OSVersion.ToString(),
                 Startup = App.StartupDateTime.ToString("G"),
-                Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0]
+                Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0],
+                ApiUrl = $"http://localhost:{Properties.Resources.HttpPort}/api"
             });
         }
 
