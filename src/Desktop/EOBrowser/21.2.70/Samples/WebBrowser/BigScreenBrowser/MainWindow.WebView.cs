@@ -12,6 +12,7 @@ namespace BigScreenBrowser
             if (page.AttachEventsNeeded)
             {
                 page.WebView.LoadCompleted += WebView_LoadCompleted;
+                page.WebView.LoadFailed += WebView_LoadFailed;
                 page.WebView.BeforeNavigate += WebView_BeforeNavigate;
                 page.WebView.NewWindow += new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate += new EventHandler(WebView_Activate);
@@ -45,6 +46,7 @@ namespace BigScreenBrowser
             if (page.AttachEventsNeeded)
             {
                 page.WebView.LoadCompleted -= WebView_LoadCompleted;
+                page.WebView.LoadFailed -= WebView_LoadFailed;
                 page.WebView.BeforeNavigate -= WebView_BeforeNavigate;
                 page.WebView.NewWindow -= new NewWindowHandler(WebView_NewWindow);
                 page.WebView.Activate -= new EventHandler(WebView_Activate);
@@ -147,6 +149,15 @@ namespace BigScreenBrowser
                 App.MainWnd.grid.Background = brush;
                 //App.MainWnd.grid.Background = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
             }));
+        }
+
+        //Web page loaded event
+        private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
+        {
+            if (e.ShouldShowError)
+            {
+                MessageBox.Show(this, e.ErrorMessage, "提示", MessageBoxButton.OK);
+            }
         }
 
         //Before Jump to web page
