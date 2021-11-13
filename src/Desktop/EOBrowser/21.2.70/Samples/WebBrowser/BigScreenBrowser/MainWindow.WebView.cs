@@ -141,7 +141,11 @@ namespace BigScreenBrowser
             App.GridBackgroundUpdated = true;
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                App.MainWnd.grid.Background = (Brush)new BrushConverter().ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
+                BrushConverter bc = new BrushConverter();
+                Brush brush = (Brush)bc.ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
+                brush.Freeze();
+                App.MainWnd.grid.Background = brush;
+                //App.MainWnd.grid.Background = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
             }));
         }
 
