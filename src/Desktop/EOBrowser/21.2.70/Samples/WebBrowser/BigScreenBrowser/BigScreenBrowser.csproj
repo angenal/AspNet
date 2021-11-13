@@ -134,6 +134,7 @@
     <Compile Include="MainWindow.JsFunction.cs" />
     <Compile Include="MainWindow.Set.cs" />
     <Compile Include="MainWindow.WebView.cs" />
+    <Compile Include="WebApi.cs" />
     <Compile Include="WebPage.cs" />
     <Compile Include="WebPageObjectForScripting.cs" />
     <Compile Include="WebPageResourceHandler.cs" />

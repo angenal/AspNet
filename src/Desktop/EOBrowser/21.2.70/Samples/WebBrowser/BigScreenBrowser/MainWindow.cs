@@ -43,6 +43,21 @@ namespace BigScreenBrowser
             RegisterHotkey();
         }
 
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            //显示或隐藏
+            if ((bool)e.NewValue)
+            {
+                isFullScreen = true;
+                Topmost = true;
+            }
+            else
+            {
+                isFullScreen = false;
+                Topmost = false;
+            }
+        }
+
         //private void Print_Executed(object sender, ExecutedRoutedEventArgs e)
         //{
         //    //打印当前WebView
@@ -87,6 +102,7 @@ namespace BigScreenBrowser
                 //释放资源
                 if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
                 m_WebView.Dispose();
+                WebApi.Dispose();
             }
             catch (Exception ex)
             {

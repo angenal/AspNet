@@ -51,7 +51,7 @@ namespace BigScreenBrowser
         #region 内存优化
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, EntryPoint = "SetProcessWorkingSetSize")]
         private static extern int SetProcessWorkingSetSize(IntPtr process, int minSize, int maxSize);
-        private void ClearMemory()
+        public void ClearMemory()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();

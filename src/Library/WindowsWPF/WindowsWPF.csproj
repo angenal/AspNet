@@ -74,6 +74,7 @@
     <Compile Include="Drawing\FastBitmap.cs" />
     <Compile Include="Windows\Hotkey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\HttpServer.cs" />
     <Compile Include="Windows\Licenses.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -59,9 +59,11 @@ namespace BigScreenBrowser
                         var psi = new ProcessStartInfo();
                         psi.FileName = shell;
                         psi.Arguments = args;
-                        psi.RedirectStandardOutput = true;
                         psi.UseShellExecute = false;
                         psi.CreateNoWindow = true;
+                        psi.WindowStyle = ProcessWindowStyle.Hidden;
+                        psi.RedirectStandardInput = true;
+                        psi.RedirectStandardOutput = true;
 #if DEBUG
                         Debug.WriteLine($">> run CMD >> {string.Join(" ", e.Arguments)}");
 #endif

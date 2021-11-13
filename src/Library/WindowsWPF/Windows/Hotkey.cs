@@ -130,6 +130,12 @@ namespace System.Windows
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string className, string windowText);
+        /// <summary>显示窗口</summary>
+        /// <param name="hWnd"></param>
+        /// <param name="nCmdShow"></param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
         /// <summary>触发键盘事件</summary>
         /// <param name="bVk"></param>
         /// <param name="bScan"></param>

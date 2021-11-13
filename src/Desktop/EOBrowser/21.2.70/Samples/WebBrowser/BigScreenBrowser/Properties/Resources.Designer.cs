@@ -61,6 +61,15 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
+        ///   查找类似 30000 的本地化字符串。
+        /// </summary>
+        internal static string HttpPort {
+            get {
+                return ResourceManager.GetString("HttpPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 6A+frfD09uihfsay4Q/lW5f69h3youbyzs2xaqW0s8uud7Pl9Q+frfD09uihfsay6BvlW5f69h3youbyzs2xaaW0s8uud7Pl9Q+frfD09uihfsay6BvlW5f69h3youbyzs2xaqW0s8uud7Oz8hfrqO7CzRrxndz22hnlqJfo8h/kdpm1wNyuaae0ws2frOzm1iPvounpBOzzdpm1wNyucrC9ys2fr9z2BBTup7Smw82faLXABBTmp9j4Bh3kd+T20tbFiajL4fPRoenW2RX4ksbS4hK8drOzBBTmp9j4Bh3kd7Oz/RTinuX39ul14+30EO2s3MLNF+ic3PIEEMidtbXE3rZ1pvD6DuSn6unaD7112PD9GvZ3s+X1D5+t8PT26KF+xrLUE/Go5Omzy/We6ff6Gu12mbbB2a9bl7PP5+Cd26QFJO+etKbW+q183/YAGORbl/r2HfKi5vLOzbFqpbSzy653s+X1D5+t8PT26KF+xrLoEOFbl/r2HfKi5vLO [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string L21 {
