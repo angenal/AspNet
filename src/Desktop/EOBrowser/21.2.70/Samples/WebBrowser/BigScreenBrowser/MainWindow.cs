@@ -12,9 +12,10 @@ namespace BigScreenBrowser
     {
         private const string WebViewItemIdPrefix = "WebView:";
         private static string m_HomeURL = Properties.Resources.URL;
-        private WebPage m_CurPage;
         private EO.WebBrowser.WebView m_WebView;
-        private List<WebViewItemUrl> m_Urls = new List<WebViewItemUrl>();
+        private WebPage m_CurPage;
+        private bool m_Forward = true;
+        private int m_CurIndex = 0;
 
         public void InitializeWebBrowser()
         {
@@ -31,10 +32,11 @@ namespace BigScreenBrowser
             RemoveCloseButton();
             //窗体一直置顶
             //SetTopMost();
-            m_WebView = new EO.WebBrowser.WebView() { Url = m_HomeURL };
             //Load the WebControl
-            WebViewItem item = NewWebViewItem(m_WebView);
-            grid.Children.Add(item);
+            App.Left = Left;
+            App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            grid.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)
@@ -93,6 +95,7 @@ namespace BigScreenBrowser
                 //隐藏
                 Hide();
                 //注销快捷键
+                if (altF5 != null) altF5.Dispose();
                 if (altF11 != null) altF11.Dispose();
                 if (altA != null) altA.Dispose();
                 if (altQ != null) altQ.Dispose();

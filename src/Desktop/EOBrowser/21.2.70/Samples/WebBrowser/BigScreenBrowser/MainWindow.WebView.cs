@@ -71,6 +71,7 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            if (string.IsNullOrEmpty(e.WebView.Url)) return;
             int count = grid.Children.Count;
             if (0 < count)
             {
@@ -98,8 +99,7 @@ namespace BigScreenBrowser
             WebViewItem item = new WebViewItem(webView, true);
             m_CurPage = item.Page;
             m_WebView = item.Page.WebView;
-            m_Urls.Add(new WebViewItemUrl(m_WebView.Url, true));
-            SetUrlIndex(m_Urls.Count - 1);
+            m_Forward = true;
 
             //Sets the shortcut for the new WebView object
             item.Page.WebView.Shortcuts = GetShortcuts();
@@ -111,10 +111,10 @@ namespace BigScreenBrowser
 
         private bool TryGetUrlByBackOrForward(bool isForward, out int newIndex)
         {
-            int index = -1, count = m_Urls.Count;
+            int index = -1, count = App.Urls.Count;
             for (int i = 0; i < count; i++)
             {
-                if (m_Urls[i].Opened)
+                if (App.Urls[i].Opened)
                 {
                     index = i;
                     break;
@@ -125,20 +125,33 @@ namespace BigScreenBrowser
         }
         private string SetUrlIndex(int index)
         {
-            if (index < 0 || index >= m_Urls.Count)
+            if (index < 0 || index >= App.Urls.Count)
             {
                 return null;
             }
-            for (int i = 0; i < m_Urls.Count; i++)
+            for (int i = 0; i < App.Urls.Count; i++)
             {
-                m_Urls[i].Opened = index == i;
+                App.Urls[i].Opened = index == i;
             }
-            return m_Urls[index].Url;
+            return App.Urls[index].Url;
         }
 
         //Web page loaded event
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
+            if (!string.IsNullOrEmpty(e.Url))
+            {
+                if (!m_Forward)
+                {
+                    SetUrlIndex(m_CurIndex);
+                    return;
+                }
+                int count = App.Urls.Count;
+                if (count > 0 && App.Urls[count - 1].Url.Equals(e.Url)) return;
+                App.Urls.Add(new WebViewItemUrl(e.Url, true));
+                SetUrlIndex(count);
+            }
+            //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
             Dispatcher.BeginInvoke(new Action(() =>
@@ -154,9 +167,10 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
+            e.UseDefaultMessage();
             if (e.ShouldShowError)
             {
-                MessageBox.Show(this, e.ErrorMessage, "提示", MessageBoxButton.OK);
+                //MessageBox.Show(this, e.ErrorMessage, "提示", MessageBoxButton.OK);
             }
         }
 
@@ -238,7 +252,7 @@ namespace BigScreenBrowser
                 return;
             }
             //返回 Alt + ←
-            if (e.CommandId == m_BackCommand)
+            if (e.CommandId == m_BackCommand || e.CommandId == CommandIds.Back)
             {
                 e.Handled = true;
                 if (TryGetUrlByBackOrForward(false, out int newIndex))
@@ -246,6 +260,8 @@ namespace BigScreenBrowser
                     string url = SetUrlIndex(newIndex);
                     if (!string.IsNullOrEmpty(url))
                     {
+                        m_Forward = false;
+                        m_CurIndex = newIndex;
                         WebView webView = (WebView)sender;
                         webView.Url = url;
                     }
@@ -253,7 +269,7 @@ namespace BigScreenBrowser
                 return;
             }
             //向前 Alt + →
-            if (e.CommandId == m_ForwardCommand)
+            if (e.CommandId == m_ForwardCommand || e.CommandId == CommandIds.Forward)
             {
                 e.Handled = true;
                 if (TryGetUrlByBackOrForward(true, out int newIndex))
@@ -261,6 +277,8 @@ namespace BigScreenBrowser
                     string url = SetUrlIndex(newIndex);
                     if (!string.IsNullOrEmpty(url))
                     {
+                        m_Forward = true;
+                        m_CurIndex = newIndex;
                         WebView webView = (WebView)sender;
                         webView.Url = url;
                     }
@@ -345,19 +363,19 @@ namespace BigScreenBrowser
             //Clear the default context menu
             e.Menu.Items.Clear();
 
-            //if (e.Menu.Items.HasPluginMenuItems())
-            //    e.Menu.Items.Add(MenuItem.CreateSeparator());
+            if (e.Menu.Items.HasPluginMenuItems())
+                e.Menu.Items.Add(MenuItem.CreateSeparator());
 
-            ////Create new context menu items. Each menu item is associated to
-            ////a "Command". When the menu item is selected, WebView_Command is 
-            ////called (as event handler for the Command event) to handle the 
-            ////corresponding command
-            //e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
-            //e.Menu.Items.Add(MenuItem.CreateSeparator());
-            //e.Menu.Items.Add(new MenuItem("Home", m_HomeCommand));
-            ////e.Menu.Items.Add(MenuItem.CreateSeparator());
-            ////e.Menu.Items.Add(new MenuItem("后退", CommandIds.Back));
-            ////e.Menu.Items.Add(new MenuItem("前进", CommandIds.Forward));
+            //Create new context menu items. Each menu item is associated to
+            //a "Command". When the menu item is selected, WebView_Command is 
+            //called (as event handler for the Command event) to handle the 
+            //corresponding command
+            e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
+            e.Menu.Items.Add(MenuItem.CreateSeparator());
+            e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand));
+            e.Menu.Items.Add(MenuItem.CreateSeparator());
+            e.Menu.Items.Add(new MenuItem("后退", m_BackCommand));
+            e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand));
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             ////e.Menu.Items.Add(MenuItem.CreateSeparator());

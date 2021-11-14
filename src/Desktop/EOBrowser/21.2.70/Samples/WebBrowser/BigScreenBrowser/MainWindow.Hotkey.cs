@@ -16,6 +16,9 @@ namespace BigScreenBrowser
         /// </summary>
         protected void RegisterHotkey()
         {
+            // 快捷键 Alt+F5 拆分窗口为以前的一半
+            altF5 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F5, this, true);
+            altF5.HotkeyPressed += AltF5_HotkeyPressed;
             // 快捷键 Alt+F11 全屏(显示或隐藏)
             altF11 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F11, this, true);
             altF11.HotkeyPressed += AltF11_HotkeyPressed;
@@ -28,6 +31,25 @@ namespace BigScreenBrowser
             // 快捷键 Alt+T 该应用程序置顶显示
             altT = new Hotkey(HotkeyModifiers.Alt, Hotkeys.T, this, true);
             altT.HotkeyPressed += AltT_HotkeyPressed;
+        }
+
+        // 快捷键 Alt+F5 拆分窗口为以前的一半
+        private Hotkey altF5;
+        private void AltF5_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            HalveApp();
+        }
+        public void HalveApp()
+        {
+            if (!IsVisible) return;
+            grid.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                grid.Width = App.Width * (App.Width == grid.Width ? 0.5 : 1);
+            }));
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Left = App.Width == grid.Width ? App.Left : App.Width * 0.5;
+            }));
         }
 
         // 快捷键 Alt+F11 全屏(显示或隐藏)
@@ -66,7 +88,7 @@ namespace BigScreenBrowser
         private WindowsWPF.Controls.ScreenCut screenCut;
         private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (!isFullScreen) return;
+            if (!IsVisible) return;
             if (screenCut != null && screenCut.IsActive) return;
             screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false, WindowStyle = WindowStyle.None, AllowsTransparency = true };
             App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
@@ -76,7 +98,7 @@ namespace BigScreenBrowser
         private Hotkey altQ;
         private void AltQ_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (isFullScreen) Window_ComfirmExit();
+            if (IsVisible) Window_ComfirmExit();
         }
         //private void CommandBinding_ExitClick_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         //{
@@ -91,7 +113,7 @@ namespace BigScreenBrowser
         private Hotkey altT;
         private void AltT_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (isFullScreen) Topmost = !Topmost;
+            if (IsVisible) Topmost = !Topmost;
         }
     }
 }

@@ -28,6 +28,10 @@ namespace BigScreenBrowser
                 case "hideApp":
                     HideApp();
                     break;
+                // 拆分窗口为以前的一半
+                case "halveApp":
+                    HalveApp();
+                    break;
                 // 打开其它应用程序
                 case "runProcess":
                     if (e.Arguments.Length > 0 && e.Arguments[0].GetType() == typeof(string))

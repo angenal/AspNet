@@ -2,6 +2,7 @@ using EO.WebEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -20,6 +21,8 @@ namespace BigScreenBrowser
         internal static Mutex mutex;
         internal static App Instance;
         internal static MainWindow MainWnd;
+        internal static double Width, Height, Left;
+        internal static List<WebViewItemUrl> Urls;
         internal static string[] StartupArgs;
         internal static DateTime StartupDateTime;
         internal static bool GridBackgroundUpdated;
@@ -99,6 +102,7 @@ namespace BigScreenBrowser
             engine.SetDefaultBrowserOptions(GetBrowserOptions());
 
             //Startup main window
+            Urls = new List<WebViewItemUrl>();
             MainWnd = new MainWindow();
             MainWnd.Show();
         }

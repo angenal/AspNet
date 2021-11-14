@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -36,9 +37,11 @@ namespace BigScreenBrowser
                 Id = a0 != null ? ((GuidAttribute)a0).Value : Guid.Empty.ToString(),
                 Name = a1 != null ? ((AssemblyProductAttribute)a1).Product : app.Name,
                 Version = app.Version.ToString(),
+                App.Width,
+                App.Height,
+                App.StartupArgs,
                 ProcessId = process.Id,
                 process.ProcessName,
-                App.StartupArgs,
                 Threads = process.Threads.Count,
                 Memory = (process.WorkingSet64 / 1024.0 / 1024).ToString("f0") + "MB",
                 Environment.ProcessorCount,
@@ -51,9 +54,13 @@ namespace BigScreenBrowser
             });
         }
 
-        /// <summary>
-        /// 强制下载PDF开关
-        /// </summary>
+        /// <summary>获取访问历史记录</summary>
+        public string GetUrls()
+        {
+            return JsonConvert.SerializeObject(App.Urls);
+        }
+
+        /// <summary>强制下载PDF开关</summary>
         /// <param name="forceDownload">下载还是直接打开PDF?</param>
         public bool ForceDownloadPDF(bool forceDownload)
         {

@@ -66,6 +66,7 @@
             <p><a href="javascript:runJsFunction('showApp');">显示该应用程序<i>showApp()</i></a></p>
             <p><a href="javascript:runJsFunction('hideApp');">隐藏该应用程序<i>hideApp()</i></a></p>
             <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏(Alt+F11)<i>toggleApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('halveApp');">拆分窗口为以前的一半<i>halveApp()</i></a></p>
             <p>
                 <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
                 <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
@@ -82,7 +83,12 @@
             <h5>Object For Scripting</h5>
             <p><a href="javascript:alert(window.external.Now());">获取当前时间<i>window.external.Now()</i></a></p>
             <p><a href="javascript:alert(window.external.GetAppInfo());">获取应用程序信息<i>window.external.GetAppInfo()</i></a></p>
+            <p><a href="javascript:alert(window.external.GetUrls());">获取访问历史记录<i>window.external.GetUrls()</i></a></p>
             <p><a href="javascript:window.external.ExitApp();">退出应用程序(Alt+Q)<i>window.external.ExitApp()</i></a></p>
+        </li>
+        <li>
+            <h5>常见网站推荐</h5>
+            <p><a href="https://www.baidu.com/">百度一下，你就知道</a></p>
         </li>
     </ul>
 </body>
