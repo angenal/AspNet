@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -11,6 +13,57 @@ namespace System.Windows
     // 摘要:表示将处理事件的方法。泛型类型参数指定事件所生成的事件数据的类型。
     [Serializable]
     public delegate void RequestHandler(HttpRequest req, HttpResponse resp);
+
+    public class RequestMethod
+    {
+        public const string GET = "GET";
+        public const string POST = "POST";
+    }
+
+    public class RequestRouter
+    {
+        public RequestRouteAttribute Attribute { get; set; }
+        public RequestHandler Handler { get; set; }
+    }
+
+    public class RequestRouteAttribute : Attribute
+    {
+        public string Path { get; set; }
+        public string Method { get; set; }
+        public RequestRouteAttribute(string method, string path)
+        {
+            Method = method;
+            Path = path;
+        }
+    }
+
+    public class RequestRouteHelper
+    {
+        public static List<RequestRouter> GetRequestHandlers(Type type)
+        {
+            var list = new List<RequestRouter>();
+            Type handler = typeof(RequestRouteAttribute);
+            MethodInfo method1 = handler.GetMethod("Invoke");
+            var param1 = method1.GetParameters();
+            int check1 = param1.Length;
+            foreach (var method2 in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
+            {
+                if (method1.ReturnType != method2.ReturnType) continue;
+                var param2 = method2.GetParameters();
+                int check2 = param2.Length;
+                if (check1 != check2) continue;
+                for (int i = 0; i < check1; i++) if (param1[i].ParameterType != param2[i].ParameterType) check2--;
+                if (check1 != check2) continue;
+                var attrs = method2.GetCustomAttributes(true);
+                if (attrs == null) continue;
+                var route = attrs.FirstOrDefault(t => t is RequestRouteAttribute);
+                if (route == null) continue;
+                var attr = (RequestRouteAttribute)route;
+                list.Add(new RequestRouter { Attribute = attr, Handler = Delegate.CreateDelegate(handler, method2) as RequestHandler });
+            }
+            return list;
+        }
+    }
 
     public class HttpServer
     {
