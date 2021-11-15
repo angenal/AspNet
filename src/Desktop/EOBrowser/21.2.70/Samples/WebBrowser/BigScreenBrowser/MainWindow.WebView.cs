@@ -71,7 +71,6 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
-            if (string.IsNullOrEmpty(e.WebView.Url)) return;
             int count = grid.Children.Count;
             if (0 < count)
             {
@@ -139,6 +138,7 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
+            //Add Url History
             if (!string.IsNullOrEmpty(e.Url))
             {
                 if (!m_Forward)

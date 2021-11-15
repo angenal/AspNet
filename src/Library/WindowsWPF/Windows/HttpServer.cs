@@ -14,6 +14,13 @@ namespace System.Windows
     [Serializable]
     public delegate void RequestHandler(HttpRequest req, HttpResponse resp);
 
+    public class RequestDoc
+    {
+        public string Description { get; set; }
+        public string Method { get; set; }
+        public string Path { get; set; }
+    }
+
     public class RequestMethod
     {
         public const string GET = "GET";
@@ -46,12 +53,12 @@ namespace System.Windows
         }
     }
 
-    public class RequestRouteHelper
+    public static class RequestRouteHelper
     {
         public static List<RequestRouter> GetRequestHandlers(Type type)
         {
             var list = new List<RequestRouter>();
-            Type handler = typeof(RequestRouteAttribute);
+            Type handler = typeof(RequestHandler);
             MethodInfo method1 = handler.GetMethod("Invoke");
             var param1 = method1.GetParameters();
             int check1 = param1.Length;
@@ -73,6 +80,11 @@ namespace System.Windows
                 list.Add(new RequestRouter { Attribute = attr, Handler = Delegate.CreateDelegate(handler, method2) as RequestHandler });
             }
             return list;
+        }
+
+        public static RequestDoc AsRequestDoc(RequestRouteAttribute a)
+        {
+            return new RequestDoc { Description = a.Description, Method = a.Method, Path = a.Path };
         }
     }
 
@@ -187,6 +199,15 @@ namespace System.Windows
 
         public static void Write(this HttpListenerResponse response, string content)
         {
+            response.Headers.Add(HttpRequestHeader.ContentType, "text/plain; charset=utf-8");
+            using (StreamWriter sw = new StreamWriter(response.OutputStream))
+            {
+                sw.Write(content);
+            }
+        }
+        public static void WriteJson(this HttpListenerResponse response, string content)
+        {
+            response.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=utf-8");
             using (StreamWriter sw = new StreamWriter(response.OutputStream))
             {
                 sw.Write(content);

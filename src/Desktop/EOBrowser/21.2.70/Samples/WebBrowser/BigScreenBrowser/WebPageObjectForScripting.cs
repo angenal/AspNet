@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -37,8 +36,15 @@ namespace BigScreenBrowser
                 Id = a0 != null ? ((GuidAttribute)a0).Value : Guid.Empty.ToString(),
                 Name = a1 != null ? ((AssemblyProductAttribute)a1).Product : app.Name,
                 Version = app.Version.ToString(),
-                App.Width,
-                App.Height,
+                Bounds = new
+                {
+                    App.MainWnd.Width,
+                    App.MainWnd.Height,
+                    App.MainWnd.Left,
+                    App.MainWnd.Top,
+                    App.MainWnd.Topmost,
+                    App.MainWnd.IsVisible
+                },
                 App.StartupArgs,
                 ProcessId = process.Id,
                 process.ProcessName,
@@ -50,7 +56,8 @@ namespace BigScreenBrowser
                 OSVersion = Environment.OSVersion.ToString(),
                 Startup = App.StartupDateTime.ToString("G"),
                 Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0],
-                ApiUrl = $"http://localhost:{Properties.Resources.HttpPort}/api"
+                ApiUrl = $"http://localhost:{Properties.Resources.HttpPort}/api",
+                ApiDocument = JsonConvert.SerializeObject(WebApi.Document)
             });
         }
 

@@ -6,52 +6,37 @@ namespace BigScreenBrowser
 {
     public partial class WebApiActions
     {
-        /// <summary>
-        /// 接口文档
-        /// </summary>
-        [RequestRoute("/api")]
+        [RequestRoute("/api", Description = "接口文档")]
         public static void Document(HttpRequest req, HttpResponse resp)
         {
             //string act = req.Request.QueryString["act"];
             var jsonDocument = JsonConvert.SerializeObject(WebApi.Document);
-            resp.Response.Write(jsonDocument);
+            resp.Response.WriteJson(jsonDocument);
             resp.Response.End();
         }
 
-        /// <summary>
-        /// 执行内存优化
-        /// </summary>
-        [RequestRoute]
+        [RequestRoute(Description = "执行内存优化")]
         public static void ClearMemory(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ClearMemory()));
             resp.Response.End();
         }
 
-        /// <summary>
-        /// 显示/隐藏
-        /// </summary>
-        [RequestRoute]
+        [RequestRoute(Description = "显示或隐藏程序")]
         public static void ToggleApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ToggleApp()));
             resp.Response.End();
         }
 
-        /// <summary>
-        /// 显示该应用程序
-        /// </summary>
-        [RequestRoute]
+        [RequestRoute(Description = "显示该应用程序")]
         public static void ShowApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ShowApp()));
             resp.Response.End();
         }
 
-        /// <summary>
-        /// 隐藏该应用程序
-        /// </summary>
-        [RequestRoute]
+        [RequestRoute(Description = "隐藏该应用程序")]
         public static void HideApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.HideApp()));

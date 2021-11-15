@@ -7,7 +7,7 @@ namespace BigScreenBrowser
     public class WebApi
     {
         internal static HttpServer Httpd;
-        internal static List<RequestRouteAttribute> Document;
+        internal static readonly List<RequestDoc> Document = new List<RequestDoc>();
 
         internal static void Init()
         {
@@ -15,7 +15,7 @@ namespace BigScreenBrowser
                 port = Process.GetCurrentProcess().Id % 30101;
             Httpd = new HttpServer(4, port);
             var handlers = RequestRouteHelper.GetRequestHandlers(typeof(WebApiActions));
-            foreach (var a in handlers) Document.Add(a.Attribute);
+            foreach (var a in handlers) Document.Add(RequestRouteHelper.AsRequestDoc(a.Attribute));
             foreach (var a in handlers) Httpd.Route(a.Attribute.Path, a.Attribute.Method, a.Handler);
             Httpd.Start();
         }

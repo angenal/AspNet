@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace BigScreenBrowser
@@ -42,14 +43,11 @@ namespace BigScreenBrowser
         public void HalveApp()
         {
             if (!IsVisible) return;
-            grid.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                grid.Width = App.Width * (App.Width == grid.Width ? 0.5 : 1);
-            }));
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                Left = App.Width == grid.Width ? App.Left : App.Width * 0.5;
-            }));
+            bool i = App.Width == grid.Width;
+            double x = i ? App.Width * 0.5 : App.Left;
+            IntPtr h = new WindowInteropHelper(this).Handle;
+            Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(h, -1, (int)x, 0, 0, 0, 0)));
+            grid.Dispatcher.BeginInvoke(new Action(() => grid.Width = App.Width * (i ? 0.5 : 1)));
         }
 
         // 快捷键 Alt+F11 全屏(显示或隐藏)
