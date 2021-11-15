@@ -200,7 +200,7 @@ namespace System.Windows
 
         public static void Write(this HttpListenerResponse response, string content)
         {
-            response.Headers.Add(HttpRequestHeader.ContentType, "text/plain; charset=utf-8");
+            //response.Headers.Add(HttpRequestHeader.ContentType, "text/plain; charset=utf-8");
             using (StreamWriter sw = new StreamWriter(response.OutputStream))
             {
                 sw.Write(content);
@@ -208,7 +208,7 @@ namespace System.Windows
         }
         public static void WriteJson(this HttpListenerResponse response, string content)
         {
-            response.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=utf-8");
+            //response.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=utf-8");
             using (StreamWriter sw = new StreamWriter(response.OutputStream))
             {
                 sw.Write(content);

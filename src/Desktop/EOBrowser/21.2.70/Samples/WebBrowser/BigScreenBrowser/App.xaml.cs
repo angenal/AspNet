@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -34,17 +35,17 @@ namespace BigScreenBrowser
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
             if (!createdNew)
             {
-                //var cp = Process.GetCurrentProcess();
-                //var ps = Process.GetProcessesByName(cp.ProcessName);
-                //foreach (Process pc in ps)
-                //{
-                //    if (pc.Id < 2 || pc.Id == cp.Id) continue;
-                //    // Activates the window and displays it in its current size and position.
-                //    //HttpRequest.Get($"http://localhost:{WebApi.Httpd.Port}/api?act=showApp");
-                //    //HotkeyRef.ShowWindow(pc.MainWindowHandle, 5);
-                //    //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
-                //    break;
-                //}
+                var cp = Process.GetCurrentProcess();
+                var ps = Process.GetProcessesByName(cp.ProcessName);
+                foreach (Process pc in ps)
+                {
+                    if (pc.Id < 2 || pc.Id == cp.Id) continue;
+                    // Activates the window and displays it in its current size and position.
+                    HttpRequest.Get($"http://localhost:{BigScreenBrowser.Properties.Resources.HttpPort}/api/ShowApp");
+                    //HotkeyRef.ShowWindow(pc.MainWindowHandle, 5);
+                    //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
+                    break;
+                }
                 Environment.Exit(0);
             }
             else

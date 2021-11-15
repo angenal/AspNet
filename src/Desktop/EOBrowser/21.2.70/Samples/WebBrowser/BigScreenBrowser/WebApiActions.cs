@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 using System.Windows;
 
@@ -6,14 +5,14 @@ namespace BigScreenBrowser
 {
     public partial class WebApiActions
     {
-        [RequestRoute("/api", Description = "接口文档")]
-        public static void Document(HttpRequest req, HttpResponse resp)
-        {
-            //string act = req.Request.QueryString["act"];
-            var jsonDocument = JsonConvert.SerializeObject(WebApi.Document);
-            resp.Response.WriteJson(jsonDocument);
-            resp.Response.End();
-        }
+        //[RequestRoute("/api", Description = "接口文档")]
+        //public static void Document(HttpRequest req, HttpResponse resp)
+        //{
+        //    //string act = req.Request.QueryString["act"];
+        //    var jsonDocument = JsonConvert.SerializeObject(WebApi.Document);
+        //    resp.Response.WriteJson(jsonDocument);
+        //    resp.Response.End();
+        //}
 
         [RequestRoute(Description = "执行内存优化")]
         public static void ClearMemory(HttpRequest req, HttpResponse resp)
