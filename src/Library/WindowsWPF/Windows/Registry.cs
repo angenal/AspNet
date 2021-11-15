@@ -9,7 +9,7 @@ namespace System.Windows
     public static class RegistryTool
     {
         /// <summary>
-        /// 
+        /// 创建快捷方式(为当前应用程序)
         /// </summary>
         /// <param name="protocol"></param>
         public static void RegistThisApp(string protocol)
@@ -28,7 +28,7 @@ namespace System.Windows
         }
 
         /// <summary>
-        /// 
+        /// 创建快捷方式 abc://api.abc.com/act
         /// </summary>
         /// <param name="name">App.abc</param>
         /// <param name="path">"C:\Users\Administrator\AppData\Roaming\abc\app.exe" "%1"</param>
@@ -43,7 +43,9 @@ namespace System.Windows
 
             RegistryKey rk = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Classes\" + name), k0 = null, k1 = null;
             rk.SetValue("", "URL:" + protocol);
-            rk.SetValue("URL Protocol", ""); // protocol + "Protocol"
+            rk.SetValue("URL Protocol", "");
+            //rk.SetValue("", protocol + "Protocol");
+            //rk.SetValue("URL Protocol", exePath);
 
             if (!string.IsNullOrEmpty(description))
             {

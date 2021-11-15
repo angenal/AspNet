@@ -146,6 +146,7 @@ namespace FullScreenBrowser
         //WebView events
         void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
         {
+            // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
         }
 
