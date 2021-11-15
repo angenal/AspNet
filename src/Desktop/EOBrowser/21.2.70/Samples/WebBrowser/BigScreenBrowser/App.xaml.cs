@@ -130,6 +130,7 @@ namespace BigScreenBrowser
 
             //Sets the additional command line arguments to be passed to the Chrome browser engine
             //engine.ExtraCommandLineArgs = "--disable-databases --disable-local-storage"; //Disable HTML 5 DB support and local storage
+            //engine.ExtraCommandLineArgs = "--disable-http2";
 
             //Sets the proxy information
             //engine.Proxy = new EO.Base.ProxyInfo(EO.Base.ProxyType.HTTP, "127.0.0.1", 12345);
@@ -155,6 +156,8 @@ namespace BigScreenBrowser
             engine.AllowProprietaryMediaFormats();
             //HTML5 Support proprietary media formats.
             Engine.Default.Options.AllowProprietaryMediaFormats();
+            //Chrome command line starts arguments.
+            Engine.Default.Options.ExtraCommandLineArgs = Commands.GetExtraCommandLineArgs(StartupArgs);
 
             engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
         }

@@ -18,14 +18,16 @@ namespace FullScreenBrowser
         internal static App Instance;
         internal static int ExitCode;
         internal static MainWindow MainWnd;
-        internal static string ExeDir { get; set; }
-        internal static object[] AssemblyAttributes { get; set; }
+        internal static string[] StartupArgs;
+        internal static object[] AssemblyAttributes;
+        internal static string ExeDir;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
             if (!createdNew) Environment.Exit(0);
             Instance = this;
+            StartupArgs = e.Args;
 
             //显示启动屏幕(设定宽高会自动缩放)
             //TransparentSplash.Instance.Width = 737;
@@ -95,6 +97,7 @@ namespace FullScreenBrowser
 
             //Sets the additional command line arguments to be passed to the Chrome browser engine
             //engine.ExtraCommandLineArgs = "--disable-databases --disable-local-storage"; //Disable HTML 5 DB support and local storage
+            //engine.ExtraCommandLineArgs = "--disable-http2";
 
             //Sets the proxy information
             //engine.Proxy = new EO.Base.ProxyInfo(EO.Base.ProxyType.HTTP, "127.0.0.1", 12345);
@@ -120,6 +123,8 @@ namespace FullScreenBrowser
             engine.AllowProprietaryMediaFormats();
             //HTML5 Support proprietary media formats.
             Engine.Default.Options.AllowProprietaryMediaFormats();
+            //Chrome command line starts arguments.
+            Engine.Default.Options.ExtraCommandLineArgs = Commands.GetExtraCommandLineArgs(StartupArgs);
 
             engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
         }
