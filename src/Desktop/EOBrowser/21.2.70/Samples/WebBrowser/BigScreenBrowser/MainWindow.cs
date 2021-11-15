@@ -46,17 +46,8 @@ namespace BigScreenBrowser
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            //显示或隐藏
-            if ((bool)e.NewValue)
-            {
-                isFullScreen = true;
-                Topmost = true;
-            }
-            else
-            {
-                isFullScreen = false;
-                Topmost = false;
-            }
+            //显示或隐藏后
+            //Topmost = (bool)e.NewValue;
         }
 
         //private void Print_Executed(object sender, ExecutedRoutedEventArgs e)

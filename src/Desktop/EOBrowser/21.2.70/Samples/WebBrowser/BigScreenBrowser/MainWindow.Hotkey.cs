@@ -52,14 +52,13 @@ namespace BigScreenBrowser
 
         // 快捷键 Alt+F11 全屏(显示或隐藏)
         private Hotkey altF11;
-        private bool isFullScreen = true;
         private void AltF11_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
             ToggleApp();
         }
         public void ToggleApp()
         {
-            if (isFullScreen)
+            if (IsVisible)
             {
                 HideApp();
             }
@@ -70,13 +69,11 @@ namespace BigScreenBrowser
         }
         public void HideApp()
         {
-            isFullScreen = false;
             Topmost = false;
             Hide();
         }
         public void ShowApp()
         {
-            isFullScreen = true;
             Topmost = true;
             Show();
         }
