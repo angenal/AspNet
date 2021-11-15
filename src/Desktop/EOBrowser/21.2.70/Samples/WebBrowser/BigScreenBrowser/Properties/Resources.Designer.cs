@@ -98,6 +98,15 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
+        ///   查找类似 bsb 的本地化字符串。
+        /// </summary>
+        internal static string URLProtocol {
+            get {
+                return ResourceManager.GetString("URLProtocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/534.12 (KHTML, like Gecko) Chrome/69.0.3497.12 Safari/534.12 的本地化字符串。
         /// </summary>
         internal static string UserAgent {

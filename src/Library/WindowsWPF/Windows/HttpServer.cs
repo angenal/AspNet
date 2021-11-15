@@ -90,6 +90,7 @@ namespace System.Windows
 
     public class HttpServer
     {
+        public int Port { get { return _listenPort; } }
         private int _listenPort = 8080;
         private int _numOfProcessThread = 1;
         private List<HttpHandler> _handlers;

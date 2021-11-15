@@ -22,7 +22,7 @@ namespace System.Windows
             //var programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
             string name = assembly.GetName().Name + "." + protocol;
             string path = "\"" + assembly.Location + "\"" + " \"%1\"";
-            string icon = Directory.GetFiles(Path.GetDirectoryName(path), "*.ico").FirstOrDefault();
+            string icon = Directory.GetFiles(Path.GetDirectoryName(assembly.Location), "*.ico").FirstOrDefault();
             string description = a2 != null ? ((AssemblyDescriptionAttribute)a2).Description : null;
             RegistShortcut(name, path, protocol, icon, description);
         }
@@ -67,6 +67,18 @@ namespace System.Windows
             if (k1 != null) k1.Close();
             k2.Close();
             rk.Dispose();
+        }
+
+        public static bool ExistsThisApp(string protocol)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string name = assembly.GetName().Name + "." + protocol;
+            return Registry.CurrentUser.GetValue(name) != null;
+        }
+
+        public static bool Exists(string name)
+        {
+            return Registry.CurrentUser.GetValue(name) != null;
         }
     }
 }

@@ -123,6 +123,7 @@
   </data>
   <data name="L21" xml:space="preserve">
     <value>6A+frfD09uihfsay4Q/lW5f69h3youbyzs2xaqW0s8uud7Pl9Q+frfD09uihfsay6BvlW5f69h3youbyzs2xaaW0s8uud7Pl9Q+frfD09uihfsay6BvlW5f69h3youbyzs2xaqW0s8uud7Oz8hfrqO7CzRrxndz22hnlqJfo8h/kdpm1wNyuaae0ws2frOzm1iPvounpBOzzdpm1wNyucrC9ys2fr9z2BBTup7Smw82faLXABBTmp9j4Bh3kd+T20tbFiajL4fPRoenW2RX4ksbS4hK8drOzBBTmp9j4Bh3kd7Oz/RTinuX39ul14+30EO2s3MLNF+ic3PIEEMidtbXE3rZ1pvD6DuSn6unaD7112PD9GvZ3s+X1D5+t8PT26KF+xrLUE/Go5Omzy/We6ff6Gu12mbbB2a9bl7PP5+Cd26QFJO+etKbW+q183/YAGORbl/r2HfKi5vLOzbFqpbSzy653s+X1D5+t8PT26KF+xrLoEOFbl/r2HfKi5vLOzbFppbSzy653s+X1D5+t8PT26KF+xrLoEOFbl/r2HfKi5vLOzbFqpbSzy653s+X1D5+t8PT26KF+xrLhD+Vbl/r2HfKi5vLOzbFppbSzy653s+X1</value>
+    <comment>注册码</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="SplashImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -131,6 +132,10 @@
   <data name="URL" xml:space="preserve">
     <value>http://coolv.esensoft.com/abicool/ecool/showcoolportal.do?portalid=XMH1&amp;id=demo&amp;pw=demo</value>
     <comment>首页网址</comment>
+  </data>
+  <data name="URLProtocol" xml:space="preserve">
+    <value>bsb</value>
+    <comment>自定义URL协议头</comment>
   </data>
   <data name="UserAgent" xml:space="preserve">
     <value>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/534.12 (KHTML, like Gecko) Chrome/69.0.3497.12 Safari/534.12</value>

@@ -11,6 +11,11 @@ namespace BigScreenBrowser
 
         internal static void Init()
         {
+            //自定义URL协议头
+            string protocol = Properties.Resources.URLProtocol;
+            if (!string.IsNullOrEmpty(protocol) && !RegistryTool.ExistsThisApp(protocol))
+                RegistryTool.RegistThisApp(protocol);
+            //HTTP协议服务
             if (!int.TryParse(Properties.Resources.HttpPort, out int port) && port < 1024)
                 port = Process.GetCurrentProcess().Id % 30101;
             Httpd = new HttpServer(4, port);
