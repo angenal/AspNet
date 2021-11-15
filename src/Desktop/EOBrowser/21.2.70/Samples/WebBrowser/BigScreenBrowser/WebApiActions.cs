@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Windows;
 
@@ -6,44 +7,55 @@ namespace BigScreenBrowser
     public partial class WebApiActions
     {
         /// <summary>
-        /// 执行内存优化
+        /// 接口文档
         /// </summary>
-        [RequestRoute(RequestMethod.GET, "/api/clearMemory")]
-        public static void ClearMemory(HttpRequest req, HttpResponse resp)
+        [RequestRoute("/api")]
+        public static void Document(HttpRequest req, HttpResponse resp)
         {
             //string act = req.Request.QueryString["act"];
+            var jsonDocument = JsonConvert.SerializeObject(WebApi.Document);
+            resp.Response.Write(jsonDocument);
+            resp.Response.End();
+        }
+
+        /// <summary>
+        /// 执行内存优化
+        /// </summary>
+        [RequestRoute]
+        public static void ClearMemory(HttpRequest req, HttpResponse resp)
+        {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ClearMemory()));
-            resp.Response.OutputStream.Close();
+            resp.Response.End();
         }
 
         /// <summary>
         /// 显示/隐藏
         /// </summary>
-        [RequestRoute(RequestMethod.GET, "/api/toggleApp")]
+        [RequestRoute]
         public static void ToggleApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ToggleApp()));
-            resp.Response.OutputStream.Close();
+            resp.Response.End();
         }
 
         /// <summary>
         /// 显示该应用程序
         /// </summary>
-        [RequestRoute(RequestMethod.GET, "/api/showApp")]
+        [RequestRoute]
         public static void ShowApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ShowApp()));
-            resp.Response.OutputStream.Close();
+            resp.Response.End();
         }
 
         /// <summary>
         /// 隐藏该应用程序
         /// </summary>
-        [RequestRoute(RequestMethod.GET, "/api/hideApp")]
+        [RequestRoute]
         public static void HideApp(HttpRequest req, HttpResponse resp)
         {
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.HideApp()));
-            resp.Response.OutputStream.Close();
+            resp.Response.End();
         }
     }
 }

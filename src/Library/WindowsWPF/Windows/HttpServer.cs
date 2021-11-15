@@ -30,10 +30,19 @@ namespace System.Windows
     {
         public string Path { get; set; }
         public string Method { get; set; }
-        public RequestRouteAttribute(string method, string path)
+        public string Description { get; set; }
+        public RequestRouteAttribute()
         {
-            Method = method;
+        }
+        public RequestRouteAttribute(string path)
+        {
             Path = path;
+        }
+        public RequestRouteAttribute(string method, string path, string description = null)
+        {
+            Path = path;
+            Method = method;
+            Description = description;
         }
     }
 
@@ -59,6 +68,8 @@ namespace System.Windows
                 var route = attrs.FirstOrDefault(t => t is RequestRouteAttribute);
                 if (route == null) continue;
                 var attr = (RequestRouteAttribute)route;
+                if (string.IsNullOrEmpty(attr.Method)) attr.Method = RequestMethod.GET;
+                if (string.IsNullOrEmpty(attr.Path)) attr.Path = "/api/" + method2.Name;
                 list.Add(new RequestRouter { Attribute = attr, Handler = Delegate.CreateDelegate(handler, method2) as RequestHandler });
             }
             return list;
@@ -180,6 +191,11 @@ namespace System.Windows
             {
                 sw.Write(content);
             }
+        }
+
+        public static void End(this HttpListenerResponse response)
+        {
+            response.OutputStream.Close();
         }
     }
 
