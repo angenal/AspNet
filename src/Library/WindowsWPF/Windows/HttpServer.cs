@@ -156,7 +156,7 @@ namespace System.Windows
                     HttpRequest req = new HttpRequest(context.Request);
                     HttpResponse resp = new HttpResponse(context.Response);
                     handler.RequestHandler(req, resp);
-                    resp.Finish();
+                    resp.End();
                     isHandled = true;
                     break; //it's been handled, stop propagation
                 }
@@ -196,28 +196,6 @@ namespace System.Windows
                 }
             }
             return formValues;
-        }
-
-        public static void Write(this HttpListenerResponse response, string content)
-        {
-            //response.Headers.Add(HttpRequestHeader.ContentType, "text/plain; charset=utf-8");
-            using (StreamWriter sw = new StreamWriter(response.OutputStream))
-            {
-                sw.Write(content);
-            }
-        }
-        public static void WriteJson(this HttpListenerResponse response, string content)
-        {
-            //response.Headers.Add(HttpRequestHeader.ContentType, "application/json; charset=utf-8");
-            using (StreamWriter sw = new StreamWriter(response.OutputStream))
-            {
-                sw.Write(content);
-            }
-        }
-
-        public static void End(this HttpListenerResponse response)
-        {
-            response.OutputStream.Close();
         }
     }
 
@@ -288,15 +266,30 @@ namespace System.Windows
             Response = resp;
         }
 
-        public void SetBody(string body)
+        public void AddJsonHeader()
         {
-            byte[] buffer = Encoding.UTF8.GetBytes(body);
-            Response.ContentLength64 = buffer.Length;
+            Response.AddHeader("Content-Type", "application/json; charset=utf-8");
+        }
+
+        public void AddTextHeader()
+        {
+            Response.AddHeader("Content-Type", "text/plain; charset=utf-8");
+        }
+
+        public void AddHtmlHeader()
+        {
+            Response.AddHeader("Content-Type", "text/html; charset=utf-8");
+        }
+
+        public void Write(string content)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(content);
+            Response.ContentLength64 += buffer.Length;
             Stream output = Response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
         }
 
-        internal void Finish()
+        internal void End()
         {
             Response.OutputStream.Close();
         }

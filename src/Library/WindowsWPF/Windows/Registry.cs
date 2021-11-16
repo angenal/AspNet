@@ -66,7 +66,6 @@ namespace System.Windows
             if (k0 != null) k0.Close();
             if (k1 != null) k1.Close();
             k2.Close();
-            rk.Dispose();
         }
 
         public static bool ExistsThisApp(string protocol)
