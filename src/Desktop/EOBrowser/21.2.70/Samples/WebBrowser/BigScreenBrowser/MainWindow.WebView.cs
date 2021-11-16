@@ -1,5 +1,6 @@
 using EO.WebBrowser;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -442,11 +443,26 @@ namespace BigScreenBrowser
         }
 
         //This event handler is called when a download starts
+        private string tmpSaveFilename;
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
-            //Set ShowDialog to true to display "Save As" dialog
+            //e.Item.Url = "https://*.com/client/latest/installer.exe"
+            //e.Item.ContentDisposition "attachment;filename=installer.exe"
+            double size = e.Item.TotalBytes / 1024.0 / 1024;
+            //string filesize = size.ToString("f0") + "MB";
+            if (size > 1024 || !e.Item.ContentDisposition.StartsWith("attachment"))
+            {
+                e.Item.Cancel();
+                return;
+            }
+            tmpSaveFilename = e.Item.ContentDisposition.Split('=').LastOrDefault();
+            if (string.IsNullOrWhiteSpace(tmpSaveFilename))
+            {
+                e.Item.Cancel();
+                return;
+            }
             e.FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            e.ShowDialog = true;
+            //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
         //This event handler is called when a download has been canceled
@@ -457,7 +473,7 @@ namespace BigScreenBrowser
         void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
         {
             WebView webView = (WebView)sender;
-            if (webView.IsNewWindow && string.IsNullOrEmpty(webView.Url))
+            if (webView.IsNewWindow || string.IsNullOrEmpty(webView.Url))
                 webView.Close(false);
         }
 
@@ -466,7 +482,8 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Save)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = e.DefaultFileName;
+                dlg.FileName = !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : tmpSaveFilename;
+                dlg.Filter = dlg.FileName.Contains(".") ? "*." + dlg.FileName.Split('.').Last() : "*.*";
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();

@@ -14,7 +14,7 @@ namespace System.Windows
         /// <param name="protocol"></param>
         public static void RegistThisApp(string protocol)
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetEntryAssembly();
             object[] attributes = assembly.GetCustomAttributes(false);
             var a0 = attributes.FirstOrDefault(t => t is GuidAttribute);
             var a1 = attributes.FirstOrDefault(t => t is AssemblyProductAttribute);
