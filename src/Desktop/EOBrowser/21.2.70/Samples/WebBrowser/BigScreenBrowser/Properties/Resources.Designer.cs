@@ -61,6 +61,24 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
+        ///   查找类似 zhumu.me 的本地化字符串。
+        /// </summary>
+        internal static string Downloads {
+            get {
+                return ResourceManager.GetString("Downloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 200 的本地化字符串。
+        /// </summary>
+        internal static string DownloadSize {
+            get {
+                return ResourceManager.GetString("DownloadSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 30101 的本地化字符串。
         /// </summary>
         internal static string HttpPort {

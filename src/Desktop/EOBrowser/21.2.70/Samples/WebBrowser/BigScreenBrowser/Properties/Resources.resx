@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Downloads" xml:space="preserve">
+    <value>zhumu.me</value>
+    <comment>下载限制的域名</comment>
+  </data>
+  <data name="DownloadSize" xml:space="preserve">
+    <value>200</value>
+    <comment>下载文件大小限制(MB)</comment>
+  </data>
   <data name="HttpPort" xml:space="preserve">
     <value>30101</value>
     <comment>提供外部HTTP访问的端口号</comment>

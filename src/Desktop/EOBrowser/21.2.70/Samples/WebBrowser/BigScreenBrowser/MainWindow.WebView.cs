@@ -1,5 +1,6 @@
 using EO.WebBrowser;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -443,25 +444,45 @@ namespace BigScreenBrowser
         }
 
         //This event handler is called when a download starts
-        private string tmpSaveFilename;
+        private string tmpSaveFilename, tmpSaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
             //e.Item.Url = "https://*.com/client/latest/installer.exe"
+            string downloads = Properties.Resources.Downloads;
+            if (!string.IsNullOrWhiteSpace(downloads))
+            {
+                var urls = downloads.Split(',', '，', ' ').Select(i => i.Trim()).Where(i => i.Length > 1);
+                var url = new Uri(e.Item.Url).Authority.Split(':')[0];
+                if (!urls.Any(i => url.EndsWith(i)))
+                {
+                    e.Item.Cancel();
+                    return;
+                }
+            }
             //e.Item.ContentDisposition "attachment;filename=installer.exe"
-            double size = e.Item.TotalBytes / 1024.0 / 1024;
-            //string filesize = size.ToString("f0") + "MB";
-            if (size > 1024 || !e.Item.ContentDisposition.StartsWith("attachment"))
+            if (!e.Item.ContentDisposition.StartsWith("attachment", StringComparison.OrdinalIgnoreCase))
             {
                 e.Item.Cancel();
                 return;
             }
+            if (double.TryParse(Properties.Resources.DownloadSize, out double downloadSize) && downloadSize > 0)
+            {
+                double size = e.Item.TotalBytes / 1024.0 / 1024;
+                //string filesize = size.ToString("f0") + "MB";
+                if (size > downloadSize)
+                {
+                    e.Item.Cancel();
+                    return;
+                }
+            }
+            //WebView FileDialog
             tmpSaveFilename = e.Item.ContentDisposition.Split('=').LastOrDefault();
             if (string.IsNullOrWhiteSpace(tmpSaveFilename))
             {
                 e.Item.Cancel();
                 return;
             }
-            e.FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            e.FilePath = tmpSaveFilePath;
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -482,8 +503,8 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Save)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : tmpSaveFilename;
-                dlg.Filter = dlg.FileName.Contains(".") ? "*." + dlg.FileName.Split('.').Last() : "*.*";
+                dlg.FileName = Path.Combine(tmpSaveFilePath, !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : tmpSaveFilename);
+                dlg.Filter = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();
