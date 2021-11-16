@@ -444,7 +444,7 @@ namespace BigScreenBrowser
         }
 
         //This event handler is called when a download starts
-        private string tmpSaveFilename, tmpSaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private string tmpSaveFilename, tmpSaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
             //e.Item.Url = "https://*.com/client/latest/installer.exe"
@@ -475,14 +475,14 @@ namespace BigScreenBrowser
                     return;
                 }
             }
-            //WebView FileDialog
-            tmpSaveFilename = e.Item.ContentDisposition.Split('=').LastOrDefault();
+            //Modify save file path %TEMP%
+            tmpSaveFilename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : e.Item.ContentDisposition.Split('=').LastOrDefault();
             if (string.IsNullOrWhiteSpace(tmpSaveFilename))
             {
                 e.Item.Cancel();
                 return;
             }
-            e.FilePath = tmpSaveFilePath;
+            e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -503,8 +503,10 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Save)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = Path.Combine(tmpSaveFilePath, !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : tmpSaveFilename);
-                dlg.Filter = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
+                dlg.FileName = !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : Path.Combine(tmpSaveFilePath, tmpSaveFilename);
+                //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
+                string ext = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
+                dlg.Filter = "所有文件(" + ext + ")|" + ext;
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();
@@ -512,7 +514,7 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Open)
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.Filter = "*.*";
+                dlg.Filter = "所有文件(*.*)|*.*";
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();
