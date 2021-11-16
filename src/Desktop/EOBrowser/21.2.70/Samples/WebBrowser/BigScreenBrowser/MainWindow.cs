@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Windows;
 using WindowsWPF.Controls;
 
@@ -15,6 +16,8 @@ namespace BigScreenBrowser
         private WebPage m_CurPage;
         private bool m_Forward = true;
         private int m_CurIndex = 0;
+        private string tmpSaveFilename;
+        private string tmpSaveFilePath;
 
         public void InitializeWebBrowser()
         {
@@ -36,6 +39,10 @@ namespace BigScreenBrowser
             App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             grid.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
+            //下载默认目录
+            tmpSaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
+            if (!Directory.Exists(tmpSaveFilePath)) tmpSaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (!Directory.Exists(tmpSaveFilePath)) App.ShowError(new Exception("没有权限访问“桌面”"));
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

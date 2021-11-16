@@ -444,7 +444,6 @@ namespace BigScreenBrowser
         }
 
         //This event handler is called when a download starts
-        private string tmpSaveFilename, tmpSaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
             //e.Item.Url = "https://*.com/client/latest/installer.exe"
@@ -482,7 +481,8 @@ namespace BigScreenBrowser
                 e.Item.Cancel();
                 return;
             }
-            e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
+            e.FilePath = tmpSaveFilePath; //WebView_FileDialog: e.DefaultFileName
+            //e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -503,7 +503,7 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Save)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = !string.IsNullOrEmpty(e.DefaultFileName) ? e.DefaultFileName : Path.Combine(tmpSaveFilePath, tmpSaveFilename);
+                dlg.FileName = tmpSaveFilename; //Or e.DefaultFileName
                 //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
                 string ext = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
                 dlg.Filter = "所有文件(" + ext + ")|" + ext;
