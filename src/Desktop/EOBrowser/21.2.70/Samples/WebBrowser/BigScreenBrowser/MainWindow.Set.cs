@@ -42,8 +42,16 @@ namespace BigScreenBrowser
                 }
             }).Start();
         }
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int width, int height, int flags);
+        internal Rect GetWindowRect()
+        {
+            IntPtr hWnd = new WindowInteropHelper(this).Handle;
+            GetWindowRect(hWnd, out Rect rect);
+            return rect;
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)] // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
+        private static extern int SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)] // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowrect
+        private static extern int GetWindowRect(IntPtr hwnd, out Rect lpRect);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr GetForegroundWindow();
         #endregion

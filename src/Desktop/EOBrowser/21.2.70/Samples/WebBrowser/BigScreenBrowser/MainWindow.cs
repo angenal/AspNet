@@ -35,9 +35,10 @@ namespace BigScreenBrowser
             //窗体一直置顶
             //SetTopMost();
             //Load the WebControl
-            App.Left = Left;
+            App.Left = Left; App.Top = Top;
             App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            App.Rect = new Rect(App.Left, App.Top, App.Width, App.Height);
             grid.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
             //下载默认目录
             tmpSaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
@@ -55,6 +56,16 @@ namespace BigScreenBrowser
         {
             //显示或隐藏后
             //Topmost = (bool)e.NewValue;
+        }
+
+        private void Window_LocationChanged(object sender, EventArgs e)
+        {
+            App.Rect.Location = new Point(Left, Top);
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            App.Rect.Size = new Size(Width, Height);
         }
 
         //private void Print_Executed(object sender, ExecutedRoutedEventArgs e)

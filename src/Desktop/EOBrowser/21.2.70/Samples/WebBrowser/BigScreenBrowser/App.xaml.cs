@@ -21,7 +21,8 @@ namespace BigScreenBrowser
         internal static Mutex mutex;
         internal static App Instance;
         internal static MainWindow MainWnd;
-        internal static double Width, Height, Left;
+        internal static double Width, Height, Left, Top;
+        internal static Rect Rect;
         internal static List<WebViewItemUrl> Urls;
         internal static string[] StartupArgs;
         internal static DateTime StartupDateTime;

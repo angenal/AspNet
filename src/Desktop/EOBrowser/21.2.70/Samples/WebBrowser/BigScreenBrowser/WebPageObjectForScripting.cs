@@ -34,24 +34,20 @@ namespace BigScreenBrowser
             var app = typeof(App).Assembly.GetName();
             var a0 = App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute);
             var a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
+            var wnd = App.MainWnd;
             var process = Process.GetCurrentProcess();
             return JsonConvert.SerializeObject(new
             {
                 Id = a0 != null ? ((GuidAttribute)a0).Value : Guid.Empty.ToString(),
                 Name = a1 != null ? ((AssemblyProductAttribute)a1).Product : app.Name,
                 Version = app.Version.ToString(),
-                Bounds = new
-                {
-                    App.MainWnd.Width,
-                    App.MainWnd.Height,
-                    App.MainWnd.Left,
-                    App.MainWnd.Top,
-                    App.MainWnd.Topmost,
-                    App.MainWnd.IsVisible
-                },
-                App.StartupArgs,
+                Location = new { App.Rect.X, App.Rect.Y },
+                Size = new { wnd.Width, wnd.Height },
+                wnd.Topmost,
+                wnd.IsVisible,
                 ProcessId = process.Id,
                 process.ProcessName,
+                App.StartupArgs,
                 Threads = process.Threads.Count,
                 Memory = (process.WorkingSet64 / 1024.0 / 1024).ToString("f0") + "MB",
                 Environment.ProcessorCount,

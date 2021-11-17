@@ -60,9 +60,9 @@ namespace BigScreenBrowser
         {
             if (!IsVisible) return;
             bool i = App.Width == grid.Width;
-            double x = i ? App.Width * 0.5 : App.Left;
+            double x = App.Rect.X = i ? App.Width * 0.5 : App.Left, y = App.Rect.Y = App.Top;
             IntPtr h = new WindowInteropHelper(this).Handle;
-            Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(h, -1, (int)x, 0, 0, 0, 0)));
+            Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(h, -1, (int)x, (int)y, 0, 0, 0)));
             grid.Dispatcher.BeginInvoke(new Action(() => grid.Width = App.Width * (i ? 0.5 : 1)));
         }
 
