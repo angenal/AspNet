@@ -38,16 +38,9 @@ namespace BigScreenBrowser
                     {
                         try
                         {
-                            Process process;
-                            if (e.Arguments.Length == 1)
-                            {
-                                process = Process.Start(e.Arguments[0].ToString());
-                            }
-                            else
-                            {
-                                process = Process.Start(e.Arguments[0].ToString(), string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString()))));
-                            }
-                            e.ReturnValue = process.Responding;
+                            string fileName = e.Arguments[0].ToString(), arguments = e.Arguments.Length == 1 ? null : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
+                            Process process = string.IsNullOrWhiteSpace(arguments) ? Process.Start(fileName) : Process.Start(fileName, arguments);
+                            e.ReturnValue = process.HasExited ? 0 : process.Id;
                         }
                         catch (Exception ex)
                         {
@@ -59,24 +52,25 @@ namespace BigScreenBrowser
                 case "runCMD":
                     if (e.Arguments.Length > 0 && e.Arguments[0].GetType() == typeof(string))
                     {
-                        string shell = e.Arguments[0].ToString(), args = e.Arguments.Length == 1 ? null : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString()))), result = null;
-                        var psi = new ProcessStartInfo();
-                        psi.FileName = shell;
-                        psi.Arguments = args;
-                        psi.UseShellExecute = false;
-                        psi.CreateNoWindow = true;
-                        psi.WindowStyle = ProcessWindowStyle.Hidden;
-                        psi.RedirectStandardInput = true;
-                        psi.RedirectStandardOutput = true;
-#if DEBUG
-                        Debug.WriteLine($">> run CMD >> {string.Join(" ", e.Arguments)}");
-#endif
                         try
                         {
+                            string fileName = e.Arguments[0].ToString(), arguments = e.Arguments.Length == 1 ? null : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
+                            var psi = new ProcessStartInfo();
+                            psi.FileName = fileName;
+                            if (!string.IsNullOrWhiteSpace(arguments)) psi.Arguments = arguments;
+                            psi.WindowStyle = ProcessWindowStyle.Hidden;
+                            psi.CreateNoWindow = true;
+                            psi.UseShellExecute = false;
+                            psi.RedirectStandardInput = true;
+                            psi.RedirectStandardOutput = true;
+#if DEBUG
+                            Debug.WriteLine($">> run CMD >> {string.Join(" ", e.Arguments)}");
+#endif
+                            string result = null;
                             using (var process = Process.Start(psi))
                             {
-                                process?.WaitForExit();
-                                result = process?.StandardOutput.ReadToEnd();
+                                process.WaitForExit();
+                                result = process.StandardOutput.ReadToEnd();
                             }
                             if (!string.IsNullOrWhiteSpace(result))
                             {
