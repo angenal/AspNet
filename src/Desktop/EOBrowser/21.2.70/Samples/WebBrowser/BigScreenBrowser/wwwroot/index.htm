@@ -29,8 +29,7 @@
         function runJsFunction() {
             try {
                 var args = Array.prototype.slice.call(arguments);
-                if (args.length == 0) return;
-                eoapi.extInvoke(args.splice(0, 1)[0], args);
+                if (args.length > 0) return eoapi.extInvoke(args.splice(0, 1)[0], args);
             }
             catch (e) {
                 alert('异常：' + e.toString());
@@ -41,15 +40,16 @@
             var shell = document.getElementById('runProcessArgs1').value,
                 args = document.getElementById('runProcessArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            runJsFunction('runProcess', shell, args);
-            //runJsFunction('hideApp');
+            var result = runJsFunction('runProcess', shell, args);
+            if (result) runJsFunction('hideApp');
         }
 
         function runCMDFunction() {
             var shell = document.getElementById('runCMDArgs1').value,
                 args = document.getElementById('runCMDArgs2').value;
             if (!shell) return alert('请输入文件名或程序路径');
-            runJsFunction('runCMD', shell, args);
+            var result = runJsFunction('runCMD', shell, args);
+            if (result) alert('执行结果：' + result);
         }
 
     </script>
@@ -63,10 +63,10 @@
     <ul>
         <li>
             <h5>JavaScript Function</h5>
-            <p><a href="javascript:runJsFunction('showApp');">显示该应用程序<i>showApp()</i></a></p>
-            <p><a href="javascript:runJsFunction('hideApp');">隐藏该应用程序<i>hideApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('showApp');">显示应用程序<i>showApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('hideApp');">隐藏应用程序<i>hideApp()</i></a></p>
             <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏(Alt+F11)<i>toggleApp()</i></a></p>
-            <p><a href="javascript:runJsFunction('halveApp');">拆分窗口为以前的一半<i>halveApp()</i></a></p>
+            <p><a href="javascript:runJsFunction('halveApp');">拆分窗口为一半/还原(Alt+F5)<i>halveApp()</i></a></p>
             <p>
                 <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
                 <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
@@ -81,10 +81,11 @@
         </li>
         <li>
             <h5>Object For Scripting</h5>
-            <p><a href="javascript:alert(window.external.Now());">获取当前时间<i>window.external.Now()</i></a></p>
-            <p><a href="javascript:alert(window.external.GetAppInfo());">获取应用程序信息<i>window.external.GetAppInfo()</i></a></p>
-            <p><a href="javascript:alert(window.external.GetUrls());">获取访问历史记录<i>window.external.GetUrls()</i></a></p>
-            <p><a href="javascript:window.external.ExitApp();">退出应用程序(Alt+Q)<i>window.external.ExitApp()</i></a></p>
+            <p><a href="javascript:alert(external.Now());">获取当前时间<i>external.Now()</i></a></p>
+            <p><a href="javascript:alert(external.GetAppInfo());">获取应用程序信息(Alt+F1)<i>external.GetAppInfo()</i></a></p>
+            <p><a href="javascript:alert(external.GetUrls());">获取访问历史记录(Alt+F2)<i>external.GetUrls()</i></a></p>
+            <p><a href="javascript:external.CloseApp();">关闭应用程序(Alt+Q)<i>external.CloseApp()</i></a></p>
+            <p><a href="javascript:external.ExitApp();">退出应用程序<i>external.ExitApp()</i></a></p>
         </li>
         <li>
             <h5>常用网站</h5>

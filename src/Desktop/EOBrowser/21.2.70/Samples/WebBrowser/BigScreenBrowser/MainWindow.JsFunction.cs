@@ -20,15 +20,23 @@ namespace BigScreenBrowser
                 case "toggleApp":
                     ToggleApp();
                     break;
-                // 显示该应用程序
+                // 显示应用程序
                 case "showApp":
                     ShowApp();
                     break;
-                // 隐藏该应用程序
+                // 隐藏应用程序
                 case "hideApp":
                     HideApp();
                     break;
-                // 拆分窗口为以前的一半
+                // 关闭应用程序
+                case "closeApp":
+                    Window_ComfirmExit();
+                    break;
+                // 退出应用程序
+                case "exitApp":
+                    Window_Exit();
+                    break;
+                // 拆分窗口为一半/还原
                 case "halveApp":
                     HalveApp();
                     break;

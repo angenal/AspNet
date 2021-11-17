@@ -92,6 +92,8 @@ namespace BigScreenBrowser
                 //隐藏
                 Hide();
                 //注销快捷键
+                if (altF1 != null) altF1.Dispose();
+                if (altF2 != null) altF2.Dispose();
                 if (altF5 != null) altF5.Dispose();
                 if (altF11 != null) altF11.Dispose();
                 if (altA != null) altA.Dispose();

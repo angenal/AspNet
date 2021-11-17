@@ -8,16 +8,18 @@ namespace BigScreenBrowser
     /// <summary></summary>
     public partial class MainWindow
     {
-        private const string HotkeyMessageBoxText = @"功能说明：
-  快捷键`Alt+A`截图；
-  快捷键`Alt+Q`退出该应用程序；";
-
         /// <summary>
         /// 添加快捷键功能
         /// </summary>
         protected void RegisterHotkey()
         {
-            // 快捷键 Alt+F5 拆分窗口为以前的一半
+            // 快捷键 Alt+F1 获取应用程序信息
+            altF1 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F1, this, true);
+            altF1.HotkeyPressed += AltF1_HotkeyPressed;
+            // 快捷键 Alt+F2 获取访问历史记录
+            altF2 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F2, this, true);
+            altF2.HotkeyPressed += AltF2_HotkeyPressed;
+            // 快捷键 Alt+F5 拆分窗口为一半/还原
             altF5 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F5, this, true);
             altF5.HotkeyPressed += AltF5_HotkeyPressed;
             // 快捷键 Alt+F11 全屏(显示或隐藏)
@@ -34,7 +36,21 @@ namespace BigScreenBrowser
             altT.HotkeyPressed += AltT_HotkeyPressed;
         }
 
-        // 快捷键 Alt+F5 拆分窗口为以前的一半
+        // 快捷键 Alt+F1 获取应用程序信息
+        private Hotkey altF1;
+        private void AltF1_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            Alert(WebPageObjectForScripting._GetAppInfo());
+        }
+
+        // 快捷键 Alt+F2 获取访问历史记录
+        private Hotkey altF2;
+        private void AltF2_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            Alert(WebPageObjectForScripting._GetUrls());
+        }
+
+        // 快捷键 Alt+F5 拆分窗口为一半/还原
         private Hotkey altF5;
         private void AltF5_HotkeyPressed(object sender, HotkeyEventArgs e)
         {

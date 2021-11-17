@@ -27,6 +27,10 @@ namespace BigScreenBrowser
         /// <summary>获取应用程序信息</summary>
         public string GetAppInfo()
         {
+            return _GetAppInfo();
+        }
+        internal static string _GetAppInfo()
+        {
             var app = typeof(App).Assembly.GetName();
             var a0 = App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute);
             var a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
@@ -64,6 +68,10 @@ namespace BigScreenBrowser
         /// <summary>获取访问历史记录</summary>
         public string GetUrls()
         {
+            return _GetUrls();
+        }
+        internal static string _GetUrls()
+        {
             return JsonConvert.SerializeObject(App.Urls);
         }
 
@@ -74,10 +82,16 @@ namespace BigScreenBrowser
             return Page.ForceDownloadPDF = forceDownload;
         }
 
+        /// <summary>关闭应用程序</summary>
+        public void CloseApp()
+        {
+            App.MainWnd.Window_ComfirmExit();
+        }
+
         /// <summary>退出应用程序</summary>
         public void ExitApp()
         {
-            App.MainWnd.Window_ComfirmExit();
+            App.MainWnd.Window_Exit();
         }
     }
 }

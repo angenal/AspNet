@@ -421,7 +421,7 @@ namespace BigScreenBrowser
                     //engine that user has confirmed the dialog. This is important
                     //because either OK or Cancel must be called to prevent the default
                     //dialog
-                    MessageBox.Show(this, e.MessageText, "消息", MessageBoxButton.OK);
+                    Alert(e.MessageText);
                     e.OK();
                     break;
 
@@ -441,6 +441,11 @@ namespace BigScreenBrowser
                     }
                     break;
             }
+        }
+
+        void Alert(string message)
+        {
+            MessageBox.Show(this, message, "消息", MessageBoxButton.OK);
         }
 
         //This event handler is called when a download starts
