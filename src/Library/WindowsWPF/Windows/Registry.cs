@@ -20,8 +20,7 @@ namespace System.Windows
             var a1 = attributes.FirstOrDefault(t => t is AssemblyProductAttribute);
             var a2 = attributes.FirstOrDefault(t => t is AssemblyDescriptionAttribute);
             //var programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-            string name = assembly.GetName().Name + "." + protocol;
-            string path = "\"" + assembly.Location + "\"" + " \"%1\"";
+            string name = protocol, path = "\"" + assembly.Location + "\"" + " \"%1\"";
             string icon = Directory.GetFiles(Path.GetDirectoryName(assembly.Location), "*.ico").FirstOrDefault();
             string description = a2 != null ? ((AssemblyDescriptionAttribute)a2).Description : null;
             RegistShortcut(name, path, protocol, icon, description);

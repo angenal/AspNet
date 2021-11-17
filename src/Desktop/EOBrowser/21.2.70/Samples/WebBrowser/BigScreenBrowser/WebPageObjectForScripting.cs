@@ -31,33 +31,40 @@ namespace BigScreenBrowser
         }
         internal static string _GetAppInfo()
         {
-            var app = typeof(App).Assembly.GetName();
-            var a0 = App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute);
-            var a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
-            var wnd = App.MainWnd;
-            var process = Process.GetCurrentProcess();
+            MainWindow wnd = App.MainWnd;
+            Process process = Process.GetCurrentProcess();
+            AssemblyName app = typeof(App).Assembly.GetName();
+            object a0 = App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute);
+            object a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
             return JsonConvert.SerializeObject(new
             {
                 Id = a0 != null ? ((GuidAttribute)a0).Value : Guid.Empty.ToString(),
                 Name = a1 != null ? ((AssemblyProductAttribute)a1).Product : app.Name,
                 Version = app.Version.ToString(),
-                Location = new { App.Rect.X, App.Rect.Y },
+                Location = new { X = wnd.Left, Y = wnd.Top },
                 Size = new { wnd.Width, wnd.Height },
-                wnd.Topmost,
-                wnd.IsVisible,
+                State = new { Visible = wnd.IsVisible, wnd.Topmost },
+                Start = new
+                {
+                    Url = $"{Properties.Resources.URLProtocol}://localhost:{WebApi.Httpd.Port}/api/",
+                    Args = App.StartupArgs,
+                    Startup = App.StartupDateTime.ToString("G"),
+                    Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0],
+                    Now = DateTime.Now.ToString("G")
+                },
                 ProcessId = process.Id,
                 process.ProcessName,
-                App.StartupArgs,
                 Threads = process.Threads.Count,
                 Memory = (process.WorkingSet64 / 1024.0 / 1024).ToString("f0") + "MB",
                 Environment.ProcessorCount,
                 Environment.Is64BitProcess,
                 Environment.MachineName,
                 OSVersion = Environment.OSVersion.ToString(),
-                Startup = App.StartupDateTime.ToString("G"),
-                Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0],
-                ApiUrl = $"http://localhost:{WebApi.Httpd.Port}",
-                ApiDocument = JsonConvert.SerializeObject(WebApi.Document)
+                Api = new
+                {
+                    Url = $"http://localhost:{WebApi.Httpd.Port}",
+                    Document = JsonConvert.SerializeObject(WebApi.Document)
+                }
             });
         }
 

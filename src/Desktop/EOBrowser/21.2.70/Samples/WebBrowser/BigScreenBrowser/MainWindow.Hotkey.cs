@@ -60,10 +60,13 @@ namespace BigScreenBrowser
         {
             if (!IsVisible) return;
             bool i = App.Width == grid.Width;
-            double x = App.Rect.X = i ? App.Width * 0.5 : App.Left, y = App.Rect.Y = App.Top;
-            IntPtr h = new WindowInteropHelper(this).Handle;
-            Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(h, -1, (int)x, (int)y, 0, 0, 0)));
-            grid.Dispatcher.BeginInvoke(new Action(() => grid.Width = App.Width * (i ? 0.5 : 1)));
+            double x = i ? App.Width * 0.5 : App.Left, y = App.Top;
+            double w = App.Width * (i ? 0.5 : 1), h = App.Height;
+            MainWindow wnd = App.MainWnd;
+            wnd.Dispatcher.BeginInvoke(new Action(() => { wnd.Left = x; wnd.Top = y; wnd.Width = w; wnd.Height = h; }));
+            IntPtr hWnd = new WindowInteropHelper(this).Handle;
+            Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(hWnd, -1, (int)x, (int)y, (int)w, (int)h, 0)));
+            grid.Dispatcher.BeginInvoke(new Action(() => { grid.Width = w; grid.Height = h; }));
         }
 
         // 快捷键 Alt+F11 全屏(显示或隐藏)

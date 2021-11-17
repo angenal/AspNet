@@ -22,8 +22,8 @@ namespace BigScreenBrowser
         internal static App Instance;
         internal static MainWindow MainWnd;
         internal static double Width, Height, Left, Top;
-        internal static Rect Rect;
         internal static List<WebViewItemUrl> Urls;
+        internal static Uri StartupUrl;
         internal static string[] StartupArgs;
         internal static DateTime StartupDateTime;
         internal static bool GridBackgroundUpdated;
@@ -31,18 +31,37 @@ namespace BigScreenBrowser
         internal static string ExeDir;
         internal static int ExitCode;
 
-        private void Application_Init()
+        private string[] Init(string[] args)
+        {
+            if (args.Length == 1)
+            {
+                //自定义URL协议头
+                string protocol = BigScreenBrowser.Properties.Resources.URLProtocol;
+                if (args[0].StartsWith(protocol, StringComparison.OrdinalIgnoreCase) && Uri.TryCreate("http" + args[0].Substring(protocol.Length), UriKind.Absolute, out StartupUrl)) return new string[3] { StartupUrl.Authority, StartupUrl.AbsolutePath, StartupUrl.Query };
+            }
+            return args;
+        }
+
+        private void Application_Init(string[] args)
         {
             mutex = new Mutex(true, typeof(App).Assembly.GetName().Name, out bool createdNew);
             if (!createdNew)
             {
                 var cp = Process.GetCurrentProcess();
                 var ps = Process.GetProcessesByName(cp.ProcessName);
+                var api = $"http://localhost:{BigScreenBrowser.Properties.Resources.HttpPort}/api/";
                 foreach (Process pc in ps)
                 {
                     if (pc.Id < 2 || pc.Id == cp.Id) continue;
+                    if (StartupUrl == null || !StartupUrl.ToString().StartsWith(api, StringComparison.OrdinalIgnoreCase))
+                    {
+                        HttpRequest.Get($"{api}ShowApp");
+                    }
+                    else
+                    {
+                        HttpRequest.Get(StartupUrl.ToString());
+                    }
                     // Activates the window and displays it in its current size and position.
-                    HttpRequest.Get($"http://localhost:{BigScreenBrowser.Properties.Resources.HttpPort}/api/ShowApp");
                     //HotkeyRef.ShowWindow(pc.MainWindowHandle, 5);
                     //HotkeyRef.keybd_event((byte)System.Windows.Forms.Keys.LMenu, (byte)System.Windows.Forms.Keys.F11, 0x2, 0);
                     break;
@@ -57,10 +76,11 @@ namespace BigScreenBrowser
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Application_Init();
-            Instance = this;
-            StartupArgs = e.Args;
+            string[] args = Init(e.Args);
+            Application_Init(args);
+            StartupArgs = args;
             StartupDateTime = DateTime.Now;
+            Instance = this;
             // Json Convert 驼峰命名(首字母小写)
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 
