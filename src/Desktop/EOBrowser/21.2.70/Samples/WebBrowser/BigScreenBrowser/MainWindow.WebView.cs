@@ -202,16 +202,11 @@ namespace BigScreenBrowser
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Failed >> {e.Url}");
+            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Failed >> {e.ErrorMessage} {e.Url}");
 #endif
             //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
             e.UseDefaultMessage();
-            if (e.ShouldShowError)
-            {
-#if DEBUG
-                Debug.WriteLine($">> WebView Load Failed >> {e.ErrorMessage} {e.Url}");
-#endif
-            }
+            //if (e.ShouldShowError) App.ShowError(new Exception(e.ErrorMessage));
         }
 
         //Render Unresponsive
