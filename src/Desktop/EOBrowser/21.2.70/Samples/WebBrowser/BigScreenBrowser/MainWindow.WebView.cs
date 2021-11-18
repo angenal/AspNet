@@ -85,9 +85,10 @@ namespace BigScreenBrowser
                 }
                 if (3 < count)
                 {
-                    DetachPage(item1.Page);
-                    item1.Page.DetachPage();
-                    item1.Page.WebControl.WebView.Close(false);
+                    WebViewItem item0 = (WebViewItem)grid.Children[0];
+                    DetachPage(item0.Page);
+                    item0.Page.DetachPage();
+                    item0.Page.WebControl.WebView.Close(false);
                 }
             }
 
@@ -530,7 +531,7 @@ namespace BigScreenBrowser
                 e.Item.Cancel();
                 return;
             }
-            e.FilePath = Path.Combine(tmpSaveFilePath, filename); //WebView_FileDialog: e.DefaultFileName
+            e.FilePath = Path.Combine(m_SaveFilePath, filename); //WebView_FileDialog: e.DefaultFileName
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -556,7 +557,7 @@ namespace BigScreenBrowser
                 {
                     Title = "保存",
                     Filter = e.Filter,
-                    InitialDirectory = tmpSaveFilePath
+                    InitialDirectory = m_SaveFilePath
                 };
                 if (!string.IsNullOrWhiteSpace(path))
                 {
@@ -575,7 +576,7 @@ namespace BigScreenBrowser
                 {
                     Title = "打开",
                     Filter = e.Filter,
-                    InitialDirectory = tmpSaveFilePath
+                    InitialDirectory = m_SaveFilePath
                 };
                 if (!string.IsNullOrWhiteSpace(path))
                 {
