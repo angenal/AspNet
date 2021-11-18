@@ -265,6 +265,7 @@ namespace BigScreenBrowser
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_BackCommand = CommandIds.RegisterUserCommand("back");
         private static int m_ForwardCommand = CommandIds.RegisterUserCommand("forward");
+        private static int m_GotoUrl = CommandIds.RegisterUserCommand("gotoUrl");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
@@ -331,6 +332,18 @@ namespace BigScreenBrowser
                     }
                 }
                 return;
+            }
+            //剪切板
+            if (e.CommandId == m_GotoUrl)
+            {
+                var textData = Clipboard.GetData(DataFormats.Text);
+                if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out Uri uri))
+                {
+                    e.Handled = true;
+                    WebView webView = (WebView)sender;
+                    webView.Url = uri.ToString();
+                    return;
+                }
             }
             //提示快捷键功能 F1
             //if (e.CommandId == m_F1Command)
@@ -404,6 +417,13 @@ namespace BigScreenBrowser
 
             if (e.Menu.Items.HasPluginMenuItems())
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
+
+            var textData = Clipboard.GetData(DataFormats.Text);
+            if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out _))
+            {
+                e.Menu.Items.Add(new MenuItem("剪切板", m_GotoUrl));
+                e.Menu.Items.Add(MenuItem.CreateSeparator());
+            }
 
             //Create new context menu items. Each menu item is associated to
             //a "Command". When the menu item is selected, WebView_Command is 
