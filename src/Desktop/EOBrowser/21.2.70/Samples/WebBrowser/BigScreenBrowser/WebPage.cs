@@ -47,27 +47,33 @@ namespace BigScreenBrowser
             //Create the WebControl and WebView
             m_WebControl = new WebControl();
             m_WebControl.WebView = m_WebView = webView;
+
+            m_ResourceHandler = new WebPageResourceHandler();
             AttachEventsNeeded = attachEvents;
 
-            //Handle various UI related events
-            if (AttachEventsNeeded)
-            {
-                m_WebView.TitleChanged += new EventHandler(m_WebView_TitleChanged);
-                m_WebView.FaviconChanged += new EventHandler(m_WebView_FaviconChanged);
-                m_WebView.ConsoleMessage += new ConsoleMessageHandler(m_WebView_ConsoleMessage);
-
-                //Handles various request events
-                m_WebView.CertificateError += m_WebView_CertificateError;
-                m_WebView.RequestPermissions += m_WebView_RequestPermissions;
-                m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
-            }
-
-            //Register the custom protocol handler
-            m_ResourceHandler = new WebPageResourceHandler();
-            m_WebView.RegisterResourceHandler(m_ResourceHandler);
-            m_WebView.ObjectForScripting = new WebPageObjectForScripting(this);
+            AttachPage();
 
             m_WebView_TitleChanged(null, EventArgs.Empty);
+        }
+
+        public void AttachPage()
+        {
+            if (!AttachEventsNeeded) return;
+
+            //Handle various UI related events
+            m_WebView.TitleChanged += new EventHandler(m_WebView_TitleChanged);
+            m_WebView.FaviconChanged += new EventHandler(m_WebView_FaviconChanged);
+            m_WebView.ConsoleMessage += new ConsoleMessageHandler(m_WebView_ConsoleMessage);
+
+            //Handles various request events
+            m_WebView.CertificateError += m_WebView_CertificateError;
+            m_WebView.RequestPermissions += m_WebView_RequestPermissions;
+            m_WebView.ShouldForceDownload += m_WebView_ShouldForceDownload;
+
+            //Register the custom protocol handler
+            m_WebView.RegisterResourceHandler(m_ResourceHandler);
+
+            m_WebView.ObjectForScripting = new WebPageObjectForScripting(this);
         }
 
         public void DetachPage()

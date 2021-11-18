@@ -81,9 +81,9 @@ namespace BigScreenBrowser
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
                 if (attachEvents)
                 {
-                    DetachPage(item1.Page);
-                    item1.Page.DetachPage();
-                    item1.Page.WebControl.WebView.Close(false);
+                    //DetachPage(item1.Page);
+                    //item1.Page.DetachPage();
+                    //item1.Page.WebControl.WebView.Close(false);
                     item1.Visibility = Visibility.Collapsed;
                 }
             }
@@ -92,11 +92,19 @@ namespace BigScreenBrowser
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
             WebViewItem item = NewWebViewItem(e.WebView, attachEvents);
+            grid.Children.Add(item);
+#if DEBUG
+            count = grid.Children.Count;
+            for (int i = 0; i < count; i++)
+            {
+                WebViewItem item1 = (WebViewItem)grid.Children[i];
+                Debug.WriteLine($">> WebView [{i + 1}] {(i == count - 1 ? "New" : "Loaded")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
+            }
+#endif
 
             //Signifies that we accept the new WebView. Without this line
             //the newly created WebView will be immediately destroyed
             e.Accepted = true;
-            grid.Children.Add(item);
         }
 
         private WebViewItem NewWebViewItem(WebView webView, bool attachEvents = true)
@@ -144,6 +152,9 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
+#if DEBUG
+            Debug.WriteLine($">> WebView [{grid.Children.Count}] Load Completed >> {e.Url}");
+#endif
             //Add Url History
             if (!string.IsNullOrEmpty(e.Url))
             {
@@ -156,6 +167,21 @@ namespace BigScreenBrowser
                 if (count > 0 && App.Urls[count - 1].Url.Equals(e.Url)) return;
                 App.Urls.Add(new WebViewItemUrl(e.Url, true));
                 SetUrlIndex(count);
+            }
+            else if (grid.Children.Count > 1)
+            {
+                int count = grid.Children.Count;
+                WebViewItem item0 = (WebViewItem)grid.Children[count - 2];
+                WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
+
+                //DetachPage(item1.Page);
+                //item1.Page.DetachPage();
+                //item1.Page.WebControl.WebView.Close(false);
+                item1.Visibility = Visibility.Collapsed;
+
+                //AttachPage(item0.Page);
+                //item0.Page.AttachPage();
+                item0.Visibility = Visibility.Visible;
             }
             //Init Background
             if (App.GridBackgroundUpdated) return;
@@ -173,6 +199,9 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
+#if DEBUG
+            Debug.WriteLine($">> WebView [{grid.Children.Count}] Load Failed >> {e.Url}");
+#endif
             //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
             e.UseDefaultMessage();
             if (e.ShouldShowError)
@@ -180,6 +209,21 @@ namespace BigScreenBrowser
 #if DEBUG
                 Debug.WriteLine($">> WebView Load Failed >> {e.ErrorMessage} {e.Url}");
 #endif
+            }
+        }
+
+        //Render Unresponsive
+        void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e)
+        {
+            WebView webView = (WebView)sender;
+#if DEBUG
+            Debug.WriteLine($">> WebView Render Unresponsive >> {webView.Url}");
+#endif
+            //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No)
+            //    webView.Destroy();
+            if (!string.IsNullOrEmpty(webView.Url))
+            {
+                webView.Reload(true);
             }
         }
 
@@ -192,7 +236,7 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_Activate(object sender, EventArgs e)
         {
-            //m_WebView.AllowDropLoad = false;
+            m_WebView.AllowDropLoad = false;
         }
 
         //WebView events
@@ -302,17 +346,6 @@ namespace BigScreenBrowser
             //    MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             //    return;
             //}
-        }
-
-        //Render Unresponsive
-        void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e)
-        {
-#if DEBUG
-            Debug.WriteLine($">> WebView Render Unresponsive >> {((WebView)sender).Url}");
-#endif
-            //WebView webView = (WebView)sender;
-            //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No)
-            //    webView.Destroy();
         }
 
 
@@ -461,24 +494,20 @@ namespace BigScreenBrowser
         //This event handler is called when a download starts
         void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
         {
+            //下载限制的域名
             //e.Item.Url = "https://*.com/client/latest/installer.exe"
-            string downloads = Properties.Resources.Downloads;
-            if (!string.IsNullOrWhiteSpace(downloads))
-            {
-                var urls = downloads.Split(',', '，', ' ').Select(i => i.Trim()).Where(i => i.Length > 1);
-                var url = new Uri(e.Item.Url).Authority.Split(':')[0];
-                if (!urls.Any(i => url.EndsWith(i)))
-                {
-                    e.Item.Cancel();
-                    return;
-                }
-            }
-            //e.Item.ContentDisposition "attachment;filename=installer.exe"
-            if (!e.Item.ContentDisposition.StartsWith("attachment", StringComparison.OrdinalIgnoreCase))
-            {
-                e.Item.Cancel();
-                return;
-            }
+            //string downloads = Properties.Resources.Downloads;
+            //if (!string.IsNullOrWhiteSpace(downloads))
+            //{
+            //    var urls = downloads.Split(',', '，', ' ').Select(i => i.Trim()).Where(i => i.Length > 1);
+            //    var url = new Uri(e.Item.Url).Authority.Split(':')[0];
+            //    if (!urls.Any(i => url.EndsWith(i)))
+            //    {
+            //        e.Item.Cancel();
+            //        return;
+            //    }
+            //}
+            //下载文件大小限制(MB)
             if (double.TryParse(Properties.Resources.DownloadSize, out double downloadSize) && downloadSize > 0)
             {
                 double size = e.Item.TotalBytes / 1024.0 / 1024;
@@ -489,15 +518,17 @@ namespace BigScreenBrowser
                     return;
                 }
             }
-            //Modify save file path %TEMP%
-            tmpSaveFilename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : e.Item.ContentDisposition.Split('=').LastOrDefault();
+            //e.Item.ContentDisposition = "attachment;filename=installer.exe"
+            string content = e.Item.ContentDisposition;
+            //Modify save file path %TEMP% => tmpSaveFilePath
+            tmpSaveFilename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : !string.IsNullOrWhiteSpace(content) ? content.Split('=').LastOrDefault() : null;
             if (string.IsNullOrWhiteSpace(tmpSaveFilename))
             {
                 e.Item.Cancel();
                 return;
             }
-            e.FilePath = tmpSaveFilePath; //WebView_FileDialog: e.DefaultFileName
-            //e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
+            //e.FilePath = tmpSaveFilePath; //WebView_FileDialog: e.DefaultFileName
+            e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -518,7 +549,7 @@ namespace BigScreenBrowser
             if (e.Mode == FileDialogMode.Save)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                dlg.FileName = tmpSaveFilename; //Or e.DefaultFileName
+                //dlg.FileName = tmpSaveFilename; //Or e.DefaultFileName
                 //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
                 string ext = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
                 dlg.Filter = "所有文件(" + ext + ")|" + ext;
