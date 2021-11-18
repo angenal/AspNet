@@ -74,16 +74,14 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
-            bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
             int count = grid.Children.Count;
-            if (0 < count)
+            bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
+            if (0 < count && attachEvents)
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
-                if (attachEvents)
-                {
-                    item1.Visibility = Visibility.Collapsed;
-                }
-                if (3 < count)
+                item1.Visibility = Visibility.Collapsed;
+                //Only 4 reserved
+                if (4 <= count)
                 {
                     WebViewItem item0 = (WebViewItem)grid.Children[0];
                     DetachPage(item0.Page);
@@ -102,7 +100,7 @@ namespace BigScreenBrowser
             for (int i = 0; i < count; i++)
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[i];
-                Debug.WriteLine($">> WebView [{i + 1}] {(i == count - 1 ? "New" : "Loaded")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
+                Debug.WriteLine($">> WebView [{i}] {(i == count - 1 ? "New" : "Loaded")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
             }
 #endif
 
@@ -157,7 +155,7 @@ namespace BigScreenBrowser
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> WebView [{grid.Children.Count}] Load Completed >> {e.Url}");
+            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Completed >> {e.Url}");
 #endif
             //Add Url History
             if (!string.IsNullOrEmpty(e.Url))
@@ -204,7 +202,7 @@ namespace BigScreenBrowser
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> WebView [{grid.Children.Count}] Load Failed >> {e.Url}");
+            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Failed >> {e.Url}");
 #endif
             //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
             e.UseDefaultMessage();
@@ -221,14 +219,10 @@ namespace BigScreenBrowser
         {
             WebView webView = (WebView)sender;
 #if DEBUG
-            Debug.WriteLine($">> WebView Render Unresponsive >> {webView.Url}");
+            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
 #endif
-            //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No)
-            //    webView.Destroy();
-            if (!string.IsNullOrEmpty(webView.Url))
-            {
-                webView.Reload(true);
-            }
+            //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No) webView.Destroy();
+            //if (!string.IsNullOrEmpty(webView.Url)) webView.Reload(true);
         }
 
         //Before Jump to web page
