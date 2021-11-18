@@ -30,8 +30,8 @@ namespace FullScreenBrowser
             StartupArgs = e.Args;
 
             //显示启动屏幕(设定宽高会自动缩放)
-            //TransparentSplash.Instance.Width = 737;
-            //TransparentSplash.Instance.Height = 361;
+            TransparentSplash.Instance.Width = 737;
+            TransparentSplash.Instance.Height = 361;
             TransparentSplash.SetBackgroundImage(FullScreenBrowser.Properties.Resources.SplashImage);
 
             TransparentSplash.BeginDisplay();

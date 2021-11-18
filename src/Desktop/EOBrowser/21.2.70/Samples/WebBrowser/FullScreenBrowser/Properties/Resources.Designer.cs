@@ -80,7 +80,7 @@ namespace FullScreenBrowser.Properties {
         }
         
         /// <summary>
-        ///   查找类似 https://www.baidu.com/ 的本地化字符串。
+        ///   查找类似 http://guozhivip.com/ 的本地化字符串。
         /// </summary>
         internal static string URL {
             get {
