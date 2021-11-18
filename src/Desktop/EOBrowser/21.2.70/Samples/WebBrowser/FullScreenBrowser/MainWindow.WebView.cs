@@ -148,7 +148,6 @@ namespace FullScreenBrowser
         {
             // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
-            Topmost = false;
         }
 
         //WebView events

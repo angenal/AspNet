@@ -88,12 +88,12 @@ namespace BigScreenBrowser
         }
         public void HideApp()
         {
-            Topmost = false;
+            //Topmost = false;
             Hide();
         }
         public void ShowApp()
         {
-            Topmost = true;
+            //Topmost = true;
             Show();
         }
 
