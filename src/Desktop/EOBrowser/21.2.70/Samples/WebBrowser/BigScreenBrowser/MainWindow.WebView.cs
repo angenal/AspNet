@@ -87,6 +87,7 @@ namespace BigScreenBrowser
                     DetachPage(item0.Page);
                     item0.Page.DetachPage();
                     item0.Page.WebControl.WebView.Close(false);
+                    item0.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -168,7 +169,7 @@ namespace BigScreenBrowser
                 int count = App.Urls.Count;
                 if (count > 0 && App.Urls[count - 1].Url.Equals(e.Url)) return;
                 App.Urls.Add(new WebViewItemUrl(e.Url, true));
-                SetUrlIndex(count);
+                SetUrlIndex(m_CurIndex = count);
             }
             else if (grid.Children.Count > 1)
             {
