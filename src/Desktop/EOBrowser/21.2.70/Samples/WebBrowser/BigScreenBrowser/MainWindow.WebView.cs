@@ -80,8 +80,8 @@ namespace BigScreenBrowser
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
                 item1.Visibility = Visibility.Collapsed;
-                //Only 4 reserved
-                if (4 <= count)
+                //Only 2 reserved
+                if (2 <= count)
                 {
                     WebViewItem item0 = (WebViewItem)grid.Children[0];
                     DetachPage(item0.Page);
@@ -237,6 +237,7 @@ namespace BigScreenBrowser
         {
             // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
+            Topmost = false;
         }
 
         //WebView events
@@ -412,6 +413,8 @@ namespace BigScreenBrowser
         //to display a context menu. Here we creates the context menu to be displayed
         void WebView_BeforeContextMenu(object sender, BeforeContextMenuEventArgs e)
         {
+            WebView webView = (WebView)sender;
+
             //Clear the default context menu
             e.Menu.Items.Clear();
 
@@ -426,15 +429,15 @@ namespace BigScreenBrowser
             }
 
             //Create new context menu items. Each menu item is associated to
-            //a "Command". When the menu item is selected, WebView_Command is 
-            //called (as event handler for the Command event) to handle the 
+            //a "Command". When the menu item is selected, WebView_Command is
+            //called (as event handler for the Command event) to handle the
             //corresponding command
-            e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload));
+            e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload) { Enabled = !string.IsNullOrEmpty(webView.Url) });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand));
+            e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand) { Enabled = !webView.Url.Equals(m_HomeURL, StringComparison.OrdinalIgnoreCase) });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("后退", m_BackCommand));
-            e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand));
+            e.Menu.Items.Add(new MenuItem("后退", m_BackCommand) { Enabled = m_CurIndex > 0 });
+            e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand) { Enabled = m_CurIndex < App.Urls.Count - 1 });
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             ////e.Menu.Items.Add(MenuItem.CreateSeparator());
