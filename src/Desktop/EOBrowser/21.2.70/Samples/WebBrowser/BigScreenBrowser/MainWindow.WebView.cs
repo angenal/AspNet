@@ -1,5 +1,6 @@
 using EO.WebBrowser;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -73,31 +74,34 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
             int count = grid.Children.Count;
             if (0 < count)
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
-                DetachPage(item1.Page);
-                item1.Page.DetachPage();
-                item1.Page.WebControl.WebView.Close(false);
-                item1.Visibility = Visibility.Collapsed;
+                if (attachEvents)
+                {
+                    DetachPage(item1.Page);
+                    item1.Page.DetachPage();
+                    item1.Page.WebControl.WebView.Close(false);
+                    item1.Visibility = Visibility.Collapsed;
+                }
             }
 
             //The new WebView has already been created (e.WebView). Here we
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
-            WebViewItem item = NewWebViewItem(e.WebView);
+            WebViewItem item = NewWebViewItem(e.WebView, attachEvents);
 
             //Signifies that we accept the new WebView. Without this line
             //the newly created WebView will be immediately destroyed
             e.Accepted = true;
-
             grid.Children.Add(item);
         }
 
-        private WebViewItem NewWebViewItem(WebView webView)
+        private WebViewItem NewWebViewItem(WebView webView, bool attachEvents = true)
         {
-            WebViewItem item = new WebViewItem(webView, true);
+            WebViewItem item = new WebViewItem(webView, attachEvents);
             m_CurPage = item.Page;
             m_WebView = item.Page.WebView;
             m_Forward = true;
@@ -169,10 +173,13 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
+            //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
             e.UseDefaultMessage();
             if (e.ShouldShowError)
             {
-                //MessageBox.Show(this, e.ErrorMessage, "提示", MessageBoxButton.OK);
+#if DEBUG
+                Debug.WriteLine($">> WebView Load Failed >> {e.ErrorMessage} {e.Url}");
+#endif
             }
         }
 
@@ -300,6 +307,9 @@ namespace BigScreenBrowser
         //Render Unresponsive
         void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e)
         {
+#if DEBUG
+            Debug.WriteLine($">> WebView Render Unresponsive >> {((WebView)sender).Url}");
+#endif
             //WebView webView = (WebView)sender;
             //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No)
             //    webView.Destroy();

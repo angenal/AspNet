@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace BigScreenBrowser
 {
@@ -32,6 +33,7 @@ namespace BigScreenBrowser
         internal static string _GetAppInfo()
         {
             MainWindow wnd = App.MainWnd;
+            Window window = Application.Current.MainWindow;
             Process process = Process.GetCurrentProcess();
             AssemblyName app = typeof(App).Assembly.GetName();
             object a0 = App.AssemblyAttributes.FirstOrDefault(t => t is GuidAttribute);
@@ -43,10 +45,10 @@ namespace BigScreenBrowser
                 Version = app.Version.ToString(),
                 Location = new { X = wnd.Left, Y = wnd.Top },
                 Size = new { wnd.Width, wnd.Height },
-                State = new { Visible = wnd.IsVisible, wnd.Topmost },
+                State = new { Visible = wnd.IsVisible || window.IsVisible, Topmost = wnd.Topmost || window.Topmost },
                 Start = new
                 {
-                    Url = $"{Properties.Resources.URLProtocol}://localhost:{WebApi.Httpd.Port}/api/",
+                    Url = $"{Properties.Resources.URLProtocol}://localhost:{WebApi.Httpd.Port}/api",
                     Args = App.StartupArgs,
                     Startup = App.StartupDateTime.ToString("G"),
                     Uptime = (DateTime.Now - App.StartupDateTime).ToString().Split('.')[0],
