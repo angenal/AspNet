@@ -81,10 +81,13 @@ namespace BigScreenBrowser
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
                 if (attachEvents)
                 {
-                    //DetachPage(item1.Page);
-                    //item1.Page.DetachPage();
-                    //item1.Page.WebControl.WebView.Close(false);
                     item1.Visibility = Visibility.Collapsed;
+                }
+                if (3 < count)
+                {
+                    DetachPage(item1.Page);
+                    item1.Page.DetachPage();
+                    item1.Page.WebControl.WebView.Close(false);
                 }
             }
 
@@ -521,14 +524,13 @@ namespace BigScreenBrowser
             //e.Item.ContentDisposition = "attachment;filename=installer.exe"
             string content = e.Item.ContentDisposition;
             //Modify save file path %TEMP% => tmpSaveFilePath
-            tmpSaveFilename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : !string.IsNullOrWhiteSpace(content) ? content.Split('=').LastOrDefault() : null;
-            if (string.IsNullOrWhiteSpace(tmpSaveFilename))
+            string filename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : !string.IsNullOrWhiteSpace(content) ? content.Split('=').LastOrDefault() : null;
+            if (string.IsNullOrWhiteSpace(filename))
             {
                 e.Item.Cancel();
                 return;
             }
-            //e.FilePath = tmpSaveFilePath; //WebView_FileDialog: e.DefaultFileName
-            e.FilePath = Path.Combine(tmpSaveFilePath, tmpSaveFilename);
+            e.FilePath = Path.Combine(tmpSaveFilePath, filename); //WebView_FileDialog: e.DefaultFileName
             //e.ShowDialog = false; //Download directly without displaying save dialog
         }
 
@@ -546,21 +548,42 @@ namespace BigScreenBrowser
 
         void WebView_FileDialog(object sender, FileDialogEventArgs e)
         {
+            //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
+            string path = e.DefaultFileName;
             if (e.Mode == FileDialogMode.Save)
             {
-                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-                //dlg.FileName = tmpSaveFilename; //Or e.DefaultFileName
-                //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
-                string ext = "*." + (dlg.FileName.Contains(".") ? dlg.FileName.Split('.').Last() : "*");
-                dlg.Filter = "所有文件(" + ext + ")|" + ext;
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog()
+                {
+                    Title = "保存",
+                    Filter = e.Filter,
+                    InitialDirectory = tmpSaveFilePath
+                };
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    dlg.InitialDirectory = Path.GetDirectoryName(path);
+                    dlg.FileName = Path.GetFileName(path);
+                    dlg.DefaultExt = Path.GetExtension(path);
+                    dlg.Filter = "所有文件(*." + dlg.DefaultExt.TrimStart('.') + ")|*." + dlg.DefaultExt.TrimStart('.');
+                }
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();
             }
             if (e.Mode == FileDialogMode.Open)
             {
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.Filter = "所有文件(*.*)|*.*";
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
+                {
+                    Title = "打开",
+                    Filter = e.Filter,
+                    InitialDirectory = tmpSaveFilePath
+                };
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    dlg.InitialDirectory = Path.GetDirectoryName(path);
+                    dlg.FileName = Path.GetFileName(path);
+                    dlg.DefaultExt = Path.GetExtension(path);
+                    dlg.Filter = "所有文件(*." + dlg.DefaultExt.TrimStart('.') + ")|*." + dlg.DefaultExt.TrimStart('.');
+                }
                 bool? result = dlg.ShowDialog(this);
                 if (result.HasValue && result.Value) e.Continue(dlg.FileName);
                 else e.Cancel();
