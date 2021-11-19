@@ -136,6 +136,7 @@
     <Compile Include="MainWindow.Download.cs" />
     <Compile Include="MainWindow.Hotkey.cs" />
     <Compile Include="MainWindow.JsFunction.cs" />
+    <Compile Include="MainWindow.Menu.cs" />
     <Compile Include="MainWindow.Set.cs" />
     <Compile Include="MainWindow.WebView.cs" />
     <Compile Include="WebApiActions.cs" />

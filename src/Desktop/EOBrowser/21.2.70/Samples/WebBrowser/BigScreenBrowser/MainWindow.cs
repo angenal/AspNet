@@ -107,19 +107,19 @@ namespace BigScreenBrowser
                 //隐藏
                 Hide();
                 //注销快捷键
-                if (altF1 != null) altF1.Dispose();
-                if (altF2 != null) altF2.Dispose();
-                if (altF5 != null) altF5.Dispose();
-                if (altF11 != null) altF11.Dispose();
-                if (altA != null) altA.Dispose();
-                if (altQ != null) altQ.Dispose();
-                if (altT != null) altT.Dispose();
+                altF1?.Dispose();
+                altF2?.Dispose();
+                altF5?.Dispose();
+                altF11?.Dispose();
+                altA?.Dispose();
+                altQ?.Dispose();
+                altT?.Dispose();
                 //保存访问历史
                 //dockContainer.SaveLayout(m_LayoutFileName);
                 //释放资源
-                if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
-                m_WebView.Dispose();
-                notifyIcon.Dispose();
+                TransparentSplash.Instance?.Dispose();
+                notifyIcon?.Dispose();
+                m_WebView?.Dispose();
                 WebApi.Dispose();
             }
             catch (Exception ex)
@@ -129,7 +129,7 @@ namespace BigScreenBrowser
             finally
             {
                 //关闭
-                Close();
+                //Close();
                 //退出应用程序
                 Environment.Exit(0);
             }
