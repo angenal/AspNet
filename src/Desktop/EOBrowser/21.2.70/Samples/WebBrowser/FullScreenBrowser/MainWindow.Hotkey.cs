@@ -32,19 +32,17 @@ namespace FullScreenBrowser
 
         // 快捷键 F6 快速定位到地址栏(显示工具栏)
         private Hotkey keyF6;
-        private bool isFullScreen;
         private void F6_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (isFullScreen)
+            if (!IsVisible) return;
+            if (toolbar.Visibility != Visibility.Visible)
             {
-                isFullScreen = false;
                 toolbar.Visibility = Visibility.Visible;
                 txtUrl.Focus();
                 txtUrl.SelectAll();
             }
             else
             {
-                isFullScreen = true;
                 toolbar.Visibility = Visibility.Collapsed;
             }
         }
@@ -63,6 +61,7 @@ namespace FullScreenBrowser
         private Hotkey altQ;
         private void AltQ_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
+            if (!IsVisible) return;
             Window_ComfirmExit();
         }
         //private void CommandBinding_ExitClick_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -78,7 +77,8 @@ namespace FullScreenBrowser
         private Hotkey altT;
         private void AltT_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (isFullScreen) Topmost = !Topmost;
+            if (!IsVisible) return;
+            Topmost = !Topmost;
         }
     }
 }

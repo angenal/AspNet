@@ -292,7 +292,7 @@
             EO DockView:
             http://www.essentialobjects.com/doc/5/controls/dockview/overview.aspx
             -->
-            <eo:DockContainer x:Name="dockContainer" eo:ThemeManager.SkinName="VS2010" Background="Transparent" DockViewNeeded="dockContainer_DockViewNeeded" DockItemNeeded="dockContainer_DockItemNeeded" DockViewAdded="dockContainer_DockViewAdded">
+            <eo:DockContainer x:Name="dockContainer" eo:ThemeManager.SkinName="VS2010" Background="Transparent" DockViewNeeded="dockContainer_DockViewNeeded" DockViewAdded="dockContainer_DockViewAdded" ActiveViewChanged="dockContainer_ActiveViewChanged" DockItemNeeded="dockContainer_DockItemNeeded" ActiveItemChanged="dockContainer_ActiveItemChanged">
             </eo:DockContainer>
         </DockPanel>
     </Grid>

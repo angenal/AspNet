@@ -219,7 +219,7 @@ namespace FullScreenBrowser
                 return;
             }
             // 快捷键 F6 全屏(或显示工具栏)
-            if (isFullScreen) return;
+            if (toolbar.Visibility != Visibility.Visible) return;
             //提示快捷键功能 F1
             if (e.CommandId == m_F1Command)
             {
@@ -310,7 +310,7 @@ namespace FullScreenBrowser
             e.Menu.Items.Clear();
 
             // 快捷键 F6 全屏(或显示工具栏)
-            if (isFullScreen) return;
+            //if (toolbar.Visibility != Visibility.Visible) return;
 
             if (e.Menu.Items.HasPluginMenuItems())
                 e.Menu.Items.Add(MenuItem.CreateSeparator());

@@ -1,5 +1,6 @@
 using EO.Wpf;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FullScreenBrowser
@@ -44,6 +45,11 @@ namespace FullScreenBrowser
             }
         }
 
+        private void dockContainer_ActiveViewChanged(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void dockContainer_DockItemNeeded(object sender, DockItemNeededEventArgs e)
         {
             switch (e.ItemId)
@@ -65,7 +71,7 @@ namespace FullScreenBrowser
                         var webView = new EO.WebBrowser.WebView();
                         if (e.ItemId.Length == WebViewItemIdPrefix.Length)
                         {
-                            if (isFullScreen)
+                            if (toolbar.Visibility != Visibility.Visible)
                             {
                                 webView.Url = m_HomeURL;
                                 System.Diagnostics.Debug.WriteLine($">> {e.ItemId}{m_HomeURL}");
@@ -85,6 +91,11 @@ namespace FullScreenBrowser
                     }
                     break;
             }
+        }
+
+        private void dockContainer_ActiveItemChanged(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

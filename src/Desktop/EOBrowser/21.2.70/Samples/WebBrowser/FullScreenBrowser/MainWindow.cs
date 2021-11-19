@@ -36,8 +36,6 @@ namespace FullScreenBrowser
                 if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                 m_LayoutFileName = Path.Combine(dir, "UILayout.xml");
             }
-            // 快捷键 F6 全屏(或显示工具栏)
-            isFullScreen = toolbar.Visibility != Visibility.Visible;
         }
 
         private void Window_Loaded()
