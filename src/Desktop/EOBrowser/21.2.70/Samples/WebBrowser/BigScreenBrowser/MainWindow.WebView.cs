@@ -1,8 +1,6 @@
 using EO.WebBrowser;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -74,6 +72,7 @@ namespace BigScreenBrowser
         //WebView events: https://www.essentialobjects.com/doc/webbrowser/advanced/new_window.aspx
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
+            m_LaunchUrl = false;
             int count = grid.Children.Count;
             bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
             if (0 < count && attachEvents)
@@ -95,34 +94,29 @@ namespace BigScreenBrowser
             //The new WebView has already been created (e.WebView). Here we
             //associates it with a new WebViewItem object and creates a
             //new tab button for it (by adding it to m_Pages)
-            WebViewItem item = NewWebViewItem(e.WebView, attachEvents);
+            //WebViewItem item = NewWebViewItem(e.WebView, attachEvents);
+            WebView webView = attachEvents ? new WebView() { Url = e.TargetUrl } : e.WebView;
+            WebViewItem item = NewWebViewItem(webView, attachEvents);
             grid.Children.Add(item);
+
 #if DEBUG
+            Debug.WriteLine("");
             count = grid.Children.Count;
             for (int i = 0; i < count; i++)
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[i];
-                Debug.WriteLine($">> WebView [{i}] {(i == count - 1 ? "New" : "Loaded")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
+                Debug.WriteLine($">> Browsers[{i}] {(i == count - 1 ? "New" : "Old")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
             }
 #endif
 
             //Signifies that we accept the new WebView. Without this line
             //the newly created WebView will be immediately destroyed
-            e.Accepted = true;
+            if (!attachEvents) e.Accepted = true;
         }
         internal string NewTargetUrl;
         internal void WebView_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
         {
             //File.WriteAllBytes(Path.Combine(App.ExeDir, "crash.log"), e.Data);
-            int count = grid.Children.Count;
-            if (0 < count)
-            {
-                WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
-                if (!string.IsNullOrEmpty(NewTargetUrl) && string.IsNullOrEmpty(item1.Page.WebView.Url))
-                {
-                    item1.Page.WebView.Url = NewTargetUrl;
-                }
-            }
         }
 
         private WebViewItem NewWebViewItem(WebView webView, bool attachEvents = true)
@@ -154,6 +148,28 @@ namespace BigScreenBrowser
             newIndex = isForward ? index + 1 : index - 1;
             return newIndex >= 0 && newIndex < count;
         }
+        private bool TryGetUrlByBackAfterLaunchUrl(out int newIndex)
+        {
+            int count = App.Urls.Count, index = count - 1;
+            if (count > 1 && Uri.TryCreate(App.Urls[index].Url, UriKind.Absolute, out Uri uri1))
+            {
+                string authority = uri1.Authority;
+                for (int i = index; i >= 0; i--)
+                {
+                    if (Uri.TryCreate(App.Urls[i].Url, UriKind.Absolute, out Uri uri2) && authority.Equals(uri2.Authority, StringComparison.OrdinalIgnoreCase))
+                    {
+                        App.Urls.RemoveAt(i);
+                        index--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            newIndex = index;
+            return newIndex >= 0 && newIndex < App.Urls.Count;
+        }
         private string SetUrlIndex(int index)
         {
             if (index < 0 || index >= App.Urls.Count)
@@ -171,7 +187,8 @@ namespace BigScreenBrowser
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Completed >> {e.Url}");
+            Debug.WriteLine($">> Browsers[{grid.Children.Count - 1}] Ok  >> {e.Url}");
+            Debug.WriteLine("");
 #endif
             //Add Url History
             if (!string.IsNullOrEmpty(e.Url))
@@ -186,7 +203,8 @@ namespace BigScreenBrowser
                 App.Urls.Add(new WebViewItemUrl(e.Url, true));
                 SetUrlIndex(m_CurIndex = count);
 #if DEBUG
-                for (int i = 0; i < App.Urls.Count; i++) Debug.WriteLine($">> App.Urls[{i}] = {App.Urls[i]}");
+                for (int i = 0; i < App.Urls.Count; i++) Debug.WriteLine($">> App.Urls[{i}] = {App.Urls[i].Url}");
+                Debug.WriteLine("");
 #endif
             }
             else if (grid.Children.Count > 1)
@@ -221,7 +239,8 @@ namespace BigScreenBrowser
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Load Failed >> {e.ErrorMessage} {e.Url}");
+            Debug.WriteLine($">> Browsers[{grid.Children.Count - 1}] Fail >> {e.ErrorMessage} {e.Url}");
+            Debug.WriteLine("");
 #endif
             //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
             e.UseDefaultMessage();
@@ -233,7 +252,8 @@ namespace BigScreenBrowser
         {
 #if DEBUG
             WebView webView = (WebView)sender;
-            Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
+            Debug.WriteLine($">> Browsers[{grid.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
+            Debug.WriteLine("");
 #endif
             //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No) webView.Destroy();
             //if (!string.IsNullOrEmpty(webView.Url)) webView.Reload(true);
@@ -242,7 +262,7 @@ namespace BigScreenBrowser
         //Before Jump to web page
         void WebView_BeforeNavigate(object sender, BeforeNavigateEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
+            //System.Diagnostics.Debug.WriteLine($">> Browser-{WebViewItemIdPrefix}{e.NavigationType} {e.NewUrl}");
         }
 
         //WebView events
@@ -254,8 +274,12 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
         {
+            m_LaunchUrl = true;
             // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
+#if DEBUG
+            Debug.WriteLine($">> Browser Launch >> {e.Url}{Environment.NewLine}   This Page >> {App.Urls[App.Urls.Count - 1].Url}{Environment.NewLine}");
+#endif
         }
 
         //WebView events
@@ -276,6 +300,20 @@ namespace BigScreenBrowser
             {
                 Close();
             }
+            else if (m_Download)
+            {
+                m_Download = false;
+                WebView_Back();
+            }
+        }
+
+        void WebView_Back()
+        {
+            int index = App.Urls.Count - 1;
+            App.Urls.RemoveAt(index);
+            SetUrlIndex(m_CurIndex = index);
+            WebViewItem item = (WebViewItem)grid.Children[grid.Children.Count - 1];
+            item.Visibility = Visibility.Visible;
         }
 
         //This event handler is called when a context menu item or a hot key triggers a "command".
@@ -322,7 +360,18 @@ namespace BigScreenBrowser
             if (e.CommandId == m_BackCommand || e.CommandId == CommandIds.Back)
             {
                 e.Handled = true;
-                if (TryGetUrlByBackOrForward(false, out int newIndex))
+                bool ok;
+                int newIndex;
+                if (m_LaunchUrl)
+                {
+                    m_LaunchUrl = false;
+                    ok = TryGetUrlByBackAfterLaunchUrl(out newIndex);
+                }
+                else
+                {
+                    ok = TryGetUrlByBackOrForward(false, out newIndex);
+                }
+                if (ok)
                 {
                     string url = SetUrlIndex(newIndex);
                     if (!string.IsNullOrEmpty(url))
@@ -368,7 +417,7 @@ namespace BigScreenBrowser
             //if (e.CommandId == m_F1Command)
             //{
             //    e.Handled = true;
-            //    MessageBox.Show(HotkeyMessageBoxText, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    App.Show(HotkeyMessageBoxText);
             //    return;
             //}
         }
@@ -412,7 +461,7 @@ namespace BigScreenBrowser
             //        msg = "Ready";
             //    }
             //}
-            //System.Diagnostics.Debug.WriteLine($">> {WebViewItemIdPrefix} {msg} {webView.Url}");
+            //System.Diagnostics.Debug.WriteLine($">> Browser-{WebViewItemIdPrefix} {msg} {webView.Url}");
         }
 
         //This event handler is called when the CanGoBack property of the WebView
@@ -454,7 +503,7 @@ namespace BigScreenBrowser
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand) { Enabled = !webView.Url.Equals(m_HomeURL, StringComparison.OrdinalIgnoreCase) });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("后退", m_BackCommand) { Enabled = m_CurIndex > 0 });
+            e.Menu.Items.Add(new MenuItem(m_LaunchUrl ? "返回" : "后退", m_BackCommand) { Enabled = m_CurIndex > 0 });
             e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand) { Enabled = m_CurIndex < App.Urls.Count - 1 });
             //e.Menu.Items.Add(MenuItem.CreateSeparator());
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
@@ -525,102 +574,5 @@ namespace BigScreenBrowser
             MessageBox.Show(this, message, "消息", MessageBoxButton.OK);
         }
 
-        //This event handler is called when a download starts
-        void WebView_BeforeDownload(object sender, BeforeDownloadEventArgs e)
-        {
-            //下载限制的域名
-            //e.Item.Url = "https://*.com/client/latest/installer.exe"
-            //string downloads = Properties.Resources.Downloads;
-            //if (!string.IsNullOrWhiteSpace(downloads))
-            //{
-            //    var urls = downloads.Split(',', '，', ' ').Select(i => i.Trim()).Where(i => i.Length > 1);
-            //    var url = new Uri(e.Item.Url).Authority.Split(':')[0];
-            //    if (!urls.Any(i => url.EndsWith(i)))
-            //    {
-            //        e.Item.Cancel();
-            //        return;
-            //    }
-            //}
-            //下载文件大小限制(MB)
-            if (double.TryParse(Properties.Resources.DownloadSize, out double downloadSize) && downloadSize > 0)
-            {
-                double size = e.Item.TotalBytes / 1024.0 / 1024;
-                //string filesize = size.ToString("f0") + "MB";
-                if (size > downloadSize)
-                {
-                    e.Item.Cancel();
-                    return;
-                }
-            }
-            //e.Item.ContentDisposition = "attachment;filename=installer.exe"
-            string content = e.Item.ContentDisposition;
-            //Modify save file path %TEMP% => tmpSaveFilePath
-            string filename = !string.IsNullOrWhiteSpace(e.FilePath) ? Path.GetFileName(e.FilePath) : !string.IsNullOrWhiteSpace(content) ? content.Split('=').LastOrDefault() : null;
-            if (string.IsNullOrWhiteSpace(filename))
-            {
-                e.Item.Cancel();
-                return;
-            }
-            e.FilePath = Path.Combine(m_SaveFilePath, filename); //WebView_FileDialog: e.DefaultFileName
-            //e.ShowDialog = false; //Download directly without displaying save dialog
-        }
-
-        //This event handler is called when a download has been canceled
-        void WebView_DownloadCanceled(object sender, DownloadEventArgs e)
-        {
-        }
-
-        void WebView_DownloadCompleted(object sender, DownloadEventArgs e)
-        {
-            WebView webView = (WebView)sender;
-            if (webView.IsNewWindow || string.IsNullOrEmpty(webView.Url))
-                webView.Close(false);
-        }
-
-        void WebView_FileDialog(object sender, FileDialogEventArgs e)
-        {
-            //图像文件(*.bmp, *.jpg)|*.bmp;*.jpg|所有文件(*.*)|*.*
-            string path = e.DefaultFileName;
-            if (e.Mode == FileDialogMode.Save)
-            {
-                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog()
-                {
-                    Title = "保存",
-                    Filter = e.Filter,
-                    InitialDirectory = m_SaveFilePath
-                };
-                if (!string.IsNullOrWhiteSpace(path))
-                {
-                    dlg.InitialDirectory = Path.GetDirectoryName(path);
-                    dlg.FileName = Path.GetFileName(path);
-                    dlg.DefaultExt = Path.GetExtension(path);
-                    dlg.Filter = "所有文件(*." + dlg.DefaultExt.TrimStart('.') + ")|*." + dlg.DefaultExt.TrimStart('.');
-                }
-                bool? result = dlg.ShowDialog(this);
-                if (result.HasValue && result.Value) e.Continue(dlg.FileName);
-                else e.Cancel();
-            }
-            if (e.Mode == FileDialogMode.Open)
-            {
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
-                {
-                    Title = "打开",
-                    Filter = e.Filter,
-                    InitialDirectory = m_SaveFilePath
-                };
-                if (!string.IsNullOrWhiteSpace(path))
-                {
-                    dlg.InitialDirectory = Path.GetDirectoryName(path);
-                    dlg.FileName = Path.GetFileName(path);
-                    dlg.DefaultExt = Path.GetExtension(path);
-                    dlg.Filter = "所有文件(*." + dlg.DefaultExt.TrimStart('.') + ")|*." + dlg.DefaultExt.TrimStart('.');
-                }
-                bool? result = dlg.ShowDialog(this);
-                if (result.HasValue && result.Value) e.Continue(dlg.FileName);
-                else e.Cancel();
-            }
-            //Mark the event as handled
-            e.Handled = true;
-        }
     }
 }

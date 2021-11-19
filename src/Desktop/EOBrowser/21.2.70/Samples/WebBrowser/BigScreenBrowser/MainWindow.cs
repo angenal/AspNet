@@ -14,8 +14,10 @@ namespace BigScreenBrowser
         private static string m_HomeURL = Properties.Resources.URL;
         private EO.WebBrowser.WebView m_WebView;
         private WebPage m_CurPage;
-        private bool m_Forward = true;
         private int m_CurIndex = 0;
+        private bool m_Forward = true;
+        private bool m_Download = false;
+        private bool m_LaunchUrl = false;
         private string m_SaveFilePath;
 
         public void InitializeWebBrowser()

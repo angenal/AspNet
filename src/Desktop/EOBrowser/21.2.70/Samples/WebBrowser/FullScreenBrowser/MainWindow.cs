@@ -26,6 +26,7 @@ namespace FullScreenBrowser
         private ConsolePane m_ConsolePane;
         private DockView m_WebViewsHost;
         private DockView m_ToolViews;
+        private string m_SaveFilePath;
 
         public void InitializeWebBrowser()
         {
@@ -45,14 +46,20 @@ namespace FullScreenBrowser
                 App.ShowError(new Exception("资源配置“首页网址”未找到！"));
                 return;
             }
+            //彻底去除关闭按钮
+            //RemoveCloseButton();
+            //窗体一直置顶
+            //SetTopMost();
             //Load the DockView layout.
             dockContainer.LoadLayout(m_LayoutFileName);
             //If we do not have any page loaded, load an empty page
             if (m_WebViewsHost == null || !m_WebViewsHost.HasItems) dockContainer.ActivateItem(WebViewItemIdPrefix);
             //模板可视化
             panels.ApplyTemplate();
-            //窗体一直置顶
-            //SetTopMost();
+            //下载默认目录
+            m_SaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
+            if (!Directory.Exists(m_SaveFilePath)) m_SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (!Directory.Exists(m_SaveFilePath)) App.ShowError(new Exception("没有权限访问“桌面”"));
         }
 
         private void Window_SourceInitialized()

@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="MainWindow.cs" />
     <Compile Include="MainWindow.Dock.cs" />
+    <Compile Include="MainWindow.Download.cs" />
     <Compile Include="MainWindow.Find.cs" />
     <Compile Include="MainWindow.Hotkey.cs" />
     <Compile Include="MainWindow.Menu.cs" />

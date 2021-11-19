@@ -61,7 +61,7 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
-        ///   查找类似 zhumu.me 的本地化字符串。
+        ///   查找类似  的本地化字符串。
         /// </summary>
         internal static string Downloads {
             get {

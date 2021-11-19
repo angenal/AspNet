@@ -114,7 +114,9 @@ namespace BigScreenBrowser
 
             Engine.Default.AllowRestart = true;
 #if DEBUG
-            System.Diagnostics.Debug.WriteLine(">> Default::Custom-UserAgent: " + engine.CustomUserAgent);
+            Debug.WriteLine("");
+            Debug.WriteLine(">> Browser::Custom-UserAgent: " + engine.CustomUserAgent);
+            Debug.WriteLine("");
 #endif
             #endregion
 
@@ -226,6 +228,11 @@ namespace BigScreenBrowser
         {
             //关闭启动图
             Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));
+        }
+
+        internal static void Show(string message)
+        {
+            MessageBox.Show(message, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         internal static void ShowError(Exception exception)

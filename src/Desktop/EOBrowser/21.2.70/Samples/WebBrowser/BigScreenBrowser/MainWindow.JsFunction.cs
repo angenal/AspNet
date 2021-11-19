@@ -72,7 +72,9 @@ namespace BigScreenBrowser
                             psi.RedirectStandardInput = true;
                             psi.RedirectStandardOutput = true;
 #if DEBUG
+                            Debug.WriteLine("");
                             Debug.WriteLine($">> run CMD >> {string.Join(" ", e.Arguments)}");
+                            Debug.WriteLine("");
 #endif
                             string result = null;
                             using (var process = Process.Start(psi))
@@ -83,7 +85,9 @@ namespace BigScreenBrowser
                             if (!string.IsNullOrWhiteSpace(result))
                             {
 #if DEBUG
+                                Debug.WriteLine("");
                                 Debug.WriteLine($">> run CMD << {result}");
+                                Debug.WriteLine("");
 #endif
                                 e.ReturnValue = result;
                             }

@@ -130,6 +130,7 @@
       <DependentUpon>JSPrompt.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs" />
+    <Compile Include="MainWindow.Download.cs" />
     <Compile Include="MainWindow.Hotkey.cs" />
     <Compile Include="MainWindow.JsFunction.cs" />
     <Compile Include="MainWindow.Set.cs" />
