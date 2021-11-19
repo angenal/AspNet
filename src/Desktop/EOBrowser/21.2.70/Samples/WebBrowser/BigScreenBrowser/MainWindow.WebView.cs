@@ -78,10 +78,11 @@ namespace BigScreenBrowser
             bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
             if (0 < count && attachEvents)
             {
+                NewTargetUrl = e.TargetUrl;
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
                 item1.Visibility = Visibility.Collapsed;
                 //Only 2 reserved
-                if (2 <= count)
+                if (1 < count)
                 {
                     WebViewItem item0 = (WebViewItem)grid.Children[0];
                     DetachPage(item0.Page);
@@ -108,6 +109,20 @@ namespace BigScreenBrowser
             //Signifies that we accept the new WebView. Without this line
             //the newly created WebView will be immediately destroyed
             e.Accepted = true;
+        }
+        internal string NewTargetUrl;
+        internal void WebView_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
+        {
+            //File.WriteAllBytes(Path.Combine(App.ExeDir, "crash.log"), e.Data);
+            int count = grid.Children.Count;
+            if (0 < count)
+            {
+                WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
+                if (!string.IsNullOrEmpty(NewTargetUrl) && string.IsNullOrEmpty(item1.Page.WebView.Url))
+                {
+                    item1.Page.WebView.Url = NewTargetUrl;
+                }
+            }
         }
 
         private WebViewItem NewWebViewItem(WebView webView, bool attachEvents = true)
@@ -170,6 +185,9 @@ namespace BigScreenBrowser
                 if (count > 0 && App.Urls[count - 1].Url.Equals(e.Url)) return;
                 App.Urls.Add(new WebViewItemUrl(e.Url, true));
                 SetUrlIndex(m_CurIndex = count);
+#if DEBUG
+                for (int i = 0; i < App.Urls.Count; i++) Debug.WriteLine($">> App.Urls[{i}] = {App.Urls[i]}");
+#endif
             }
             else if (grid.Children.Count > 1)
             {
@@ -213,8 +231,8 @@ namespace BigScreenBrowser
         //Render Unresponsive
         void WebView_RenderUnresponsive(object sender, RenderUnresponsiveEventArgs e)
         {
-            WebView webView = (WebView)sender;
 #if DEBUG
+            WebView webView = (WebView)sender;
             Debug.WriteLine($">> WebView [{grid.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
 #endif
             //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No) webView.Destroy();

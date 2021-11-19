@@ -235,7 +235,7 @@ namespace BigScreenBrowser
 
         private void Runtime_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
         {
-            File.WriteAllBytes(Path.Combine(ExeDir, "crash.log"), e.Data);
+            MainWnd.WebView_CrashDataAvailable(sender, e);
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
