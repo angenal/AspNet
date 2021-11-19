@@ -242,12 +242,11 @@ namespace BigScreenBrowser
             string flag = Properties.Resources.HideAfterLaunchOtherApp;
             if (flag == "1")
             {
-                HideApp();
+                App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.HideApp()));
             }
             else if (flag == "2")
             {
-                HideApp();
-                WebView_Back(sender);
+                App.MainWnd.Dispatcher.BeginInvoke(new Action(() => { App.MainWnd.HideApp(); App.MainWnd.WebView_Back(sender); }));
             }
 #if DEBUG
             Debug.WriteLine($">> Browser Launch >> {e.Url}{Environment.NewLine}   This Page >> {App.Urls[App.Urls.Count - 1].Url}{Environment.NewLine}");
