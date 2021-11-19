@@ -126,6 +126,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\NotifyIconExitCommand.cs" />
+    <Compile Include="Commands\NotifyIconShowCommand.cs" />
     <Compile Include="JSPrompt.xaml.cs">
       <DependentUpon>JSPrompt.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotifyIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -206,6 +213,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\index.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Back.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Delete.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

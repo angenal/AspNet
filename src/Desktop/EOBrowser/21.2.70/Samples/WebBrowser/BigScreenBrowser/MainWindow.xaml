@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+        xmlns:w="http://wpf.windows.com/xaml"
         mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" IsVisibleChanged="Window_IsVisibleChanged" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="False" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" SizeToContent="WidthAndHeight">
-    <Grid x:Name="grid" Background="Transparent"></Grid>
+    <Grid x:Name="grid" Background="Transparent">
+        <w:TaskbarIcon x:Name="notifyIcon" IconSource="App.ico" ContextMenu="{StaticResource notifyIconMenu}" MenuActivation="All" />
+    </Grid>
 </Window>

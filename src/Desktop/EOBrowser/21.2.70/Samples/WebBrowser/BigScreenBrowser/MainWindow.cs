@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using WindowsWPF.Controls;
 
@@ -35,10 +37,14 @@ namespace BigScreenBrowser
             RemoveCloseButton();
             //窗体一直置顶
             //SetTopMost();
-            //Load the WebControl
+            //状态栏
+            object a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
+            if (a1 != null) notifyIcon.ToolTipText = ((AssemblyProductAttribute)a1).Product;
+            //窗体
             App.Left = Left; App.Top = Top;
             App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            //加载网页
             grid.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
             //下载默认目录
             m_SaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
@@ -113,6 +119,7 @@ namespace BigScreenBrowser
                 //释放资源
                 if (TransparentSplash.Instance != null) TransparentSplash.Instance.Dispose();
                 m_WebView.Dispose();
+                notifyIcon.Dispose();
                 WebApi.Dispose();
             }
             catch (Exception ex)

@@ -180,7 +180,7 @@ namespace BigScreenBrowser
             //HTML5 Support proprietary media formats.
             Engine.Default.Options.AllowProprietaryMediaFormats();
             //Chrome command line starts arguments.
-            Engine.Default.Options.ExtraCommandLineArgs = Commands.GetExtraCommandLineArgs(StartupArgs);
+            Engine.Default.Options.ExtraCommandLineArgs = System.Windows.Commands.GetExtraCommandLineArgs(StartupArgs);
 
             engine.RegisterCustomSchemes(WebPageResourceHandler.UrlPrefix.Split(':')[0]);
         }

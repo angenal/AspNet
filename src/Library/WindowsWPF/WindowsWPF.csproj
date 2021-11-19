@@ -64,14 +64,35 @@
   <ItemGroup>
     <Compile Include="Controls\CutImage\CutImage.cs" />
     <Compile Include="Controls\CutImage\DragDrop.cs" />
+    <Compile Include="Controls\NotifyIcon\BalloonIcon.cs" />
+    <Compile Include="Controls\NotifyIcon\PopupActivationMode.cs" />
+    <Compile Include="Controls\NotifyIcon\RoutedEventHelper.cs" />
+    <Compile Include="Controls\NotifyIcon\TaskbarIcon.cs" />
+    <Compile Include="Controls\NotifyIcon\TaskbarIcon.Declarations.cs" />
     <Compile Include="Controls\ScreenCut\ScreenCut.cs" />
     <Compile Include="Controls\Splash\TransparentSplash.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\ControlsHelper.cs" />
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Drawing\FastBitmap.cs" />
+    <Compile Include="Interop\AppBarInfo.cs" />
+    <Compile Include="Interop\BalloonFlags.cs" />
+    <Compile Include="Interop\IconDataMembers.cs" />
+    <Compile Include="Interop\IconState.cs" />
+    <Compile Include="Interop\MouseEvent.cs" />
+    <Compile Include="Interop\NotifyCommand.cs" />
+    <Compile Include="Interop\NotifyIconData.cs" />
+    <Compile Include="Interop\NotifyIconVersion.cs" />
+    <Compile Include="Interop\Point.cs" />
+    <Compile Include="Interop\SystemInfo.cs" />
+    <Compile Include="Interop\TrayInfo.cs" />
+    <Compile Include="Interop\WinApi.cs" />
+    <Compile Include="Interop\WindowClass.cs" />
+    <Compile Include="Interop\WindowMessageSink.cs" />
+    <Compile Include="Interop\WindowsMessages.cs" />
     <Compile Include="Windows\Commands.cs" />
     <Compile Include="Windows\Hotkey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

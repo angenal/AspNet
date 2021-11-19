@@ -61,6 +61,7 @@ namespace BigScreenBrowser
             m_Download = true;
             WebView webView = (WebView)sender;
             if (webView.IsNewWindow || string.IsNullOrEmpty(webView.Url)) webView.Close(false);
+            notifyIcon.ShowBalloonTip("消息", Path.GetFileName(e.Item.FullPath) + "下载完成。", WindowsWPF.Controls.BalloonIcon.Info);
         }
 
         void WebView_FileDialog(object sender, FileDialogEventArgs e)
