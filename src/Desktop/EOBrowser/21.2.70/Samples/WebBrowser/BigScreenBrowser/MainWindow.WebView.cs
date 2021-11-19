@@ -274,9 +274,27 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
         {
+            //自定义URL协议头
+            string protocol = Properties.Resources.URLProtocol;
+            if (e.Url.StartsWith(protocol + ":", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+            //运行其它URL协议头
             m_LaunchUrl = true;
             // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
+            //打开其他应用程序后隐藏自身(1:隐藏 2:隐藏且返回网址)
+            string flag = Properties.Resources.HideAfterLaunchOtherApp;
+            if (flag == "1")
+            {
+                HideApp();
+            }
+            else if (flag == "2")
+            {
+                HideApp();
+                WebView_Back(sender);
+            }
 #if DEBUG
             Debug.WriteLine($">> Browser Launch >> {e.Url}{Environment.NewLine}   This Page >> {App.Urls[App.Urls.Count - 1].Url}{Environment.NewLine}");
 #endif
@@ -299,21 +317,63 @@ namespace BigScreenBrowser
             if (grid.Children.Count == 0)
             {
                 Close();
+                return;
             }
-            else if (m_Download)
+            if (m_Download)
             {
                 m_Download = false;
-                WebView_Back();
+                WebView_ResetUrl();
             }
         }
 
-        void WebView_Back()
+        void WebView_ResetUrl()
         {
             int index = App.Urls.Count - 1;
             App.Urls.RemoveAt(index);
             SetUrlIndex(m_CurIndex = index);
             WebViewItem item = (WebViewItem)grid.Children[grid.Children.Count - 1];
             item.Visibility = Visibility.Visible;
+        }
+
+        void WebView_Back(object sender)
+        {
+            bool ok;
+            int newIndex;
+            if (m_LaunchUrl)
+            {
+                m_LaunchUrl = false;
+                ok = TryGetUrlByBackAfterLaunchUrl(out newIndex);
+            }
+            else
+            {
+                ok = TryGetUrlByBackOrForward(false, out newIndex);
+            }
+            if (ok)
+            {
+                string url = SetUrlIndex(newIndex);
+                if (!string.IsNullOrEmpty(url))
+                {
+                    m_Forward = false;
+                    m_CurIndex = newIndex;
+                    WebView webView = (WebView)sender;
+                    webView.Url = url;
+                }
+            }
+        }
+
+        void WebView_Forward(object sender)
+        {
+            if (TryGetUrlByBackOrForward(true, out int newIndex))
+            {
+                string url = SetUrlIndex(newIndex);
+                if (!string.IsNullOrEmpty(url))
+                {
+                    m_Forward = true;
+                    m_CurIndex = newIndex;
+                    WebView webView = (WebView)sender;
+                    webView.Url = url;
+                }
+            }
         }
 
         //This event handler is called when a context menu item or a hot key triggers a "command".
@@ -360,45 +420,14 @@ namespace BigScreenBrowser
             if (e.CommandId == m_BackCommand || e.CommandId == CommandIds.Back)
             {
                 e.Handled = true;
-                bool ok;
-                int newIndex;
-                if (m_LaunchUrl)
-                {
-                    m_LaunchUrl = false;
-                    ok = TryGetUrlByBackAfterLaunchUrl(out newIndex);
-                }
-                else
-                {
-                    ok = TryGetUrlByBackOrForward(false, out newIndex);
-                }
-                if (ok)
-                {
-                    string url = SetUrlIndex(newIndex);
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        m_Forward = false;
-                        m_CurIndex = newIndex;
-                        WebView webView = (WebView)sender;
-                        webView.Url = url;
-                    }
-                }
+                WebView_Back(sender);
                 return;
             }
             //向前 Alt + →
             if (e.CommandId == m_ForwardCommand || e.CommandId == CommandIds.Forward)
             {
                 e.Handled = true;
-                if (TryGetUrlByBackOrForward(true, out int newIndex))
-                {
-                    string url = SetUrlIndex(newIndex);
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        m_Forward = true;
-                        m_CurIndex = newIndex;
-                        WebView webView = (WebView)sender;
-                        webView.Url = url;
-                    }
-                }
+                WebView_Forward(sender);
                 return;
             }
             //剪切板

@@ -79,6 +79,15 @@ namespace BigScreenBrowser.Properties {
         }
         
         /// <summary>
+        ///   查找类似 2 的本地化字符串。
+        /// </summary>
+        internal static string HideAfterLaunchOtherApp {
+            get {
+                return ResourceManager.GetString("HideAfterLaunchOtherApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 30101 的本地化字符串。
         /// </summary>
         internal static string HttpPort {

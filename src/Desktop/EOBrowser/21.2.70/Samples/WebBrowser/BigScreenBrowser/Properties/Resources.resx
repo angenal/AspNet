@@ -125,6 +125,10 @@
     <value>200</value>
     <comment>下载文件大小限制(MB)</comment>
   </data>
+  <data name="HideAfterLaunchOtherApp" xml:space="preserve">
+    <value>2</value>
+    <comment>打开其他应用程序后隐藏自身(1:隐藏 2:隐藏且返回网址)</comment>
+  </data>
   <data name="HttpPort" xml:space="preserve">
     <value>30101</value>
     <comment>提供外部HTTP访问的端口号</comment>
