@@ -78,7 +78,7 @@ namespace System.Windows
             if (rk != null)
             {
                 string v = rk.GetValue("")?.ToString();
-                ok = v != null && v.StartsWith("URL:") && rk.GetValue(CommandShortcut) != null;
+                ok = v != null && v.StartsWith("URL:");
                 rk.Close();
             }
             return ok;
@@ -90,8 +90,10 @@ namespace System.Windows
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(PrefixShortcut + name);
             if (rk != null)
             {
-                v = rk.GetValue(CommandShortcut)?.ToString();
+                RegistryKey k2 = rk.OpenSubKey(CommandShortcut);
+                if (k2 != null) v = k2.GetValue("")?.ToString();
                 rk.Close();
+                if (k2 != null) k2.Close();
             }
             return v;
         }
