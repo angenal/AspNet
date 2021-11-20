@@ -181,14 +181,7 @@ namespace BigScreenBrowser
                 int count = grid.Children.Count;
                 WebViewItem item0 = (WebViewItem)grid.Children[count - 2];
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
-
-                //DetachPage(item1.Page);
-                //item1.Page.DetachPage();
-                //item1.Page.WebControl.WebView.Close(false);
                 item1.Visibility = Visibility.Collapsed;
-
-                //AttachPage(item0.Page);
-                //item0.Page.AttachPage();
                 item0.Visibility = Visibility.Visible;
             }
             //Init Background
@@ -199,8 +192,8 @@ namespace BigScreenBrowser
                 BrushConverter bc = new BrushConverter();
                 Brush brush = (Brush)bc.ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
                 brush.Freeze();
-                App.MainWnd.grid.Background = brush;
-                //App.MainWnd.grid.Background = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
+                grid.Background = brush;
+                //grid.Background = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
             }));
         }
 
@@ -243,6 +236,9 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
         {
+#if DEBUG
+            Debug.WriteLine($">> Browser Launch >> {e.Url}{Environment.NewLine}   This Page >> {App.Urls[App.Urls.Count - 1].Url}{Environment.NewLine}");
+#endif
             //跳过该应用程序的URL协议头
             string protocol = Properties.Resources.URLProtocol;
             if (e.Url.StartsWith(protocol + ":", StringComparison.OrdinalIgnoreCase))
@@ -250,17 +246,18 @@ namespace BigScreenBrowser
                 return;
             }
             //运行其它应用程序的URL协议头
-            m_LaunchUrl = false;
+            m_LaunchUrl = true;
+            bool exists = false;
             protocol = e.Url.Split(':')[0];
             string path = "", s = RegistryTool.GetShortcut(protocol);
             if (!string.IsNullOrEmpty(s))
             {
                 path = s.Split(' ')[0].Trim('"');
-                m_LaunchUrl = File.Exists(path);
+                exists = File.Exists(path);
             }
-            if (!m_LaunchUrl)
+            if (!exists)
             {
-                Alert("未安装目标应用程序！");
+                Dispatcher.BeginInvoke(new Action(() => { Alert("未安装目标应用程序！", MessageBoxImage.Warning, "警告"); WebView_Back(sender); }));
                 return;
             }
             // Call ShellExecute in that event to pass that Url to the OS.
@@ -269,15 +266,12 @@ namespace BigScreenBrowser
             string flag = Properties.Resources.HideAfterLaunchOtherApp;
             if (flag == "1")
             {
-                App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.HideApp()));
+                Dispatcher.BeginInvoke(new Action(() => HideApp()));
             }
             else if (flag == "2")
             {
-                App.MainWnd.Dispatcher.BeginInvoke(new Action(() => { App.MainWnd.HideApp(); App.MainWnd.WebView_Back(sender); }));
+                Dispatcher.BeginInvoke(new Action(() => { HideApp(); WebView_Back(sender); }));
             }
-#if DEBUG
-            Debug.WriteLine($">> Browser Launch >> {e.Url}{Environment.NewLine}   This Page >> {App.Urls[App.Urls.Count - 1].Url}{Environment.NewLine}");
-#endif
         }
 
         //WebView events
@@ -417,6 +411,9 @@ namespace BigScreenBrowser
         {
             MessageBox.Show(this, message, "消息", MessageBoxButton.OK);
         }
-
+        void Alert(string message, MessageBoxImage image, string title = "消息")
+        {
+            MessageBox.Show(this, message, title, MessageBoxButton.OK, image);
+        }
     }
 }

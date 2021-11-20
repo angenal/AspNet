@@ -62,8 +62,7 @@ namespace BigScreenBrowser
             bool i = App.Width == grid.Width;
             double x = i ? App.Width * 0.5 : App.Left, y = App.Top;
             double w = App.Width * (i ? 0.5 : 1), h = App.Height;
-            MainWindow wnd = App.MainWnd;
-            wnd.Dispatcher.BeginInvoke(new Action(() => { wnd.Left = x; wnd.Top = y; wnd.Width = w; wnd.Height = h; }));
+            Dispatcher.BeginInvoke(new Action(() => { Left = x; Top = y; Width = w; Height = h; }));
             IntPtr hWnd = new WindowInteropHelper(this).Handle;
             Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(hWnd, -1, (int)x, (int)y, (int)w, (int)h, 0)));
             grid.Dispatcher.BeginInvoke(new Action(() => { grid.Width = w; grid.Height = h; }));
