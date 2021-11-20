@@ -27,6 +27,9 @@ namespace System.Windows
             RegistShortcut(name, path, protocol, icon, description);
         }
 
+        private const string PrefixShortcut = @"SOFTWARE\Classes\";
+        private const string CommandShortcut = @"shell\open\command";
+
         /// <summary>
         /// 创建快捷方式 abc://api.abc.com/act
         /// </summary>
@@ -41,7 +44,7 @@ namespace System.Windows
             if (string.IsNullOrEmpty(path)) throw new ArgumentException("You must provide the argument.", nameof(path));
             if (string.IsNullOrEmpty(protocol)) throw new ArgumentException("You must provide the argument.", nameof(protocol));
 
-            RegistryKey rk = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Classes\" + name), k0 = null, k1 = null;
+            RegistryKey rk = Registry.CurrentUser.CreateSubKey(PrefixShortcut + name), k0 = null, k1 = null;
             rk.SetValue("", "URL:" + protocol);
             rk.SetValue("URL Protocol", "");
             //rk.SetValue("", protocol + "Protocol");
@@ -59,7 +62,7 @@ namespace System.Windows
                 k1.SetValue("", icon);
             }
 
-            RegistryKey k2 = rk.CreateSubKey(@"shell\open\command");
+            RegistryKey k2 = rk.CreateSubKey(CommandShortcut);
             k2.SetValue("", path);
 
             rk.Close();
@@ -68,9 +71,29 @@ namespace System.Windows
             k2.Close();
         }
 
-        public static bool Exists(string name)
+        public static bool ExistsShortcut(string name)
         {
-            return Registry.CurrentUser.GetValue(name) != null;
+            bool ok = false;
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(PrefixShortcut + name);
+            if (rk != null)
+            {
+                string v = rk.GetValue("")?.ToString();
+                ok = v != null && v.StartsWith("URL:") && rk.GetValue(CommandShortcut) != null;
+                rk.Close();
+            }
+            return ok;
+        }
+
+        public static string GetShortcut(string name)
+        {
+            string v = null;
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(PrefixShortcut + name);
+            if (rk != null)
+            {
+                v = rk.GetValue(CommandShortcut)?.ToString();
+                rk.Close();
+            }
+            return v;
         }
     }
 }

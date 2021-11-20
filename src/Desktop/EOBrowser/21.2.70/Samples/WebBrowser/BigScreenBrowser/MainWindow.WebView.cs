@@ -1,6 +1,8 @@
 using EO.WebBrowser;
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -75,15 +77,28 @@ namespace BigScreenBrowser
             m_LaunchUrl = false;
             int count = grid.Children.Count;
             bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
-            if (0 < count && attachEvents)
+            if (s_Index < count && attachEvents)
             {
+                //忽略URL协议头
+                string ignoreProtocol = Properties.Resources.IgnoreProtocol;
+                if (!string.IsNullOrWhiteSpace(ignoreProtocol))
+                {
+                    //URL协议头
+                    string protocol = e.TargetUrl.Split(':')[0];
+                    bool ignore = ignoreProtocol.Split(',', ';', ' ').Any(i => i.Equals(protocol, StringComparison.OrdinalIgnoreCase));
+                    if (ignore)
+                    {
+                        return;
+                    }
+                }
+
                 NewTargetUrl = e.TargetUrl;
                 WebViewItem item1 = (WebViewItem)grid.Children[count - 1];
                 item1.Visibility = Visibility.Collapsed;
                 //Only 2 reserved
-                if (1 < count)
+                if (s_Index + 1 < count)
                 {
-                    WebViewItem item0 = (WebViewItem)grid.Children[0];
+                    WebViewItem item0 = (WebViewItem)grid.Children[s_Index];
                     DetachPage(item0.Page);
                     item0.Page.DetachPage();
                     item0.Page.WebControl.WebView.Close(false);
@@ -102,7 +117,7 @@ namespace BigScreenBrowser
 #if DEBUG
             Debug.WriteLine("");
             count = grid.Children.Count;
-            for (int i = 0; i < count; i++)
+            for (int i = s_Index; i < count; i++)
             {
                 WebViewItem item1 = (WebViewItem)grid.Children[i];
                 Debug.WriteLine($">> Browsers[{i}] {(i == count - 1 ? "New" : "Old")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
@@ -117,7 +132,7 @@ namespace BigScreenBrowser
         internal void WebView_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
         {
             string message = e.Message;
-            if (string.IsNullOrWhiteSpace(message)) message = "系统异常，请联系管理员解决！";
+            if (string.IsNullOrWhiteSpace(message)) message = "系统异常，请联系管理员！";
             App.ShowError(new Exception(message));
             Window_Exit();
         }
@@ -161,7 +176,7 @@ namespace BigScreenBrowser
                 Debug.WriteLine("");
 #endif
             }
-            else if (grid.Children.Count > 1)
+            else if (grid.Children.Count > s_Index + 1)
             {
                 int count = grid.Children.Count;
                 WebViewItem item0 = (WebViewItem)grid.Children[count - 2];
@@ -228,14 +243,26 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_LaunchUrl(object sender, LaunchUrlEventArgs e)
         {
-            //自定义URL协议头
+            //跳过该应用程序的URL协议头
             string protocol = Properties.Resources.URLProtocol;
             if (e.Url.StartsWith(protocol + ":", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
-            //运行其它URL协议头
-            m_LaunchUrl = true;
+            //运行其它应用程序的URL协议头
+            m_LaunchUrl = false;
+            protocol = e.Url.Split(':')[0];
+            string path = "", s = RegistryTool.GetShortcut(protocol);
+            if (!string.IsNullOrEmpty(s))
+            {
+                path = s.Split(' ')[0].Trim('"');
+                m_LaunchUrl = File.Exists(path);
+            }
+            if (!m_LaunchUrl)
+            {
+                Alert("未安装目标应用程序！");
+                return;
+            }
             // Call ShellExecute in that event to pass that Url to the OS.
             e.UseOSHandler = true;
             //打开其他应用程序后隐藏自身(1:隐藏 2:隐藏且返回网址)
@@ -256,7 +283,11 @@ namespace BigScreenBrowser
         //WebView events
         void WebView_Closed(object sender, WebViewClosedEventArgs e)
         {
-            for (int i = 0; i < grid.Children.Count; i++)
+            if (notifyIcon.IsDisposed)
+            {
+                return;
+            }
+            for (int i = s_Index; i < grid.Children.Count; i++)
             {
                 WebViewItem item = (WebViewItem)grid.Children[i];
                 if (Equals(item.Page.WebView, sender))
@@ -267,7 +298,7 @@ namespace BigScreenBrowser
                     break;
                 }
             }
-            if (grid.Children.Count == 0)
+            if (grid.Children.Count == s_Index)
             {
                 Close();
                 return;

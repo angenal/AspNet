@@ -182,8 +182,12 @@ namespace BigScreenBrowser
             int index = App.Urls.Count - 1;
             App.Urls.RemoveAt(index);
             SetUrlIndex(m_CurIndex = index);
-            WebViewItem item = (WebViewItem)grid.Children[grid.Children.Count - 1];
-            item.Visibility = Visibility.Visible;
+            int count = grid.Children.Count;
+            if (count > s_Index)
+            {
+                WebViewItem item = (WebViewItem)grid.Children[count - 1];
+                item.Visibility = Visibility.Visible;
+            }
         }
 
         void WebView_Back(object sender)
