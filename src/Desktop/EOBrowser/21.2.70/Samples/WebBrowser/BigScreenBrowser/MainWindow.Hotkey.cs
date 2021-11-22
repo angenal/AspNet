@@ -108,17 +108,15 @@ namespace BigScreenBrowser
         }
         internal void ScreenCut()
         {
-            using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, new RegionCaptureOptions()
+            using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Annotation, new RegionCaptureOptions()
             {
-                ShowHotkeys = false,
-                ShowMagnifier = false,
-                UseSquareMagnifier = false,
-                MagnifierPixelCount = 15,
-                MagnifierPixelSize = 10
+                ShowMagnifier = false
             }))
             {
+                Screenshot screenshot = new Screenshot() { AutoHideTaskbar = true };
+                System.Drawing.Image img = screenshot.CaptureFullscreen();
                 form.TopMost = true;
-                form.Prepare();
+                form.Prepare(img);
                 form.ShowDialog();
                 isScreenCut = false;
                 System.Drawing.Image image = form.GetResultImage();
