@@ -17,7 +17,7 @@ namespace System.Windows
         const string PrefixShortcut = @"SOFTWARE\Classes\";
         const string CommandShortcut = @"shell\open\command";
         // whileSecurity: Loop together until the safety problem is solved
-        const long LoopTimesForLabel = 10; // Loop times
+        const long LoopTimesForLabel = 30; // Loop times
         const int MillisecondsTimeoutForLabel = 500;
 
         /// <summary>
