@@ -49,6 +49,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\Reference\System.Windows.Interactivity.dll</HintPath>
@@ -73,6 +76,7 @@
     <Compile Include="Controls\Splash\TransparentSplash.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Helpers\ControlsHelper.cs" />
     <Compile Include="Helpers\EnumerableHelper.cs" />

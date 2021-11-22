@@ -1,11 +1,10 @@
+using System.Collections.Generic;
 using System.Util.Collections;
 using System.Util.Logs;
 using System.Util.Net.Web.Error;
 using System.Util.Net.Web.Event;
 using System.Util.Net.Web.Interfaces;
 using System.Util.Net.Web.Protocol;
-using System;
-using System.Collections.Generic;
 
 namespace System.Util.Net.Web
 {
@@ -22,7 +21,7 @@ namespace System.Util.Net.Web
         {
             get;
             internal set;
-        } = $"LsjWebServer({typeof(WebServer).Assembly.GetName().Version})";
+        } = $"WebServer({typeof(WebServer).Assembly.GetName().Version})";
 
         readonly List<IListener> _listeners = new List<IListener>();
 

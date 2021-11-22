@@ -6,8 +6,6 @@ using System.Text;
 using System.Util.HtmlBuilder.Body;
 using System.Util.HtmlBuilder.Header;
 
-
-
 namespace System.Util.HtmlBuilder
 {
     /// <summary>
@@ -19,9 +17,9 @@ namespace System.Util.HtmlBuilder
         /// Version
         /// </summary>
 #if NETSTANDARD
-        public static readonly string Version = $"HtmlBuilder/lsj({typeof(HtmlPage).GetTypeInfo().Assembly.GetName().Version.ToString()})";
+        public static readonly string Version = $"HtmlBuilder/{typeof(HtmlPage).GetTypeInfo().Assembly.GetName().Version})";
 #else
-        public static readonly string Version = $"HtmlBuilder/lsj({System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()})";
+        public static readonly string Version = $"HtmlBuilder/{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version})";
 #endif
         /// <summary>
         /// HtmlPage
