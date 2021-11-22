@@ -1,3 +1,4 @@
+using ShareX.ScreenCaptureLib;
 using System;
 using System.Windows;
 using System.Windows.Interop;
@@ -98,13 +99,44 @@ namespace BigScreenBrowser
 
         // 快捷键 Alt+A 截图
         private Hotkey altA;
-        private WindowsWPF.Controls.ScreenCut screenCut;
+        private bool isScreenCut = false;
         private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
         {
-            if (!IsVisible) return;
-            if (screenCut != null && screenCut.IsActive) return;
-            screenCut = new WindowsWPF.Controls.ScreenCut { Topmost = true, ShowInTaskbar = false, WindowStyle = WindowStyle.None, AllowsTransparency = true };
-            App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() => screenCut.ShowDialog()));
+            if (!IsVisible || isScreenCut) return;
+            isScreenCut = true;
+            App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(ScreenCut));
+        }
+        internal void ScreenCut()
+        {
+            using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, new RegionCaptureOptions()
+            {
+                ShowHotkeys = false,
+                ShowMagnifier = false,
+                UseSquareMagnifier = false,
+                MagnifierPixelCount = 15,
+                MagnifierPixelSize = 10
+            }))
+            {
+                form.TopMost = true;
+                form.Prepare();
+                form.ShowDialog();
+                isScreenCut = false;
+                System.Drawing.Image image = form.GetResultImage();
+                if (image == null) return;
+                System.Windows.Forms.Clipboard.SetImage(image);
+                var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog.Filter = "png图片(*.png)|*.png|jpg图片(*.jpg)|*.jpg|bmp图片(*.bmp)|*.bmp";
+                saveFileDialog.AddExtension = false;
+                saveFileDialog.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+                saveFileDialog.Title = "保存图片";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+                if (saveFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+                var extension = System.IO.Path.GetExtension(saveFileDialog.FileName);
+                if (extension.Equals(".jpg")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (extension.Equals(".png")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                if (extension.Equals(".bmp")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+            }
         }
 
         // 快捷键 Alt+Q 询问关闭该应用程序
