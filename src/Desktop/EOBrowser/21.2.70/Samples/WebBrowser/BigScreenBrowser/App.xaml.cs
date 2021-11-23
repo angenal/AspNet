@@ -4,6 +4,7 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -92,6 +93,11 @@ namespace BigScreenBrowser
             ExeDir = Path.GetDirectoryName(exePath);
             AssemblyAttributes = typeof(App).Assembly.GetCustomAttributes(false);
 
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+
             #region Set default web engine options
             //Call this before any other code that uses EO.Wpf
             EO.Wpf.Runtime.AddLicense(BigScreenBrowser.Properties.Resources.L21);
@@ -108,8 +114,8 @@ namespace BigScreenBrowser
             //Get default web engine options
             EngineOptions engine = EngineOptions.Default;//EO.WebBrowser.Runtime.DefaultEngineOptions
             SetWebEngineOptions(engine);
-            EO.Wpf.Runtime.UICultureName = engine.UILanguage;
-            EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = engine.UILanguage;
+            //EO.Wpf.Runtime.UICultureName = engine.UILanguage;
+            //EO.WebBrowser.Runtime.DefaultEngineOptions.UILanguage = engine.UILanguage;
 
             //Clean up cache folders for older versions
             Engine.CleanUpCacheFolders(CacheFolderCleanUpPolicy.OlderVersionOnly);
@@ -134,7 +140,9 @@ namespace BigScreenBrowser
 
         public static void SetWebEngineOptions(EngineOptions engine)
         {
-            engine.UILanguage = "zh-CN";
+            //By default, EO.WebBrowser uses the same UI language of the calling thread of your application
+            //engine.UILanguage = Thread.CurrentThread.CurrentUICulture.Name;
+            //engine.UILanguage = "es";
 
             //Sets additional plugin directories
             //engine.AdditionalPluginsDirs = new string[] { Path.Combine(ExeDir, "plugins") };
