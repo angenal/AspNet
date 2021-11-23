@@ -131,9 +131,7 @@ namespace BigScreenBrowser
         internal string NewTargetUrl;
         internal void WebView_CrashDataAvailable(object sender, EO.Base.CrashDataEventArgs e)
         {
-            string message = e.Message;
-            if (string.IsNullOrWhiteSpace(message)) message = "系统异常，请联系管理员！";
-            App.ShowError(new Exception(message));
+            App.ShowError(new Exception(e.Message));
             Window_Exit();
         }
 

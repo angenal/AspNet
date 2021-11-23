@@ -100,6 +100,8 @@ namespace BigScreenBrowser
             EO.Base.Runtime.EnableCrashReport = false;
             //Handle CrashDataAvailable event
             EO.Base.Runtime.CrashDataAvailable += Runtime_CrashDataAvailable;
+            //Collecting Runtime Logs
+            EO.Base.Runtime.Exception += Runtime_Exception;
             //If your system has sufficient memory, please consider setting EO.Base.Runtime.EnableEOWP to true
             if (File.Exists(Path.Combine(ExeDir, "eowp.exe"))) EO.Base.Runtime.EnableEOWP = true;
 
@@ -215,6 +217,15 @@ namespace BigScreenBrowser
             return options;
         }
 
+        private void Runtime_Exception(object sender, EO.Base.ExceptionEventArgs e)
+        {
+            e.ShowExceptionDialog = false;
+            string logs = EO.Base.Runtime.GetLogs();
+            File.WriteAllText("error.log", logs);
+            ShowError(e.ErrorException);
+            MainWnd.Window_Exit();
+        }
+
         public void ShowSplash()
         {
             //显示启动屏幕(设定宽高会自动缩放)
@@ -232,11 +243,13 @@ namespace BigScreenBrowser
 
         internal static void Show(string message)
         {
-            MessageBox.Show(message, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            Instance.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(message, "提示", MessageBoxButton.OK, MessageBoxImage.Information)));
         }
 
         internal static void ShowError(Exception exception)
         {
+            string message = exception.Message;
+            if (string.IsNullOrWhiteSpace(message)) message = "系统异常，请联系管理员！";
             Instance.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show(exception.Message, "异常", MessageBoxButton.OK, MessageBoxImage.Error)));
         }
 
