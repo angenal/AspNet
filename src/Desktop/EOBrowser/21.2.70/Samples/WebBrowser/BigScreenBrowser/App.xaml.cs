@@ -93,6 +93,7 @@ namespace BigScreenBrowser
             ExeDir = Path.GetDirectoryName(exePath);
             AssemblyAttributes = typeof(App).Assembly.GetCustomAttributes(false);
 
+            //Language tag: https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
             Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentUICulture;
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
