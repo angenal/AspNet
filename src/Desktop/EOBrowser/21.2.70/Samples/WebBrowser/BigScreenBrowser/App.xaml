@@ -1,6 +1,7 @@
 <Application x:Class="BigScreenBrowser.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Startup="Application_Startup" DispatcherUnhandledException="Application_DispatcherUnhandledException" Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
@@ -8,6 +9,7 @@
                 <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Generic.xaml"/>
                 <ResourceDictionary Source="NotifyIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <sys:String x:Key="EOSTR_Shortcut_KeyCode_Home">Home</sys:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
