@@ -1,4 +1,4 @@
-﻿#region License Information (GPL v3)
+#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
@@ -52,7 +52,7 @@ namespace ShareX.ScreenCaptureLib
 
         public Image CaptureFullscreen()
         {
-            Rectangle bounds = CaptureHelpers.GetScreenBounds();
+            Rectangle bounds = CaptureHelpers.GetPrimaryScreenBounds();
 
             return CaptureRectangle(bounds);
         }

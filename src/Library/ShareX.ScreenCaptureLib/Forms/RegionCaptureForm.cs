@@ -1,4 +1,4 @@
-﻿#region License Information (GPL v3)
+#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
@@ -31,6 +31,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -108,7 +109,7 @@ namespace ShareX.ScreenCaptureLib
             Options = options;
             IsFullscreen = !IsEditorMode || Options.ImageEditorStartMode == ImageEditorStartMode.Fullscreen;
 
-            ClientArea = CaptureHelpers.GetScreenBounds0Based();
+            ClientArea = CaptureHelpers.GetPrimaryScreenBounds0Based();
             CanvasRectangle = ClientArea;
 
             InitializeComponent();
@@ -160,11 +161,9 @@ namespace ShareX.ScreenCaptureLib
             if (IsFullscreen)
             {
                 FormBorderStyle = FormBorderStyle.None;
-                Bounds = CaptureHelpers.GetScreenBounds();
+                Bounds = CaptureHelpers.GetPrimaryScreenBounds();
                 ShowInTaskbar = false;
-#if !DEBUG
                 TopMost = true;
-#endif
             }
             else
             {
@@ -1506,5 +1505,152 @@ namespace ShareX.ScreenCaptureLib
 
             base.Dispose(disposing);
         }
+
+
+        [DllImport("user32")]
+        private static extern int mouse_event(int dwFlags, int dx, int dy, int cButtons, IntPtr dwExtraInfo);
+
+        public string Mode_flag
+        {
+            get
+            {
+                return mode_flag;
+            }
+        }
+
+        public bool Image_get
+        {
+            set
+            {
+                image_get = value;
+                if (!image_get)
+                {
+                    mode_flag = "截图";
+                }
+            }
+        }
+
+        private string GetInfoText_color()
+        {
+            Color currentColor = CurrentColor;
+            string text = "";
+            string text2 = "";
+            string text3 = "";
+            if (currentColor.R.ToString().Length == 1)
+            {
+                text = "  " + currentColor.R.ToString();
+            }
+            if (currentColor.R.ToString().Length == 2)
+            {
+                text = " " + currentColor.R.ToString();
+            }
+            if (currentColor.R.ToString().Length == 3)
+            {
+                text = currentColor.R.ToString();
+            }
+            if (currentColor.G.ToString().Length == 1)
+            {
+                text2 = "  " + currentColor.G.ToString();
+            }
+            if (currentColor.G.ToString().Length == 2)
+            {
+                text2 = " " + currentColor.G.ToString();
+            }
+            if (currentColor.G.ToString().Length == 3)
+            {
+                text2 = currentColor.G.ToString();
+            }
+            if (currentColor.B.ToString().Length == 1)
+            {
+                text3 = "  " + currentColor.B.ToString();
+            }
+            if (currentColor.B.ToString().Length == 2)
+            {
+                text3 = " " + currentColor.B.ToString();
+            }
+            if (currentColor.B.ToString().Length == 3)
+            {
+                text3 = currentColor.B.ToString();
+            }
+            return string.Concat(new object[]
+            {
+                text,
+                ",",
+                text2,
+                ",",
+                text3
+            });
+        }
+
+        private string GetInfoText_RGBcolor()
+        {
+            Color currentColor = CurrentColor;
+            return string.Concat(new object[]
+            {
+                currentColor.R.ToString(),
+                ",",
+                currentColor.G.ToString(),
+                ",",
+                currentColor.B.ToString()
+            });
+        }
+
+        private string GetInfoText_HEXcolor()
+        {
+            Color currentColor = CurrentColor;
+            return "#" + ColorHelpers.ColorToHex(currentColor, ColorFormat.RGB).ToLower();
+        }
+
+        public Point Point_flag
+        {
+            get
+            {
+                return pointflags;
+            }
+        }
+
+        public string set_flags
+        {
+            set
+            {
+                rect_list = value;
+            }
+        }
+
+        private void DrawAreaText_ok(Graphics g, string text, Rectangle area)
+        {
+            int num = 6;
+            int num2 = 3;
+            Size size = g.MeasureString(text, infoFont).ToSize();
+            Point point = new Point(area.X + num2, area.Y - num - num2 - size.Height);
+            Rectangle rect = new Rectangle(point.X - num2, point.Y - num2 + 28, size.Width + num2 * 2, size.Height + num2 * 2);
+            DrawInfoText(g, text, rect, infoFont, num2);
+        }
+
+        public Rectangle[] Rectangle_flag
+        {
+            get
+            {
+                BaseShape[] validRegions = ShapeManager.ValidRegions;
+                Rectangle[] array = new Rectangle[validRegions.Length];
+                for (int i = 0; i < validRegions.Length; i++)
+                {
+                    array[i] = validRegions[i].Rectangle;
+                }
+                return array;
+            }
+        }
+
+        public string mode_flag;
+
+        public bool image_get;
+
+        public bool UseSquareMagnifier_color;
+
+        public Point pointflags;
+
+        public string plus_screen;
+
+        public string rect_list;
     }
 }

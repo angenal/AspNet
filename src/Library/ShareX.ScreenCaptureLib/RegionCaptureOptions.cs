@@ -1,4 +1,4 @@
-﻿#region License Information (GPL v3)
+#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
@@ -55,7 +55,8 @@ namespace ShareX.ScreenCaptureLib
             new SnapSize(640, 360), // 360p
             new SnapSize(854, 480), // 480p
             new SnapSize(1280, 720), // 720p
-            new SnapSize(1920, 1080) // 1080p
+            new SnapSize(1920, 1080), // 1080p
+            new SnapSize(3840, 2160), // 2160p
         };
         public bool ShowHotkeys = false;
         public bool ShowInfo = true;

@@ -1,4 +1,4 @@
-﻿#region License Information (GPL v3)
+#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
@@ -244,19 +244,69 @@ namespace ShareX.ScreenCaptureLib
             {
                 return new RegionCaptureOptions();
             }
-            else
+            return new RegionCaptureOptions
             {
-                return new RegionCaptureOptions()
-                {
-                    SnapSizes = options.SnapSizes,
-                    ShowMagnifier = options.ShowMagnifier,
-                    UseSquareMagnifier = options.UseSquareMagnifier,
-                    MagnifierPixelCount = options.MagnifierPixelCount,
-                    MagnifierPixelSize = options.MagnifierPixelSize,
-                    ShowCrosshair = options.ShowCrosshair,
-                    AnnotationOptions = options.AnnotationOptions
-                };
-            }
+                SnapSizes = options.SnapSizes,
+                ShowMagnifier = options.ShowMagnifier,
+                UseSquareMagnifier = options.UseSquareMagnifier,
+                MagnifierPixelCount = options.MagnifierPixelCount,
+                MagnifierPixelSize = options.MagnifierPixelSize,
+                ShowCrosshair = options.ShowCrosshair,
+                AnnotationOptions = options.AnnotationOptions
+            };
         }
+
+        public static Image GetRegionImage_X(RegionCaptureOptions options, out string flag)
+        {
+            RegionCaptureOptions regionCaptureOptions = GetRegionCaptureOptions(options);
+            regionCaptureOptions.ShowHotkeys = false;
+            Image resultImage;
+            using (RegionCaptureForm regionCaptureForm = new RegionCaptureForm(RegionCaptureMode.Default, regionCaptureOptions))
+            {
+                regionCaptureForm.Image_get = true;
+                regionCaptureForm.Prepare();
+                regionCaptureForm.ShowDialog();
+                flag = regionCaptureForm.Mode_flag;
+                resultImage = regionCaptureForm.GetResultImage();
+            }
+            return resultImage;
+        }
+
+        public static Image GetRegionImage_M(RegionCaptureOptions options, out string flag, out Point flag_location)
+        {
+            RegionCaptureOptions regionCaptureOptions = GetRegionCaptureOptions(options);
+            regionCaptureOptions.ShowHotkeys = false;
+            Image resultImage;
+            using (RegionCaptureForm regionCaptureForm = new RegionCaptureForm(RegionCaptureMode.Default, regionCaptureOptions))
+            {
+                regionCaptureForm.Image_get = true;
+                regionCaptureForm.Prepare();
+                regionCaptureForm.ShowDialog();
+                flag = regionCaptureForm.Mode_flag;
+                resultImage = regionCaptureForm.GetResultImage();
+                flag_location = regionCaptureForm.Point_flag;
+            }
+            return resultImage;
+        }
+
+        public static Image GetRegionImage_Mo(RegionCaptureOptions options, out string flag, out Point flag_location, out Rectangle[] rectangle_flag)
+        {
+            RegionCaptureOptions regionCaptureOptions = GetRegionCaptureOptions(options);
+            regionCaptureOptions.ShowHotkeys = false;
+            Image resultImage;
+            using (RegionCaptureForm regionCaptureForm = new RegionCaptureForm(RegionCaptureMode.Default, regionCaptureOptions))
+            {
+                regionCaptureForm.Image_get = true;
+                regionCaptureForm.Prepare();
+                regionCaptureForm.ShowDialog();
+                flag = regionCaptureForm.Mode_flag;
+                resultImage = regionCaptureForm.GetResultImage();
+                flag_location = regionCaptureForm.Point_flag;
+                rectangle_flag = regionCaptureForm.Rectangle_flag;
+            }
+            return resultImage;
+        }
+
+        public static bool speedget_image = true;
     }
 }

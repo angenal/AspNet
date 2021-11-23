@@ -1,6 +1,7 @@
 using EO.WebBrowser;
 using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace BigScreenBrowser
 {
@@ -13,6 +14,7 @@ namespace BigScreenBrowser
         private static int m_BackCommand = CommandIds.RegisterUserCommand("back");
         private static int m_ForwardCommand = CommandIds.RegisterUserCommand("forward");
         private static int m_GotoUrl = CommandIds.RegisterUserCommand("gotoUrl");
+        private static int m_ScreenCut = CommandIds.RegisterUserCommand("screenCut");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
@@ -57,7 +59,8 @@ namespace BigScreenBrowser
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem(m_LaunchUrl ? "返回" : "后退", m_BackCommand) { Enabled = m_CurIndex > 0 });
             e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand) { Enabled = m_CurIndex < App.Urls.Count - 1 });
-            //e.Menu.Items.Add(MenuItem.CreateSeparator());
+            e.Menu.Items.Add(MenuItem.CreateSeparator());
+            e.Menu.Items.Add(new MenuItem("截图", m_ScreenCut) { Enabled = !isScreenCut });
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             ////e.Menu.Items.Add(MenuItem.CreateSeparator());
             ////e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
@@ -104,17 +107,25 @@ namespace BigScreenBrowser
                 WebView_Forward(sender);
                 return;
             }
-            //剪切板
+            //剪切板网址跳转
             if (e.CommandId == m_GotoUrl)
             {
+                e.Handled = true;
                 var textData = Clipboard.GetData(DataFormats.Text);
                 if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out Uri uri))
                 {
-                    e.Handled = true;
                     WebView webView = (WebView)sender;
                     webView.Url = uri.ToString();
                     return;
                 }
+            }
+            //截图
+            if (e.CommandId == m_ScreenCut)
+            {
+                e.Handled = true;
+                isScreenCut = true;
+                App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(ScreenCut));
+                return;
             }
             //提示快捷键功能 F1
             //if (e.CommandId == m_F1Command)

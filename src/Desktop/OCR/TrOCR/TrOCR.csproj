@@ -55,30 +55,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Emgu.CV.World">
-      <HintPath>DLL\Emgu\CV\Emgu.CV.World.dll</HintPath>
-    </Reference>
-    <Reference Include="HttpHelper">
-      <HintPath>DLL\HttpHelper.dll</HintPath>
+      <HintPath>DLL\Emgu.CV.World.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>C:\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ShareX.HelpersLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\Newtonsoft\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\Library\Reference\ShareX.HelpersLib.dll</HintPath>
     </Reference>
-    <Reference Include="ShareX.HelpersLib">
-      <HintPath>DLL\ShareX\ShareX.HelpersLib.dll</HintPath>
-    </Reference>
-    <Reference Include="ShareX.ScreenCaptureLib">
-      <HintPath>DLL\ShareX\ShareX.ScreenCaptureLib.dll</HintPath>
+    <Reference Include="ShareX.ScreenCaptureLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Library\Reference\ShareX.ScreenCaptureLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="zxing">
@@ -144,6 +143,7 @@
     </Compile>
     <Compile Include="Helper\HelpRepaint.cs" />
     <Compile Include="Helper\HelpWin32.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
     <Compile Include="Helper\IniHelp.cs" />
     <Compile Include="Helper\WebHelper.cs" />
     <Compile Include="Messageload.cs">
@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
