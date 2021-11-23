@@ -229,13 +229,13 @@
     <EmbeddedResource Include="wwwroot\index.htm" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Back.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\Delete.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Delete.png" />
+    <Resource Include="Icons\ImagePencil.png" />
+    <Resource Include="Icons\Keyboard.png" />
+    <Resource Include="Icons\Save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
