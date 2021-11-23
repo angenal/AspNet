@@ -112,7 +112,7 @@ namespace BigScreenBrowser
                 altF2?.Dispose();
                 altF5?.Dispose();
                 altF11?.Dispose();
-                altA?.Dispose();
+                //altA?.Dispose();
                 altQ?.Dispose();
                 altT?.Dispose();
                 //保存访问历史

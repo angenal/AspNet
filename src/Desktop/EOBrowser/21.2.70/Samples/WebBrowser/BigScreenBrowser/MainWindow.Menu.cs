@@ -9,12 +9,12 @@ namespace BigScreenBrowser
     {
         //This event handler is called when a context menu item or a hot key triggers a "command".
         //private static int m_F1Command = CommandIds.RegisterUserCommand("help");
+        private static int m_ScreenCut = CommandIds.RegisterUserCommand("screenCut");
         private static int m_DemoCommand = CommandIds.RegisterUserCommand("demo");
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_BackCommand = CommandIds.RegisterUserCommand("back");
         private static int m_ForwardCommand = CommandIds.RegisterUserCommand("forward");
         private static int m_GotoUrl = CommandIds.RegisterUserCommand("gotoUrl");
-        private static int m_ScreenCut = CommandIds.RegisterUserCommand("screenCut");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
@@ -23,10 +23,12 @@ namespace BigScreenBrowser
                 new Shortcut(CommandIds.Reload, KeyCode.F5), //刷新网页
                 new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),
                 new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
+                new Shortcut(m_ScreenCut, KeyCode.A, false, true, false), //截图 Alt + A
                 new Shortcut(m_DemoCommand, KeyCode.D, false, true, false), //演示页面 Alt + D
                 new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
                 new Shortcut(m_BackCommand, KeyCode.Left, false, true, false), //返回 Alt + ←
                 new Shortcut(m_ForwardCommand, KeyCode.Right, false, true, false), //向前 Alt + →
+                new Shortcut(m_GotoUrl, KeyCode.V, false, true, false), //剪切板 Alt + V
             };
         }
 

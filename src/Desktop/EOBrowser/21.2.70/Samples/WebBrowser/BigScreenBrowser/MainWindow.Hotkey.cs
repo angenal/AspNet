@@ -26,9 +26,9 @@ namespace BigScreenBrowser
             // 快捷键 Alt+F11 全屏(显示或隐藏)
             altF11 = new Hotkey(HotkeyModifiers.Alt, Hotkeys.F11, this, true);
             altF11.HotkeyPressed += AltF11_HotkeyPressed;
-            // 快捷键 Alt+A 截图
-            altA = new Hotkey(HotkeyModifiers.Alt, Hotkeys.A, this, true);
-            altA.HotkeyPressed += AltA_HotkeyPressed;
+            //// 快捷键 Alt+A 截图
+            //altA = new Hotkey(HotkeyModifiers.Alt, Hotkeys.A, this, true);
+            //altA.HotkeyPressed += AltA_HotkeyPressed;
             // 快捷键 Alt+Q 询问关闭该应用程序
             altQ = new Hotkey(HotkeyModifiers.Alt, Hotkeys.Q, this, true);
             altQ.HotkeyPressed += AltQ_HotkeyPressed;
@@ -98,19 +98,27 @@ namespace BigScreenBrowser
         }
 
         // 快捷键 Alt+A 截图
-        private Hotkey altA;
+        //private Hotkey altA;
         private bool isScreenCut = false;
-        private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
-        {
-            if (!IsVisible || isScreenCut) return;
-            isScreenCut = true;
-            App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(ScreenCut));
-        }
+        //private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
+        //{
+        //    if (!IsVisible || isScreenCut) return;
+        //    isScreenCut = true;
+        //    Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(ScreenCut));
+        //}
         internal void ScreenCut()
         {
             if (!isScreenCut) return;
-            System.Threading.Thread.Sleep(200);
-            var options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false };
+            System.Threading.Thread.Sleep(500);
+            WindowsWPF.Controls.ScreenCut screenCut = new WindowsWPF.Controls.ScreenCut() { Topmost = true, InitialDirectory = m_SaveFilePath };
+            screenCut.ShowDialog();
+            isScreenCut = false;
+        }
+        internal void ScreenCut1()
+        {
+            if (!isScreenCut) return;
+            System.Threading.Thread.Sleep(500);
+            RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false };
             using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, options))
             {
                 Screenshot screenshot = new Screenshot() { AutoHideTaskbar = true };
@@ -122,18 +130,19 @@ namespace BigScreenBrowser
                 System.Drawing.Image image = form.GetResultImage();
                 if (image == null) return;
                 System.Windows.Forms.Clipboard.SetImage(image);
-                var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-                saveFileDialog.Filter = "png图片(*.png)|*.png|jpg图片(*.jpg)|*.jpg|bmp图片(*.bmp)|*.bmp";
-                saveFileDialog.AddExtension = false;
-                saveFileDialog.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
-                saveFileDialog.Title = "保存图片";
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
-                if (saveFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
-                var extension = System.IO.Path.GetExtension(saveFileDialog.FileName);
-                if (extension.Equals(".jpg")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                if (extension.Equals(".png")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                if (extension.Equals(".bmp")) image.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                var dlg = new System.Windows.Forms.SaveFileDialog();
+                dlg.Title = "保存";
+                dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+                dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
+                dlg.FilterIndex = 1;
+                dlg.AddExtension = true;
+                dlg.DefaultExt = ".jpg";
+                dlg.InitialDirectory = m_SaveFilePath;
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+                var extension = System.IO.Path.GetExtension(dlg.FileName);
+                if (extension.Equals(".jpg")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (extension.Equals(".png")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                if (extension.Equals(".bmp")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
             }
         }
         internal void ScreenCut2()
@@ -142,8 +151,8 @@ namespace BigScreenBrowser
             {
                 //捕获屏幕
                 if (!isScreenCut) return;
-                System.Threading.Thread.Sleep(200);
-                var options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false, QuickCrop = false };
+                System.Threading.Thread.Sleep(500);
+                RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false, QuickCrop = false };
                 System.Drawing.Image img = RegionCaptureTasks.GetRegionImage_Mo(options, out string flag, out System.Drawing.Point flag_location, out System.Drawing.Rectangle[] rectangle_flag);
                 if (img == null) return;
                 //快捷键Esc
@@ -170,18 +179,19 @@ namespace BigScreenBrowser
                 //保存图片到剪贴板
                 System.Windows.Forms.Clipboard.SetImage(img);
                 //保存图片到磁盘
-                var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-                saveFileDialog.Filter = "png图片(*.png)|*.png|jpg图片(*.jpg)|*.jpg|bmp图片(*.bmp)|*.bmp";
-                saveFileDialog.AddExtension = false;
-                saveFileDialog.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
-                saveFileDialog.Title = "保存图片";
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.InitialDirectory = m_SaveFilePath;
-                if (saveFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
-                var extension = System.IO.Path.GetExtension(saveFileDialog.FileName);
-                if (extension.Equals(".jpg")) img.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                if (extension.Equals(".png")) img.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                if (extension.Equals(".bmp")) img.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                var dlg = new System.Windows.Forms.SaveFileDialog();
+                dlg.Title = "保存";
+                dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+                dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
+                dlg.FilterIndex = 1;
+                dlg.AddExtension = true;
+                dlg.DefaultExt = ".jpg";
+                dlg.InitialDirectory = m_SaveFilePath;
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+                var extension = System.IO.Path.GetExtension(dlg.FileName);
+                if (extension.Equals(".jpg")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (extension.Equals(".png")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                if (extension.Equals(".bmp")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
             }
             catch (Exception e)
             {

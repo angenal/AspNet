@@ -42,6 +42,7 @@ namespace WindowsWPF.Controls
         private Rect rect;
         private Point pointStart, pointEnd;
         private bool isMouseUp = false;
+        public string InitialDirectory { get; set; }
 
         static ScreenCut()
         {
@@ -74,16 +75,21 @@ namespace WindowsWPF.Controls
         private void _buttonSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.FileName = $"截图{DateTime.Now.ToString("yyyyMMddHHmmss")}.jpg";
+            dlg.Title = "保存";
+            dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
+            dlg.FilterIndex = 1;
+            dlg.AddExtension = true;
             dlg.DefaultExt = ".jpg";
-            dlg.Filter = "image file|*.jpg";
+            if (string.IsNullOrEmpty(InitialDirectory)) dlg.RestoreDirectory = true; else dlg.InitialDirectory = InitialDirectory;
             if (dlg.ShowDialog() == true)
             {
-                BitmapEncoder pngEncoder = new PngBitmapEncoder();
-                pngEncoder.Frames.Add(BitmapFrame.Create(CutBitmap()));
+                var extension = System.IO.Path.GetExtension(dlg.FileName);
+                BitmapEncoder encoder = extension.Equals(".jpg", StringComparison.OrdinalIgnoreCase) ? new JpegBitmapEncoder() : extension.Equals(".bmp", StringComparison.OrdinalIgnoreCase) ? new BmpBitmapEncoder() : new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(CutBitmap()));
                 using (var fs = System.IO.File.OpenWrite(dlg.FileName))
                 {
-                    pngEncoder.Save(fs);
+                    encoder.Save(fs);
                     fs.Dispose();
                     fs.Close();
                 }
