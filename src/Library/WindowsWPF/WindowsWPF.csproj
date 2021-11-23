@@ -98,6 +98,7 @@
     <Compile Include="Interop\WindowClass.cs" />
     <Compile Include="Interop\WindowMessageSink.cs" />
     <Compile Include="Interop\WindowsMessages.cs" />
+    <Compile Include="Windows\Times.cs" />
     <Compile Include="Windows\Commands.cs" />
     <Compile Include="Windows\Hotkey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

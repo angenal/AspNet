@@ -6,6 +6,8 @@ namespace BigScreenBrowser.Commands
     {
         public override void Execute(object parameter)
         {
+            App.MainWnd.notifyIcon.ContextMenu.IsOpen = false;
+            if (App.MainWnd.IsVisible) return;
             App.MainWnd.ShowApp();
             CommandManager.InvalidateRequerySuggested();
         }

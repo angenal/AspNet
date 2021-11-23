@@ -37,8 +37,9 @@
 
     <ContextMenu x:Shared="false"
                  x:Key="notifyIconMenu">
-        <MenuItem IsEnabled="False"
-                  Header="{Binding Path=ToolTipText}">
+        <MenuItem Header="打开"
+                  Command="{commands:NotifyIconShowCommand}"
+                  CommandParameter="{Binding}">
             <MenuItem.Icon>
                 <Image Width="16"
                        Height="16"
@@ -46,13 +47,13 @@
             </MenuItem.Icon>
         </MenuItem>
 
-        <MenuItem Header="打开"
-                  Command="{commands:NotifyIconShowCommand}"
+        <MenuItem Header="截图"
+                  Command="{commands:NotifyIconScreenshotCommand}"
                   CommandParameter="{Binding}">
             <MenuItem.Icon>
                 <Image Width="16"
                        Height="16"
-                       Source="/App.ico" />
+                       Source="/Icons/ImagePencil.png" />
             </MenuItem.Icon>
         </MenuItem>
 

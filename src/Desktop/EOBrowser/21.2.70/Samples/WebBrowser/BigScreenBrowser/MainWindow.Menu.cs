@@ -45,9 +45,9 @@ namespace BigScreenBrowser
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
 
             var textData = Clipboard.GetData(DataFormats.Text);
-            if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out _))
+            if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out Uri uri))
             {
-                e.Menu.Items.Add(new MenuItem("剪切板", m_GotoUrl));
+                e.Menu.Items.Add(new MenuItem("剪切板", m_GotoUrl) { Enabled = webView.Url != uri.ToString() });
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
             }
 

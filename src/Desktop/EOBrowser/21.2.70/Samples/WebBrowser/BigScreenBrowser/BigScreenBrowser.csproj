@@ -129,6 +129,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\NotifyIconExitCommand.cs" />
+    <Compile Include="Commands\NotifyIconScreenshotCommand.cs" />
     <Compile Include="Commands\NotifyIconShowCommand.cs" />
     <Compile Include="JSPrompt.xaml.cs">
       <DependentUpon>JSPrompt.xaml</DependentUpon>

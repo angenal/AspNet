@@ -99,7 +99,7 @@ namespace BigScreenBrowser
 
         // 快捷键 Alt+A 截图
         //private Hotkey altA;
-        private bool isScreenCut = false;
+        internal bool isScreenCut = false;
         //private void AltA_HotkeyPressed(object sender, HotkeyEventArgs e)
         //{
         //    if (!IsVisible || isScreenCut) return;
@@ -109,7 +109,7 @@ namespace BigScreenBrowser
         internal void ScreenCut()
         {
             if (!isScreenCut) return;
-            System.Threading.Thread.Sleep(500);
+            Times.Delay(300);
             WindowsWPF.Controls.ScreenCut screenCut = new WindowsWPF.Controls.ScreenCut() { Topmost = true, InitialDirectory = m_SaveFilePath };
             screenCut.ShowDialog();
             isScreenCut = false;
@@ -117,7 +117,7 @@ namespace BigScreenBrowser
         internal void ScreenCut1()
         {
             if (!isScreenCut) return;
-            System.Threading.Thread.Sleep(500);
+            Times.Delay(300);
             RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false };
             using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, options))
             {
@@ -151,7 +151,7 @@ namespace BigScreenBrowser
             {
                 //捕获屏幕
                 if (!isScreenCut) return;
-                System.Threading.Thread.Sleep(500);
+                Times.Delay(300);
                 RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false, QuickCrop = false };
                 System.Drawing.Image img = RegionCaptureTasks.GetRegionImage_Mo(options, out string flag, out System.Drawing.Point flag_location, out System.Drawing.Rectangle[] rectangle_flag);
                 if (img == null) return;
