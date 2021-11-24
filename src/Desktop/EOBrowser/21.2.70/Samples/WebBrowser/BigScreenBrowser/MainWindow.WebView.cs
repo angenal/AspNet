@@ -185,6 +185,7 @@ namespace BigScreenBrowser
             //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
+            Times.Delay(3000);
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 BrushConverter bc = new BrushConverter();

@@ -235,18 +235,26 @@ namespace BigScreenBrowser
             MainWnd.Window_Exit();
         }
 
+        /// <summary>
+        /// 显示启动屏幕
+        /// </summary>
         public void ShowSplash()
         {
-            //显示启动屏幕(设定宽高会自动缩放)
-            //TransparentSplash.Instance.Width = 737;
-            //TransparentSplash.Instance.Height = 361;
+            //设定宽高会自动缩放
+            //TransparentSplash.Instance.Width = 736;
+            //TransparentSplash.Instance.Height = 360;
             TransparentSplash.SetBackgroundImage(BigScreenBrowser.Properties.Resources.SplashImage);
             TransparentSplash.BeginDisplay();
         }
-
+        bool m_HideSplash = false;
+        /// <summary>
+        /// 关闭启动屏幕
+        /// </summary>
         public void HideSplash()
         {
-            //关闭启动图
+            if (m_HideSplash) return;
+            m_HideSplash = true;
+            Times.Delay(1000);
             Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));
         }
 
