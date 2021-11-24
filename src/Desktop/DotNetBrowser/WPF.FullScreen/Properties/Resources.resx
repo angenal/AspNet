@@ -121,14 +121,11 @@
     <value>http://127.0.0.1:8044/wpf-fullscreen/version.xml</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SplashImage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SplashImage1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SplashImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SplashImage2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SplashImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\splashimage.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="URL" xml:space="preserve">
-    <value>https://www.baidu.com/</value>
+    <value>http://guozhivip.com/</value>
   </data>
   <data name="UserAgent" xml:space="preserve">
     <value>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/534.12 (KHTML, like Gecko) Chrome/69.0.3497.12 Safari/534.12</value>

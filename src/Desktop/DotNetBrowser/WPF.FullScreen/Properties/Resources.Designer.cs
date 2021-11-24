@@ -72,25 +72,15 @@ namespace WPF.FullScreen.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap SplashImage1 {
+        internal static System.Drawing.Bitmap SplashImage {
             get {
-                object obj = ResourceManager.GetObject("SplashImage1", resourceCulture);
+                object obj = ResourceManager.GetObject("SplashImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap SplashImage2 {
-            get {
-                object obj = ResourceManager.GetObject("SplashImage2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 https://www.baidu.com/ 的本地化字符串。
+        ///   查找类似 http://guozhivip.com/ 的本地化字符串。
         /// </summary>
         internal static string URL {
             get {

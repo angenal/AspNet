@@ -27,7 +27,7 @@ namespace WPF.FullScreen
             //DispatcherUnhandledException += App_DispatcherUnhandledException;
 
             //显示启动屏幕(设定宽高会自动缩放)
-            //Add the transparency splash image1
+            //Add the transparency splash image
             //TransparentSplash.Instance.Width = 256;
             //TransparentSplash.Instance.Height = 256;
             //TransparentSplash.Instance.TextAreaX = 32;
@@ -39,10 +39,7 @@ namespace WPF.FullScreen
             //TransparentSplash.SetBackgroundImage(FullScreen.Properties.Resources.SplashImage1);
             //TransparentSplash.SetTitleString("");
 
-            //Add the transparency splash image2
-            //TransparentSplash.Instance.Width = 530;
-            //TransparentSplash.Instance.Height = 205;
-            TransparentSplash.SetBackgroundImage(FullScreen.Properties.Resources.SplashImage2);
+            TransparentSplash.SetBackgroundImage(FullScreen.Properties.Resources.SplashImage);
 
             TransparentSplash.BeginDisplay();
         }
