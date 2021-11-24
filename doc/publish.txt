@@ -39,3 +39,6 @@ https://support.microsoft.com/zh-cn/office/对宏项目进行数字签名-956e9c
 > ildasm Library.dll /out=Library.il # 反编译目标程序集"Library.dll"
 > ilasm Library.il /dll /resource=Library.res /key=manifest.snk /optimize  # 重新编译并附带强命名参数
 > sn -v Library.dll                  # 验证签名信息
+
+##CMD##
+for %i in (*.resources) do (echo %i)
