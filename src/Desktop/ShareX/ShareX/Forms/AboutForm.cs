@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -52,9 +52,9 @@ namespace ShareX
             {
                 lblBuild.Text = "Steam build";
             }
-            else if (Program.Build == ShareXBuild.WindowsStore)
+            else if (Program.Build == ShareXBuild.MicrosoftStore)
             {
-                lblBuild.Text = "Windows Store build";
+                lblBuild.Text = "Microsoft Store build";
             }
 #else
             if (!Program.PortableApps)
@@ -95,25 +95,27 @@ https://github.com/ShareX/ShareX/graphs/contributors
 {Resources.AboutForm_AboutForm_Language_ru}: https://github.com/L1Q
 {Resources.AboutForm_AboutForm_Language_zh_TW}: https://github.com/alantsai
 {Resources.AboutForm_AboutForm_Language_it_IT}: https://github.com/pjammo
+{Resources.AboutForm_AboutForm_Language_uk}: https://github.com/6c6c6
+{Resources.AboutForm_AboutForm_Language_id_ID}: https://github.com/Nicedward
+{Resources.AboutForm_AboutForm_Language_es_MX}: https://github.com/absay
 
 {Resources.AboutForm_AboutForm_External_libraries}:
 
-Greenshot Image Editor: https://github.com/greenshot/greenshot
 Json.NET: https://github.com/JamesNK/Newtonsoft.Json
 SSH.NET: https://github.com/sshnet/SSH.NET
 Icons: http://p.yusukekamiyamane.com
 ImageListView: https://github.com/oozcitak/imagelistview
-FFmpeg: http://www.ffmpeg.org
-Zeranoe FFmpeg: http://ffmpeg.zeranoe.com/builds
-7-Zip: http://www.7-zip.org
-SevenZipSharp: https://sevenzipsharp.codeplex.com
+FFmpeg: https://www.ffmpeg.org
+Zeranoe FFmpeg: https://ffmpeg.zeranoe.com/builds
 DirectShow video and audio device: https://github.com/rdp/screen-capture-recorder-to-video-windows-free
-System.Net.FtpClient: https://netftp.codeplex.com
+FluentFTP: https://github.com/robinrodricks/FluentFTP
 Steamworks.NET: https://github.com/rlabrecque/Steamworks.NET
-OCR Space: http://ocr.space
+OCR Space: https://ocr.space
 ZXing.Net: https://github.com/micjahn/ZXing.Net
+MegaApiClient: https://github.com/gpailler/MegaApiClient
+Blob Emoji: http://blobs.gg
 
-Copyright (c) 2007-2017 ShareX Team";
+Copyright (c) 2007-2018 ShareX Team";
         }
 
         private void AboutForm_Shown(object sender, EventArgs e)

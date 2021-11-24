@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -242,7 +242,7 @@ namespace ShareX.HelpersLib
 
         public void LoadImageFromURLAsync(string url)
         {
-            if (!string.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(url) && !url.StartsWith("ftp://") && !url.StartsWith("ftps://"))
             {
                 LoadImageAsync(url);
             }
@@ -331,7 +331,9 @@ namespace ShareX.HelpersLib
         {
             if (FullscreenOnClick && e.Button == MouseButtons.Left && IsValidImage)
             {
+                pbMain.Enabled = false;
                 ImageViewer.ShowImage(Image);
+                pbMain.Enabled = true;
             }
         }
 
@@ -349,6 +351,11 @@ namespace ShareX.HelpersLib
             {
                 ClipboardHelpers.CopyImage(Image);
             }
+        }
+
+        private void MyPictureBox_Resize(object sender, EventArgs e)
+        {
+            lblImageSize.Location = new Point((Width - lblImageSize.Width) / 2, Height - lblImageSize.Height);
         }
     }
 }

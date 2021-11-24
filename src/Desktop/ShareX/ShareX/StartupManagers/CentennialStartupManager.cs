@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -28,27 +28,25 @@
 using System;
 using Windows.ApplicationModel;
 
-namespace ShareX.StartupManagers
+namespace ShareX
 {
     public class CentennialStartupManager : IStartupManager
     {
-        public int StartupTargetIndex { get; set; }
+        private const int StartupTargetIndex = 0;
+        private readonly StartupTask packageTask = StartupTask.GetForCurrentPackageAsync().GetAwaiter().GetResult()[StartupTargetIndex];
 
-        public StartupTaskState State
+        public StartupState State
         {
-            get
-            {
-                return (StartupTaskState)StartupTask.GetForCurrentPackageAsync().AsTask().GetAwaiter().GetResult()[StartupTargetIndex].State;
-            }
+            get => (StartupState)packageTask.State;
             set
             {
-                if (value == StartupTaskState.Enabled)
+                if (value == StartupState.Enabled)
                 {
-                    StartupTask.GetForCurrentPackageAsync().AsTask().GetAwaiter().GetResult()[StartupTargetIndex].RequestEnableAsync().AsTask().GetAwaiter().GetResult();
+                    packageTask.RequestEnableAsync().GetAwaiter().GetResult();
                 }
-                else if (value == StartupTaskState.Disabled)
+                else if (value == StartupState.Disabled)
                 {
-                    StartupTask.GetForCurrentPackageAsync().AsTask().GetAwaiter().GetResult()[StartupTargetIndex].Disable();
+                    packageTask.Disable();
                 }
                 else
                 {

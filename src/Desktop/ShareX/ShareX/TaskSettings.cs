@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -157,7 +157,8 @@ namespace ShareX
             {
                 if (!string.IsNullOrEmpty(AdvancedSettings.CapturePath))
                 {
-                    return Helpers.ExpandFolderVariables(AdvancedSettings.CapturePath);
+                    string captureFolderPath = NameParser.Parse(NameParserType.FolderPath, AdvancedSettings.CapturePath);
+                    return Helpers.GetAbsolutePath(captureFolderPath);
                 }
 
                 return Program.ScreenshotsFolder;
@@ -347,8 +348,8 @@ namespace ShareX
         public float ScreenRecordStartDelay = 0f;
         public bool ScreenRecordFixedDuration = false;
         public float ScreenRecordDuration = 3f;
-        public bool RunScreencastCLI = false;
-        public int VideoEncoderSelected = 0;
+        public bool ScreenRecordTwoPassEncoding = false;
+        public bool ScreenRecordAskConfirmationOnAbort = false;
 
         #endregion Capture / Screen recorder
 
@@ -365,10 +366,11 @@ namespace ShareX
 
         public bool UseCustomTimeZone = false;
         public TimeZoneInfo CustomTimeZone = TimeZoneInfo.Utc;
-        public string NameFormatPattern = "%y-%mo-%d_%h-%mi-%s";
-        public string NameFormatPatternActiveWindow = "%pn_%y-%mo-%d_%h-%mi-%s";
+        public string NameFormatPattern = "%ra{10}";
+        public string NameFormatPatternActiveWindow = "%pn_%ra{10}";
         public bool RegionCaptureUseWindowPattern = true;
         public bool FileUploadUseNamePattern = false;
+        public bool FileUploadReplaceProblematicCharacters = false;
 
         #endregion Upload
 
@@ -386,7 +388,7 @@ namespace ShareX
 
     public class TaskSettingsTools
     {
-        public string ScreenColorPickerFormat = "$r, $g, $b";
+        public string ScreenColorPickerFormat = "$hex";
         public IndexerSettings IndexerSettings = new IndexerSettings();
         public ImageCombinerOptions ImageCombinerOptions = new ImageCombinerOptions();
         public VideoThumbnailOptions VideoThumbnailOptions = new VideoThumbnailOptions();
@@ -408,9 +410,6 @@ namespace ShareX
 
         [Category("General"), DefaultValue(false), Description("If task contains upload job then this setting will clear clipboard when task start.")]
         public bool AutoClearClipboard { get; set; }
-
-        [Category("General"), DefaultValue(true), Description("Use built-in region capture annotation to annotate images instead of Greenshot image editor.")]
-        public bool UseShareXForAnnotation { get; set; }
 
         [Category("Sound"), DefaultValue(false), Description("Enable/disable custom capture sound.")]
         public bool UseCustomCaptureSound { get; set; }

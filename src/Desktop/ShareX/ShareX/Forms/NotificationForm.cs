@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -48,13 +48,14 @@ namespace ShareX
         private int urlPadding = 3;
         private Size textRenderSize;
 
-        protected override CreateParams CreateParams {
-          get {
-            // Turn on WS_EX_TOOLWINDOW style bit
-            CreateParams cp = base.CreateParams;
-            cp.ExStyle |= 0x80;
-            return cp;
-          }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.ExStyle |= (int)WindowStyles.WS_EX_TOOLWINDOW;
+                return createParams;
+            }
         }
 
         public NotificationForm(int duration, int fadeDuration, ContentAlignment placement, Size size, NotificationFormConfig config)
@@ -79,8 +80,8 @@ namespace ShareX
             }
             else if (!string.IsNullOrEmpty(config.Text))
             {
-                textRenderSize = Helpers.MeasureText(config.Text, textFont, size.Width - textPadding * 2);
-                size = new Size(textRenderSize.Width + textPadding * 2, textRenderSize.Height + textPadding * 2 + 2);
+                textRenderSize = Helpers.MeasureText(config.Text, textFont, size.Width - (textPadding * 2));
+                size = new Size(textRenderSize.Width + (textPadding * 2), textRenderSize.Height + (textPadding * 2) + 2);
             }
 
             Point position = Helpers.GetPosition(placement, new Point(windowOffset, windowOffset), Screen.PrimaryScreen.WorkingArea.Size, size);
@@ -182,7 +183,10 @@ namespace ShareX
         {
             if ((duration > 0 || fadeDuration > 0) && size.Width > 0 && size.Height > 0)
             {
-                config.Image = ImageHelpers.LoadImage(config.FilePath);
+                if (config.Image == null)
+                {
+                    config.Image = ImageHelpers.LoadImage(config.FilePath);
+                }
 
                 if (config.Image != null || !string.IsNullOrEmpty(config.Text))
                 {
@@ -204,7 +208,7 @@ namespace ShareX
                 {
                     case ToastClickAction.AnnotateImage:
                         if (!string.IsNullOrEmpty(ToastConfig.FilePath) && Helpers.IsImageFile(ToastConfig.FilePath))
-                            TaskHelpers.AnnotateImage(ToastConfig.FilePath);
+                            TaskHelpers.AnnotateImageFromFile(ToastConfig.FilePath);
                         break;
                     case ToastClickAction.CopyImageToClipboard:
                         if (!string.IsNullOrEmpty(ToastConfig.FilePath))
@@ -283,34 +287,34 @@ namespace ShareX
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tDuration = new System.Windows.Forms.Timer(this.components);
-            this.tOpacity = new System.Windows.Forms.Timer(this.components);
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tDuration = new System.Windows.Forms.Timer(components);
+            tOpacity = new System.Windows.Forms.Timer(components);
+            SuspendLayout();
             //
             // tDuration
             //
-            this.tDuration.Tick += new System.EventHandler(this.tDuration_Tick);
+            tDuration.Tick += new System.EventHandler(tDuration_Tick);
             //
             // tOpacity
             //
-            this.tOpacity.Tick += new System.EventHandler(this.tOpacity_Tick);
+            tOpacity.Tick += new System.EventHandler(tOpacity_Tick);
             //
             // NotificationForm
             //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 300);
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "NotificationForm";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "NotificationForm";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NotificationForm_MouseClick);
-            this.MouseEnter += new System.EventHandler(this.NotificationForm_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.NotificationForm_MouseLeave);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(400, 300);
+            Cursor = System.Windows.Forms.Cursors.Hand;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Name = "NotificationForm";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Text = "NotificationForm";
+            MouseClick += new System.Windows.Forms.MouseEventHandler(NotificationForm_MouseClick);
+            MouseEnter += new System.EventHandler(NotificationForm_MouseEnter);
+            MouseLeave += new System.EventHandler(NotificationForm_MouseLeave);
+            ResumeLayout(false);
         }
 
         #endregion Windows Form Designer generated code

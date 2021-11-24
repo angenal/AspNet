@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -263,7 +263,6 @@ namespace ShareX
             CodeMenu.Create<CodeMenuEntryPixelInfo>(txtRegionCaptureCustomInfoText);
             txtRegionCaptureCustomInfoText.Text = TaskSettings.CaptureSettings.SurfaceOptions.CustomInfoText;
             cbRegionCaptureSnapSizes.Items.AddRange(TaskSettings.CaptureSettings.SurfaceOptions.SnapSizes.ToArray());
-            cbRegionCaptureShowTips.Checked = TaskSettings.CaptureSettings.SurfaceOptions.ShowHotkeys;
             cbRegionCaptureShowInfo.Checked = TaskSettings.CaptureSettings.SurfaceOptions.ShowInfo;
             cbRegionCaptureShowMagnifier.Checked = TaskSettings.CaptureSettings.SurfaceOptions.ShowMagnifier;
             cbRegionCaptureUseSquareMagnifier.Enabled = nudRegionCaptureMagnifierPixelCount.Enabled = nudRegionCaptureMagnifierPixelSize.Enabled = TaskSettings.CaptureSettings.SurfaceOptions.ShowMagnifier;
@@ -290,10 +289,10 @@ namespace ShareX
             cbScreenRecorderFixedDuration.Checked = nudScreenRecorderDuration.Enabled = TaskSettings.CaptureSettings.ScreenRecordFixedDuration;
             nudScreenRecorderDuration.SetValue((decimal)TaskSettings.CaptureSettings.ScreenRecordDuration);
             chkScreenRecordAutoStart.Checked = nudScreenRecorderStartDelay.Enabled = TaskSettings.CaptureSettings.ScreenRecordAutoStart;
+            cbScreenRecordConfirmAbort.Checked = TaskSettings.CaptureSettings.ScreenRecordAskConfirmationOnAbort;
             nudScreenRecorderStartDelay.SetValue((decimal)TaskSettings.CaptureSettings.ScreenRecordStartDelay);
             cbScreenRecorderShowCursor.Checked = TaskSettings.CaptureSettings.ScreenRecordShowCursor;
-            chkRunScreencastCLI.Checked = cboEncoder.Enabled = btnEncoderConfig.Enabled = TaskSettings.CaptureSettings.RunScreencastCLI;
-            UpdateVideoEncoders();
+            cbScreenRecordTwoPassEncoding.Checked = TaskSettings.CaptureSettings.ScreenRecordTwoPassEncoding;
 
             #endregion Screen recorder
 
@@ -309,6 +308,7 @@ namespace ShareX
             CodeMenu.Create<CodeMenuEntryFilename>(txtNameFormatPatternActiveWindow, CodeMenuEntryFilename.n);
             cbRegionCaptureUseWindowPattern.Checked = TaskSettings.UploadSettings.RegionCaptureUseWindowPattern;
             cbFileUploadUseNamePattern.Checked = TaskSettings.UploadSettings.FileUploadUseNamePattern;
+            cbFileUploadReplaceProblematicCharacters.Checked = TaskSettings.UploadSettings.FileUploadReplaceProblematicCharacters;
             UpdateNameFormatPreviews();
             cbNameFormatCustomTimeZone.Checked = cbNameFormatTimeZone.Enabled = TaskSettings.UploadSettings.UseCustomTimeZone;
             cbNameFormatTimeZone.Items.AddRange(TimeZoneInfo.GetSystemTimeZones().ToArray());
@@ -966,11 +966,6 @@ namespace ShareX
             pRegionCaptureSnapSizes.Visible = false;
         }
 
-        private void cbRegionCaptureShowTips_CheckedChanged(object sender, EventArgs e)
-        {
-            TaskSettings.CaptureSettings.SurfaceOptions.ShowHotkeys = cbRegionCaptureShowTips.Checked;
-        }
-
         private void cbRegionCaptureShowInfo_CheckedChanged(object sender, EventArgs e)
         {
             TaskSettings.CaptureSettings.SurfaceOptions.ShowInfo = cbRegionCaptureShowInfo.Checked;
@@ -1033,29 +1028,13 @@ namespace ShareX
 
         #region Screen recorder
 
-        private void UpdateVideoEncoders()
-        {
-            cboEncoder.Items.Clear();
-
-            if (Program.Settings.VideoEncoders.Count > 0)
-            {
-                Program.Settings.VideoEncoders.ForEach(x => cboEncoder.Items.Add(x));
-                cboEncoder.SelectedIndex = TaskSettings.CaptureSettings.VideoEncoderSelected.BetweenOrDefault(0, Program.Settings.VideoEncoders.Count - 1);
-            }
-            else if (!cboEncoder.Items.Contains(Resources.TaskSettingsForm_ConfigureEncoder_Configure_CLI_video_encoders_____))
-            {
-                cboEncoder.Items.Add(Resources.TaskSettingsForm_ConfigureEncoder_Configure_CLI_video_encoders_____);
-                cboEncoder.SelectedIndex = 0;
-            }
-        }
-
         private void btnScreenRecorderFFmpegOptions_Click(object sender, EventArgs e)
         {
             ScreencastOptions options = new ScreencastOptions
             {
+                IsRecording = true,
                 FFmpeg = TaskSettings.CaptureSettings.FFmpegOptions,
-                ScreenRecordFPS = TaskSettings.CaptureSettings.ScreenRecordFPS,
-                GIFFPS = TaskSettings.CaptureSettings.GIFFPS,
+                FPS = TaskSettings.CaptureSettings.ScreenRecordFPS,
                 Duration = TaskSettings.CaptureSettings.ScreenRecordFixedDuration ? TaskSettings.CaptureSettings.ScreenRecordDuration : 0,
                 OutputPath = "output.mp4",
                 CaptureArea = Screen.PrimaryScreen.Bounds,
@@ -1064,7 +1043,7 @@ namespace ShareX
 
             using (FFmpegOptionsForm form = new FFmpegOptionsForm(options))
             {
-                form.DefaultToolsPath = Program.DefaultFFmpegFilePath;
+                form.DefaultToolsFolder = Program.ToolsFolder;
                 form.ShowDialog();
             }
         }
@@ -1106,23 +1085,14 @@ namespace ShareX
             TaskSettings.CaptureSettings.ScreenRecordShowCursor = cbScreenRecorderShowCursor.Checked;
         }
 
-        private void chkRunScreencastCLI_CheckedChanged(object sender, EventArgs e)
+        private void cbScreenRecordTwoPassEncoding_CheckedChanged(object sender, EventArgs e)
         {
-            TaskSettings.CaptureSettings.RunScreencastCLI = cboEncoder.Enabled = btnEncoderConfig.Enabled = chkRunScreencastCLI.Checked;
+            TaskSettings.CaptureSettings.ScreenRecordTwoPassEncoding = cbScreenRecordTwoPassEncoding.Checked;
         }
 
-        private void cboEncoder_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbScreenRecordConfirmAbort_CheckedChanged(object sender, EventArgs e)
         {
-            TaskSettings.CaptureSettings.VideoEncoderSelected = cboEncoder.SelectedIndex;
-        }
-
-        private void btnEncoderConfig_Click(object sender, EventArgs e)
-        {
-            using (VideoEncodersForm form = new VideoEncodersForm() { Icon = Icon })
-            {
-                form.ShowDialog();
-                UpdateVideoEncoders();
-            }
+            TaskSettings.CaptureSettings.ScreenRecordAskConfirmationOnAbort = cbScreenRecordConfirmAbort.Checked;
         }
 
         #endregion Screen recorder
@@ -1142,7 +1112,8 @@ namespace ShareX
                 ImageHeight = 1080,
                 MaxNameLength = TaskSettings.AdvancedSettings.NamePatternMaxLength,
                 MaxTitleLength = TaskSettings.AdvancedSettings.NamePatternMaxTitleLength,
-                CustomTimeZone = TaskSettings.UploadSettings.UseCustomTimeZone ? TaskSettings.UploadSettings.CustomTimeZone : null
+                CustomTimeZone = TaskSettings.UploadSettings.UseCustomTimeZone ? TaskSettings.UploadSettings.CustomTimeZone : null,
+                IsPreviewMode = true
             };
 
             lblNameFormatPatternPreview.Text = Resources.TaskSettingsForm_txtNameFormatPatternActiveWindow_TextChanged_Preview_ + " " +
@@ -1517,6 +1488,11 @@ namespace ShareX
         private void txtToolsScreenColorPickerFormat_TextChanged(object sender, EventArgs e)
         {
             TaskSettings.ToolsSettings.ScreenColorPickerFormat = txtToolsScreenColorPickerFormat.Text;
+        }
+
+        private void cbFileUploadReplaceProblematicCharacters_CheckedChanged(object sender, EventArgs e)
+        {
+            TaskSettings.UploadSettings.FileUploadReplaceProblematicCharacters = cbFileUploadReplaceProblematicCharacters.Checked;
         }
 
         #endregion Tools

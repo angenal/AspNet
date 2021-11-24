@@ -293,17 +293,17 @@
             // 
             // tpMain
             // 
+            this.tpMain.BackColor = System.Drawing.SystemColors.Window;
             this.tpMain.Controls.Add(this.scMain);
             resources.ApplyResources(this.tpMain, "tpMain");
             this.tpMain.Name = "tpMain";
-            this.tpMain.UseVisualStyleBackColor = true;
             // 
             // tpAccount
             // 
+            this.tpAccount.BackColor = System.Drawing.SystemColors.Window;
             this.tpAccount.Controls.Add(this.pgAccount);
             resources.ApplyResources(this.tpAccount, "tpAccount");
             this.tpAccount.Name = "tpAccount";
-            this.tpAccount.UseVisualStyleBackColor = true;
             // 
             // pgAccount
             // 
@@ -314,10 +314,10 @@
             // 
             // tpConsole
             // 
+            this.tpConsole.BackColor = System.Drawing.SystemColors.Window;
             this.tpConsole.Controls.Add(this.scConsole);
             resources.ApplyResources(this.tpConsole, "tpConsole");
             this.tpConsole.Name = "tpConsole";
-            this.tpConsole.UseVisualStyleBackColor = true;
             // 
             // scConsole
             // 
@@ -353,8 +353,9 @@
             this.Controls.Add(this.tcFTP);
             this.Controls.Add(this.txtRename);
             this.Name = "FTPClientForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FTPClient2_FormClosing);
-            this.Resize += new System.EventHandler(this.FTPClient_Resize);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FTPClientForm_FormClosing);
+            this.Load += new System.EventHandler(this.FTPClientForm_Load);
+            this.Resize += new System.EventHandler(this.FTPClientForm_Resize);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);

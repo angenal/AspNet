@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -24,7 +24,6 @@
 #endregion License Information (GPL v3)
 
 using ShareX.HelpersLib;
-using ShareX.StartupManagers;
 using System;
 using System.Windows.Forms;
 
@@ -38,10 +37,10 @@ namespace ShareX
         {
             InitializeComponent();
             pbLogo.Image = ImageHelpers.ResizeImage(ShareXResources.Logo, 128, 128);
-            StartupTaskState state = StartupManagerFactory.StartupManager.State;
 
-            cbRunStartup.Checked = state == StartupTaskState.Enabled;
-            cbRunStartup.Enabled = state != StartupTaskState.DisabledByUser;
+            StartupState state = StartupManagerSingletonProvider.CurrentStartupManager.State;
+            cbRunStartup.Checked = state == StartupState.Enabled || state == StartupState.EnabledByPolicy;
+            cbRunStartup.Enabled = state != StartupState.DisabledByUser && state != StartupState.DisabledByPolicy && state != StartupState.EnabledByPolicy;
 
             cbShellContextMenuButton.Checked = IntegrationHelpers.CheckShellContextMenuButton();
             cbSendToMenu.Checked = IntegrationHelpers.CheckSendToMenuButton();
@@ -64,7 +63,7 @@ namespace ShareX
         {
             if (loaded)
             {
-                StartupManagerFactory.StartupManager.State = cbRunStartup.Checked ? StartupTaskState.Enabled : StartupTaskState.Disabled;
+                StartupManagerSingletonProvider.CurrentStartupManager.State = cbRunStartup.Checked ? StartupState.Enabled : StartupState.Disabled;
             }
         }
 

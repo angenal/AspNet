@@ -213,9 +213,6 @@
   <data name="tsmiScreenColorPicker.Text" xml:space="preserve">
     <value>Cattura Colore...</value>
   </data>
-  <data name="tsmiAnnotateImage.Text" xml:space="preserve">
-    <value>Annota Immagine...</value>
-  </data>
   <data name="tsmiImageEffects.Text" xml:space="preserve">
     <value>Effetti Immagine...</value>
   </data>
@@ -472,13 +469,13 @@
     <value>Nascondi</value>
   </data>
   <data name="tsmiImagePreviewAutomatic.Text" xml:space="preserve">
-    <value>Automatico</value>
+    <value>Automatica</value>
   </data>
   <data name="tsmiImagePreview.Text" xml:space="preserve">
     <value>Anteprima Immagine</value>
   </data>
   <data name="tsmiTrayFullscreen.Text" xml:space="preserve">
-    <value>Schermo Inter</value>
+    <value>Schermo Intero</value>
   </data>
   <data name="tsmiTrayWindow.Text" xml:space="preserve">
     <value>Finestra</value>
@@ -545,9 +542,6 @@
   </data>
   <data name="tsmiTrayScreenColorPicker.Text" xml:space="preserve">
     <value>Cattura Colore...</value>
-  </data>
-  <data name="tsmiTrayAnnotateImage.Text" xml:space="preserve">
-    <value>Annota Immagine...</value>
   </data>
   <data name="tsmiTrayImageEffects.Text" xml:space="preserve">
     <value>Effetti Immagine...</value>
@@ -737,5 +731,23 @@
   </data>
   <data name="tsmiCopyMarkdownLinkedImage.Text" xml:space="preserve">
     <value>Markdown Immagine Collegata</value>
+  </data>
+  <data name="tsmiImageEditor.Text" xml:space="preserve">
+    <value>Editor Immagini...</value>
+  </data>
+  <data name="tsmiTrayImageEditor.Text" xml:space="preserve">
+    <value>Editor Immagini...</value>
+  </data>
+  <data name="pbDiscordOpen.ToolTip" xml:space="preserve">
+    <value>Apri collegamento all'invito per il server Discord di ShareX</value>
+  </data>
+  <data name="pbDiscordHide.ToolTip" xml:space="preserve">
+    <value>Nascondi permanentemente pulsante Discord</value>
+  </data>
+  <data name="tsmiImagePreviewSide.Text" xml:space="preserve">
+    <value>Laterale</value>
+  </data>
+  <data name="tsmiImagePreviewBottom.Text" xml:space="preserve">
+    <value>Bassa</value>
   </data>
 </root>

@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -23,10 +23,12 @@
 
 #endregion License Information (GPL v3)
 
+using CG.Web.MegaApiClient;
 using ShareX.HelpersLib;
 using ShareX.UploadersLib.FileUploaders;
 using ShareX.UploadersLib.ImageUploaders;
 using ShareX.UploadersLib.TextUploaders;
+using ShareX.UploadersLib.URLShorteners;
 using System.Collections.Generic;
 
 namespace ShareX.UploadersLib
@@ -46,13 +48,13 @@ namespace ShareX.UploadersLib
         public ImgurAlbumData ImgurSelectedAlbum = null;
         public List<ImgurAlbumData> ImgurAlbumList = null;
 
-        #endregion
+        #endregion Imgur
 
         #region ImageShack
 
         public ImageShackOptions ImageShackSettings = new ImageShackOptions();
 
-        #endregion
+        #endregion ImageShack
 
         #region TinyPic
 
@@ -60,43 +62,42 @@ namespace ShareX.UploadersLib
         public string TinyPicRegistrationCode = "";
         public string TinyPicUsername = "";
         public string TinyPicPassword = "";
-        public bool TinyPicRememberUserPass = false;
 
-        #endregion
+        #endregion TinyPic
 
         #region Flickr
 
         public OAuthInfo FlickrOAuthInfo = null;
         public FlickrSettings FlickrSettings = new FlickrSettings();
 
-        #endregion
+        #endregion Flickr
 
         #region Photobucket
 
         public OAuthInfo PhotobucketOAuthInfo = null;
         public PhotobucketAccountInfo PhotobucketAccountInfo = null;
 
-        #endregion
+        #endregion Photobucket
 
         #region Google Photos
 
         public OAuth2Info PicasaOAuth2Info = null;
         public string PicasaAlbumID = "";
 
-        #endregion
+        #endregion Google Photos
 
         #region Chevereto
 
         public CheveretoUploader CheveretoUploader = new CheveretoUploader("http://ultraimg.com/api/1/upload", "3374fa58c672fcaad8dab979f7687397");
         public bool CheveretoDirectURL = true;
 
-        #endregion
+        #endregion Chevereto
 
         #region vgy.me
 
         public string VgymeUserKey = "";
 
-        #endregion
+        #endregion vgy.me
 
         #endregion Image uploaders
 
@@ -106,30 +107,30 @@ namespace ShareX.UploadersLib
 
         public PastebinSettings PastebinSettings = new PastebinSettings();
 
-        #endregion
+        #endregion Pastebin
 
         #region Paste.ee
 
         public string Paste_eeUserKey = "";
+        public bool Paste_eeEncryptPaste = false;
 
-        #endregion
+        #endregion Paste.ee
 
         #region Gist
 
-        public bool GistAnonymousLogin = true;
         public OAuth2Info GistOAuth2Info = null;
         public bool GistPublishPublic = false;
         public bool GistRawURL = false;
         public string GistCustomURL = "";
 
-        #endregion
+        #endregion Gist
 
         #region uPaste
 
         public string UpasteUserKey = "";
         public bool UpasteIsPublic = false;
 
-        #endregion
+        #endregion uPaste
 
         #region Hastebin
 
@@ -137,20 +138,20 @@ namespace ShareX.UploadersLib
         public string HastebinSyntaxHighlighting = "hs";
         public bool HastebinUseFileExtension = true;
 
-        #endregion
+        #endregion Hastebin
 
         #region OneTimeSecret
 
         public string OneTimeSecretAPIKey = "";
         public string OneTimeSecretAPIUsername = "";
 
-        #endregion
+        #endregion OneTimeSecret
 
         #region Pastie
 
         public bool PastieIsPublic = false;
 
-        #endregion
+        #endregion Pastie
 
         #endregion Text uploaders
 
@@ -166,7 +167,7 @@ namespace ShareX.UploadersLib
         // TEMP: For backward compatibility
         public DropboxURLType DropboxURLType = DropboxURLType.Default;
 
-        #endregion
+        #endregion Dropbox
 
         #region FTP
 
@@ -175,15 +176,15 @@ namespace ShareX.UploadersLib
         public int FTPSelectedText = 0;
         public int FTPSelectedFile = 0;
 
-        #endregion
+        #endregion FTP
 
         #region OneDrive
 
-        public OAuth2Info OneDriveOAuth2Info = null;
-        public OneDriveFileInfo OneDriveSelectedFolder = OneDrive.RootFolder;
+        public OAuth2Info OneDriveV2OAuth2Info = null;
+        public OneDriveFileInfo OneDriveV2SelectedFolder = OneDrive.RootFolder;
         public bool OneDriveAutoCreateShareableLink = true;
 
-        #endregion
+        #endregion OneDrive
 
         #region Gfycat
 
@@ -191,7 +192,7 @@ namespace ShareX.UploadersLib
         public AccountType GfycatAccountType = AccountType.Anonymous;
         public bool GfycatIsPublic = false;
 
-        #endregion
+        #endregion Gfycat
 
         #region Google Drive
 
@@ -201,13 +202,13 @@ namespace ShareX.UploadersLib
         public bool GoogleDriveUseFolder = false;
         public string GoogleDriveFolderID = "";
 
-        #endregion
+        #endregion Google Drive
 
         #region puush
 
         public string PuushAPIKey = "";
 
-        #endregion
+        #endregion puush
 
         #region SendSpace
 
@@ -215,7 +216,7 @@ namespace ShareX.UploadersLib
         public string SendSpaceUsername = "";
         public string SendSpacePassword = "";
 
-        #endregion
+        #endregion SendSpace
 
         #region Box
 
@@ -223,13 +224,13 @@ namespace ShareX.UploadersLib
         public BoxFileEntry BoxSelectedFolder = Box.RootFolder;
         public bool BoxShare = true;
 
-        #endregion
+        #endregion Box
 
         #region Ge.tt
 
         public Ge_ttLogin Ge_ttLogin = null;
 
-        #endregion
+        #endregion Ge.tt
 
         #region Localhostr
 
@@ -237,7 +238,7 @@ namespace ShareX.UploadersLib
         public string LocalhostrPassword = "";
         public bool LocalhostrDirectURL = true;
 
-        #endregion
+        #endregion Localhostr
 
         #region Shared folder
 
@@ -246,7 +247,7 @@ namespace ShareX.UploadersLib
         public int LocalhostSelectedText = 0;
         public int LocalhostSelectedFiles = 0;
 
-        #endregion
+        #endregion Shared folder
 
         #region Email
 
@@ -261,7 +262,7 @@ namespace ShareX.UploadersLib
         public bool EmailAutomaticSend = false;
         public string EmailAutomaticSendTo = "";
 
-        #endregion
+        #endregion Email
 
         #region Jira
 
@@ -269,7 +270,14 @@ namespace ShareX.UploadersLib
         public string JiraIssuePrefix = "PROJECT-";
         public OAuthInfo JiraOAuthInfo = null;
 
-        #endregion
+        #endregion Jira
+
+        #region Mega
+
+        public MegaApiClient.AuthInfos MegaAuthInfos = null;
+        public string MegaParentNodeId = null;
+
+        #endregion Mega
 
         #region Amazon S3
 
@@ -278,19 +286,22 @@ namespace ShareX.UploadersLib
             ObjectPrefix = "ShareX/%y/%mo"
         };
 
-        #endregion
+        #endregion Amazon S3
 
-        #region ownCloud
+        #region ownCloud / Nextcloud
 
         public string OwnCloudHost = "";
         public string OwnCloudUsername = "";
         public string OwnCloudPassword = "";
         public string OwnCloudPath = "/";
+        public int OwnCloudExpiryTime = 7;
         public bool OwnCloudCreateShare = true;
         public bool OwnCloudDirectLink = false;
-        public bool OwnCloud81Compatibility = false;
+        public bool OwnCloud81Compatibility = true;
+        public bool OwnCloudUsePreviewLinks = false;
+        public bool OwnCloudAutoExpire = false;
 
-        #endregion
+        #endregion ownCloud / Nextcloud
 
         #region MediaFire
 
@@ -299,37 +310,37 @@ namespace ShareX.UploadersLib
         public string MediaFirePath = "";
         public bool MediaFireUseLongLink = false;
 
-        #endregion
+        #endregion MediaFire
 
         #region Pushbullet
 
         public PushbulletSettings PushbulletSettings = new PushbulletSettings();
 
-        #endregion
+        #endregion Pushbullet
 
         #region Lambda
 
         public LambdaSettings LambdaSettings = new LambdaSettings();
 
-        #endregion
+        #endregion Lambda
 
         #region Lithiio
 
         public LithiioSettings LithiioSettings = new LithiioSettings();
 
-        #endregion
+        #endregion Lithiio
 
         #region Pomf
 
         public PomfUploader PomfUploader = new PomfUploader("https://mixtape.moe/upload.php");
 
-        #endregion
+        #endregion Pomf
 
         #region s-ul
 
         public string SulAPIKey = "";
 
-        #endregion
+        #endregion s-ul
 
         #region Seafile
 
@@ -346,7 +357,7 @@ namespace ShareX.UploadersLib
         public string SeafileAccInfoEmail = "";
         public string SeafileAccInfoUsage = "";
 
-        #endregion
+        #endregion Seafile
 
         #region Streamable
 
@@ -355,7 +366,7 @@ namespace ShareX.UploadersLib
         public string StreamablePassword = "";
         public bool StreamableUseDirectURL = false;
 
-        #endregion
+        #endregion Streamable
 
         #region Azure Storage
 
@@ -364,14 +375,46 @@ namespace ShareX.UploadersLib
         public string AzureStorageContainer = "";
         public string AzureStorageEnvironment = "blob.core.windows.net";
         public string AzureStorageCustomDomain = "";
+        public string AzureStorageUploadPath = "";
 
-        #endregion
+        #endregion Azure Storage
+
+        #region Backblaze B2
+
+        public string B2ApplicationKeyId = "";
+        public string B2ApplicationKey = "";
+        public string B2BucketName = "";
+        public string B2UploadPath = "ShareX/%y/%mo/";
+        public bool B2UseCustomUrl = false;
+        public string B2CustomUrl = "https://example.com/";
+
+        #endregion Backblaze B2
 
         #region Plik
 
         public PlikSettings PlikSettings = new PlikSettings();
 
-        #endregion
+        #endregion Plik
+
+        #region YouTube
+
+        public OAuth2Info YouTubeOAuth2Info = null;
+        public YouTubeVideoPrivacy YouTubePrivacyType = YouTubeVideoPrivacy.Public;
+        public bool YouTubeUseShortenedLink = false;
+
+        #endregion YouTube
+
+        #region Google Cloud Storage
+
+        public OAuth2Info GoogleCloudStorageOAuth2Info = null;
+        public string GoogleCloudStorageBucket = "";
+        public string GoogleCloudStorageDomain = "";
+        public string GoogleCloudStorageObjectPrefix = "ShareX/%y/%mo";
+        public bool GoogleCloudStorageRemoveExtensionImage = false;
+        public bool GoogleCloudStorageRemoveExtensionVideo = false;
+        public bool GoogleCloudStorageRemoveExtensionText = false;
+
+        #endregion Google Cloud Storage
 
         #endregion File uploaders
 
@@ -382,14 +425,7 @@ namespace ShareX.UploadersLib
         public OAuth2Info BitlyOAuth2Info = null;
         public string BitlyDomain = "";
 
-        #endregion
-
-        #region Google URL Shortener
-
-        public AccountType GoogleURLShortenerAccountType = AccountType.Anonymous;
-        public OAuth2Info GoogleURLShortenerOAuth2Info = null;
-
-        #endregion
+        #endregion bit.ly
 
         #region yourls.org
 
@@ -398,20 +434,14 @@ namespace ShareX.UploadersLib
         public string YourlsUsername = "";
         public string YourlsPassword = "";
 
-        #endregion
+        #endregion yourls.org
 
         #region adf.ly
 
         public string AdFlyAPIKEY = "";
         public string AdFlyAPIUID = "";
 
-        #endregion
-
-        #region coinurl.com
-
-        public string CoinURLUUID = "";
-
-        #endregion
+        #endregion adf.ly
 
         #region polr
 
@@ -420,7 +450,21 @@ namespace ShareX.UploadersLib
         public bool PolrIsSecret = false;
         public bool PolrUseAPIv1 = false;
 
-        #endregion
+        #endregion polr
+
+        #region Firebase Dynamic Links
+
+        public string FirebaseWebAPIKey = "";
+        public string FirebaseDynamicLinkDomain = "";
+        public bool FirebaseIsShort = false;
+
+        #endregion Firebase Dynamic Links
+
+        #region Kutt
+
+        public KuttSettings KuttSettings = new KuttSettings();
+
+        #endregion Kutt
 
         #endregion URL shorteners
 
@@ -433,7 +477,7 @@ namespace ShareX.UploadersLib
         public bool TwitterSkipMessageBox = false;
         public string TwitterDefaultMessage = "";
 
-        #endregion
+        #endregion Twitter
 
         #region Custom uploaders
 

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -27,6 +27,7 @@ using ShareX.HelpersLib;
 using ShareX.UploadersLib.OtherServices;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShareX.UploadersLib
@@ -44,6 +45,7 @@ namespace ShareX.UploadersLib
             InitializeComponent();
             Icon = ShareXResources.Icon;
             cbLanguages.Items.AddRange(Helpers.GetEnumDescriptions<OCRSpaceLanguages>());
+            txtResult.SupportSelectAll();
         }
 
         public OCRSpaceForm(Stream data, string filename) : this()
@@ -52,13 +54,13 @@ namespace ShareX.UploadersLib
             this.filename = filename;
         }
 
-        private void OCRSpaceResultForm_Shown(object sender, EventArgs e)
+        private async void OCRSpaceResultForm_Shown(object sender, EventArgs e)
         {
             UpdateControls();
 
             if (string.IsNullOrEmpty(Result))
             {
-                StartOCR(data, filename);
+                await StartOCR(data, filename);
             }
         }
 
@@ -74,14 +76,14 @@ namespace ShareX.UploadersLib
             btnStartOCR.Visible = data != null && data.Length > 0 && !string.IsNullOrEmpty(filename);
         }
 
-        private void StartOCR(Stream stream, string filename)
+        private async Task StartOCR(Stream stream, string filename)
         {
             if (stream != null && stream.Length > 0 && !string.IsNullOrEmpty(filename))
             {
                 cbLanguages.Enabled = btnStartOCR.Enabled = txtResult.Enabled = false;
                 pbProgress.Visible = true;
 
-                TaskEx.Run(() =>
+                await Task.Run(() =>
                 {
                     try
                     {
@@ -97,17 +99,16 @@ namespace ShareX.UploadersLib
                     {
                         DebugHelper.WriteException(e);
                     }
-                },
-                () =>
-                {
-                    if (!IsDisposed)
-                    {
-                        UpdateControls();
-                        cbLanguages.Enabled = btnStartOCR.Enabled = txtResult.Enabled = true;
-                        pbProgress.Visible = false;
-                        txtResult.Focus();
-                    }
                 });
+
+                if (!IsDisposed)
+                {
+                    UpdateControls();
+                    cbLanguages.Enabled = btnStartOCR.Enabled = txtResult.Enabled = true;
+                    pbProgress.Visible = false;
+                    txtResult.Focus();
+                    llGoogleTranslate.Enabled = true;
+                }
             }
         }
 
@@ -116,9 +117,9 @@ namespace ShareX.UploadersLib
             Language = (OCRSpaceLanguages)cbLanguages.SelectedIndex;
         }
 
-        private void btnStartOCR_Click(object sender, EventArgs e)
+        private async void btnStartOCR_Click(object sender, EventArgs e)
         {
-            StartOCR(data, filename);
+            await StartOCR(data, filename);
         }
 
         private void llAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -126,18 +127,10 @@ namespace ShareX.UploadersLib
             URLHelpers.OpenURL("https://ocr.space");
         }
 
-        private void txtResult_KeyDown(object sender, KeyEventArgs e)
+        private void llGoogleTranslate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.A)
-            {
-                if (sender != null)
-                {
-                    ((TextBox)sender).SelectAll();
-                }
-
-                e.SuppressKeyPress = true; // TextBox will beep if it gets the CTRL+A
-                e.Handled = true;
-            }
+            URLHelpers.OpenURL("https://translate.google.com/#auto/en/" + Uri.EscapeDataString(txtResult.Text));
+            Close();
         }
     }
 }

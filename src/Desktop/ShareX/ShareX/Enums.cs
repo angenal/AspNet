@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -27,6 +27,10 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
+#if WindowsStore
+using Windows.ApplicationModel;
+#endif
+
 namespace ShareX
 {
     public enum ShareXBuild
@@ -34,7 +38,7 @@ namespace ShareX
         Debug,
         Release,
         Steam,
-        WindowsStore,
+        MicrosoftStore,
         Unknown
     }
 
@@ -51,10 +55,14 @@ namespace ShareX
         German,
         [Description("Magyar (Hungarian)")]
         Hungarian,
+        [Description("Bahasa Indonesia (Indonesian)")]
+        Indonesian,
         [Description("Italiano (Italian)")]
         Italian,
         [Description("한국어 (Korean)")]
         Korean,
+        [Description("Español mexicano (Mexican Spanish)")]
+        MexicanSpanish,
         [Description("Português-Brasil (Portuguese-Brazil)")]
         PortugueseBrazil,
         [Description("Русский (Russian)")]
@@ -67,6 +75,8 @@ namespace ShareX
         TraditionalChinese,
         [Description("Türkçe (Turkish)")]
         Turkish,
+        [Description("Українська (Ukrainian)")]
+        Ukrainian,
         [Description("Tiếng Việt (Vietnamese)")]
         Vietnamese
     }
@@ -89,6 +99,8 @@ namespace ShareX
         Preparing,
         Working,
         Stopping,
+        Stopped,
+        Failed,
         Completed,
         History
     }
@@ -110,10 +122,11 @@ namespace ShareX
         CopyFileToClipboard = 1 << 10,
         CopyFilePathToClipboard = 1 << 11,
         ShowInExplorer = 1 << 12,
-        DoOCR = 1 << 13,
-        ShowBeforeUploadWindow = 1 << 14,
-        UploadImageToHost = 1 << 15,
-        DeleteFile = 1 << 16
+        ScanQRCode = 1 << 13,
+        DoOCR = 1 << 14,
+        ShowBeforeUploadWindow = 1 << 15,
+        UploadImageToHost = 1 << 16,
+        DeleteFile = 1 << 17
     }
 
     [Flags]
@@ -257,7 +270,7 @@ namespace ShareX
 
     public enum ScreenRecordState
     {
-        Waiting, BeforeStart, AfterStart, AfterRecordingStart, AfterStop
+        Waiting, BeforeStart, AfterStart, AfterRecordingStart, Encoding
     }
 
     public enum RegionCaptureType
@@ -265,10 +278,23 @@ namespace ShareX
         Default, Light, Transparent
     }
 
-    public enum StartupTaskState
+#if !WindowsStore
+    public enum StartupState
     {
-        Disabled = 0,
-        DisabledByUser = 1,
-        Enabled = 2
+        Disabled,
+        DisabledByUser,
+        Enabled,
+        DisabledByPolicy,
+        EnabledByPolicy
     }
+#else
+    public enum StartupState
+    {
+        Disabled = StartupTaskState.Disabled,
+        DisabledByUser = StartupTaskState.DisabledByUser,
+        Enabled = StartupTaskState.Enabled,
+        DisabledByPolicy = StartupTaskState.DisabledByPolicy,
+        EnabledByPolicy = StartupTaskState.EnabledByPolicy
+    }
+#endif
 }

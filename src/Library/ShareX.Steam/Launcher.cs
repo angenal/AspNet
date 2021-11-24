@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -64,7 +64,7 @@ namespace ShareX.Steam
                 // If running on startup and need to show "In-app" then wait until Steam is open
                 if (IsStartupRun && ShowInApp)
                 {
-                    for (int i = 0; i < 10 && !SteamAPI.IsSteamRunning(); i++)
+                    for (int i = 0; i < 20 && !SteamAPI.IsSteamRunning(); i++)
                     {
                         Thread.Sleep(1000);
                     }
@@ -208,7 +208,9 @@ namespace ShareX.Steam
                             return;
                         }
                     }
-                    catch { }
+                    catch
+                    {
+                    }
 
                     // Workaround 2
                     string path = Path.Combine(Environment.SystemDirectory, "cmd.exe");

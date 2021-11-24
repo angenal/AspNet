@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -29,13 +29,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace ShareX.ImageEffectsLib
 {
     public partial class ImageEffectsForm : Form
     {
+        public event Action<Image> ImageProcessRequested;
+
         public Image DefaultImage { get; private set; }
 
         public List<ImageEffectPreset> Presets { get; private set; }
@@ -50,16 +51,36 @@ namespace ShareX.ImageEffectsLib
             Icon = ShareXResources.Icon;
             DefaultImage = img;
             Presets = presets;
+            if (Presets.Count == 0)
+            {
+                Presets.Add(new ImageEffectPreset());
+            }
             SelectedPresetIndex = selectedPresetIndex;
             eiImageEffects.ObjectType = typeof(ImageEffectPreset);
             AddAllEffectsToContextMenu();
         }
 
-        public void EditorMode()
+        public void EnableToolMode(Action<Image> imageProcessRequested)
         {
+            ImageProcessRequested += imageProcessRequested;
             pbResult.AllowDrop = true;
             mbLoadImage.Visible = true;
             btnSaveImage.Visible = true;
+            btnUploadImage.Visible = true;
+        }
+
+        public void EditorMode()
+        {
+            btnOK.Visible = true;
+            btnClose.Text = Resources.ImageEffectsForm_EditorMode_Cancel;
+        }
+
+        protected void OnImageProcessRequested(Image img)
+        {
+            if (ImageProcessRequested != null)
+            {
+                ImageProcessRequested(img);
+            }
         }
 
         private void AddAllEffectsToContextMenu()
@@ -72,6 +93,7 @@ namespace ShareX.ImageEffectsLib
                 typeof(DrawText));
 
             AddEffectToContextMenu(Resources.ImageEffectsForm_AddAllEffectsToTreeView_Manipulations,
+                typeof(AutoCrop),
                 typeof(Canvas),
                 typeof(Crop),
                 typeof(Flip),
@@ -94,6 +116,7 @@ namespace ShareX.ImageEffectsLib
                 typeof(MatrixColor),
                 typeof(Polaroid),
                 typeof(Saturation),
+                typeof(SelectiveColor),
                 typeof(Sepia));
 
             AddEffectToContextMenu(Resources.ImageEffectsForm_AddAllEffectsToTreeView_Filters,
@@ -183,22 +206,31 @@ namespace ShareX.ImageEffectsLib
 
                 if (preset != null && DefaultImage != null)
                 {
-                    Stopwatch timer = Stopwatch.StartNew();
+                    Cursor = Cursors.WaitCursor;
 
-                    using (Image preview = ApplyEffects())
+                    try
                     {
-                        if (preview != null)
+                        Stopwatch timer = Stopwatch.StartNew();
+
+                        using (Image preview = ApplyEffects())
                         {
-                            pbResult.LoadImage(preview);
-                            Text = string.Format("ShareX - " + Resources.ImageEffectsForm_UpdatePreview_Image_effects___Width___0___Height___1___Render_time___2__ms,
-                                preview.Width, preview.Height, timer.ElapsedMilliseconds);
+                            if (preview != null)
+                            {
+                                pbResult.LoadImage(preview);
+                                Text = string.Format("ShareX - " + Resources.ImageEffectsForm_UpdatePreview_Image_effects___Width___0___Height___1___Render_time___2__ms,
+                                    preview.Width, preview.Height, timer.ElapsedMilliseconds);
+                            }
+                            else
+                            {
+                                pbResult.Reset();
+                                Text = string.Format("ShareX - " + Resources.ImageEffectsForm_UpdatePreview_Image_effects___Width___0___Height___1___Render_time___2__ms,
+                                    0, 0, timer.ElapsedMilliseconds);
+                            }
                         }
-                        else
-                        {
-                            pbResult.Reset();
-                            Text = string.Format("ShareX - " + Resources.ImageEffectsForm_UpdatePreview_Image_effects___Width___0___Height___1___Render_time___2__ms,
-                                0, 0, timer.ElapsedMilliseconds);
-                        }
+                    }
+                    finally
+                    {
+                        Cursor = Cursors.Default;
                     }
                 }
 
@@ -210,12 +242,7 @@ namespace ShareX.ImageEffectsLib
         {
             btnRemovePreset.Enabled = cbPresets.Enabled = txtPresetName.Enabled = btnAdd.Enabled = cbPresets.SelectedIndex > -1;
             btnRemove.Enabled = btnDuplicate.Enabled = lvEffects.SelectedItems.Count > 0;
-            btnClear.Enabled = btnRefresh.Enabled = lvEffects.Items.Count > 0;
-        }
-
-        private List<ImageEffect> GetImageEffects()
-        {
-            return lvEffects.Items.Cast<ListViewItem>().Where(x => x != null && x.Tag is ImageEffect).Select(x => (ImageEffect)x.Tag).ToList();
+            btnClear.Enabled = lvEffects.Items.Count > 0;
         }
 
         private Image ApplyEffects()
@@ -395,18 +422,6 @@ namespace ShareX.ImageEffectsLib
             RemoveSelectedEffects();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ImageEffectPreset preset = GetSelectedPreset();
-
-            if (preset != null)
-            {
-                lvEffects.Items.Clear();
-                preset.Effects.Clear();
-                UpdatePreview();
-            }
-        }
-
         private void btnDuplicate_Click(object sender, EventArgs e)
         {
             ImageEffectPreset preset = GetSelectedPreset();
@@ -428,6 +443,18 @@ namespace ShareX.ImageEffectsLib
             }
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ImageEffectPreset preset = GetSelectedPreset();
+
+            if (preset != null)
+            {
+                lvEffects.Items.Clear();
+                preset.Effects.Clear();
+                UpdatePreview();
+            }
+        }
+
         private void lvEffects_ItemMoved(object sender, int oldIndex, int newIndex)
         {
             ImageEffectPreset preset = GetSelectedPreset();
@@ -437,11 +464,6 @@ namespace ShareX.ImageEffectsLib
                 preset.Effects.Move(oldIndex, newIndex);
                 UpdatePreview();
             }
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            UpdatePreview();
         }
 
         private void lvEffects_SelectedIndexChanged(object sender, EventArgs e)
@@ -493,7 +515,7 @@ namespace ShareX.ImageEffectsLib
 
         private object eiImageEffects_ExportRequested()
         {
-            return GetImageEffects();
+            return GetSelectedPreset();
         }
 
         private void eiImageEffects_ImportRequested(object obj)
@@ -544,6 +566,19 @@ namespace ShareX.ImageEffectsLib
             }
         }
 
+        private void btnUploadImage_Click(object sender, EventArgs e)
+        {
+            if (DefaultImage != null)
+            {
+                Image img = ApplyEffects();
+
+                if (img != null)
+                {
+                    OnImageProcessRequested(img);
+                }
+            }
+        }
+
         private void pbResult_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false) || e.Data.GetDataPresent(DataFormats.Bitmap, false))
@@ -583,6 +618,12 @@ namespace ShareX.ImageEffectsLib
                     UpdatePreview();
                 }
             }
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

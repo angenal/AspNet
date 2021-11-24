@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -23,35 +23,46 @@
 
 #endregion License Information (GPL v3)
 
+#if !WindowsStore
+
 using Microsoft.Win32;
 using ShareX.HelpersLib;
 using System;
 
-namespace ShareX.StartupManagers
+namespace ShareX
 {
     public abstract class GenericStartupManager : IStartupManager
     {
         public abstract string StartupTargetPath { get; }
 
-        public StartupTaskState State
+        public StartupState State
         {
             get
             {
-                byte[] status = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder",
-                    "ShareX.lnk", null) as byte[];
-
-                if (status != null && status.Length > 0 && status[0] == 3)
+                if (ShortcutHelpers.CheckShortcut(Environment.SpecialFolder.Startup, StartupTargetPath))
                 {
-                    return StartupTaskState.DisabledByUser;
-                }
+                    byte[] status = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder",
+                        "ShareX.lnk", null) as byte[];
 
-                return ShortcutHelpers.CheckShortcut(Environment.SpecialFolder.Startup, StartupTargetPath) ? StartupTaskState.Enabled : StartupTaskState.Disabled;
+                    if (status != null && status.Length > 0 && status[0] == 3)
+                    {
+                        return StartupState.DisabledByUser;
+                    }
+                    else
+                    {
+                        return StartupState.Enabled;
+                    }
+                }
+                else
+                {
+                    return StartupState.Disabled;
+                }
             }
             set
             {
-                if (value == StartupTaskState.Enabled || value == StartupTaskState.Disabled)
+                if (value == StartupState.Enabled || value == StartupState.Disabled)
                 {
-                    ShortcutHelpers.SetShortcut(value == StartupTaskState.Enabled, Environment.SpecialFolder.Startup, StartupTargetPath, "-silent");
+                    ShortcutHelpers.SetShortcut(value == StartupState.Enabled, Environment.SpecialFolder.Startup, StartupTargetPath, "-silent");
                 }
                 else
                 {
@@ -61,3 +72,5 @@ namespace ShareX.StartupManagers
         }
     }
 }
+
+#endif

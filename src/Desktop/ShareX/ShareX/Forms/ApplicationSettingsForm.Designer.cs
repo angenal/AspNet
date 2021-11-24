@@ -33,6 +33,7 @@ namespace ShareX
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ApplicationSettingsForm));
             this.tcSettings = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.btnCheckDevBuild = new System.Windows.Forms.Button();
             this.cbCheckPreReleaseUpdates = new System.Windows.Forms.CheckBox();
             this.cbTrayMiddleClickAction = new System.Windows.Forms.ComboBox();
             this.lblTrayMiddleClickAction = new System.Windows.Forms.Label();
@@ -60,6 +61,7 @@ namespace ShareX
             this.cbChromeExtensionSupport = new System.Windows.Forms.CheckBox();
             this.btnChromeOpenExtensionPage = new System.Windows.Forms.Button();
             this.gbWindows = new System.Windows.Forms.GroupBox();
+            this.cbEditWithShareX = new System.Windows.Forms.CheckBox();
             this.cbStartWithWindows = new System.Windows.Forms.CheckBox();
             this.cbSendToMenu = new System.Windows.Forms.CheckBox();
             this.cbShellContextMenu = new System.Windows.Forms.CheckBox();
@@ -79,9 +81,6 @@ namespace ShareX
             this.txtSaveImageSubFolderPattern = new System.Windows.Forms.TextBox();
             this.tpExportImport = new System.Windows.Forms.TabPage();
             this.btnResetSettings = new System.Windows.Forms.Button();
-            this.cbExportLogs = new System.Windows.Forms.CheckBox();
-            this.cbExportHistory = new System.Windows.Forms.CheckBox();
-            this.cbExportSettings = new System.Windows.Forms.CheckBox();
             this.pbExportImport = new System.Windows.Forms.ProgressBar();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
@@ -192,6 +191,8 @@ namespace ShareX
             // 
             // tpGeneral
             // 
+            this.tpGeneral.BackColor = System.Drawing.SystemColors.Window;
+            this.tpGeneral.Controls.Add(this.btnCheckDevBuild);
             this.tpGeneral.Controls.Add(this.cbCheckPreReleaseUpdates);
             this.tpGeneral.Controls.Add(this.cbTrayMiddleClickAction);
             this.tpGeneral.Controls.Add(this.lblTrayMiddleClickAction);
@@ -210,7 +211,13 @@ namespace ShareX
             this.tpGeneral.Controls.Add(this.lblLanguage);
             resources.ApplyResources(this.tpGeneral, "tpGeneral");
             this.tpGeneral.Name = "tpGeneral";
-            this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // btnCheckDevBuild
+            // 
+            resources.ApplyResources(this.btnCheckDevBuild, "btnCheckDevBuild");
+            this.btnCheckDevBuild.Name = "btnCheckDevBuild";
+            this.btnCheckDevBuild.UseVisualStyleBackColor = true;
+            this.btnCheckDevBuild.Click += new System.EventHandler(this.btnCheckDevBuild_Click);
             // 
             // cbCheckPreReleaseUpdates
             // 
@@ -218,7 +225,6 @@ namespace ShareX
             this.cbCheckPreReleaseUpdates.Name = "cbCheckPreReleaseUpdates";
             this.cbCheckPreReleaseUpdates.UseVisualStyleBackColor = true;
             this.cbCheckPreReleaseUpdates.CheckedChanged += new System.EventHandler(this.cbCheckPreReleaseUpdates_CheckedChanged);
-            this.cbCheckPreReleaseUpdates.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cbCheckPreReleaseUpdates_MouseUp);
             // 
             // cbTrayMiddleClickAction
             // 
@@ -327,13 +333,13 @@ namespace ShareX
             // 
             // tpIntegration
             // 
+            this.tpIntegration.BackColor = System.Drawing.SystemColors.Window;
             this.tpIntegration.Controls.Add(this.gbFirefox);
             this.tpIntegration.Controls.Add(this.gbSteam);
             this.tpIntegration.Controls.Add(this.gbChrome);
             this.tpIntegration.Controls.Add(this.gbWindows);
             resources.ApplyResources(this.tpIntegration, "tpIntegration");
             this.tpIntegration.Name = "tpIntegration";
-            this.tpIntegration.UseVisualStyleBackColor = true;
             // 
             // gbFirefox
             // 
@@ -395,12 +401,20 @@ namespace ShareX
             // 
             // gbWindows
             // 
+            this.gbWindows.Controls.Add(this.cbEditWithShareX);
             this.gbWindows.Controls.Add(this.cbStartWithWindows);
             this.gbWindows.Controls.Add(this.cbSendToMenu);
             this.gbWindows.Controls.Add(this.cbShellContextMenu);
             resources.ApplyResources(this.gbWindows, "gbWindows");
             this.gbWindows.Name = "gbWindows";
             this.gbWindows.TabStop = false;
+            // 
+            // cbEditWithShareX
+            // 
+            resources.ApplyResources(this.cbEditWithShareX, "cbEditWithShareX");
+            this.cbEditWithShareX.Name = "cbEditWithShareX";
+            this.cbEditWithShareX.UseVisualStyleBackColor = true;
+            this.cbEditWithShareX.CheckedChanged += new System.EventHandler(this.cbEditWithShareX_CheckedChanged);
             // 
             // cbStartWithWindows
             // 
@@ -425,6 +439,7 @@ namespace ShareX
             // 
             // tpPaths
             // 
+            this.tpPaths.BackColor = System.Drawing.SystemColors.Window;
             this.tpPaths.Controls.Add(this.lblNotePersonalFolderPath);
             this.tpPaths.Controls.Add(this.btnOpenScreenshotsFolder);
             this.tpPaths.Controls.Add(this.lblPreviewPersonalFolderPath);
@@ -440,7 +455,6 @@ namespace ShareX
             this.tpPaths.Controls.Add(this.txtSaveImageSubFolderPattern);
             resources.ApplyResources(this.tpPaths, "tpPaths");
             this.tpPaths.Name = "tpPaths";
-            this.tpPaths.UseVisualStyleBackColor = true;
             // 
             // lblNotePersonalFolderPath
             // 
@@ -522,16 +536,13 @@ namespace ShareX
             // 
             // tpExportImport
             // 
+            this.tpExportImport.BackColor = System.Drawing.SystemColors.Window;
             this.tpExportImport.Controls.Add(this.btnResetSettings);
-            this.tpExportImport.Controls.Add(this.cbExportLogs);
-            this.tpExportImport.Controls.Add(this.cbExportHistory);
-            this.tpExportImport.Controls.Add(this.cbExportSettings);
             this.tpExportImport.Controls.Add(this.pbExportImport);
             this.tpExportImport.Controls.Add(this.btnExport);
             this.tpExportImport.Controls.Add(this.btnImport);
             resources.ApplyResources(this.tpExportImport, "tpExportImport");
             this.tpExportImport.Name = "tpExportImport";
-            this.tpExportImport.UseVisualStyleBackColor = true;
             // 
             // btnResetSettings
             // 
@@ -539,27 +550,6 @@ namespace ShareX
             this.btnResetSettings.Name = "btnResetSettings";
             this.btnResetSettings.UseVisualStyleBackColor = true;
             this.btnResetSettings.Click += new System.EventHandler(this.btnResetSettings_Click);
-            // 
-            // cbExportLogs
-            // 
-            resources.ApplyResources(this.cbExportLogs, "cbExportLogs");
-            this.cbExportLogs.Name = "cbExportLogs";
-            this.cbExportLogs.UseVisualStyleBackColor = true;
-            this.cbExportLogs.CheckedChanged += new System.EventHandler(this.cbExportLogs_CheckedChanged);
-            // 
-            // cbExportHistory
-            // 
-            resources.ApplyResources(this.cbExportHistory, "cbExportHistory");
-            this.cbExportHistory.Name = "cbExportHistory";
-            this.cbExportHistory.UseVisualStyleBackColor = true;
-            this.cbExportHistory.CheckedChanged += new System.EventHandler(this.cbExportHistory_CheckedChanged);
-            // 
-            // cbExportSettings
-            // 
-            resources.ApplyResources(this.cbExportSettings, "cbExportSettings");
-            this.cbExportSettings.Name = "cbExportSettings";
-            this.cbExportSettings.UseVisualStyleBackColor = true;
-            this.cbExportSettings.CheckedChanged += new System.EventHandler(this.cbExportSettings_CheckedChanged);
             // 
             // pbExportImport
             // 
@@ -584,10 +574,10 @@ namespace ShareX
             // 
             // tpUpload
             // 
+            this.tpUpload.BackColor = System.Drawing.SystemColors.Window;
             this.tpUpload.Controls.Add(this.tcUpload);
             resources.ApplyResources(this.tpUpload, "tpUpload");
             this.tpUpload.Name = "tpUpload";
-            this.tpUpload.UseVisualStyleBackColor = true;
             // 
             // tcUpload
             // 
@@ -600,6 +590,7 @@ namespace ShareX
             // 
             // tpPerformance
             // 
+            this.tpPerformance.BackColor = System.Drawing.SystemColors.Window;
             this.tpPerformance.Controls.Add(this.lblUploadLimit);
             this.tpPerformance.Controls.Add(this.nudUploadLimit);
             this.tpPerformance.Controls.Add(this.lblUploadLimitHint);
@@ -607,7 +598,6 @@ namespace ShareX
             this.tpPerformance.Controls.Add(this.lblBufferSize);
             resources.ApplyResources(this.tpPerformance, "tpPerformance");
             this.tpPerformance.Name = "tpPerformance";
-            this.tpPerformance.UseVisualStyleBackColor = true;
             // 
             // lblUploadLimit
             // 
@@ -650,10 +640,10 @@ namespace ShareX
             // 
             // tpUploadResults
             // 
+            this.tpUploadResults.BackColor = System.Drawing.SystemColors.Window;
             this.tpUploadResults.Controls.Add(this.gbClipboardFormats);
             resources.ApplyResources(this.tpUploadResults, "tpUploadResults");
             this.tpUploadResults.Name = "tpUploadResults";
-            this.tpUploadResults.UseVisualStyleBackColor = true;
             // 
             // gbClipboardFormats
             // 
@@ -709,13 +699,13 @@ namespace ShareX
             // 
             // tpUploadRetry
             // 
+            this.tpUploadRetry.BackColor = System.Drawing.SystemColors.Window;
             this.tpUploadRetry.Controls.Add(this.chkUseSecondaryUploaders);
             this.tpUploadRetry.Controls.Add(this.tlpBackupDestinations);
             this.tpUploadRetry.Controls.Add(this.cbIfUploadFailRetryOnce);
             this.tpUploadRetry.Controls.Add(this.nudRetryUpload);
             resources.ApplyResources(this.tpUploadRetry, "tpUploadRetry");
             this.tpUploadRetry.Name = "tpUploadRetry";
-            this.tpUploadRetry.UseVisualStyleBackColor = true;
             // 
             // chkUseSecondaryUploaders
             // 
@@ -823,11 +813,11 @@ namespace ShareX
             // 
             // tpHistory
             // 
+            this.tpHistory.BackColor = System.Drawing.SystemColors.Window;
             this.tpHistory.Controls.Add(this.gbHistory);
             this.tpHistory.Controls.Add(this.gbRecentLinks);
             resources.ApplyResources(this.tpHistory, "tpHistory");
             this.tpHistory.Name = "tpHistory";
-            this.tpHistory.UseVisualStyleBackColor = true;
             // 
             // gbHistory
             // 
@@ -914,12 +904,12 @@ namespace ShareX
             // 
             // tpPrint
             // 
+            this.tpPrint.BackColor = System.Drawing.SystemColors.Window;
             this.tpPrint.Controls.Add(this.cbPrintDontShowWindowsDialog);
             this.tpPrint.Controls.Add(this.cbDontShowPrintSettingDialog);
             this.tpPrint.Controls.Add(this.btnShowImagePrintSettings);
             resources.ApplyResources(this.tpPrint, "tpPrint");
             this.tpPrint.Name = "tpPrint";
-            this.tpPrint.UseVisualStyleBackColor = true;
             // 
             // cbPrintDontShowWindowsDialog
             // 
@@ -944,6 +934,7 @@ namespace ShareX
             // 
             // tpProxy
             // 
+            this.tpProxy.BackColor = System.Drawing.SystemColors.Window;
             this.tpProxy.Controls.Add(this.cbProxyMethod);
             this.tpProxy.Controls.Add(this.lblProxyMethod);
             this.tpProxy.Controls.Add(this.lblProxyHost);
@@ -956,7 +947,6 @@ namespace ShareX
             this.tpProxy.Controls.Add(this.txtProxyUsername);
             resources.ApplyResources(this.tpProxy, "tpProxy");
             this.tpProxy.Name = "tpProxy";
-            this.tpProxy.UseVisualStyleBackColor = true;
             // 
             // cbProxyMethod
             // 
@@ -1023,16 +1013,14 @@ namespace ShareX
             // 
             // tpAdvanced
             // 
+            this.tpAdvanced.BackColor = System.Drawing.SystemColors.Window;
             this.tpAdvanced.Controls.Add(this.pgSettings);
             resources.ApplyResources(this.tpAdvanced, "tpAdvanced");
             this.tpAdvanced.Name = "tpAdvanced";
-            this.tpAdvanced.UseVisualStyleBackColor = true;
             // 
             // pgSettings
             // 
-            this.pgSettings.CategoryForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             resources.ApplyResources(this.pgSettings, "pgSettings");
-            this.pgSettings.LineColor = System.Drawing.SystemColors.ControlDark;
             this.pgSettings.Name = "pgSettings";
             this.pgSettings.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             this.pgSettings.ToolbarVisible = false;
@@ -1074,7 +1062,6 @@ namespace ShareX
             this.tpPaths.ResumeLayout(false);
             this.tpPaths.PerformLayout();
             this.tpExportImport.ResumeLayout(false);
-            this.tpExportImport.PerformLayout();
             this.tpUpload.ResumeLayout(false);
             this.tcUpload.ResumeLayout(false);
             this.tpPerformance.ResumeLayout(false);
@@ -1193,9 +1180,6 @@ namespace ShareX
         private System.Windows.Forms.TabPage tpExportImport;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.CheckBox cbExportLogs;
-        private System.Windows.Forms.CheckBox cbExportHistory;
-        private System.Windows.Forms.CheckBox cbExportSettings;
         private System.Windows.Forms.ProgressBar pbExportImport;
         private System.Windows.Forms.Button btnEditQuickTaskMenu;
         private System.Windows.Forms.TabPage tpHistory;
@@ -1222,5 +1206,7 @@ namespace ShareX
         private System.Windows.Forms.CheckBox cbChromeExtensionSupport;
         private System.Windows.Forms.CheckBox cbFirefoxAddonSupport;
         private System.Windows.Forms.Button btnResetSettings;
+        private System.Windows.Forms.CheckBox cbEditWithShareX;
+        private System.Windows.Forms.Button btnCheckDevBuild;
     }
 }

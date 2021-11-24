@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -36,6 +36,7 @@ namespace ShareX.ScreenCaptureLib
 
         public string Text { get; set; }
         public TextDrawingOptions TextOptions { get; set; }
+        public virtual bool SupportGradient { get; }
 
         public override void OnConfigLoad()
         {
@@ -45,6 +46,8 @@ namespace ShareX.ScreenCaptureLib
             FillColor = AnnotationOptions.TextFillColor;
             CornerRadius = AnnotationOptions.DrawingCornerRadius;
             Shadow = AnnotationOptions.Shadow;
+            ShadowColor = AnnotationOptions.ShadowColor;
+            ShadowOffset = AnnotationOptions.ShadowOffset;
         }
 
         public override void OnConfigSave()
@@ -55,6 +58,8 @@ namespace ShareX.ScreenCaptureLib
             AnnotationOptions.TextFillColor = FillColor;
             AnnotationOptions.DrawingCornerRadius = CornerRadius;
             AnnotationOptions.Shadow = Shadow;
+            AnnotationOptions.ShadowColor = ShadowColor;
+            AnnotationOptions.ShadowOffset = ShadowOffset;
         }
 
         public override void OnDraw(Graphics g)
@@ -126,7 +131,7 @@ namespace ShareX.ScreenCaptureLib
 
             Manager.Form.Pause();
 
-            using (TextDrawingInputBox inputBox = new TextDrawingInputBox(Text, TextOptions))
+            using (TextDrawingInputBox inputBox = new TextDrawingInputBox(Text, TextOptions, SupportGradient))
             {
                 result = inputBox.ShowDialog(Manager.Form) == DialogResult.OK;
                 Text = inputBox.InputText;
@@ -158,7 +163,7 @@ namespace ShareX.ScreenCaptureLib
 
             if (center)
             {
-                location = new Point(Rectangle.X - size.Width / 2, Rectangle.Y - size.Height / 2);
+                location = new Point(Rectangle.X - (size.Width / 2), Rectangle.Y - (size.Height / 2));
             }
             else
             {

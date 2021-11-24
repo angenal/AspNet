@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -59,6 +59,8 @@ namespace ShareX.ScreenCaptureLib
 
         public bool IsInsideCanvas => !RectangleInsideCanvas.IsEmpty;
 
+        public virtual bool LimitRectangleToInsideCanvas { get; }
+
         private Point startPosition;
 
         public Point StartPosition
@@ -107,8 +109,34 @@ namespace ShareX.ScreenCaptureLib
             return Rectangle.Contains(position);
         }
 
+        internal void ChangeNodeShape(NodeShape nodeShape)
+        {
+            foreach (ResizeNode node in Manager.ResizeNodes)
+            {
+                node.Shape = nodeShape;
+            }
+        }
+
+        protected virtual void UseLightResizeNodes()
+        {
+            ChangeNodeShape(NodeShape.Square);
+        }
+
+        protected void UpdateNodeShape()
+        {
+            if (Options.UseLightResizeNodes)
+            {
+                UseLightResizeNodes();
+            }
+            else
+            {
+                ChangeNodeShape(NodeShape.CustomNode);
+            }
+        }
+
         public virtual void ShowNodes()
         {
+            UpdateNodeShape();
             Manager.NodesVisible = true;
         }
 
@@ -159,7 +187,8 @@ namespace ShareX.ScreenCaptureLib
             if (Options.IsFixedSize && ShapeCategory == ShapeCategory.Region)
             {
                 Manager.IsMoving = true;
-                Rectangle = new Rectangle(new Point(pos.X - Options.FixedSize.Width / 2, pos.Y - Options.FixedSize.Height / 2), Options.FixedSize);
+                Rectangle = new Rectangle(new Point(pos.X - (Options.FixedSize.Width / 2), pos.Y - (Options.FixedSize.Height / 2)), Options.FixedSize);
+                OnCreated();
             }
             else
             {
@@ -173,13 +202,21 @@ namespace ShareX.ScreenCaptureLib
             InitialSize = Rectangle.Size;
         }
 
-        public virtual void OnMoving() { }
+        public virtual void OnMoving()
+        {
+        }
 
-        public virtual void OnMoved() { }
+        public virtual void OnMoved()
+        {
+        }
 
-        public virtual void OnResizing() { }
+        public virtual void OnResizing()
+        {
+        }
 
-        public virtual void OnResized() { }
+        public virtual void OnResized()
+        {
+        }
 
         public virtual void OnUpdate()
         {
@@ -218,6 +255,12 @@ namespace ShareX.ScreenCaptureLib
             else if (Manager.IsMoving && !Manager.IsPanning)
             {
                 Move(InputManager.MouseVelocity);
+            }
+
+            if (LimitRectangleToInsideCanvas)
+            {
+                StartPosition = StartPosition.Restrict(Manager.Form.CanvasRectangle);
+                EndPosition = EndPosition.Restrict(Manager.Form.CanvasRectangle);
             }
         }
 
@@ -316,7 +359,7 @@ namespace ShareX.ScreenCaptureLib
                     StartPosition = startPos;
                     EndPosition = endPos;
 
-                    if (Manager.IsProportionalResizing)
+                    if (Manager.IsProportionalResizing && !InitialSize.IsEmpty)
                     {
                         switch (nodePosition)
                         {
@@ -379,6 +422,11 @@ namespace ShareX.ScreenCaptureLib
 
                         Rectangle = newRect;
                     }
+
+                    if (LimitRectangleToInsideCanvas)
+                    {
+                        Rectangle = RectangleInsideCanvas;
+                    }
                 }
             }
         }
@@ -386,11 +434,11 @@ namespace ShareX.ScreenCaptureLib
         public virtual void OnNodePositionUpdate()
         {
             int xStart = Rectangle.X;
-            int xMid = Rectangle.X + Rectangle.Width / 2;
+            int xMid = Rectangle.X + (Rectangle.Width / 2);
             int xEnd = Rectangle.X + Rectangle.Width - 1;
 
             int yStart = Rectangle.Y;
-            int yMid = Rectangle.Y + Rectangle.Height / 2;
+            int yMid = Rectangle.Y + (Rectangle.Height / 2);
             int yEnd = Rectangle.Y + Rectangle.Height - 1;
 
             Manager.ResizeNodes[(int)NodePosition.TopLeft].Position = new Point(xStart, yStart);

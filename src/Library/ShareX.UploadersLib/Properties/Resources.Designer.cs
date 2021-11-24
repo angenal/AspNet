@@ -93,6 +93,16 @@ namespace ShareX.UploadersLib.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Icon BackblazeB2 {
+            get {
+                object obj = ResourceManager.GetObject("BackblazeB2", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Icon Bitly {
             get {
                 object obj = ResourceManager.GetObject("Bitly", resourceCulture);
@@ -126,16 +136,6 @@ namespace ShareX.UploadersLib.Properties {
             get {
                 object obj = ResourceManager.GetObject("Chevereto", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Icon CoinURL {
-            get {
-                object obj = ResourceManager.GetObject("CoinURL", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -182,6 +182,16 @@ namespace ShareX.UploadersLib.Properties {
         internal static System.Drawing.Icon Dropbox {
             get {
                 object obj = ResourceManager.GetObject("Dropbox", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon Firebase {
+            get {
+                object obj = ResourceManager.GetObject("Firebase", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -276,9 +286,9 @@ namespace ShareX.UploadersLib.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Icon Google {
+        internal static System.Drawing.Icon GoogleCloud {
             get {
-                object obj = ResourceManager.GetObject("Google", resourceCulture);
+                object obj = ResourceManager.GetObject("GoogleCloud", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -372,6 +382,16 @@ namespace ShareX.UploadersLib.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Kutt {
+            get {
+                object obj = ResourceManager.GetObject("Kutt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Lambda {
@@ -431,29 +451,29 @@ namespace ShareX.UploadersLib.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Status: Logged in. 的本地化字符串。
+        ///   查找类似 Logged in. 的本地化字符串。
         /// </summary>
-        internal static string OAuthControl_Status_Status__Logged_in_ {
+        internal static string OAuthControl_Status_LoggedIn {
             get {
-                return ResourceManager.GetString("OAuthControl_Status_Status__Logged_in_", resourceCulture);
+                return ResourceManager.GetString("OAuthControl_Status_LoggedIn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 Status: Login failed. 的本地化字符串。
+        ///   查找类似 Login failed. 的本地化字符串。
         /// </summary>
-        internal static string OAuthControl_Status_Status__Login_failed_ {
+        internal static string OAuthControl_Status_LoginFailed {
             get {
-                return ResourceManager.GetString("OAuthControl_Status_Status__Login_failed_", resourceCulture);
+                return ResourceManager.GetString("OAuthControl_Status_LoginFailed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 Status: Not logged in. 的本地化字符串。
+        ///   查找类似 Not logged in. 的本地化字符串。
         /// </summary>
-        internal static string OAuthControl_Status_Status__Not_logged_in_ {
+        internal static string OAuthControl_Status_NotLoggedIn {
             get {
-                return ResourceManager.GetString("OAuthControl_Status_Status__Not_logged_in_", resourceCulture);
+                return ResourceManager.GetString("OAuthControl_Status_NotLoggedIn", resourceCulture);
             }
         }
         
@@ -675,6 +695,15 @@ namespace ShareX.UploadersLib.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Optional, only used if you didn&apos;t set a bucket when you made the key 的本地化字符串。
+        /// </summary>
+        internal static string txtB2BucketWatermark {
+            get {
+                return ResourceManager.GetString("txtB2BucketWatermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Upaste {
@@ -690,15 +719,6 @@ namespace ShareX.UploadersLib.Properties {
         internal static string UploadersConfigForm_A_header_with_the_same_name_already_exists {
             get {
                 return ResourceManager.GetString("UploadersConfigForm_A_header_with_the_same_name_already_exists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 https://aws.amazon.com/s3/storage-classes/ 的本地化字符串。
-        /// </summary>
-        internal static string UploadersConfigForm_AmazonS3StorageClassHelpURL {
-            get {
-                return ResourceManager.GetString("UploadersConfigForm_AmazonS3StorageClassHelpURL", resourceCulture);
             }
         }
         
@@ -830,6 +850,42 @@ namespace ShareX.UploadersLib.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Click refresh button 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_MegaConfigureTab_Click_refresh_button {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_MegaConfigureTab_Click_refresh_button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Configured 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_MegaConfigureTab_Configured {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_MegaConfigureTab_Configured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Invalid authentication 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_MegaConfigureTab_Invalid_authentication {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_MegaConfigureTab_Invalid_authentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Not configured 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_MegaConfigureTab_Not_configured {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_MegaConfigureTab_Not_configured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Refresh authorization is not supported. 的本地化字符串。
         /// </summary>
         internal static string UploadersConfigForm_oAuthJira_RefreshButtonClicked_Refresh_authorization_is_not_supported_ {
@@ -904,6 +960,24 @@ namespace ShareX.UploadersLib.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Logged in. 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_UpdatePastebinStatus_LoggedIn {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_UpdatePastebinStatus_LoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Not logged in. 的本地化字符串。
+        /// </summary>
+        internal static string UploadersConfigForm_UpdatePastebinStatus_NotLoggedIn {
+            get {
+                return ResourceManager.GetString("UploadersConfigForm_UpdatePastebinStatus_NotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Vgyme {
@@ -919,6 +993,16 @@ namespace ShareX.UploadersLib.Properties {
         internal static System.Drawing.Icon Yourls {
             get {
                 object obj = ResourceManager.GetObject("Yourls", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon YouTube {
+            get {
+                object obj = ResourceManager.GetObject("YouTube", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

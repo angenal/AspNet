@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -53,7 +53,10 @@ namespace ShareX.UploadersLib.TextUploaders
                 apiKey = APIKeys.Paste_eeApplicationKey;
             }
 
-            return new Paste_ee(apiKey);
+            return new Paste_ee(apiKey)
+            {
+                EncryptPaste = config.Paste_eeEncryptPaste
+            };
         }
 
         public override TabPage GetUploadersConfigTabPage(UploadersConfigForm form) => form.tpPaste_ee;
@@ -62,6 +65,7 @@ namespace ShareX.UploadersLib.TextUploaders
     public sealed class Paste_ee : TextUploader
     {
         public string APIKey { get; private set; }
+        public bool EncryptPaste { get; set; }
 
         public Paste_ee(string apiKey)
         {
@@ -81,7 +85,7 @@ namespace ShareX.UploadersLib.TextUploaders
             {
                 Paste_eeSubmitRequestBody requestBody = new Paste_eeSubmitRequestBody()
                 {
-                    encrypted = false,
+                    encrypted = EncryptPaste,
                     description = "",
                     expiration = "never",
                     sections = new Paste_eeSubmitRequestBodySection[]
@@ -100,7 +104,7 @@ namespace ShareX.UploadersLib.TextUploaders
                 NameValueCollection headers = new NameValueCollection();
                 headers.Add("X-Auth-Token", APIKey);
 
-                ur.Response = SendRequest(HttpMethod.POST, "https://api.paste.ee/v1/pastes", json, ContentTypeJSON, null, headers);
+                ur.Response = SendRequest(HttpMethod.POST, "https://api.paste.ee/v1/pastes", json, UploadHelpers.ContentTypeJSON, null, headers);
 
                 if (!string.IsNullOrEmpty(ur.Response))
                 {

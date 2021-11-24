@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -34,6 +34,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Encoder = System.Drawing.Imaging.Encoder;
 
@@ -131,9 +132,9 @@ namespace ShareX.HelpersLib
 
         public static double ToDouble(this Version value)
         {
-            return Math.Max(value.Major, 0) * Math.Pow(10, 12) +
-                Math.Max(value.Minor, 0) * Math.Pow(10, 9) +
-                Math.Max(value.Build, 0) * Math.Pow(10, 6) +
+            return (Math.Max(value.Major, 0) * Math.Pow(10, 12)) +
+                (Math.Max(value.Minor, 0) * Math.Pow(10, 9)) +
+                (Math.Max(value.Build, 0) * Math.Pow(10, 6)) +
                 Math.Max(value.Revision, 0);
         }
 
@@ -169,7 +170,7 @@ namespace ShareX.HelpersLib
 
         public static Rectangle Offset(this Rectangle rect, int offset)
         {
-            return new Rectangle(rect.X - offset, rect.Y - offset, rect.Width + offset * 2, rect.Height + offset * 2);
+            return new Rectangle(rect.X - offset, rect.Y - offset, rect.Width + (offset * 2), rect.Height + (offset * 2));
         }
 
         public static Rectangle LocationOffset(this Rectangle rect, int x, int y)
@@ -240,6 +241,19 @@ namespace ShareX.HelpersLib
                 cms.Items.Add(tsmiPaste);
                 rtb.ContextMenuStrip = cms;
             }
+        }
+
+        public static void SupportSelectAll(this TextBox tb)
+        {
+            tb.KeyDown += (sender, e) =>
+            {
+                if (e.Control && e.KeyCode == Keys.A)
+                {
+                    tb.SelectAll();
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
+                }
+            };
         }
 
         public static void SaveJPG(this Image img, Stream stream, int quality)
@@ -466,7 +480,7 @@ namespace ShareX.HelpersLib
         {
             if (tsmi != null)
             {
-                foreach (var item in tsmi.GetCurrentParent().Items)
+                foreach (ToolStripItem item in tsmi.GetCurrentParent().Items)
                 {
                     if (item != null && item is ToolStripMenuItem tsmiItem && tsmiItem.Tag.Equals(tsmi.Tag))
                     {
@@ -574,7 +588,16 @@ namespace ShareX.HelpersLib
 
         public static Point Center(this Rectangle rect)
         {
-            return new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
+            return new Point(rect.X + (rect.Width / 2), rect.Y + (rect.Height / 2));
+        }
+
+        public static Point Restrict(this Point point, Rectangle rect)
+        {
+            point.X = Math.Max(point.X, rect.X);
+            point.Y = Math.Max(point.Y, rect.Y);
+            point.X = Math.Min(point.X, rect.X + rect.Width - 1);
+            point.Y = Math.Min(point.Y, rect.Y + rect.Height - 1);
+            return point;
         }
 
         public static void RefreshItems(this ComboBox cb)
@@ -596,6 +619,18 @@ namespace ShareX.HelpersLib
         {
             string error = fullError ? e.ToString() : e.Message;
             MessageBox.Show(error, "ShareX - " + Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static Task ContinueInCurrentContext(this Task task, Action action)
+        {
+            TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            return task.ContinueWith(t => action(), scheduler);
+        }
+
+        public static void DoubleBuffered(this DataGridView dgv, bool value)
+        {
+            PropertyInfo pi = dgv.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, value, null);
         }
     }
 }

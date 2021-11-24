@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -390,9 +390,10 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// Version of <see cref="AVISaveOptions(IntPtr, int, int, IntPtr[], IntPtr[])"/> for one stream only.
         /// </summary>
+        ///
         /// <param name="stream">Stream to configure.</param>
         /// <param name="options">Stream options.</param>
-        /// <param name="parentWindow"></param>
+        ///
         /// <returns>Returns TRUE if the user pressed OK, FALSE for CANCEL, or an error otherwise.</returns>
         public static int AVISaveOptions(IntPtr stream, ref AVICOMPRESSOPTIONS options, IntPtr parentWindow)
         {

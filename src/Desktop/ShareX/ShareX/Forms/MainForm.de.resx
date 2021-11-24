@@ -172,7 +172,7 @@
     <value>Hochladen von URL...</value>
   </data>
   <data name="tsmiUploadDragDrop.Text" xml:space="preserve">
-    <value>Per Drag &amp;&amp; Drop hochladen...</value>
+    <value>Per Drag &amp; Drop hochladen...</value>
   </data>
   <data name="tsddbUpload.Text" xml:space="preserve">
     <value>Hochladen</value>
@@ -181,7 +181,7 @@
     <value>Arbeitsablauf</value>
   </data>
   <data name="tsmiScreenColorPicker.Text" xml:space="preserve">
-    <value>Bildschirmfarbenauswähler...</value>
+    <value>Bildschirmfarbauswähler...</value>
   </data>
   <data name="tsmiImageEffects.Text" xml:space="preserve">
     <value>Bildeffekt...</value>
@@ -430,7 +430,7 @@
     <value>Arbeitsablauf</value>
   </data>
   <data name="tsmiTrayScreenColorPicker.Text" xml:space="preserve">
-    <value>Bildschirmfarbenauswähler...</value>
+    <value>Bildschirmfarbauswähler...</value>
   </data>
   <data name="tsmiTrayImageEffects.Text" xml:space="preserve">
     <value>Bildeffekte...</value>
@@ -523,7 +523,7 @@
     <value>Debug</value>
   </data>
   <data name="tsddbTools.Text" xml:space="preserve">
-    <value>Tools</value>
+    <value>Werkzeuge</value>
   </data>
   <data name="tsmiCopyHTMLLink.Text" xml:space="preserve">
     <value>HTML-Link</value>
@@ -598,7 +598,7 @@
     <value>Video Thumbnailer...</value>
   </data>
   <data name="tsmiWebpageCapture.Text" xml:space="preserve">
-    <value>Webpage Aufnahme...</value>
+    <value>Webseiten Aufnahme...</value>
   </data>
   <data name="tsmiTrayDebug.Text" xml:space="preserve">
     <value>Debug</value>
@@ -623,5 +623,134 @@
   </data>
   <data name="tsmiHideColumns.Text" xml:space="preserve">
     <value>Verstecke Spalten</value>
+  </data>
+  <data name="tsbAbout.Text" xml:space="preserve">
+    <value>Über...</value>
+  </data>
+  <data name="tsbDonate.Text" xml:space="preserve">
+    <value>Spenden...</value>
+  </data>
+  <data name="tsmiShortenURL.Text" xml:space="preserve">
+    <value>URL kürzen...</value>
+  </data>
+  <data name="tsmiUploadText.Text" xml:space="preserve">
+    <value>Text hochladen...</value>
+  </data>
+  <data name="tsmiImageThumbnailer.Text" xml:space="preserve">
+    <value>Bild Thumbnailer...</value>
+  </data>
+  <data name="tsmiOpenFile.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+Einagbe</value>
+  </data>
+  <data name="tsmiCopyURL.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+C</value>
+  </data>
+  <data name="tsmiUploadSelectedFile.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+U</value>
+  </data>
+  <data name="tsmiOpenFolder.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Umschalt+Eingabe</value>
+  </data>
+  <data name="tsmiCopyFile.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Umschalt+C</value>
+  </data>
+  <data name="tsmiDownloadSelectedURL.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+D</value>
+  </data>
+  <data name="tsmiEditSelectedFile.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+E</value>
+  </data>
+  <data name="tsmiCopyFilePath.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Strg+Umschalt+C</value>
+  </data>
+  <data name="tsmiDeleteSelectedItem.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Entf</value>
+  </data>
+  <data name="tsmiDeleteSelectedItem.Text" xml:space="preserve">
+    <value>Aufgabe aus der Liste entfernen</value>
+  </data>
+  <data name="tsmiDeleteSelectedFile.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Umschalt+Entf</value>
+  </data>
+  <data name="tsmiSearchImage.Text" xml:space="preserve">
+    <value>Google Bildersuche...</value>
+  </data>
+  <data name="tsmiTrayShortenURL.Text" xml:space="preserve">
+    <value>URL kürzen...</value>
+  </data>
+  <data name="tsmiTrayUploadText.Text" xml:space="preserve">
+    <value>Text hochladen...</value>
+  </data>
+  <data name="btnCloseNews.Text" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="tsmiOpenURL.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Eingabe</value>
+  </data>
+  <data name="tsmiOpenActionsToolbar.Text" xml:space="preserve">
+    <value>Aktionsleiste umschalten</value>
+  </data>
+  <data name="tsbNews.Text" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="tsmiCopyImage.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Alt+C</value>
+  </data>
+  <data name="tsmiDownloadSelectedURL.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="tsmiOCRImage.Text" xml:space="preserve">
+    <value>Texterkennung (OCR)...</value>
+  </data>
+  <data name="tsmiTextCapture.Text" xml:space="preserve">
+    <value>Texterkennung (OCR)...</value>
+  </data>
+  <data name="tsmiTrayTextCapture.Text" xml:space="preserve">
+    <value>Texterkennung (OCR)...</value>
+  </data>
+  <data name="pbPatreonHide.ToolTip" xml:space="preserve">
+    <value>Patreon Schaltfläche ausblenden</value>
+  </data>
+  <data name="tsmiTrayImageEditor.Text" xml:space="preserve">
+    <value>Bildeditor...</value>
+  </data>
+  <data name="tsmiTrayShowCursor.Text" xml:space="preserve">
+    <value>Mauszeiger anzeigen</value>
+  </data>
+  <data name="tsmiCopyMarkdownLink.Text" xml:space="preserve">
+    <value>Markdown-Link</value>
+  </data>
+  <data name="tsmiShowCursor.Text" xml:space="preserve">
+    <value>Mauszeiger anzeigen</value>
+  </data>
+  <data name="tsmiImageEditor.Text" xml:space="preserve">
+    <value>Bildeditor...</value>
+  </data>
+  <data name="pbDiscordHide.ToolTip" xml:space="preserve">
+    <value>Discord Schaltfläche ausblenden</value>
+  </data>
+  <data name="tsmiCopyMarkdownImage.Text" xml:space="preserve">
+    <value>Markdown-Bild</value>
+  </data>
+  <data name="tsmiCopyMarkdownLinkedImage.Text" xml:space="preserve">
+    <value>Markdown verlinktes Bild</value>
+  </data>
+  <data name="pbDiscordOpen.ToolTip" xml:space="preserve">
+    <value>ShareX Discord-Server Einladung öffnen</value>
+  </data>
+  <data name="tsmiCombineImages.Text" xml:space="preserve">
+    <value>Bilder zusammenführen...</value>
+  </data>
+  <data name="tsmiImagePreviewSide.Text" xml:space="preserve">
+    <value>Seitlich</value>
+  </data>
+  <data name="tsmiImagePreviewBottom.Text" xml:space="preserve">
+    <value>Unten</value>
+  </data>
+  <data name="tsmiTrayImageThumbnailer.Text" xml:space="preserve">
+    <value>Bild Thumbnailer</value>
+  </data>
+  <data name="pbPatreonOpen.ToolTip" xml:space="preserve">
+    <value>ShareX Patreon-Seite öffnen</value>
   </data>
 </root>

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -31,6 +31,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShareX.HelpersLib
@@ -57,6 +58,8 @@ namespace ShareX.HelpersLib
 
         [DefaultValue("")]
         public string CustomFilter { get; set; } = "";
+
+        public string DefaultFileName { get; set; }
 
         public ExportImportControl()
         {
@@ -130,7 +133,7 @@ namespace ShareX.HelpersLib
                         filter = CustomFilter + "|" + filter;
                     }
 
-                    using (SaveFileDialog sfd = new SaveFileDialog() { Filter = filter })
+                    using (SaveFileDialog sfd = new SaveFileDialog() { Filter = filter, FileName = DefaultFileName })
                     {
                         if (sfd.ShowDialog() == DialogResult.OK)
                         {
@@ -230,7 +233,7 @@ namespace ShareX.HelpersLib
             }
         }
 
-        private void tsmiImportURL_Click(object sender, EventArgs e)
+        private async void tsmiImportURL_Click(object sender, EventArgs e)
         {
             if (ImportRequested != null)
             {
@@ -242,16 +245,14 @@ namespace ShareX.HelpersLib
 
                     string json = null;
 
-                    TaskEx.Run(() =>
+                    await Task.Run(() =>
                     {
                         json = Helpers.DownloadString(url);
-                    },
-                    () =>
-                    {
-                        Import(json);
-
-                        btnImport.Enabled = true;
                     });
+
+                    Import(json);
+
+                    btnImport.Enabled = true;
                 }
             }
         }

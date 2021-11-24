@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -26,6 +26,7 @@
 using ShareX.HelpersLib;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShareX.ScreenCaptureLib
@@ -66,9 +67,11 @@ namespace ShareX.ScreenCaptureLib
             webBrowser.Stop();
         }
 
-        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private async void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            TaskEx.RunDelayed(GetWebpageBitmap, CaptureDelay);
+            await Task.Delay(CaptureDelay);
+
+            GetWebpageBitmap();
         }
 
         private void GetWebpageBitmap()

@@ -37,7 +37,6 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnDuplicate = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSaveImage = new System.Windows.Forms.Button();
             this.eiImageEffects = new ShareX.HelpersLib.ExportImportControl();
             this.pbResult = new ShareX.HelpersLib.MyPictureBox();
@@ -52,13 +51,14 @@
             this.lblPresetName = new System.Windows.Forms.Label();
             this.txtPresetName = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnUploadImage = new System.Windows.Forms.Button();
             this.cmsLoadImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // pgSettings
             // 
             resources.ApplyResources(this.pgSettings, "pgSettings");
-            this.pgSettings.LineColor = System.Drawing.SystemColors.ControlDark;
             this.pgSettings.Name = "pgSettings";
             this.pgSettings.PropertySort = System.Windows.Forms.PropertySort.NoSort;
             this.pgSettings.ToolbarVisible = false;
@@ -117,13 +117,6 @@
             this.btnDuplicate.UseVisualStyleBackColor = true;
             this.btnDuplicate.Click += new System.EventHandler(this.btnDuplicate_Click);
             // 
-            // btnRefresh
-            // 
-            resources.ApplyResources(this.btnRefresh, "btnRefresh");
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // btnSaveImage
             // 
             resources.ApplyResources(this.btnSaveImage, "btnSaveImage");
@@ -134,6 +127,7 @@
             // eiImageEffects
             // 
             resources.ApplyResources(this.eiImageEffects, "eiImageEffects");
+            this.eiImageEffects.DefaultFileName = null;
             this.eiImageEffects.Name = "eiImageEffects";
             this.eiImageEffects.ObjectType = null;
             this.eiImageEffects.ExportRequested += new ShareX.HelpersLib.ExportImportControl.ExportEventHandler(this.eiImageEffects_ExportRequested);
@@ -222,9 +216,24 @@
             // btnClose
             // 
             resources.ApplyResources(this.btnClose, "btnClose");
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Name = "btnClose";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnOK
+            // 
+            resources.ApplyResources(this.btnOK, "btnOK");
+            this.btnOK.Name = "btnOK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnUploadImage
+            // 
+            resources.ApplyResources(this.btnUploadImage, "btnUploadImage");
+            this.btnUploadImage.Name = "btnUploadImage";
+            this.btnUploadImage.UseVisualStyleBackColor = true;
+            this.btnUploadImage.Click += new System.EventHandler(this.btnUploadImage_Click);
             // 
             // ImageEffectsForm
             // 
@@ -232,6 +241,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.btnClose;
+            this.Controls.Add(this.btnUploadImage);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtPresetName);
             this.Controls.Add(this.lblPresetName);
@@ -241,7 +252,6 @@
             this.Controls.Add(this.mbLoadImage);
             this.Controls.Add(this.eiImageEffects);
             this.Controls.Add(this.btnSaveImage);
-            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDuplicate);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.pbResult);
@@ -268,7 +278,6 @@
         private ShareX.HelpersLib.MyPictureBox pbResult;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnDuplicate;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnSaveImage;
         private ShareX.HelpersLib.ExportImportControl eiImageEffects;
         private System.Windows.Forms.ContextMenuStrip cmsEffects;
@@ -282,6 +291,8 @@
         private System.Windows.Forms.Label lblPresetName;
         private System.Windows.Forms.TextBox txtPresetName;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnUploadImage;
     }
 }
 

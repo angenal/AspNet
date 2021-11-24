@@ -297,12 +297,6 @@
   <data name="cbRecentTasksSave.Text" xml:space="preserve">
     <value>Recente taken opslaan</value>
   </data>
-  <data name="cbExportHistory.Text" xml:space="preserve">
-    <value>Exporteer geschiedenis</value>
-  </data>
-  <data name="cbExportSettings.Text" xml:space="preserve">
-    <value>Exporteer instellingen</value>
-  </data>
   <data name="btnExport.Text" xml:space="preserve">
     <value>Exporteer...</value>
   </data>
@@ -311,5 +305,14 @@
   </data>
   <data name="tpExportImport.Text" xml:space="preserve">
     <value>Exporteer / Importeer</value>
+  </data>
+  <data name="cbHistorySaveTasks.Text" xml:space="preserve">
+    <value>Taken opslaan naar geschiedenis</value>
+  </data>
+  <data name="lblRecentTasksMaxCount.Text" xml:space="preserve">
+    <value>Maximale nummer van taken om op te slaan:</value>
+  </data>
+  <data name="cbCheckPreReleaseUpdates.Text" xml:space="preserve">
+    <value>Controleer op pre-release-updates</value>
   </data>
 </root>

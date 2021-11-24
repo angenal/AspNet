@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -62,8 +62,6 @@ namespace ShareX.UploadersLib
         Paste2,
         [Description("Slexy")]
         Slexy,
-        [Description("Pastee.org")]
-        Pastee,
         [Description("Paste.ee")]
         Paste_ee,
         [Description("GitHub Gist")]
@@ -99,11 +97,15 @@ namespace ShareX.UploadersLib
         Mega,
         [Description("Amazon S3")]
         AmazonS3,
+        [Description("Google Cloud Storage")]
+        GoogleCloudStorage,
         [Description("Azure Storage")]
         AzureStorage,
+        [Description("Backblaze B2")]
+        BackblazeB2,
         [Description("Gfycat")]
         Gfycat,
-        [Description("ownCloud")]
+        [Description("ownCloud / Nextcloud")]
         OwnCloud,
         [Description("MediaFire")]
         MediaFire,
@@ -125,8 +127,6 @@ namespace ShareX.UploadersLib
         Pomf,
         [Description("Uguu")]
         Uguu,
-        [Description("Dropfile")]
-        Dropfile,
         [Description("Seafile")]
         Seafile,
         [Description("Streamable")]
@@ -139,6 +139,8 @@ namespace ShareX.UploadersLib
         Transfersh,
         [Description("Plik")]
         Plik,
+        [Description("YouTube")]
+        YouTube,
         SharedFolder, // Localized
         Email, // Localized
         CustomFileUploader // Localized
@@ -149,8 +151,6 @@ namespace ShareX.UploadersLib
     {
         [Description("bit.ly")]
         BITLY,
-        [Description("goo.gl")]
-        Google,
         [Description("is.gd")]
         ISGD,
         [Description("v.gd")]
@@ -163,8 +163,6 @@ namespace ShareX.UploadersLib
         YOURLS,
         [Description("adf.ly")]
         AdFly,
-        [Description("coinurl.com")]
-        CoinURL,
         [Description("qr.net")]
         QRnet,
         [Description("vurl.com")]
@@ -173,6 +171,10 @@ namespace ShareX.UploadersLib
         TwoGP,
         [Description("Polr")]
         Polr,
+        [Description("Firebase Dynamic Links")]
+        FirebaseDynamicLinks,
+        [Description("Kutt")]
+        Kutt,
         CustomURLShortener // Localized
     }
 
@@ -287,21 +289,13 @@ namespace ShareX.UploadersLib
         LocalFilePathUri
     }
 
-    public enum CustomUploaderRequestType
+    public enum CustomUploaderRequestMethod
     {
         POST,
         GET,
         PUT,
         PATCH,
         DELETE
-    }
-
-    public enum CustomUploaderResponseParseType
-    {
-        Regex,
-        Json,
-        Xml,
-        Random
     }
 
     [Flags]
@@ -340,5 +334,12 @@ namespace ShareX.UploadersLib
         URL,
         ThumbnailURL,
         DeletionURL
+    }
+
+    public enum YouTubeVideoPrivacy // Localized
+    {
+        Public,
+        Unlisted,
+        Private
     }
 }

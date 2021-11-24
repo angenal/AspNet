@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -40,25 +40,13 @@ namespace ShareX.ImageEffectsLib
         [DefaultValue(ContentAlignment.BottomRight)]
         public ContentAlignment Placement { get; set; }
 
-        private Point offset;
-
         [DefaultValue(typeof(Point), "5, 5")]
-        public Point Offset
-        {
-            get
-            {
-                return offset;
-            }
-            set
-            {
-                offset = new Point(value.X.Min(0), value.Y.Min(0));
-            }
-        }
+        public Point Offset { get; set; }
 
         [DefaultValue(true), Description("If text watermark size bigger than source image then don't draw it.")]
         public bool AutoHide { get; set; }
 
-        [DefaultValue("getsharex.com"), Editor(typeof(NameParserEditor), typeof(UITypeEditor))]
+        [DefaultValue("Text watermark"), Editor(typeof(NameParserEditor), typeof(UITypeEditor))]
         public string Text { get; set; }
 
         private FontSafe textFontSafe = new FontSafe();
@@ -131,7 +119,7 @@ namespace ShareX.ImageEffectsLib
         [DefaultValue(LinearGradientMode.Vertical)]
         public LinearGradientMode GradientType { get; set; }
 
-        [DefaultValue(typeof(Color), "0, 20, 40"), Editor(typeof(MyColorEditor), typeof(UITypeEditor)), TypeConverter(typeof(MyColorConverter))]
+        [DefaultValue(typeof(Color), "0, 30, 80"), Editor(typeof(MyColorEditor), typeof(UITypeEditor)), TypeConverter(typeof(MyColorConverter))]
         public Color BackgroundColor2 { get; set; }
 
         [DefaultValue(false)]

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -94,7 +94,7 @@ namespace ShareX.HelpersLib
 
         public static float Remap(this float value, float from1, float to1, float from2, float to2)
         {
-            return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+            return ((value - from1) / (to1 - from1) * (to2 - from2)) + from2;
         }
 
         public static int RandomAdd(this int num, int min, int max)
@@ -136,7 +136,7 @@ namespace ShareX.HelpersLib
 
             string result = "";
             int quotient = Math.Abs(value);
-            while (0 < quotient)
+            while (quotient > 0)
             {
                 int temp = quotient % radix;
                 result = digits[temp] + result;

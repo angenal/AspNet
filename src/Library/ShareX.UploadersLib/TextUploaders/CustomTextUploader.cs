@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -80,34 +80,35 @@ namespace ShareX.UploadersLib.TextUploaders
 
         public override UploadResult UploadText(string text, string fileName)
         {
+            if ((customUploader.RequestType != CustomUploaderRequestMethod.POST || string.IsNullOrEmpty(customUploader.FileFormName)) &&
+                (customUploader.Arguments == null || !customUploader.Arguments.Any(x => x.Value.Contains("$input$"))) &&
+                (customUploader.Headers == null || !customUploader.Headers.Any(x => x.Value.Contains("$input$"))))
+                throw new Exception("At least one \"$input$\" required for argument or header value.");
+
             UploadResult result = new UploadResult();
+            CustomUploaderArgumentInput input = new CustomUploaderArgumentInput(fileName, text);
 
-            string requestURL = customUploader.GetRequestURL();
-
-            if ((customUploader.RequestType != CustomUploaderRequestType.POST || string.IsNullOrEmpty(customUploader.FileFormName)) &&
-                (customUploader.Arguments == null || !customUploader.Arguments.Any(x => x.Value.Contains("$input$"))))
-                throw new Exception("Atleast one '$input$' required for argument value.");
-
-            Dictionary<string, string> args = customUploader.GetArguments(text);
-
-            if (customUploader.RequestType == CustomUploaderRequestType.POST)
+            if (customUploader.RequestType == CustomUploaderRequestMethod.POST)
             {
                 if (string.IsNullOrEmpty(customUploader.FileFormName))
                 {
-                    result.Response = SendRequestMultiPart(requestURL, args, customUploader.GetHeaders(), responseType: customUploader.ResponseType);
+                    result.Response = SendRequestMultiPart(customUploader.GetRequestURL(), customUploader.GetArguments(input),
+                        customUploader.GetHeaders(input), null, customUploader.ResponseType, customUploader.GetHttpMethod());
                 }
                 else
                 {
-                    byte[] byteArray = Encoding.UTF8.GetBytes(text);
-                    using (MemoryStream stream = new MemoryStream(byteArray))
+                    byte[] bytes = Encoding.UTF8.GetBytes(text);
+                    using (MemoryStream stream = new MemoryStream(bytes))
                     {
-                        result = SendRequestFile(requestURL, stream, fileName, customUploader.GetFileFormName(), args, customUploader.GetHeaders(), responseType: customUploader.ResponseType);
+                        result = SendRequestFile(customUploader.GetRequestURL(), stream, fileName, customUploader.GetFileFormName(),
+                            customUploader.GetArguments(input), customUploader.GetHeaders(input), null, customUploader.ResponseType, customUploader.GetHttpMethod());
                     }
                 }
             }
             else
             {
-                result.Response = SendRequest(customUploader.GetHttpMethod(), requestURL, args, customUploader.GetHeaders(), responseType: customUploader.ResponseType);
+                result.Response = SendRequest(customUploader.GetHttpMethod(), customUploader.GetRequestURL(), customUploader.GetArguments(input),
+                    customUploader.GetHeaders(input), null, customUploader.ResponseType);
             }
 
             try

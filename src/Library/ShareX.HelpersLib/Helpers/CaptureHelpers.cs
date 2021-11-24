@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -270,7 +270,7 @@ namespace ShareX.HelpersLib
             float angle = MathHelpers.LookAtRadian(pos, pos2);
             float startAngle = MathHelpers.DegreeToRadian(startDegree);
             float snapAngle = MathHelpers.DegreeToRadian(degree);
-            float newAngle = (float)Math.Round((angle + startAngle) / snapAngle) * snapAngle - startAngle;
+            float newAngle = ((float)Math.Round((angle + startAngle) / snapAngle) * snapAngle) - startAngle;
             float distance = MathHelpers.Distance(pos, pos2);
             return (Point)(pos + MathHelpers.RadianToVector2(newAngle, distance));
         }

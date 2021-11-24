@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -408,7 +408,7 @@ namespace ShareX.UploadersLib.FileUploaders
         /// http://www.sendspace.com/dev_method.html?method=upload.getInfo
         /// </summary>
         /// <param name="sessionKey">Received from auth.login</param>
-        /// <returns>URL to upload the file to, progress_url for real-time progress information, max_file_size for max size current user can upload, upload_identifier &amp; extra_info to be passed with the upload form</returns>
+        /// <returns>URL to upload the file to, progress_url for real-time progress information, max_file_size for max size current user can upload, upload_identifier & extra_info to be passed with the upload form</returns>
         public UploadInfo UploadGetInfo(string sessionKey)
         {
             Dictionary<string, string> args = new Dictionary<string, string>();
@@ -435,7 +435,7 @@ namespace ShareX.UploadersLib.FileUploaders
         /// <summary>
         /// Obtains the basic information needed to make an anonymous upload. This method does not require authentication or login.
         /// </summary>
-        /// <returns>URL to upload the file to, progress_url for real-time progress information, max_file_size for max size current user can upload, upload_identifier &amp; extra_info to be passed in the upload form</returns>
+        /// <returns>URL to upload the file to, progress_url for real-time progress information, max_file_size for max size current user can upload, upload_identifier & extra_info to be passed in the upload form</returns>
         public UploadInfo AnonymousUploadGetInfo()
         {
             Dictionary<string, string> args = new Dictionary<string, string>();
@@ -472,7 +472,7 @@ namespace ShareX.UploadersLib.FileUploaders
         /// <param name="folder_id"></param>
         /// <param name="recipient_email">an email (or emails separated with ,) of recipient/s to receive information about the upload</param>
         /// <param name="notify_uploader">0/1 - should the uploader be notified?</param>
-        /// <param name="redirect_url">page to redirect after upload will be attached upload_status=ok/fail&amp;file_id=XXXX</param>
+        /// <param name="redirect_url">page to redirect after upload will be attached upload_status=ok/fail&file_id=XXXX</param>
         /// <returns></returns>
         public Dictionary<string, string> PrepareArguments(string max_file_size, string upload_identifier, string extra_info,
             string description, string password, string folder_id, string recipient_email, string notify_uploader, string redirect_url)

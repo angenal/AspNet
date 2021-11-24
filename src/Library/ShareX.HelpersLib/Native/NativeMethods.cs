@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -194,6 +194,9 @@ namespace ShareX.HelpersLib
         public static extern bool IsZoomed(IntPtr hWnd);
 
         [DllImport("user32.dll")]
+        public static extern IntPtr LoadCursor(IntPtr hInstance, int iconId);
+
+        [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
@@ -257,7 +260,7 @@ namespace ShareX.HelpersLib
         /// specified by the 'vk' parameter in order to generate the WM_HOTKEY message.</param>
         /// <param name="vk">Specifies the virtual-key code of the hot key</param>
         /// <returns><c>true</c> if the function succeeds, otherwise <c>false</c></returns>
-        /// <see href="http://msdn.microsoft.com/en-us/library/ms646309(VS.85).aspx"/>
+        /// <seealso cref="http://msdn.microsoft.com/en-us/library/ms646309(VS.85).aspx"/>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -312,6 +315,9 @@ namespace ShareX.HelpersLib
         [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWow64Process([In] IntPtr hProcess, [Out] out bool lpSystemInfo);
+
+        [DllImport("kernel32.dll", PreserveSig = false)]
+        public static extern void RegisterApplicationRestart(string pwzCommandline, RegisterApplicationRestartFlags dwFlags);
 
         #endregion kernel32.dll
 

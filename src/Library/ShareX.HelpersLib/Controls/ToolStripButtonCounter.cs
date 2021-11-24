@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -23,12 +23,8 @@
 
 #endregion License Information (GPL v3)
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 
 namespace ShareX.HelpersLib
 {
@@ -64,7 +60,8 @@ namespace ShareX.HelpersLib
             }
             else
             {
-                Bitmap bmp = new Bitmap(16, 16);
+                int size = Height - (ExtraImagePadding * 2);
+                Bitmap bmp = new Bitmap(size, size);
 
                 using (Graphics g = Graphics.FromImage(bmp))
                 using (Brush brush = new SolidBrush(Color.FromArgb(230, 0, 0)))
@@ -73,7 +70,7 @@ namespace ShareX.HelpersLib
                 {
                     g.SmoothingMode = SmoothingMode.HighQuality;
                     g.PixelOffsetMode = PixelOffsetMode.Half;
-                    g.DrawRoundedRectangle(brush, null, new Rectangle(0, 0, 16, 16), 3);
+                    g.DrawRoundedRectangle(brush, null, new Rectangle(0, 0, bmp.Width, bmp.Height), 3);
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
                     string text;
@@ -85,7 +82,7 @@ namespace ShareX.HelpersLib
                     {
                         text = Counter.ToString();
                     }
-                    g.DrawString(text, font, Brushes.White, new Rectangle(0, 0, 16, 16), stringFormat);
+                    g.DrawString(text, font, Brushes.White, new Rectangle(0, 0, bmp.Width, bmp.Height), stringFormat);
                 }
 
                 if (ExtraImage != null)

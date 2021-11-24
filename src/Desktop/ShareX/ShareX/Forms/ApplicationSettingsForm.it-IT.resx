@@ -216,15 +216,6 @@
   <data name="btnResetSettings.Text" xml:space="preserve">
     <value>Ripristina Impostazioni...</value>
   </data>
-  <data name="cbExportLogs.Text" xml:space="preserve">
-    <value>Esporta Log</value>
-  </data>
-  <data name="cbExportHistory.Text" xml:space="preserve">
-    <value>Esporta Cronologia</value>
-  </data>
-  <data name="cbExportSettings.Text" xml:space="preserve">
-    <value>Esporta Impostazioni</value>
-  </data>
   <data name="btnExport.Text" xml:space="preserve">
     <value>Esporta...</value>
   </data>

@@ -1,8 +1,8 @@
-#region License Information (GPL v3)
+﻿#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (c) 2007-2017 ShareX Team
+    Copyright (c) 2007-2018 ShareX Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1771,12 +1771,12 @@ namespace ShareX.HelpersLib
         WS_EX_DLGMODALFRAME = 0x00000001,
 
         /// <summary>
-        /// Specifies that a child window created with this style will not send the WM_PARENTNOTIFY message to its parent window when the child window is created or destroyed.
+        /// Specifies that a child window created with this style will not send the <see cref="WM_PARENTNOTIFY"/> message to its parent window when the child window is created or destroyed.
         /// </summary>
         WS_EX_NOPARENTNOTIFY = 0x00000004,
 
         /// <summary>
-        /// Specifies that a window created with this style should be placed above all nontopmost windows and stay above them even when the window is deactivated. An application can use the SetWindowPos member function to add or remove this attribute.
+        /// Specifies that a window created with this style should be placed above all nontopmost windows and stay above them even when the window is deactivated. An application can use the <see cref="SetWindowPos"/> member function to add or remove this attribute.
         /// </summary>
         WS_EX_TOPMOST = 0x00000008,
 
@@ -1786,7 +1786,7 @@ namespace ShareX.HelpersLib
         WS_EX_ACCEPTFILES = 0x00000010,
 
         /// <summary>
-        /// Specifies that a window created with this style is to be transparent. That is, any windows that are beneath the window are not obscured by the window. A window created with this style receives WM_PAINT messages only after all sibling windows beneath it have been updated.
+        /// Specifies that a window created with this style is to be transparent. That is, any windows that are beneath the window are not obscured by the window. A window created with this style receives <see cref="WM_PAINT"/> messages only after all sibling windows beneath it have been updated.
         /// </summary>
         WS_EX_TRANSPARENT = 0x00000020,
 
@@ -1813,7 +1813,7 @@ namespace ShareX.HelpersLib
         WS_EX_CLIENTEDGE = 0x00000200,
 
         /// <summary>
-        /// Includes a question mark in the title bar of the window. When the user clicks the question mark, the cursor changes to a question mark with a pointer. If the user then clicks a child window, the child receives a WM_HELP message.
+        /// Includes a question mark in the title bar of the window. When the user clicks the question mark, the cursor changes to a question mark with a pointer. If the user then clicks a child window, the child receives a <see cref="WM_HELP"/> message.
         /// </summary>
         WS_EX_CONTEXTHELP = 0x00000400,
 
@@ -1875,7 +1875,7 @@ namespace ShareX.HelpersLib
 
         //#if(_WIN32_WINNT >= 0x0500)
         /// <summary>
-        /// Windows 2000/XP: Creates a layered window. Note that this cannot be used for child windows. Also, this cannot be used if the window has a class style of either CS_OWNDC or CS_CLASSDC.
+        /// Windows 2000/XP: Creates a layered window. Note that this cannot be used for child windows. Also, this cannot be used if the window has a class style of either <see cref="CS_OWNDC"/> or <see cref="CS_CLASSDC"/>.
         /// </summary>
         WS_EX_LAYERED = 0x00080000,
         //#endif /* _WIN32_WINNT >= 0x0500 */
@@ -1894,14 +1894,14 @@ namespace ShareX.HelpersLib
 
         //#if(_WIN32_WINNT >= 0x0500)
         /// <summary>
-        /// Windows XP: Paints all descendants of a window in bottom-to-top painting order using double-buffering. For more information, see Remarks. This cannot be used if the window has a class style of either CS_OWNDC or CS_CLASSDC.
+        /// Windows XP: Paints all descendants of a window in bottom-to-top painting order using double-buffering. For more information, see Remarks. This cannot be used if the window has a class style of either <see cref="CS_OWNDC"/> or <see cref="CS_CLASSDC"/>.
         /// </summary>
         WS_EX_COMPOSITED = 0x02000000,
 
         /// <summary>
         /// Windows 2000/XP: A top-level window created with this style does not become the foreground window when the user clicks it. The system does not bring this window to the foreground when the user minimizes or closes the foreground window.
-        /// To activate the window, use the SetActiveWindow or SetForegroundWindow function.
-        /// The window does not appear on the taskbar by default. To force the window to appear on the taskbar, use the WS_EX_APPWINDOW style.
+        /// To activate the window, use the <see cref="SetActiveWindow"/> or <see cref="SetForegroundWindow"/> function.
+        /// The window does not appear on the taskbar by default. To force the window to appear on the taskbar, use the <see cref="WS_EX_APPWINDOW"/> style.
         /// </summary>
         WS_EX_NOACTIVATE = 0x08000000
         //#endif /* _WIN32_WINNT >= 0x0500 */
@@ -2881,7 +2881,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// The attributes of an item or folder have changed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the item or folder that has changed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2890,7 +2890,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A nonfolder item has been created.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the item that was created.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2899,7 +2899,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A nonfolder item has been deleted.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the item that was deleted.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2908,7 +2908,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A drive has been added.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive that was added.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2917,7 +2917,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A drive has been added and the Shell should create a new window for the drive.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive that was added.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2925,7 +2925,7 @@ namespace ShareX.HelpersLib
 
         /// <summary>
         /// A drive has been removed. <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive that was removed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2939,7 +2939,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// The amount of free space on a drive has changed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive on which the free space changed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2948,7 +2948,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// Storage media has been inserted into a drive.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive that contains the new media.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2957,7 +2957,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// Storage media has been removed from a drive.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the root of the drive from which the media was removed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2965,7 +2965,7 @@ namespace ShareX.HelpersLib
 
         /// <summary>
         /// A folder has been created. <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/>
-        /// or <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// or <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the folder that was created.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2974,7 +2974,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A folder on the local computer is being shared via the network.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the folder that is being shared.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2983,7 +2983,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A folder on the local computer is no longer being shared via the network.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the folder that is no longer being shared.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -2992,7 +2992,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// The name of a folder has changed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the previous pointer to an item identifier list (PIDL) or name of the folder.
         /// <i>dwItem2</i> contains the new PIDL or name of the folder.
         /// </summary>
@@ -3001,7 +3001,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// The name of a nonfolder item has changed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the previous PIDL or name of the item.
         /// <i>dwItem2</i> contains the new PIDL or name of the item.
         /// </summary>
@@ -3010,7 +3010,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// A folder has been removed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the folder that was removed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -3019,7 +3019,7 @@ namespace ShareX.HelpersLib
         /// <summary>
         /// The computer has disconnected from a server.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the server from which the computer was disconnected.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// </summary>
@@ -3029,7 +3029,7 @@ namespace ShareX.HelpersLib
         /// The contents of an existing folder have changed,
         /// but the folder still exists and has not been renamed.
         /// <see cref="HChangeNotifyFlags.SHCNF_IDLIST"/> or
-        /// <see cref="HChangeNotifyFlags.SHCNF_PATHW"/> must be specified in <i>uFlags</i>.
+        /// <see cref="HChangeNotifyFlags.SHCNF_PATH"/> must be specified in <i>uFlags</i>.
         /// <i>dwItem1</i> contains the folder that has changed.
         /// <i>dwItem2</i> is not used and should be <see langword="null"/>.
         /// If a folder has been created, deleted, or renamed, use SHCNE_MKDIR, SHCNE_RMDIR, or
@@ -3130,5 +3130,43 @@ namespace ShareX.HelpersLib
         PROFILE_KERNEL = 0x20000000,
         PROFILE_SERVER = 0x40000000,
         CREATE_IGNORE_SYSTEM_DEFAULT = 0x80000000,
+    }
+
+    [Flags]
+    public enum RegisterApplicationRestartFlags : uint
+    {
+        /// <summary>
+        /// Do not restart the process if it terminates due to an unhandled exception.
+        /// </summary>
+        RESTART_NO_CRASH = 1,
+        /// <summary>
+        /// Do not restart the process if it terminates due to the application not responding.
+        /// </summary>
+        RESTART_NO_HANG = 2,
+        /// <summary>
+        /// Do not restart the process if it terminates due to the installation of an update.
+        /// </summary>
+        RESTART_NO_PATCH = 4,
+        /// <summary>
+        /// Do not restart the process if the computer is restarted as the result of an update.
+        /// </summary>
+        RESTART_NO_REBOOT = 8
+    }
+
+    [Flags]
+    public enum EndSessionReasons : uint
+    {
+        /// <summary>
+        /// The application is using a file that must be replaced, the system is being serviced, or system resources are exhausted.
+        /// </summary>
+        ENDSESSION_CLOSEAPP = 0x1,
+        /// <summary>
+        /// The application is forced to shut down.
+        /// </summary>
+        ENDSESSION_CRITICAL = 0x40000000,
+        /// <summary>
+        /// The user is logging off.
+        /// </summary>
+        ENDSESSION_LOGOFF = 0x80000000
     }
 }
