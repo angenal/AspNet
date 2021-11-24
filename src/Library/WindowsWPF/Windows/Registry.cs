@@ -55,7 +55,7 @@ namespace System.Windows
             if (string.IsNullOrEmpty(protocol)) throw new ArgumentException("You must provide the argument.", nameof(protocol));
 
             long location = 0; // Loop seed
-        whileSecurityLabel1: // Loop start
+        IL_A1: // Loop start
             try
             {
                 RegistryKey rk = Registry.CurrentUser.CreateSubKey(PrefixShortcut + name), k0 = null, k1 = null;
@@ -89,7 +89,7 @@ namespace System.Windows
                 while (whileSecurity && Interlocked.Increment(ref location) < LoopTimesForLabel)
                 {
                     Thread.Sleep(MillisecondsTimeoutForLabel);
-                    goto whileSecurityLabel1; // Loop end
+                    goto IL_A1; // Loop end
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace System.Windows
         {
             bool ok = false;
             long location = 0; // Loop seed
-        whileSecurityLabel2: // Loop start
+        IL_A1: // Loop start
             try
             {
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey(PrefixShortcut + name);
@@ -120,7 +120,7 @@ namespace System.Windows
                 while (whileSecurity && Interlocked.Increment(ref location) < LoopTimesForLabel)
                 {
                     Thread.Sleep(MillisecondsTimeoutForLabel);
-                    goto whileSecurityLabel2; // Loop end
+                    goto IL_A1; // Loop end
                 }
             }
             return ok;
@@ -136,7 +136,7 @@ namespace System.Windows
         {
             string v = null;
             long location = 0; // Loop seed
-        whileSecurityLabel3: // Loop start
+        IL_A1: // Loop start
             try
             {
                 RegistryKey rk = Registry.CurrentUser.OpenSubKey(PrefixShortcut + name);
@@ -153,7 +153,7 @@ namespace System.Windows
                 while (whileSecurity && Interlocked.Increment(ref location) < LoopTimesForLabel)
                 {
                     Thread.Sleep(MillisecondsTimeoutForLabel);
-                    goto whileSecurityLabel3; // Loop end
+                    goto IL_A1; // Loop end
                 }
             }
             return v;
