@@ -74,9 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Forms\DirectoryIndexerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,22 +103,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\DirectoryIndexerForm.es-MX.resx">
-      <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DirectoryIndexerForm.ko-KR.resx">
-      <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DirectoryIndexerForm.resx">
-      <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DirectoryIndexerForm.ru.resx">
-      <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DirectoryIndexerForm.tr.resx">
-      <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DirectoryIndexerForm.vi-VN.resx">
       <DependentUpon>DirectoryIndexerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

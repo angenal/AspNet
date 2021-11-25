@@ -28,3 +28,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ShareX HelpersLib")]
 [assembly: Guid("0836c289-a8c6-4b3c-ac1e-2a2957480f6a")]
+[assembly: AssemblyCompany("ShareX Team")]
+[assembly: AssemblyProduct("ShareX")]
+[assembly: AssemblyCopyright("Copyright (c) 2007-2018 ShareX Team")]
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("12.3.1")]
+[assembly: AssemblyFileVersion("12.3.1")]

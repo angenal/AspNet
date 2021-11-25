@@ -1,4 +1,4 @@
-﻿#region License Information (GPL v3)
+#region License Information (GPL v3)
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
@@ -28,3 +28,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ShareX NativeMessagingHost")]
 [assembly: Guid("254e398d-f7f5-4b2a-9024-5c121ea6c564")]
+[assembly: AssemblyCompany("ShareX Team")]
+[assembly: AssemblyProduct("ShareX")]
+[assembly: AssemblyCopyright("Copyright (c) 2007-2018 ShareX Team")]
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("12.3.1")]
+[assembly: AssemblyFileVersion("12.3.1")]

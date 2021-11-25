@@ -28,3 +28,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ShareX ImageEffectsLib")]
 [assembly: Guid("084988ba-cc50-4f60-90f7-3a98c4073087")]
+[assembly: AssemblyCompany("ShareX Team")]
+[assembly: AssemblyProduct("ShareX")]
+[assembly: AssemblyCopyright("Copyright (c) 2007-2018 ShareX Team")]
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("12.3.1")]
+[assembly: AssemblyFileVersion("12.3.1")]

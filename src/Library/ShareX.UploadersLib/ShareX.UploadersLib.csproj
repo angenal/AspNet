@@ -115,9 +115,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="APIKeys\APIKeys.cs" />
     <Compile Include="APIKeys\APIKeysLocal.cs" />
     <Compile Include="BaseServices\FileUploaderService.cs" />
@@ -364,268 +361,46 @@
     <Compile Include="URLShorteners\YourlsURLShortener.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\AccountTypeControl.de.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.es-MX.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountTypeControl.es.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.fr.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.hu.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.id-ID.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.it-IT.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.ko-KR.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.nl-NL.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.pt-BR.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.ru.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.tr.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.uk.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.vi-VN.resx">
       <DependentUpon>AccountTypeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountTypeControl.zh-CN.resx">
       <DependentUpon>AccountTypeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AccountTypeControl.zh-TW.resx">
-      <DependentUpon>AccountTypeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.de.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.es-MX.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\OAuthControl.es.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.fr.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.hu.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.id-ID.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.it-IT.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.ko-KR.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.nl-NL.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.pt-BR.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.ru.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.tr.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.uk.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.vi-VN.resx">
       <DependentUpon>OAuthControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OAuthControl.zh-CN.resx">
       <DependentUpon>OAuthControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\OAuthControl.zh-TW.resx">
-      <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.de.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.es-MX.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EmailForm.es.resx">
       <DependentUpon>EmailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.fr.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.hu.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.id-ID.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.it-IT.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.ko-KR.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.nl-NL.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.pt-BR.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.ru.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.tr.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.uk.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.vi-VN.resx">
+    <EmbeddedResource Include="Forms\EmailForm.resx">
       <DependentUpon>EmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EmailForm.zh-CN.resx">
       <DependentUpon>EmailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.zh-TW.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.de.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.es-MX.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\JiraUpload.es.resx">
       <DependentUpon>JiraUpload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.fr.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.hu.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.id-ID.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.it-IT.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.ko-KR.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.nl-NL.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.pt-BR.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.ru.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.tr.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.uk.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.vi-VN.resx">
+    <EmbeddedResource Include="Forms\JiraUpload.resx">
       <DependentUpon>JiraUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\JiraUpload.zh-CN.resx">
       <DependentUpon>JiraUpload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.zh-TW.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.de.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.es-MX.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OAuthWebForm.es.resx">
       <DependentUpon>OAuthWebForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.fr.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.hu.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.id-ID.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.it-IT.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.ko-KR.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.nl-NL.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.pt-BR.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.ru.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.tr.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.uk.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.vi-VN.resx">
+    <EmbeddedResource Include="Forms\OAuthWebForm.resx">
       <DependentUpon>OAuthWebForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OAuthWebForm.zh-CN.resx">
       <DependentUpon>OAuthWebForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.zh-TW.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.de.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.es-MX.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.id-ID.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.ko-KR.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OCRSpaceForm.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.ru.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.uk.resx">
-      <DependentUpon>OCRSpaceForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OCRSpaceForm.vi-VN.resx">
       <DependentUpon>OCRSpaceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OCRSpaceForm.zh-CN.resx">
@@ -634,266 +409,44 @@
     <EmbeddedResource Include="Forms\ParserSelectForm.resx">
       <DependentUpon>ParserSelectForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PuushLoginForm.es-MX.resx">
-      <DependentUpon>PuushLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PuushLoginForm.ko-KR.resx">
-      <DependentUpon>PuushLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PuushLoginForm.resx">
-      <DependentUpon>PuushLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PuushLoginForm.ru.resx">
-      <DependentUpon>PuushLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PuushLoginForm.tr.resx">
-      <DependentUpon>PuushLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PuushLoginForm.vi-VN.resx">
       <DependentUpon>PuushLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PuushLoginForm.zh-CN.resx">
       <DependentUpon>PuushLoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.de.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.es-MX.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ResponseForm.es.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.fr.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.hu.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.id-ID.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.it-IT.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.ko-KR.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.nl-NL.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.pt-BR.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.ru.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.tr.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.uk.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.vi-VN.resx">
       <DependentUpon>ResponseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ResponseForm.zh-CN.resx">
       <DependentUpon>ResponseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ResponseForm.zh-TW.resx">
-      <DependentUpon>ResponseForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.de.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.es-MX.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TwitterTweetForm.es.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.fr.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.hu.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.id-ID.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.it-IT.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.ko-KR.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.nl-NL.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.pt-BR.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.ru.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.tr.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.uk.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.vi-VN.resx">
       <DependentUpon>TwitterTweetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TwitterTweetForm.zh-CN.resx">
       <DependentUpon>TwitterTweetForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TwitterTweetForm.zh-TW.resx">
-      <DependentUpon>TwitterTweetForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.de.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.es-MX.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UploadersConfigForm.es.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.fr.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.hu.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.id-ID.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.it-IT.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.ko-KR.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.nl-NL.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.pt-BR.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.ru.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.tr.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.uk.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.vi-VN.resx">
       <DependentUpon>UploadersConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UploadersConfigForm.zh-CN.resx">
       <DependentUpon>UploadersConfigForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UploadersConfigForm.zh-TW.resx">
-      <DependentUpon>UploadersConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.de.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.es-MX.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserPassBox.es.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.fr.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.hu.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.id-ID.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.it-IT.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.ko-KR.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.nl-NL.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.pt-BR.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.ru.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.tr.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.uk.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.vi-VN.resx">
       <DependentUpon>UserPassBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserPassBox.zh-CN.resx">
       <DependentUpon>UserPassBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserPassBox.zh-TW.resx">
-      <DependentUpon>UserPassBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.de.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.es-MX.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FTPClient\FTPClientForm.es.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.fr.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.hu.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.id-ID.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.it-IT.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.ko-KR.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.nl-NL.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.pt-BR.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.resx">
       <DependentUpon>FTPClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AccountTypeControl.resx">
       <DependentUpon>AccountTypeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EmailForm.resx">
-      <DependentUpon>EmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\JiraUpload.resx">
-      <DependentUpon>JiraUpload.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\OAuthControl.resx">
       <DependentUpon>OAuthControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OAuthWebForm.resx">
-      <DependentUpon>OAuthWebForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ResponseForm.resx">
       <DependentUpon>ResponseForm.cs</DependentUpon>
@@ -910,47 +463,19 @@
       <DependentUpon>TwitterTweetForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.ru.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.tr.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.uk.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.vi-VN.resx">
+    <EmbeddedResource Include="FTPClient\FTPClientForm.resx">
       <DependentUpon>FTPClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FTPClient\FTPClientForm.zh-CN.resx">
       <DependentUpon>FTPClientForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FTPClient\FTPClientForm.zh-TW.resx">
-      <DependentUpon>FTPClientForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.es-MX.resx" />
     <EmbeddedResource Include="Properties\Resources.es.resx" />
-    <EmbeddedResource Include="Properties\Resources.fr.resx" />
-    <EmbeddedResource Include="Properties\Resources.hu.resx" />
-    <EmbeddedResource Include="Properties\Resources.id-ID.resx" />
-    <EmbeddedResource Include="Properties\Resources.it-IT.resx" />
-    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
-    <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="Properties\Resources.tr.resx" />
-    <EmbeddedResource Include="Properties\Resources.uk.resx" />
-    <EmbeddedResource Include="Properties\Resources.vi-VN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
-    <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShareX.HelpersLib\ShareX.HelpersLib.csproj">

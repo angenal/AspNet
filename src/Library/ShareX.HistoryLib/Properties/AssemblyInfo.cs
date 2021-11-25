@@ -28,3 +28,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ShareX HistoryLib")]
 [assembly: Guid("158992c9-b38c-4d85-b95b-1b46e7f75940")]
+[assembly: AssemblyCompany("ShareX Team")]
+[assembly: AssemblyProduct("ShareX")]
+[assembly: AssemblyCopyright("Copyright (c) 2007-2018 ShareX Team")]
+[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("12.3.1")]
+[assembly: AssemblyFileVersion("12.3.1")]

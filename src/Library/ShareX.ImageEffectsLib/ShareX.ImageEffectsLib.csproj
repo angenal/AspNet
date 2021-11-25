@@ -98,9 +98,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Adjustments\Alpha.cs" />
     <Compile Include="Adjustments\BlackWhite.cs" />
     <Compile Include="Adjustments\Polaroid.cs" />
@@ -172,77 +169,21 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ImageEffectsForm.de.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.es-MX.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImageEffectsForm.es.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.fr.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.hu.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.id-ID.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.it-IT.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.ko-KR.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.nl-NL.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.pt-BR.resx">
       <DependentUpon>ImageEffectsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageEffectsForm.resx">
       <DependentUpon>ImageEffectsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.ru.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.tr.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.uk.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.vi-VN.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ImageEffectsForm.zh-CN.resx">
       <DependentUpon>ImageEffectsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageEffectsForm.zh-TW.resx">
-      <DependentUpon>ImageEffectsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.de.resx" />
-    <EmbeddedResource Include="Properties\Resources.es-MX.resx" />
     <EmbeddedResource Include="Properties\Resources.es.resx" />
-    <EmbeddedResource Include="Properties\Resources.fr.resx" />
-    <EmbeddedResource Include="Properties\Resources.hu.resx" />
-    <EmbeddedResource Include="Properties\Resources.id-ID.resx" />
-    <EmbeddedResource Include="Properties\Resources.it-IT.resx" />
-    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
-    <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="Properties\Resources.tr.resx" />
-    <EmbeddedResource Include="Properties\Resources.uk.resx" />
-    <EmbeddedResource Include="Properties\Resources.vi-VN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
-    <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
