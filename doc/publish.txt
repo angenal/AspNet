@@ -40,5 +40,12 @@ https://support.microsoft.com/zh-cn/office/对宏项目进行数字签名-956e9c
 > ilasm Library.il /dll /resource=Library.res /key=manifest.snk /optimize  # 重新编译并附带强命名参数
 > sn -v Library.dll                  # 验证签名信息
 
-##CMD##
-for %i in (*.resources) do (echo %i)
+##########################################################################################
+## CMD:for循环
+1.利用资源文件生成器 resgen 批量转换文件格式 *.resources 为 *.resx
+> for %i in (*.resources) do (resgen %i %i.resx)
+
+## 解决“此文件来自其他计算机,可能被阻止以帮助保护该计算机”
+1.打开命令窗口：工具/命令行/开发者命令提示
+2.执行如下命令：
+> streams -s -d . #批量处理当前目录及递归子目录#
