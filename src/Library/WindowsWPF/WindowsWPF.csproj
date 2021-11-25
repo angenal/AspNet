@@ -65,6 +65,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Console\ConsoleControl.xaml.cs">
+      <DependentUpon>ConsoleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Console\RichTextBoxExtensions.cs" />
     <Compile Include="Controls\CutImage\CutImage.cs" />
     <Compile Include="Controls\CutImage\DragDrop.cs" />
     <Compile Include="Controls\NotifyIcon\BalloonIcon.cs" />
@@ -98,6 +102,7 @@
     <Compile Include="Interop\WindowClass.cs" />
     <Compile Include="Interop\WindowMessageSink.cs" />
     <Compile Include="Interop\WindowsMessages.cs" />
+    <Compile Include="Windows\Process.cs" />
     <Compile Include="Windows\Times.cs" />
     <Compile Include="Windows\Commands.cs" />
     <Compile Include="Windows\Hotkey.cs" />
@@ -110,6 +115,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\Console\ConsoleControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
