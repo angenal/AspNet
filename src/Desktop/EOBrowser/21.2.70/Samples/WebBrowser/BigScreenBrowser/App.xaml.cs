@@ -250,11 +250,11 @@ namespace BigScreenBrowser
         /// <summary>
         /// 关闭启动屏幕
         /// </summary>
-        public void HideSplash()
+        public void HideSplash(int milliseconds)
         {
             if (m_HideSplash) return;
             m_HideSplash = true;
-            Times.Delay(1000);
+            Times.Delay(milliseconds);
             Dispatcher.BeginInvoke(new Action(() => TransparentSplash.EndDisplay()));
         }
 

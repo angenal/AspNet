@@ -99,8 +99,6 @@ namespace BigScreenBrowser
         void m_WebView_TitleChanged(object sender, EventArgs e)
         {
             Title = m_WebView.Title;
-            if (!AttachEventsNeeded || string.IsNullOrWhiteSpace(Title)) return;
-            App.Instance.HideSplash();
         }
 
         void m_WebView_FaviconChanged(object sender, EventArgs e)

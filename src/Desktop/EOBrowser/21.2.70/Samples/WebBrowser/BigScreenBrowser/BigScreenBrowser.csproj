@@ -103,8 +103,8 @@
     <Reference Include="EO.Wpf">
       <HintPath>..\..\..\EO.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -200,14 +200,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Library\ShareX.HelpersLib\ShareX.HelpersLib.csproj">
-      <Project>{327750e1-9fb7-4cc3-8aea-9bc42180cad3}</Project>
-      <Name>ShareX.HelpersLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\Library\ShareX.ScreenCaptureLib\ShareX.ScreenCaptureLib.csproj">
-      <Project>{dbdb0daa-b3ae-4cc4-a8c2-20550b7f32e3}</Project>
-      <Name>ShareX.ScreenCaptureLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\Library\WindowsWPF\WindowsWPF.csproj">
       <Project>{16c9eaca-37dd-4d68-a5f3-ba533f9f0d25}</Project>
       <Name>WindowsWPF</Name>
@@ -233,10 +225,11 @@
     <None Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Delete.png" />
-    <Resource Include="Icons\ImagePencil.png" />
-    <Resource Include="Icons\Keyboard.png" />
-    <Resource Include="Icons\Save.png" />
+    <Resource Include="Icons\application-browser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\cross.png" />
+    <Resource Include="Icons\image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

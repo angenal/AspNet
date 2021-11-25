@@ -51,6 +51,7 @@ namespace BigScreenBrowser
             m_SaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
             if (!Directory.Exists(m_SaveFilePath)) m_SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (!Directory.Exists(m_SaveFilePath)) App.ShowError(new Exception("没有权限访问“桌面”"));
+            App.Instance.HideSplash(2000);
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

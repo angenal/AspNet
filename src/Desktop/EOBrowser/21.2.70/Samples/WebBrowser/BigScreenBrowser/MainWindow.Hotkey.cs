@@ -1,4 +1,4 @@
-using ShareX.ScreenCaptureLib;
+//using ShareX.ScreenCaptureLib;
 using System;
 using System.Windows;
 using System.Windows.Interop;
@@ -114,90 +114,90 @@ namespace BigScreenBrowser
             screenCut.ShowDialog();
             isScreenCut = false;
         }
-        internal void ScreenCut1()
-        {
-            if (!isScreenCut) return;
-            Times.Delay(300);
-            RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false };
-            using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, options))
-            {
-                Screenshot screenshot = new Screenshot() { AutoHideTaskbar = true };
-                System.Drawing.Image img = screenshot.CaptureFullscreen();
-                form.TopMost = true;
-                form.Prepare(img);
-                form.ShowDialog();
-                isScreenCut = false;
-                System.Drawing.Image image = form.GetResultImage();
-                if (image == null) return;
-                System.Windows.Forms.Clipboard.SetImage(image);
-                var dlg = new System.Windows.Forms.SaveFileDialog();
-                dlg.Title = "保存";
-                dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
-                dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
-                dlg.FilterIndex = 1;
-                dlg.AddExtension = true;
-                dlg.DefaultExt = ".jpg";
-                dlg.InitialDirectory = m_SaveFilePath;
-                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
-                var extension = System.IO.Path.GetExtension(dlg.FileName);
-                if (extension.Equals(".jpg")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                if (extension.Equals(".png")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                if (extension.Equals(".bmp")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-            }
-        }
-        internal void ScreenCut2()
-        {
-            try
-            {
-                //捕获屏幕
-                if (!isScreenCut) return;
-                Times.Delay(300);
-                RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false, QuickCrop = false };
-                System.Drawing.Image img = RegionCaptureTasks.GetRegionImage_Mo(options, out string flag, out System.Drawing.Point flag_location, out System.Drawing.Rectangle[] rectangle_flag);
-                if (img == null) return;
-                //快捷键Esc
-                int id = options.GetHashCode();
-                uint key = (uint)System.Windows.Forms.Keys.Escape;
-                IntPtr hWnd = new WindowInteropHelper(this).Handle;
-                HotkeyRef.RegisterHotKey(hWnd, id, 0, key);
-                //高级截图
-                var mode = RegionCaptureMode.Annotation;
-                options = new RegionCaptureOptions();
-                using (var form = new RegionCaptureForm(mode, options))
-                {
-                    form.TopMost = true;
-                    form.Image_get = false;
-                    form.Prepare(img);
-                    form.ShowDialog();
-                    img = null;
-                    img = form.GetResultImage();
-                    flag = form.Mode_flag;
-                }
-                isScreenCut = false;
-                HotkeyRef.UnregisterHotKey(hWnd, id);
-                if (img == null) return;
-                //保存图片到剪贴板
-                System.Windows.Forms.Clipboard.SetImage(img);
-                //保存图片到磁盘
-                var dlg = new System.Windows.Forms.SaveFileDialog();
-                dlg.Title = "保存";
-                dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
-                dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
-                dlg.FilterIndex = 1;
-                dlg.AddExtension = true;
-                dlg.DefaultExt = ".jpg";
-                dlg.InitialDirectory = m_SaveFilePath;
-                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
-                var extension = System.IO.Path.GetExtension(dlg.FileName);
-                if (extension.Equals(".jpg")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                if (extension.Equals(".png")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                if (extension.Equals(".bmp")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-            }
-            catch (Exception e)
-            {
-                Alert(e.Message, MessageBoxImage.Error, "截图错误");
-            }
-        }
+        //internal void ScreenCut1()
+        //{
+        //    if (!isScreenCut) return;
+        //    Times.Delay(300);
+        //    RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false };
+        //    using (RegionCaptureForm form = new RegionCaptureForm(RegionCaptureMode.Default, options))
+        //    {
+        //        Screenshot screenshot = new Screenshot() { AutoHideTaskbar = true };
+        //        System.Drawing.Image img = screenshot.CaptureFullscreen();
+        //        form.TopMost = true;
+        //        form.Prepare(img);
+        //        form.ShowDialog();
+        //        isScreenCut = false;
+        //        System.Drawing.Image image = form.GetResultImage();
+        //        if (image == null) return;
+        //        System.Windows.Forms.Clipboard.SetImage(image);
+        //        var dlg = new System.Windows.Forms.SaveFileDialog();
+        //        dlg.Title = "保存";
+        //        dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+        //        dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
+        //        dlg.FilterIndex = 1;
+        //        dlg.AddExtension = true;
+        //        dlg.DefaultExt = ".jpg";
+        //        dlg.InitialDirectory = m_SaveFilePath;
+        //        if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+        //        var extension = System.IO.Path.GetExtension(dlg.FileName);
+        //        if (extension.Equals(".jpg")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+        //        if (extension.Equals(".png")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
+        //        if (extension.Equals(".bmp")) image.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+        //    }
+        //}
+        //internal void ScreenCut2()
+        //{
+        //    try
+        //    {
+        //        //捕获屏幕
+        //        if (!isScreenCut) return;
+        //        Times.Delay(300);
+        //        RegionCaptureOptions options = new RegionCaptureOptions() { ShowMagnifier = false, EnableAnimations = false, QuickCrop = false };
+        //        System.Drawing.Image img = RegionCaptureTasks.GetRegionImage_Mo(options, out string flag, out System.Drawing.Point flag_location, out System.Drawing.Rectangle[] rectangle_flag);
+        //        if (img == null) return;
+        //        //快捷键Esc
+        //        int id = options.GetHashCode();
+        //        uint key = (uint)System.Windows.Forms.Keys.Escape;
+        //        IntPtr hWnd = new WindowInteropHelper(this).Handle;
+        //        HotkeyRef.RegisterHotKey(hWnd, id, 0, key);
+        //        //高级截图
+        //        var mode = RegionCaptureMode.Annotation;
+        //        options = new RegionCaptureOptions();
+        //        using (var form = new RegionCaptureForm(mode, options))
+        //        {
+        //            form.TopMost = true;
+        //            form.Image_get = false;
+        //            form.Prepare(img);
+        //            form.ShowDialog();
+        //            img = null;
+        //            img = form.GetResultImage();
+        //            flag = form.Mode_flag;
+        //        }
+        //        isScreenCut = false;
+        //        HotkeyRef.UnregisterHotKey(hWnd, id);
+        //        if (img == null) return;
+        //        //保存图片到剪贴板
+        //        System.Windows.Forms.Clipboard.SetImage(img);
+        //        //保存图片到磁盘
+        //        var dlg = new System.Windows.Forms.SaveFileDialog();
+        //        dlg.Title = "保存";
+        //        dlg.FileName = string.Concat("截图", DateTime.Now.ToString("yyyyMMddHHmmss"));
+        //        dlg.Filter = "JPG 图片 (*.jpg)|*.jpg|PNG 图片 (*.png)|*.png|BMP 图片 (*.bmp)|*.bmp";
+        //        dlg.FilterIndex = 1;
+        //        dlg.AddExtension = true;
+        //        dlg.DefaultExt = ".jpg";
+        //        dlg.InitialDirectory = m_SaveFilePath;
+        //        if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+        //        var extension = System.IO.Path.GetExtension(dlg.FileName);
+        //        if (extension.Equals(".jpg")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+        //        if (extension.Equals(".png")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Png);
+        //        if (extension.Equals(".bmp")) img.Save(dlg.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Alert(e.Message, MessageBoxImage.Error, "截图错误");
+        //    }
+        //}
 
         // 快捷键 Alt+Q 询问关闭该应用程序
         private Hotkey altQ;

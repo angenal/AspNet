@@ -101,7 +101,7 @@ namespace BigScreenBrowser
                     WebViewItem item0 = (WebViewItem)grid.Children[s_Index];
                     DetachPage(item0.Page);
                     item0.Page.DetachPage();
-                    item0.Page.WebControl.WebView.Close(false);
+                    item0.Page.WebControl.WebView.Close(true);
                     item0.Visibility = Visibility.Collapsed;
                 }
             }
@@ -185,7 +185,7 @@ namespace BigScreenBrowser
             //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
-            Times.Delay(3000);
+            Times.Delay(2000);
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 BrushConverter bc = new BrushConverter();

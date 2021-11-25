@@ -43,7 +43,7 @@
             <MenuItem.Icon>
                 <Image Width="16"
                        Height="16"
-                       Source="{Binding Path=IconSource}" />
+                       Source="/Icons/application-browser.png" />
             </MenuItem.Icon>
         </MenuItem>
 
@@ -53,7 +53,7 @@
             <MenuItem.Icon>
                 <Image Width="16"
                        Height="16"
-                       Source="/Icons/ImagePencil.png" />
+                       Source="/Icons/image.png" />
             </MenuItem.Icon>
         </MenuItem>
 
@@ -65,7 +65,7 @@
             <MenuItem.Icon>
                 <Image Width="16"
                        Height="16"
-                       Source="/Icons/Delete.png" />
+                       Source="/Icons/cross.png" />
             </MenuItem.Icon>
         </MenuItem>
     </ContextMenu>
