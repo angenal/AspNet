@@ -4,6 +4,7 @@
         
         <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Styles/Button.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Themes/CutImage.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Themes/Notifications.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Themes/ScreenCut.xaml"/>
 
     </ResourceDictionary.MergedDictionaries>

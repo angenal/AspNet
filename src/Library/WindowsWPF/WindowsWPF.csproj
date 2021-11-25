@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -73,6 +74,21 @@
     <Compile Include="Controls\Console\RichTextBoxExtensions.cs" />
     <Compile Include="Controls\CutImage\CutImage.cs" />
     <Compile Include="Controls\CutImage\DragDrop.cs" />
+    <Compile Include="Controls\Notifications\ContentLocation.cs" />
+    <Compile Include="Controls\Notifications\INotificationAnimation.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessage.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageButton.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageFactory.cs" />
+    <Compile Include="Controls\Notifications\INotificationMessageManager.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessage.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageBuilder.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageBuilderLinq.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageButton.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageContainer.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageFactory.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManager.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManagerEventArgs.cs" />
+    <Compile Include="Controls\Notifications\NotificationMessageManagerEventHandler.cs" />
     <Compile Include="Controls\NotifyIcon\BalloonIcon.cs" />
     <Compile Include="Controls\NotifyIcon\PopupActivationMode.cs" />
     <Compile Include="Controls\NotifyIcon\RoutedEventHelper.cs" />
@@ -150,6 +166,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\CutImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Notifications.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
