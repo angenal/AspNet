@@ -6,7 +6,7 @@
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
         xmlns:w="http://wpf.windows.com/xaml"
         mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" IsVisibleChanged="Window_IsVisibleChanged" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="False" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" SizeToContent="WidthAndHeight">
-    <Grid x:Name="grid" Background="Transparent">
+    <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="3*" />
@@ -17,10 +17,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <WrapPanel x:Name="container" Grid.ColumnSpan="3" VerticalAlignment="Top"></WrapPanel>
+        <WrapPanel x:Name="container" Grid.ColumnSpan="3" Panel.ZIndex="1"></WrapPanel>
 
-        <Border Grid.Column="1">
-            <w:NotificationMessageContainer Manager="{Binding Notifier}" />
+        <Border Grid.Column="1" Panel.ZIndex="3">
+            <w:NotificationArea x:Name="NotificationArea" MaxItems="10" />
         </Border>
 
         <w:TaskbarIcon x:Name="notifyIcon" IconSource="App.ico" ContextMenu="{StaticResource notifyIconMenu}" MenuActivation="All" />

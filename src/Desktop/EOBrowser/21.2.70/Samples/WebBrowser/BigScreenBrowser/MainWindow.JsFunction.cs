@@ -50,22 +50,11 @@ namespace BigScreenBrowser
                             string badge = e.Arguments[0].ToString(), message = e.Arguments.Length == 1 ? badge : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
                             if (e.Arguments.Length == 1)
                             {
-                                Notifier.CreateMessage()
-                                    .Accent("#1751C3").Background("#333333")
-                                    .Animates(true).AnimationInDuration(0.5).AnimationOutDuration(0.5)
-                                    .HasMessage(message)
-                                    .Dismiss().WithButton("关闭", button => { })
-                                    .Queue();
+                                notifier.Show(new NotificationContent { Message = message, Type = NotificationType.Information }, "NotificationArea", TimeSpan.FromSeconds(2));
                             }
                             else
                             {
-                                Notifier.CreateMessage()
-                                    .Accent("#1751C3").Background("#333333")
-                                    .Animates(true).AnimationInDuration(0.5).AnimationOutDuration(0.5)
-                                    .HasBadge(badge)
-                                    .HasMessage(message)
-                                    .Dismiss().WithButton("关闭", button => { })
-                                    .Queue();
+                                notifier.Show(new NotificationContent { Message = message, Title = badge, Type = NotificationType.Information }, "NotificationArea", TimeSpan.FromSeconds(2));
                             }
                             e.ReturnValue = true;
                         }

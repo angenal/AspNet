@@ -187,19 +187,7 @@ namespace BigScreenBrowser
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
             Times.Delay(3000);
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                grid.Background = new SolidColorBrush(Colors.White);
-                //BrushConverter bc = new BrushConverter();
-                //Brush brush = (Brush)bc.ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
-                //brush.Freeze();
-                //grid.Background = brush;
-                Notifier.CreateMessage()
-                    .Accent("#F15B19").Background("#1EA2E6")
-                    .HasBadge("首页").HasMessage("加载完成")
-                    .Dismiss().WithDelay(TimeSpan.FromSeconds(2))
-                    .Queue();
-            }));
+            Dispatcher.BeginInvoke(new Action(Window_SetBackground));
         }
 
         //Web page loaded event

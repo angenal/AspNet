@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 using WindowsWPF.Controls;
 
 namespace BigScreenBrowser
@@ -26,7 +27,7 @@ namespace BigScreenBrowser
         /// <summary>
         /// Gets the notification message manager.
         /// </summary>
-        public INotificationMessageManager Notifier { get; } = new NotificationMessageManager();
+        public readonly NotificationManager notifier = new NotificationManager();
 
         public void InitializeWebBrowser()
         {
@@ -63,6 +64,15 @@ namespace BigScreenBrowser
         {
             //添加快捷键功能
             RegisterHotkey();
+        }
+
+        private void Window_SetBackground()
+        {
+            //设置背景
+            BrushConverter bc = new BrushConverter();
+            Brush brush = (Brush)bc.ConvertFrom("#000000"); //bc.ConvertFromString("Black");
+            brush.Freeze();
+            grid.Background = brush;
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
