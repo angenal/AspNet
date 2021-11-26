@@ -154,25 +154,32 @@ namespace BigScreenBrowser
         //Web page loaded event
         private void WebView_LoadCompleted(object sender, LoadCompletedEventArgs e)
         {
-#if DEBUG
-            Debug.WriteLine($">> Browsers[{container.Children.Count - 1}] Ok  >> {e.Url}");
-            Debug.WriteLine("");
-#endif
             //Add Url History
+            int index = m_CurIndex;
             if (!string.IsNullOrEmpty(e.Url))
             {
                 if (!m_Forward)
                 {
-                    SetUrlIndex(m_CurIndex);
+                    SetUrlIndex(index);
                     return;
                 }
                 int count = App.Urls.Count;
-                if (count > 0 && App.Urls[count - 1].Url.Equals(e.Url)) return;
+                if (count > 0)
+                {
+                    if (index < count - 1)
+                    {
+                        SetUrlIndex(index);
+                        return;
+                    }
+                    if (App.Urls[count - 1].Url.Equals(e.Url))
+                    {
+                        return;
+                    }
+                }
                 App.Urls.Add(new WebViewItemUrl(e.Url, true));
                 SetUrlIndex(m_CurIndex = count);
 #if DEBUG
                 for (int i = 0; i < App.Urls.Count; i++) Debug.WriteLine($">> App.Urls[{i}] = {App.Urls[i].Url}");
-                Debug.WriteLine("");
 #endif
             }
             else if (container.Children.Count > s_Index + 1)
@@ -183,6 +190,10 @@ namespace BigScreenBrowser
                 item1.Visibility = Visibility.Collapsed;
                 item0.Visibility = Visibility.Visible;
             }
+#if DEBUG
+            Debug.WriteLine($">> Browsers[{container.Children.Count - 1}] Ok  >> {e.Url}");
+            Debug.WriteLine("");
+#endif
             //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
