@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -267,7 +266,7 @@ namespace WindowsWPF.Controls.Notifications
         /// <param name="action">The action.</param>
         public void Delay(int delayMilliseconds, Action<INotificationMessage> action)
         {
-            this.Delay(TimeSpan.FromMilliseconds(delayMilliseconds), action);
+            Delay(TimeSpan.FromMilliseconds(delayMilliseconds), action);
         }
 
         /// <summary>
@@ -277,9 +276,13 @@ namespace WindowsWPF.Controls.Notifications
         /// <param name="action">The action.</param>
         public void Delay(TimeSpan delay, Action<INotificationMessage> action)
         {
-            Task.Delay(delay).ContinueWith(
-                context => action(Message),
-                TaskScheduler.FromCurrentSynchronizationContext());
+            //Task.Delay(delay).ContinueWith(context => action(Message), TaskScheduler.FromCurrentSynchronizationContext());
+            DateTime current = DateTime.Now;
+            while (current.Add(delay) > DateTime.Now)
+            {
+                System.Windows.Forms.Application.DoEvents();
+            }
+            action(Message);
         }
 
         /// <summary>
@@ -294,7 +297,7 @@ namespace WindowsWPF.Controls.Notifications
             /// <exception cref="ArgumentNullException">builder</exception>
             public DismissNotificationMessage(NotificationMessageBuilder builder)
             {
-                this.Builder = builder ?? throw new ArgumentNullException(nameof(builder));
+                Builder = builder ?? throw new ArgumentNullException(nameof(builder));
             }
 
             /// <summary>
