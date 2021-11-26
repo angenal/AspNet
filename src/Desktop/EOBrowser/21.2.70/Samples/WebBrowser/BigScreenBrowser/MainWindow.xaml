@@ -20,7 +20,7 @@
         <WrapPanel x:Name="container" Grid.ColumnSpan="3" Panel.ZIndex="1"></WrapPanel>
 
         <Border Grid.Column="1" Panel.ZIndex="3">
-            <w:NotificationArea x:Name="NotificationArea" MaxItems="10" />
+            <w:NotificationArea x:Name="windowArea" MaxItems="10" />
         </Border>
 
         <w:TaskbarIcon x:Name="notifyIcon" IconSource="App.ico" ContextMenu="{StaticResource notifyIconMenu}" MenuActivation="All" />

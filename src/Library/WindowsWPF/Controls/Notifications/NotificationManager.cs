@@ -32,7 +32,7 @@ namespace WindowsWPF.Controls
 
             if (expirationTime == null) expirationTime = TimeSpan.FromSeconds(5);
 
-            if (areaName == string.Empty && _window == null)
+            if (areaName == "" && _window == null)
             {
                 var workArea = SystemParameters.WorkArea;
 
