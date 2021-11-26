@@ -1,7 +1,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WindowsWPF.Controls.Notifications;
 
 namespace WindowsWPF.Controls
 {

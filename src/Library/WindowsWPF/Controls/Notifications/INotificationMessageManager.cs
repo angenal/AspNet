@@ -1,5 +1,3 @@
-using WindowsWPF.Controls.Notifications;
-
 namespace WindowsWPF.Controls
 {
     /// <summary>

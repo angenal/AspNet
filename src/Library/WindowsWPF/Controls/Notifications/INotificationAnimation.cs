@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace WindowsWPF.Controls.Notifications
+namespace WindowsWPF.Controls
 {
     /// <summary>
     /// The animation properties for a notification message or some

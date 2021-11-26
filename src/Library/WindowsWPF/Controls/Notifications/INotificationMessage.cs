@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WindowsWPF.Controls.Notifications
+namespace WindowsWPF.Controls
 {
     /// <summary>
     /// The notification message.

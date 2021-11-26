@@ -16,12 +16,17 @@ namespace BigScreenBrowser
         private static string m_HomeURL = Properties.Resources.URL;
         private EO.WebBrowser.WebView m_WebView;
         private WebPage m_CurPage;
-        const int s_Index = 1;
+        const int s_Index = 0;
         private int m_CurIndex = 0;
         private bool m_Forward = true;
         private bool m_Download = false;
         private bool m_LaunchUrl = false;
         private string m_SaveFilePath;
+
+        /// <summary>
+        /// Gets the notification message manager.
+        /// </summary>
+        public INotificationMessageManager Notifier { get; } = new NotificationMessageManager();
 
         public void InitializeWebBrowser()
         {
@@ -46,7 +51,7 @@ namespace BigScreenBrowser
             App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             //加载网页
-            grid.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
+            container.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
             //下载默认目录
             m_SaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
             if (!Directory.Exists(m_SaveFilePath)) m_SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

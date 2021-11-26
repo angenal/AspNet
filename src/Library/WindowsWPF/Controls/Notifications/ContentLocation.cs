@@ -1,4 +1,4 @@
-namespace WindowsWPF.Controls.Notifications
+namespace WindowsWPF.Controls
 {
     /// <summary>
     /// The additional content location.

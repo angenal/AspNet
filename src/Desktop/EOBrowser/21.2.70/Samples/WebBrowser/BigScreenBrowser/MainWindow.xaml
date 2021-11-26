@@ -7,6 +7,22 @@
         xmlns:w="http://wpf.windows.com/xaml"
         mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" IsVisibleChanged="Window_IsVisibleChanged" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="False" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" SizeToContent="WidthAndHeight">
     <Grid x:Name="grid" Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="1">
+            <w:NotificationMessageContainer Manager="{Binding Notifier}" />
+        </Border>
+
+        <WrapPanel x:Name="container" Grid.ColumnSpan="3" VerticalAlignment="Top"></WrapPanel>
+
         <w:TaskbarIcon x:Name="notifyIcon" IconSource="App.ico" ContextMenu="{StaticResource notifyIconMenu}" MenuActivation="All" />
     </Grid>
 </Window>

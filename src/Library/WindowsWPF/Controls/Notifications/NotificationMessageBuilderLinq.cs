@@ -5,7 +5,7 @@ using System.Windows.Media.Animation;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable RedundantEmptySwitchSection
 
-namespace WindowsWPF.Controls.Notifications
+namespace WindowsWPF.Controls
 {
     /// <summary>
     /// The notification message builder LINQ helper.
