@@ -36,6 +36,14 @@
             }
         }
 
+        function runAlert() {
+            var message = document.getElementById('runAlertArgs1').value,
+                badge = document.getElementById('runAlertArgs2').value;
+            if (!message) return alert('请输入消息内容');
+            if (badge) runJsFunction('alert', badge, message);
+            else runJsFunction('alert', message);
+        }
+
         function runProcessFunction() {
             var shell = document.getElementById('runProcessArgs1').value,
                 args = document.getElementById('runProcessArgs2').value;
@@ -68,14 +76,19 @@
             <p><a href="javascript:runJsFunction('toggleApp');">显示/隐藏(Alt+F11)<i>toggleApp()</i></a></p>
             <p><a href="javascript:runJsFunction('halveApp');">拆分窗口为一半/还原(Alt+F5)<i>halveApp()</i></a></p>
             <p>
+                <a href="javascript:runAlert();">打开通知消息<i>alert()</i></a>
+                <input id="runAlertArgs1" width="100" placeholder="请输入消息内容" maxlength="100" />
+                <input id="runAlertArgs2" width="100" placeholder="请输入消息标记" maxlength="10" />
+            </p>
+            <p>
                 <a href="javascript:runProcessFunction();">打开其它应用程序<i>runProcess()</i></a>
-                <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" />
-                <input id="runProcessArgs2" width="100" placeholder="请输入其它参数" />
+                <input id="runProcessArgs1" width="100" placeholder="请输入文件名或程序路径" maxlength="100" />
+                <input id="runProcessArgs2" width="100" placeholder="请输入其它参数" maxlength="100" />
             </p>
             <p>
                 <a href="javascript:runCMDFunction();">执行命令行程序<i>runCMD()</i></a>
-                <input id="runCMDArgs1" width="100" placeholder="请输入文件名或程序路径" />
-                <input id="runCMDArgs2" width="100" placeholder="请输入其它参数" />
+                <input id="runCMDArgs1" width="100" placeholder="请输入文件名或程序路径" maxlength="100" />
+                <input id="runCMDArgs2" width="100" placeholder="请输入其它参数" maxlength="100" />
             </p>
             <p><a href="javascript:runJsFunction('clearMemory');">执行内存优化<i>clearMemory()</i></a></p>
         </li>

@@ -2,6 +2,7 @@ using EO.WebBrowser;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using WindowsWPF.Controls;
 
 namespace BigScreenBrowser
 {
@@ -39,6 +40,40 @@ namespace BigScreenBrowser
                 // 拆分窗口为一半/还原
                 case "halveApp":
                     HalveApp();
+                    break;
+                // 打开通知消息
+                case "alert":
+                    if (e.Arguments.Length > 0 && e.Arguments[0].GetType() == typeof(string))
+                    {
+                        try
+                        {
+                            string badge = e.Arguments[0].ToString(), message = e.Arguments.Length == 1 ? badge : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
+                            if (e.Arguments.Length == 1)
+                            {
+                                Notifier.CreateMessage()
+                                    .Accent("#1751C3").Background("#333333")
+                                    .Animates(true).AnimationInDuration(0.5).AnimationOutDuration(0.5)
+                                    .HasMessage(message)
+                                    .Dismiss().WithButton("关闭", button => { })
+                                    .Queue();
+                            }
+                            else
+                            {
+                                Notifier.CreateMessage()
+                                    .Accent("#1751C3").Background("#333333")
+                                    .Animates(true).AnimationInDuration(0.5).AnimationOutDuration(0.5)
+                                    .HasBadge(badge)
+                                    .HasMessage(message)
+                                    .Dismiss().WithButton("关闭", button => { })
+                                    .Queue();
+                            }
+                            e.ReturnValue = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            e.ReturnValue = ex.Message;
+                        }
+                    }
                     break;
                 // 打开其它应用程序
                 case "runProcess":

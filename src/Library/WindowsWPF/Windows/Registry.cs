@@ -22,6 +22,8 @@ namespace System.Windows
 
         /// <summary>
         /// 创建快捷方式(为当前应用程序)
+        /// 前提：本地组策略编辑"gpedit.msc"：计算机配置/管理模板/系统/组策略："配置包含应用 URI 处理程序的 Web 到应用链接"
+        /// 禁用此策略将会禁用 Web 到应用链接，并会在默认浏览器中打开 http(s) URI 而不是启动相关应用。
         /// </summary>
         /// <param name="protocol"></param>
         public static void RegistThisApp(string protocol)

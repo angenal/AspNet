@@ -195,13 +195,8 @@ namespace BigScreenBrowser
                 //brush.Freeze();
                 //grid.Background = brush;
                 Notifier.CreateMessage()
-                    .Accent("#F15B19")
-                    //.Animates(true)
-                    //.AnimationInDuration(0.5)
-                    //.AnimationOutDuration(0.5)
-                    .Background("#F15B19")
-                    .HasBadge("首页")
-                    .HasMessage("加载完成。")
+                    .Accent("#F15B19").Background("#1EA2E6")
+                    .HasBadge("首页").HasMessage("加载完成")
                     .Dismiss().WithDelay(TimeSpan.FromSeconds(2))
                     .Queue();
             }));
