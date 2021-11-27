@@ -5,24 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:eo="http://schemas.essentialobjects.com/wpf/"
         xmlns:w="http://wpf.windows.com/xaml"
-        mc:Ignorable="d" Loaded="Window_Loaded" SourceInitialized="Window_SourceInitialized" IsVisibleChanged="Window_IsVisibleChanged" LocationChanged="Window_LocationChanged" SizeChanged="Window_SizeChanged" Closing="Window_Closing" Icon="App.ico" AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" Topmost="False" ShowInTaskbar="False" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="Manual" Top="0" Left="0" SizeToContent="WidthAndHeight">
+        mc:Ignorable="d" 
+        Loaded="Window_Loaded" 
+        SourceInitialized="Window_SourceInitialized" 
+        IsVisibleChanged="Window_IsVisibleChanged" 
+        LocationChanged="Window_LocationChanged" 
+        SizeChanged="Window_SizeChanged" 
+        Closing="Window_Closing" 
+        Icon="App.ico" 
+        AllowsTransparency="True" Background="Transparent" ResizeMode="NoResize" 
+        Topmost="False" ShowInTaskbar="False" WindowStyle="None" WindowState="Maximized" 
+        WindowStartupLocation="Manual" Top="0" Left="0" SizeToContent="WidthAndHeight">
     <Grid x:Name="grid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <WrapPanel x:Name="container" Grid.ColumnSpan="3" Panel.ZIndex="1"></WrapPanel>
-
-        <Border Grid.Column="1" Panel.ZIndex="3">
-            <w:NotificationArea x:Name="windowArea" MaxItems="10" />
-        </Border>
-
+        <WrapPanel x:Name="webPanel"></WrapPanel>
+        <Grid x:Name="notifyPanel" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <WrapPanel x:Name="notifyPanel0" Grid.ColumnSpan="3" Panel.ZIndex="1" Opacity="0.5"></WrapPanel>
+            <Border Grid.Column="0" Panel.ZIndex="2">
+                <w:NotificationArea x:Name="leftArea" Position="TopCenter" MaxItems="10" />
+            </Border>
+            <Border Grid.Column="1" Panel.ZIndex="2">
+                <w:NotificationArea x:Name="centerArea" Position="TopCenter" MaxItems="10" />
+            </Border>
+            <Border Grid.Column="2" Panel.ZIndex="2">
+                <w:NotificationArea x:Name="rightArea" Position="TopCenter" MaxItems="10" />
+            </Border>
+        </Grid>
         <w:TaskbarIcon x:Name="notifyIcon" IconSource="App.ico" ContextMenu="{StaticResource notifyIconMenu}" MenuActivation="All" />
     </Grid>
 </Window>

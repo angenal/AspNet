@@ -1,7 +1,11 @@
 using EO.WebBrowser;
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WindowsWPF.Controls;
 
 namespace BigScreenBrowser
@@ -47,14 +51,16 @@ namespace BigScreenBrowser
                     {
                         try
                         {
-                            string badge = e.Arguments[0].ToString(), message = e.Arguments.Length == 1 ? badge : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
+                            HideWebBrowser();
+                            TimeSpan expirationTime = TimeSpan.FromSeconds(5);
+                            string areaName = "centerArea", badge = e.Arguments[0].ToString(), message = e.Arguments.Length == 1 ? badge : string.Join(" ", e.Arguments.Skip(1).Where(s => s != null || !string.IsNullOrWhiteSpace(s.ToString())));
                             if (e.Arguments.Length == 1)
                             {
-                                notifier.Show(new NotificationContent { Message = message, Type = NotificationType.Information }, "windowArea", TimeSpan.FromSeconds(2));
+                                notifier.Show(new NotificationContent { Message = message, Type = NotificationType.Information }, areaName, expirationTime, onClose: ShowWebBrowser);
                             }
                             else
                             {
-                                notifier.Show(new NotificationContent { Message = message, Title = badge, Type = NotificationType.Information }, "windowArea", TimeSpan.FromSeconds(2));
+                                notifier.Show(new NotificationContent { Message = message, Title = badge, Type = NotificationType.Information }, areaName, expirationTime, onClose: ShowWebBrowser);
                             }
                             e.ReturnValue = true;
                         }
@@ -127,6 +133,22 @@ namespace BigScreenBrowser
                     }
                     break;
             }
+        }
+
+        private void HideWebBrowser()
+        {
+            MemoryStream stream = new MemoryStream();
+            ImageSourceConverter converter = new ImageSourceConverter();
+            RawBitmapData data = m_WebView.CaptureRaw(); data.Save(stream);
+            ImageSource image = (ImageSource)converter.ConvertFrom(stream);
+            notifyPanel0.Background = new ImageBrush(image);
+            notifyPanel.Visibility = System.Windows.Visibility.Visible;
+            webPanel.Visibility = System.Windows.Visibility.Hidden;
+        }
+        private void ShowWebBrowser()
+        {
+            notifyPanel.Visibility = System.Windows.Visibility.Hidden;
+            webPanel.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }

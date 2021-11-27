@@ -76,7 +76,7 @@ namespace BigScreenBrowser
         void WebView_NewWindow(object sender, NewWindowEventArgs e)
         {
             m_LaunchUrl = false;
-            int count = container.Children.Count;
+            int count = webPanel.Children.Count;
             bool attachEvents = !string.IsNullOrEmpty(e.TargetUrl);
             if (s_Index < count && attachEvents)
             {
@@ -94,12 +94,12 @@ namespace BigScreenBrowser
                 }
 
                 NewTargetUrl = e.TargetUrl;
-                WebViewItem item1 = (WebViewItem)container.Children[count - 1];
+                WebViewItem item1 = (WebViewItem)webPanel.Children[count - 1];
                 item1.Visibility = Visibility.Collapsed;
                 //Only 2 reserved
                 if (s_Index + 1 < count)
                 {
-                    WebViewItem item0 = (WebViewItem)container.Children[s_Index];
+                    WebViewItem item0 = (WebViewItem)webPanel.Children[s_Index];
                     DetachPage(item0.Page);
                     item0.Page.DetachPage();
                     item0.Page.WebControl.WebView.Close(true);
@@ -113,14 +113,14 @@ namespace BigScreenBrowser
             //WebViewItem item = NewWebViewItem(e.WebView, attachEvents);
             WebView webView = attachEvents ? new WebView() { Url = e.TargetUrl } : e.WebView;
             WebViewItem item = NewWebViewItem(webView, attachEvents);
-            container.Children.Add(item);
+            webPanel.Children.Add(item);
 
 #if DEBUG
             Debug.WriteLine("");
-            count = container.Children.Count;
+            count = webPanel.Children.Count;
             for (int i = s_Index; i < count; i++)
             {
-                WebViewItem item1 = (WebViewItem)container.Children[i];
+                WebViewItem item1 = (WebViewItem)webPanel.Children[i];
                 Debug.WriteLine($">> Browsers[{i}] {(i == count - 1 ? "New" : "Old")} >> {(i == count - 1 ? e.TargetUrl : item1.Page.WebView.Url)}");
             }
 #endif
@@ -182,22 +182,22 @@ namespace BigScreenBrowser
                 for (int i = 0; i < App.Urls.Count; i++) Debug.WriteLine($">> App.Urls[{i}] = {App.Urls[i].Url}");
 #endif
             }
-            else if (container.Children.Count > s_Index + 1)
+            else if (webPanel.Children.Count > s_Index + 1)
             {
-                int count = container.Children.Count;
-                WebViewItem item0 = (WebViewItem)container.Children[count - 2];
-                WebViewItem item1 = (WebViewItem)container.Children[count - 1];
+                int count = webPanel.Children.Count;
+                WebViewItem item0 = (WebViewItem)webPanel.Children[count - 2];
+                WebViewItem item1 = (WebViewItem)webPanel.Children[count - 1];
                 item1.Visibility = Visibility.Collapsed;
                 item0.Visibility = Visibility.Visible;
             }
 #if DEBUG
-            Debug.WriteLine($">> Browsers[{container.Children.Count - 1}] Ok  >> {e.Url}");
+            Debug.WriteLine($">> Browsers[{webPanel.Children.Count - 1}] Ok  >> {e.Url}");
             Debug.WriteLine("");
 #endif
             //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
-            Times.Delay(3000);
+            Times.Delay(2000);
             Dispatcher.BeginInvoke(new Action(Window_SetBackground));
         }
 
@@ -205,7 +205,7 @@ namespace BigScreenBrowser
         private void WebView_LoadFailed(object sender, LoadFailedEventArgs e)
         {
 #if DEBUG
-            Debug.WriteLine($">> Browsers[{container.Children.Count - 1}] Fail >> {e.ErrorMessage} {e.Url}");
+            Debug.WriteLine($">> Browsers[{webPanel.Children.Count - 1}] Fail >> {e.ErrorMessage} {e.Url}");
             Debug.WriteLine("");
 #endif
             //if (e.ErrorCode == ErrorCode.Canceled || e.ErrorCode == ErrorCode.TimedOut || e.ErrorCode == ErrorCode.ConnectionTimeout) return;
@@ -218,7 +218,7 @@ namespace BigScreenBrowser
         {
 #if DEBUG
             WebView webView = (WebView)sender;
-            Debug.WriteLine($">> Browsers[{container.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
+            Debug.WriteLine($">> Browsers[{webPanel.Children.Count - 1}] Render Unresponsive >> {webView.Url}");
             Debug.WriteLine("");
 #endif
             //if (MessageBox.Show(this, "网页未响应或运行缓慢！", "警告", MessageBoxButton.YesNo) == MessageBoxResult.No) webView.Destroy();
@@ -285,18 +285,18 @@ namespace BigScreenBrowser
             {
                 return;
             }
-            for (int i = s_Index; i < container.Children.Count; i++)
+            for (int i = s_Index; i < webPanel.Children.Count; i++)
             {
-                WebViewItem item = (WebViewItem)container.Children[i];
+                WebViewItem item = (WebViewItem)webPanel.Children[i];
                 if (Equals(item.Page.WebView, sender))
                 {
                     item.Page.WebControl.WebView.Dispose();
                     item.Page.WebControl.Dispose();
-                    container.Children.RemoveAt(i);
+                    webPanel.Children.RemoveAt(i);
                     break;
                 }
             }
-            if (container.Children.Count == s_Index)
+            if (webPanel.Children.Count == s_Index)
             {
                 Close();
                 return;

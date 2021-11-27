@@ -195,10 +195,10 @@ namespace BigScreenBrowser
             int index = App.Urls.Count - 1;
             App.Urls.RemoveAt(index);
             SetUrlIndex(m_CurIndex = index);
-            int count = container.Children.Count;
+            int count = webPanel.Children.Count;
             if (count > s_Index)
             {
-                WebViewItem item = (WebViewItem)container.Children[count - 1];
+                WebViewItem item = (WebViewItem)webPanel.Children[count - 1];
                 item.Visibility = Visibility.Visible;
             }
         }

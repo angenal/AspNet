@@ -17,7 +17,7 @@ namespace BigScreenBrowser
         private static string m_HomeURL = Properties.Resources.URL;
         private EO.WebBrowser.WebView m_WebView;
         private WebPage m_CurPage;
-        const int s_Index = 0;
+        private const int s_Index = 0;
         private int m_CurIndex = 0;
         private bool m_Forward = true;
         private bool m_Download = false;
@@ -52,7 +52,7 @@ namespace BigScreenBrowser
             App.Width = grid.Width = grid.MaxWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             App.Height = grid.Height = grid.MaxHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             //加载网页
-            container.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
+            webPanel.Children.Add(NewWebViewItem(new EO.WebBrowser.WebView() { Url = m_HomeURL }));
             //下载默认目录
             m_SaveFilePath = Path.Combine(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)), "Downloads");
             if (!Directory.Exists(m_SaveFilePath)) m_SaveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -69,10 +69,9 @@ namespace BigScreenBrowser
         private void Window_SetBackground()
         {
             //设置背景
-            BrushConverter bc = new BrushConverter();
-            Brush brush = (Brush)bc.ConvertFrom("#000000"); //bc.ConvertFromString("Black");
-            brush.Freeze();
-            grid.Background = brush;
+            webPanel.Background = Brushes.White;
+            grid.Background = Brushes.Black;
+            grid.UpdateLayout();
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -132,7 +131,7 @@ namespace BigScreenBrowser
                 altQ?.Dispose();
                 altT?.Dispose();
                 //保存访问历史
-                //dockContainer.SaveLayout(m_LayoutFileName);
+                //dockwebPanel.SaveLayout(m_LayoutFileName);
                 //释放资源
                 TransparentSplash.Instance?.Dispose();
                 notifyIcon?.Dispose();

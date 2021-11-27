@@ -66,7 +66,7 @@ namespace BigScreenBrowser
             Dispatcher.BeginInvoke(new Action(() => { Left = x; Top = y; Width = w; Height = h; }));
             IntPtr hWnd = new WindowInteropHelper(this).Handle;
             Application.Current.Dispatcher.Invoke(new Action(() => SetWindowPos(hWnd, -1, (int)x, (int)y, (int)w, (int)h, 0)));
-            grid.Dispatcher.BeginInvoke(new Action(() => { grid.Width = w; grid.Height = h; }));
+            grid.Dispatcher.BeginInvoke(new Action(() => { grid.Width = w; grid.Height = h; grid.UpdateLayout(); }));
         }
 
         // 快捷键 Alt+F11 全屏(显示或隐藏)

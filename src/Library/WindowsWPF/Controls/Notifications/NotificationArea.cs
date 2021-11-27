@@ -17,8 +17,7 @@ namespace WindowsWPF.Controls
 
         // Using a DependencyProperty as the backing store for Position.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PositionProperty =
-            DependencyProperty.Register("Position", typeof(NotificationPosition), typeof(NotificationArea), new PropertyMetadata(NotificationPosition.BottomRight));
-
+            DependencyProperty.Register("Position", typeof(NotificationPosition), typeof(NotificationArea), new PropertyMetadata(NotificationPosition.TopCenter));
 
         public int MaxItems
         {
@@ -131,9 +130,10 @@ namespace WindowsWPF.Controls
     public enum NotificationPosition
     {
         TopLeft,
-        TopRight,
         TopCenter,
+        TopRight,
         BottomLeft,
+        BottomCenter,
         BottomRight
     }
 }
