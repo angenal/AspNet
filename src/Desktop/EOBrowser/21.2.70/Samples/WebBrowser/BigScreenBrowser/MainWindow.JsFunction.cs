@@ -1,12 +1,12 @@
 using EO.WebBrowser;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using WindowsWPF.Controls;
 using WindowsWPF.Helpers;
+using WindowsWPF.Interop;
 
 namespace BigScreenBrowser
 {
@@ -19,7 +19,7 @@ namespace BigScreenBrowser
             {
                 // 执行内存优化
                 case "clearMemory":
-                    ClearMemory();
+                    WinApi.ClearMemory();
                     break;
                 // 显示/隐藏
                 case "toggleApp":

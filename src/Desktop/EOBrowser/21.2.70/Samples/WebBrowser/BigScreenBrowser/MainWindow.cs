@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using WindowsWPF.Controls;
+using WindowsWPF.Interop;
 
 namespace BigScreenBrowser
 {
@@ -41,9 +42,9 @@ namespace BigScreenBrowser
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //彻底去除关闭按钮
-            RemoveCloseButton();
+            this.RemoveCloseButton();
             //窗体一直置顶
-            //SetTopMost();
+            //this.SetTopMost();
             //状态栏
             object a1 = App.AssemblyAttributes.FirstOrDefault(t => t is AssemblyProductAttribute);
             if (a1 != null) notifyIcon.ToolTipText = ((AssemblyProductAttribute)a1).Product;

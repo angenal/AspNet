@@ -141,7 +141,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainBrowser.cs" />
-    <Compile Include="MainWindow.Set.cs" />
     <Compile Include="MainWindow.Hotkey.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="MainWindow.xaml.cs">

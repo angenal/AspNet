@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using WindowsWPF.Interop;
 
 namespace BigScreenBrowser
 {
@@ -17,7 +18,7 @@ namespace BigScreenBrowser
         [RequestRoute(Description = "执行内存优化")]
         public static void ClearMemory(HttpRequest req, HttpResponse resp)
         {
-            App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ClearMemory()));
+            Application.Current.Dispatcher.BeginInvoke(new Action(() => WinApi.ClearMemory()));
         }
 
         [RequestRoute(Description = "显示或隐藏程序")]

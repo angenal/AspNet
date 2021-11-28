@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WindowsWPF.Controls;
+using WindowsWPF.Interop;
 
 namespace WPF.FullScreen
 {
@@ -94,9 +95,9 @@ namespace WPF.FullScreen
             AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent += AutoUpdater_CheckForUpdateEvent;
             AutoUpdaterDotNET.AutoUpdater.Start(Properties.Resources.AutoUpdaterURL);
             //彻底去除关闭按钮
-            RemoveCloseButton();
+            this.RemoveCloseButton();
             //窗体一直置顶
-            //SetTopMost();
+            //this.SetTopMost();
         }
 
         private void AutoUpdater_CheckForUpdateEvent(AutoUpdaterDotNET.UpdateInfoEventArgs args)

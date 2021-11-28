@@ -140,7 +140,6 @@
     <Compile Include="MainWindow.Find.cs" />
     <Compile Include="MainWindow.Hotkey.cs" />
     <Compile Include="MainWindow.Menu.cs" />
-    <Compile Include="MainWindow.Set.cs" />
     <Compile Include="MainWindow.WebView.cs" />
     <Compile Include="WebPage.cs" />
     <Compile Include="WebPageObjectForScripting.cs" />
