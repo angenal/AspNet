@@ -28,7 +28,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <WrapPanel x:Name="notifyPanel0" Grid.ColumnSpan="3" Panel.ZIndex="1" Opacity="0.5"></WrapPanel>
+            <WrapPanel x:Name="notifyPanel0" Grid.ColumnSpan="3" Panel.ZIndex="1" Background="Black" Opacity="0.2"></WrapPanel>
             <Border Grid.Column="0" Panel.ZIndex="2">
                 <w:NotificationArea x:Name="leftArea" Position="TopCenter" MaxItems="10" />
             </Border>

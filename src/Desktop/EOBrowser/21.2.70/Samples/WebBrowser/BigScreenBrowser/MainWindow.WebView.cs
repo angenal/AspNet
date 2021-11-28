@@ -197,7 +197,10 @@ namespace BigScreenBrowser
             //Init Background
             if (App.GridBackgroundUpdated) return;
             App.GridBackgroundUpdated = true;
-            Times.Delay(2000);
+            Times.Delay(1000);
+            Style style = new Style(GetType());
+            Setter setter = new Setter(AllowsTransparencyProperty, false);
+            style.Setters.Add(setter);
             Dispatcher.BeginInvoke(new Action(Window_SetBackground));
         }
 

@@ -69,9 +69,16 @@ namespace BigScreenBrowser
         private void Window_SetBackground()
         {
             //设置背景
-            webPanel.Background = Brushes.White;
-            grid.Background = Brushes.Black;
-            grid.UpdateLayout();
+            Times.Delay(1000);
+            Style style = new Style(GetType());
+            Setter setter = new Setter(BackgroundProperty, Brushes.Black);
+            style.Setters.Add(setter);
+            BrushConverter bc = new BrushConverter();
+            Brush brush = (Brush)bc.ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
+            brush.Freeze();
+            grid.Background = brush;
+            //webPanel.Background = Brushes.White;
+            UpdateLayout();
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

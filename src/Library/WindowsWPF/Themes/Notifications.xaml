@@ -85,11 +85,11 @@
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="controls:Notification.NotificationCloseInvoked" >
-                <BeginStoryboard>
+                <!--<BeginStoryboard>
                     <Storyboard Duration="0:0:.1">
                         <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleX" From="1" To="0.1" Duration="0:0:.2"/>
                     </Storyboard>
-                </BeginStoryboard>
+                </BeginStoryboard>-->
                 <BeginStoryboard>
                     <Storyboard BeginTime="0:0:.2">
                         <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleY" From="1" To="0" Duration="0:0:.2"/>

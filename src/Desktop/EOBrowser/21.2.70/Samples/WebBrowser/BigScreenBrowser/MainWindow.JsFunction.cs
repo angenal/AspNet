@@ -137,13 +137,13 @@ namespace BigScreenBrowser
 
         private void HideWebBrowser()
         {
-            MemoryStream stream = new MemoryStream();
-            ImageSourceConverter converter = new ImageSourceConverter();
-            RawBitmapData data = m_WebView.CaptureRaw(); data.Save(stream);
-            ImageSource image = (ImageSource)converter.ConvertFrom(stream);
-            notifyPanel0.Background = new ImageBrush(image);
+            //MemoryStream stream = new MemoryStream();
+            //m_WebView.Capture().Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //ImageSourceConverter converter = new ImageSourceConverter();
+            //ImageSource image = (ImageSource)converter.ConvertFrom(stream);
+            //notifyPanel.Background = new ImageBrush(image);
             notifyPanel.Visibility = System.Windows.Visibility.Visible;
-            webPanel.Visibility = System.Windows.Visibility.Hidden;
+            //webPanel.Visibility = System.Windows.Visibility.Hidden;
         }
         private void ShowWebBrowser()
         {
