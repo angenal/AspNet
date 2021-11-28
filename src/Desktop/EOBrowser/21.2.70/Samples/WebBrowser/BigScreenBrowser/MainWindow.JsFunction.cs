@@ -1,12 +1,12 @@
 using EO.WebBrowser;
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using WindowsWPF.Controls;
+using WindowsWPF.Helpers;
 
 namespace BigScreenBrowser
 {
@@ -137,18 +137,18 @@ namespace BigScreenBrowser
 
         private void HideWebBrowser()
         {
-            //MemoryStream stream = new MemoryStream();
-            //m_WebView.Capture().Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-            //ImageSourceConverter converter = new ImageSourceConverter();
-            //ImageSource image = (ImageSource)converter.ConvertFrom(stream);
-            //notifyPanel.Background = new ImageBrush(image);
-            notifyPanel.Visibility = System.Windows.Visibility.Visible;
-            //webPanel.Visibility = System.Windows.Visibility.Hidden;
+            var rect = new Rect { X = Left, Y = Top, Width = Width, Height = Height };
+            var bitmap = rect.CopyAsBitmap();
+            var image = bitmap.ToImageSource();
+            notifyPanel.Background = new ImageBrush(image);
+            notifyPanel.Visibility = Visibility.Visible;
+            webPanel.Visibility = Visibility.Hidden;
         }
+
         private void ShowWebBrowser()
         {
-            notifyPanel.Visibility = System.Windows.Visibility.Hidden;
-            webPanel.Visibility = System.Windows.Visibility.Visible;
+            notifyPanel.Visibility = Visibility.Hidden;
+            webPanel.Visibility = Visibility.Visible;
         }
     }
 }

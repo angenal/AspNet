@@ -91,6 +91,7 @@
     <Compile Include="Controls\Splash\TransparentSplash.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Helpers\FrameworkElementHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\IniHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />

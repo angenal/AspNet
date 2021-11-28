@@ -189,7 +189,7 @@ namespace WindowsWPF.Controls
         }
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
+        static extern bool DeleteObject(IntPtr hObject);
         ImageSource ChangeBitmapToImageSource(System.Drawing.Bitmap bitmap)
         {
             IntPtr hBitmap = bitmap.GetHbitmap();

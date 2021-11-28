@@ -25,11 +25,9 @@ namespace WindowsWPF.Controls
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static public extern IntPtr GetDesktopWindow();
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public extern static IntPtr SetParent(IntPtr hChild, IntPtr hParent);
+        extern static IntPtr SetParent(IntPtr hChild, IntPtr hParent);
         [DllImport("user32.dll", EntryPoint = "SetWindowPos", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
-        public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-        [DllImport("gdi32.dll")]
-        public static extern bool BitBlt(IntPtr hdcDst, int xDst, int yDst, int cx, int cy, IntPtr hdcSrc, int xSrc, int ySrc, uint ulRop);
+        static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("gdi32.dll")]
         static extern uint SetPixel(IntPtr hdc, int X, int Y, uint crColor);
         #endregion
