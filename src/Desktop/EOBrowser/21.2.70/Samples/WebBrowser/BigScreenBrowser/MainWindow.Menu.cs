@@ -9,12 +9,13 @@ namespace BigScreenBrowser
     {
         //This event handler is called when a context menu item or a hot key triggers a "command".
         //private static int m_F1Command = CommandIds.RegisterUserCommand("help");
-        private static int m_ScreenCut = CommandIds.RegisterUserCommand("screenCut");
         private static int m_DemoCommand = CommandIds.RegisterUserCommand("demo");
         private static int m_HomeCommand = CommandIds.RegisterUserCommand("home");
         private static int m_BackCommand = CommandIds.RegisterUserCommand("back");
         private static int m_ForwardCommand = CommandIds.RegisterUserCommand("forward");
-        private static int m_GotoUrl = CommandIds.RegisterUserCommand("gotoUrl");
+        private static int m_GotoUrlCommand = CommandIds.RegisterUserCommand("gotoUrl");
+        private static int m_ScreenCutCommand = CommandIds.RegisterUserCommand("screenCut");
+        private static int m_HideCommand = CommandIds.RegisterUserCommand("hide");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
@@ -23,12 +24,13 @@ namespace BigScreenBrowser
                 new Shortcut(CommandIds.Reload, KeyCode.F5), //刷新网页
                 new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),
                 new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
-                new Shortcut(m_ScreenCut, KeyCode.A, false, true, false), //截图 Alt + A
+                new Shortcut(m_ScreenCutCommand, KeyCode.A, false, true, false), //截图 Alt + A
                 new Shortcut(m_DemoCommand, KeyCode.D, false, true, false), //演示页面 Alt + D
                 new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
                 new Shortcut(m_BackCommand, KeyCode.Left, false, true, false), //返回 Alt + ←
                 new Shortcut(m_ForwardCommand, KeyCode.Right, false, true, false), //向前 Alt + →
-                new Shortcut(m_GotoUrl, KeyCode.V, false, true, false), //剪切板 Alt + V
+                new Shortcut(m_GotoUrlCommand, KeyCode.V, false, true, false), //剪切板 Alt + V
+                new Shortcut(m_HideCommand, KeyCode.H, false, true, false), //剪切板 Alt + H
             };
         }
 
@@ -44,25 +46,30 @@ namespace BigScreenBrowser
             if (e.Menu.Items.HasPluginMenuItems())
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
 
-            var textData = Clipboard.GetData(DataFormats.Text);
-            if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out Uri uri))
-            {
-                e.Menu.Items.Add(new MenuItem("剪切板", m_GotoUrl) { Enabled = webView.Url != uri.ToString() });
-                e.Menu.Items.Add(MenuItem.CreateSeparator());
-            }
-
             //Create new context menu items. Each menu item is associated to
             //a "Command". When the menu item is selected, WebView_Command is
             //called (as event handler for the Command event) to handle the
             //corresponding command
+            e.Menu.Items.Add(new MenuItem("返回", m_BackCommand) { Enabled = m_CurIndex > 0 });
+            e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand) { Enabled = m_CurIndex < App.Urls.Count - 1 });
             e.Menu.Items.Add(new MenuItem("刷新", CommandIds.Reload) { Enabled = !string.IsNullOrEmpty(webView.Url) });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand) { Enabled = !webView.Url.Equals(m_HomeURL, StringComparison.OrdinalIgnoreCase) });
+            if (!webView.Url.Equals(m_HomeURL, StringComparison.OrdinalIgnoreCase))
+            {
+                e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand));
+                e.Menu.Items.Add(MenuItem.CreateSeparator());
+            }
+            var textData = Clipboard.GetData(DataFormats.Text);
+            if (textData != null && Uri.TryCreate(textData.ToString().Trim(), UriKind.Absolute, out Uri uri)
+                && !webView.Url.Equals(uri.ToString(), StringComparison.OrdinalIgnoreCase))
+            {
+                e.Menu.Items.Add(new MenuItem("粘贴并转到" + uri.Authority, m_GotoUrlCommand));
+                e.Menu.Items.Add(MenuItem.CreateSeparator());
+            }
+            e.Menu.Items.Add(new MenuItem("截图", m_ScreenCutCommand) { Enabled = !isScreenCut });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem(m_LaunchUrl ? "返回" : "后退", m_BackCommand) { Enabled = m_CurIndex > 0 });
-            e.Menu.Items.Add(new MenuItem("前进", m_ForwardCommand) { Enabled = m_CurIndex < App.Urls.Count - 1 });
-            e.Menu.Items.Add(MenuItem.CreateSeparator());
-            e.Menu.Items.Add(new MenuItem("截图", m_ScreenCut) { Enabled = !isScreenCut });
+            e.Menu.Items.Add(new MenuItem("隐藏", m_HideCommand));
+
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             ////e.Menu.Items.Add(MenuItem.CreateSeparator());
             ////e.Menu.Items.Add(new MenuItem("打印", CommandIds.Print));
@@ -110,7 +117,7 @@ namespace BigScreenBrowser
                 return;
             }
             //剪切板网址跳转
-            if (e.CommandId == m_GotoUrl)
+            if (e.CommandId == m_GotoUrlCommand)
             {
                 e.Handled = true;
                 var textData = Clipboard.GetData(DataFormats.Text);
@@ -122,11 +129,18 @@ namespace BigScreenBrowser
                 }
             }
             //截图
-            if (e.CommandId == m_ScreenCut)
+            if (e.CommandId == m_ScreenCutCommand)
             {
                 e.Handled = true;
                 isScreenCut = true;
                 App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(ScreenCut));
+                return;
+            }
+            //隐藏
+            if (e.CommandId == m_HideCommand)
+            {
+                e.Handled = true;
+                App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(HideApp));
                 return;
             }
             //提示快捷键功能 F1

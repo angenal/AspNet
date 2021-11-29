@@ -1,3 +1,5 @@
+using System.Windows;
+
 namespace WindowsWPF.Controls
 {
     public class NotificationContent
@@ -6,6 +8,9 @@ namespace WindowsWPF.Controls
         public string Message { get; set; }
 
         public NotificationType Type { get; set; }
+
+        public Visibility TitleVisibility => string.IsNullOrWhiteSpace(Title) ? Visibility.Collapsed : Visibility.Visible;
+        public double MinHeight => string.IsNullOrWhiteSpace(Title) ? 40 : 80;
     }
 
     public enum NotificationType   
