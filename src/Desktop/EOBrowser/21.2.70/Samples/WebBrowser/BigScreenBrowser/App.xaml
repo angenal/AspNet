@@ -9,7 +9,10 @@
                 <ResourceDictionary Source="pack://application:,,,/WindowsWPF;component/Generic.xaml"/>
                 <ResourceDictionary Source="NotifyIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <sys:String x:Key="EOSTR_Shortcut_KeyCode_Home">Home</sys:String>
+            <!--<sys:String x:Key="EOSTR_Close">关闭</sys:String>
+            <sys:String x:Key="KeyCode_Home">首页</sys:String>
+            <sys:String x:Key="KeyCode_Left">←</sys:String>
+            <sys:String x:Key="KeyCode_Right">→</sys:String>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -18,24 +18,28 @@ namespace BigScreenBrowser
         [RequestRoute(Description = "执行内存优化")]
         public static void ClearMemory(HttpRequest req, HttpResponse resp)
         {
+            if (App.MainWnd == null || App.MainWnd.IsLoaded == false) return;
             Application.Current.Dispatcher.BeginInvoke(new Action(() => WinApi.ClearMemory()));
         }
 
         [RequestRoute(Description = "显示或隐藏程序")]
         public static void ToggleApp(HttpRequest req, HttpResponse resp)
         {
+            if (App.MainWnd == null || App.MainWnd.IsLoaded == false) return;
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ToggleApp()));
         }
 
         [RequestRoute(Description = "显示该应用程序")]
         public static void ShowApp(HttpRequest req, HttpResponse resp)
         {
+            if (App.MainWnd == null || App.MainWnd.IsLoaded == false || App.MainWnd.IsVisible) return;
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.ShowApp()));
         }
 
         [RequestRoute(Description = "隐藏该应用程序")]
         public static void HideApp(HttpRequest req, HttpResponse resp)
         {
+            if (App.MainWnd == null || App.MainWnd.IsLoaded == false || App.MainWnd.IsVisible == false) return;
             App.MainWnd.Dispatcher.BeginInvoke(new Action(() => App.MainWnd.HideApp()));
         }
     }

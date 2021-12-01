@@ -16,6 +16,7 @@ namespace BigScreenBrowser
         private static int m_GotoUrlCommand = CommandIds.RegisterUserCommand("gotoUrl");
         private static int m_ScreenCutCommand = CommandIds.RegisterUserCommand("screenCut");
         private static int m_HideCommand = CommandIds.RegisterUserCommand("hide");
+        private static int m_ExitCommand = CommandIds.RegisterUserCommand("exit");
         private static Shortcut[] GetShortcuts()
         {
             return new Shortcut[]
@@ -26,11 +27,16 @@ namespace BigScreenBrowser
                 new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
                 new Shortcut(m_ScreenCutCommand, KeyCode.A, false, true, false), //截图 Alt + A
                 new Shortcut(m_DemoCommand, KeyCode.D, false, true, false), //演示页面 Alt + D
+                new Shortcut(m_HomeCommand, KeyCode.LWin),
+                new Shortcut(m_HomeCommand, KeyCode.RWin),
+                new Shortcut(m_HomeCommand, KeyCode.Apps),
                 new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
-                new Shortcut(m_BackCommand, KeyCode.Left, false, true, false), //返回 Alt + ←
-                new Shortcut(m_ForwardCommand, KeyCode.Right, false, true, false), //向前 Alt + →
+                new Shortcut(m_BackCommand, KeyCode.BrowserBack, false, true, false), //返回 Alt + ←
+                new Shortcut(m_ForwardCommand, KeyCode.BrowserForward, false, true, false), //向前 Alt + →
                 new Shortcut(m_GotoUrlCommand, KeyCode.V, false, true, false), //剪切板 Alt + V
-                new Shortcut(m_HideCommand, KeyCode.H, false, true, false), //剪切板 Alt + H
+                new Shortcut(m_HideCommand, KeyCode.Sleep),
+                new Shortcut(m_HideCommand, KeyCode.H, false, true, false), //隐藏 Alt + H
+                new Shortcut(m_ExitCommand, KeyCode.End, false, true, false), //退出 Alt + End
             };
         }
 
@@ -56,7 +62,7 @@ namespace BigScreenBrowser
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             if (!webView.Url.Equals(m_HomeURL, StringComparison.OrdinalIgnoreCase))
             {
-                e.Menu.Items.Add(new MenuItem("回到", m_HomeCommand));
+                e.Menu.Items.Add(new MenuItem("首页", m_HomeCommand));
                 e.Menu.Items.Add(MenuItem.CreateSeparator());
             }
             var textData = Clipboard.GetData(DataFormats.Text);
@@ -69,6 +75,7 @@ namespace BigScreenBrowser
             e.Menu.Items.Add(new MenuItem("截图", m_ScreenCutCommand) { Enabled = !isScreenCut });
             e.Menu.Items.Add(MenuItem.CreateSeparator());
             e.Menu.Items.Add(new MenuItem("隐藏", m_HideCommand));
+            e.Menu.Items.Add(new MenuItem("退出", m_ExitCommand));
 
             //e.Menu.Items.Add(new MenuItem("源码", CommandIds.ViewSource));
             ////e.Menu.Items.Add(MenuItem.CreateSeparator());
@@ -141,6 +148,13 @@ namespace BigScreenBrowser
             {
                 e.Handled = true;
                 App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(HideApp));
+                return;
+            }
+            //退出
+            if (e.CommandId == m_ExitCommand)
+            {
+                e.Handled = true;
+                App.Instance.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(Window_ComfirmExit));
                 return;
             }
             //提示快捷键功能 F1

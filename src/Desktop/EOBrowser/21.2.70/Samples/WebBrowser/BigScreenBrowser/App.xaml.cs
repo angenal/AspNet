@@ -141,9 +141,9 @@ namespace BigScreenBrowser
 
         public static void SetWebEngineOptions(EngineOptions engine)
         {
+            engine.UILanguage = "en-US";
             //By default, EO.WebBrowser uses the same UI language of the calling thread of your application
             //engine.UILanguage = Thread.CurrentThread.CurrentUICulture.Name;
-            //engine.UILanguage = "es";
 
             //Sets additional plugin directories
             //engine.AdditionalPluginsDirs = new string[] { Path.Combine(ExeDir, "plugins") };

@@ -4,9 +4,9 @@ namespace BigScreenBrowser.Commands
     {
         public override void Execute(object parameter)
         {
-            App.MainWnd.notifyIcon.ContextMenu.Items.Clear();
+            //App.MainWnd.notifyIcon.ContextMenu.Items.Clear();
             //App.MainWnd.webPanel.Children.RemoveAt(0);
-            App.MainWnd.Window_Exit();
+            App.MainWnd.Window_ComfirmExit();
         }
     }
 }
