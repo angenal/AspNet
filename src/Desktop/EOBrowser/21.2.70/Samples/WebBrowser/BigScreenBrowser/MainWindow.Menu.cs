@@ -23,18 +23,14 @@ namespace BigScreenBrowser
             {
                 //new Shortcut(m_F1Command, KeyCode.F1),
                 new Shortcut(CommandIds.Reload, KeyCode.F5), //刷新网页
-                new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),
+                new Shortcut(CommandIds.ReloadNoCache, KeyCode.F5, true, false, false),//刷新
                 new Shortcut(CommandIds.Reload, KeyCode.R, true, false, false), //重新加载
                 new Shortcut(m_ScreenCutCommand, KeyCode.A, false, true, false), //截图 Alt + A
                 new Shortcut(m_DemoCommand, KeyCode.D, false, true, false), //演示页面 Alt + D
-                new Shortcut(m_HomeCommand, KeyCode.LWin),
-                new Shortcut(m_HomeCommand, KeyCode.RWin),
-                new Shortcut(m_HomeCommand, KeyCode.Apps),
                 new Shortcut(m_HomeCommand, KeyCode.Home), //返回首页 Home
                 new Shortcut(m_BackCommand, KeyCode.BrowserBack, false, true, false), //返回 Alt + ←
                 new Shortcut(m_ForwardCommand, KeyCode.BrowserForward, false, true, false), //向前 Alt + →
                 new Shortcut(m_GotoUrlCommand, KeyCode.V, false, true, false), //剪切板 Alt + V
-                new Shortcut(m_HideCommand, KeyCode.Sleep),
                 new Shortcut(m_HideCommand, KeyCode.H, false, true, false), //隐藏 Alt + H
                 new Shortcut(m_ExitCommand, KeyCode.End, false, true, false), //退出 Alt + End
             };
