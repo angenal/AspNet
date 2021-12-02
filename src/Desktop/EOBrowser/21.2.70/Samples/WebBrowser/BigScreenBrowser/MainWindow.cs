@@ -71,14 +71,13 @@ namespace BigScreenBrowser
         {
             //设置背景
             Times.Delay(1000);
-            Style style = new Style(GetType());
-            Setter setter = new Setter(BackgroundProperty, Brushes.Black);
-            style.Setters.Add(setter);
             BrushConverter bc = new BrushConverter();
-            Brush brush = (Brush)bc.ConvertFrom("#FFFFFF"); //bc.ConvertFromString("White");
+            Brush brush = (Brush)bc.ConvertFrom("#F6F6F6");
             brush.Freeze();
+            Style style = new Style(GetType());
+            Setter setter = new Setter(BackgroundProperty, brush);
+            style.Setters.Add(setter);
             grid.Background = brush;
-            //webPanel.Background = Brushes.White;
             UpdateLayout();
         }
 
