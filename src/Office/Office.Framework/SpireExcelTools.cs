@@ -14,6 +14,24 @@ namespace Office.Framework
     /// </summary>
     public static class SpireExcelTools
     {
+        public static DataSet GetDataSet(string sourceFileName)
+        {
+            var ds = new DataSet();
+            if (string.IsNullOrEmpty(sourceFileName))
+                throw new ArgumentNullException(nameof(sourceFileName));
+
+            using (var doc = new Workbook())
+            {
+                doc.LoadFromFile(sourceFileName);
+                for (int i = 0; i < doc.Worksheets.Count; i++)
+                {
+                    var sheet = doc.Worksheets[i];
+                    var table = sheet.ExportDataTable();
+                    ds.Tables.Add(table);
+                }
+            }
+            return ds;
+        }
 
         /// <summary>
         /// 导出 Excel 文档(*.xls,*.xlsx)

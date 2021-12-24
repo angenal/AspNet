@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Office
 {
@@ -13,7 +11,7 @@ namespace Office
 
             //Demo.WordDemo.TestSpireWordExportWithBookMark();
             //Demo.WordDemo.TestSpireWordEncryptProtect();
-            Demo.WordDemo.TestSpireWordImagePreview();
+            //Demo.WordDemo.TestSpireWordImagePreview();
             //Demo.WordDemo.TestSpireWordPdfPreview();
             //Demo.WordDemo.TestSpireWordHtmlPreview();
 
@@ -21,6 +19,7 @@ namespace Office
             //Demo.WordDemo.TestDevExpressWordEncryptProtect();
 
             //Demo.ExcelDemo.TestSpireExcelExportWithList();
+            Demo.ExcelDemo.TestSpireExcelImport();
 
             Console.WriteLine("按任意键退出");
             Console.ReadKey();
