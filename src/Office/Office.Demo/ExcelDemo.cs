@@ -41,8 +41,8 @@ namespace Office.Demo
 
             int line = 1;
             DataSet ds = Framework.SpireExcelTools.GetDataSet(sourceFileName);
+            if (ds.Tables.Count == 0) return;
             DataTable dt = ds.Tables[0];
-            Console.WriteLine($"表格共计 {dt.Rows.Count} 行");
             foreach (DataRow dr in dt.Rows)
             {
                 string name = dr[0].ToString().Trim(), addr = dr[1].ToString().Trim();
