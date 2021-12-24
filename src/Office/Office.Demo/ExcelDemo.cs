@@ -48,7 +48,7 @@ namespace Office.Demo
                 string name = dr[0].ToString().Trim(), addr = dr[1].ToString().Trim();
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(addr)) continue;
 
-                string fileName = $"{name}_结业证书.png";
+                string fileName = $"{name.Replace("*", "_")}_结业证书.png";
                 string path = Path.Combine(inputDir.FullName, fileName);
                 FileInfo inputFile = new FileInfo(path);
                 if (!inputFile.Exists) continue;
