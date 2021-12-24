@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace Office.Demo
 {
@@ -40,6 +41,7 @@ namespace Office.Demo
             if (!outputDir.Exists) outputDir.Create();
 
             int line = 1;
+            StringBuilder s = new StringBuilder();
             DataSet ds = Framework.SpireExcelTools.GetDataSet(sourceFileName);
             if (ds.Tables.Count == 0) return;
             DataTable dt = ds.Tables[0];
@@ -51,7 +53,11 @@ namespace Office.Demo
                 string fileName = $"{name.Replace("*", "_")}_结业证书.png";
                 string path = Path.Combine(inputDir.FullName, fileName);
                 FileInfo inputFile = new FileInfo(path);
-                if (!inputFile.Exists) continue;
+                if (!inputFile.Exists)
+                {
+                    s.AppendLine($"{addr}/{fileName}");
+                    continue;
+                }
                 //FileInfo[] inputFiles = inputDir.GetFiles($"{name}_结业证书.png");
                 //if (inputFiles.Length == 0) continue;
 
@@ -63,6 +69,8 @@ namespace Office.Demo
 
                 Console.WriteLine($"{line++} {addr}/{fileName}");
             }
+            Console.WriteLine("---未知图片---");
+            Console.WriteLine(s.ToString());
         }
     }
 }
