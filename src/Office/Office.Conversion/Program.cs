@@ -1,8 +1,6 @@
+using Office.Conversion.QuickStart;
 using System;
 using System.IO;
-using Office.Conversion.AdvancedUsage;
-using Office.Conversion.BasicUsage;
-using Office.Conversion.QuickStart;
 
 namespace Office.Conversion
 {
@@ -10,15 +8,13 @@ namespace Office.Conversion
     {
         static void Main(string[] args)
         {
-            Licenses.Autoload(null, () =>
-            {
-                Console.WriteLine("Autoload product licenses.");
-                if (Directory.Exists(Constants.OutputPath)) Directory.CreateDirectory(Constants.OutputPath);
-            });
+            //SetMeteredLicense.Run();
+            Licenses.Autoload();
+            Console.WriteLine("Autoload product licenses.");
+            if (Directory.Exists(Constants.OutputPath)) Directory.CreateDirectory(Constants.OutputPath);
 
             #region Quick Start
 
-            //SetMeteredLicense.Run();
             HelloWorld.Run();
 
             #endregion

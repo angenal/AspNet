@@ -37,13 +37,13 @@ namespace Office.Conversion
         /// <summary>
         /// Autoload product licenses.
         /// </summary>
-        public static void Autoload(Action beforeAction = null, Action afterAction = null)
+        public static void Autoload()
         {
             if (loaded) return;
             lock (_lock)
             {
                 if (loaded) return;
-                beforeAction?.Invoke(); Load(); afterAction?.Invoke();
+                Load();
                 loaded = true;
             }
         }
